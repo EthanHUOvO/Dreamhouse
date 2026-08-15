@@ -42,7 +42,7 @@ GitHub Actions 会自动重新发布 Pages。
 如果要上线真正 Pascal：
 
 ### 方案 A（推荐）
-把 Next.js 应用部署到 Vercel / Node Server。  
+把 Next.js 应用部署到 Vercel / Node Server。
 GitHub Pages 只保留宣传/展示首页。
 
 ### 方案 B
