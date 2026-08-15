@@ -1,21 +1,504 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ideal Home Lifecycle</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ideal Home · 理想家</title>
 <style>
-:root{--bg:#071019;--panel:#0c1923;--line:#24414e;--text:#e8f3f5;--muted:#86a0aa;--cyan:#75d4d2;--amber:#e2b46b;--red:#ed8f8f}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#15313a,#071019 44%);color:var(--text);font:14px Inter,"Microsoft YaHei",sans-serif}.top{height:72px;display:flex;justify-content:space-between;align-items:center;padding:0 24px;border-bottom:1px solid var(--line);background:#08131c}.brand{font-weight:800;letter-spacing:.12em;font-size:20px}.brand span{color:var(--cyan);font-size:14px;margin-left:8px}.sub{font-size:11px;color:var(--muted);margin-top:5px}.chip{border:1px solid #35606a;color:#b9e8e5;padding:9px 13px;border-radius:99px}.wrap{display:grid;grid-template-columns:300px minmax(500px,1fr) 360px;gap:12px;padding:12px;min-height:calc(100vh - 72px)}.panel{border:1px solid var(--line);border-radius:12px;background:rgba(12,25,35,.95);padding:16px}.left,.right{overflow:auto}.eyebrow{font-size:10px;color:var(--cyan);letter-spacing:.14em}.muted{color:var(--muted);line-height:1.6;font-size:12px}h2{font-size:15px;margin:7px 0 14px}button,textarea{font:inherit}button{cursor:pointer;color:var(--text);background:#102631;border:1px solid #315563;border-radius:8px;padding:9px 11px}button:hover,.active{border-color:var(--cyan);background:#163946}button.primary{width:100%;margin-top:10px;background:linear-gradient(90deg,#277e85,#3eaaa7);border:0;font-weight:700}.stages{display:grid;gap:6px}.stages button{text-align:left}.stages button b{color:var(--cyan);margin-right:8px}textarea{width:100%;resize:vertical;min-height:118px;background:#071119;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px;line-height:1.6}.message{margin-top:10px;padding:9px;border:1px solid #37696b;color:var(--cyan);border-radius:8px;font-size:12px}.scene{min-height:520px;display:flex;flex-direction:column}.scene-head{display:flex;justify-content:space-between;align-items:start}.scene-head h1{font-size:18px;margin:7px 0}.view{flex:1;display:grid;place-items:center;margin-top:10px;background:linear-gradient(145deg,#0b1c26,#152832);border:1px solid #264957;border-radius:10px;overflow:hidden}.house{position:relative;width:min(75%,520px);aspect-ratio:1.28;border:10px solid #9a82dc;box-shadow:inset 0 0 0 8px #0a202c;background:#19aebf22;transform:perspective(700px) rotateX(52deg) rotateZ(-10deg)}.room{position:absolute;border:2px solid #a789e7;background:#16627488;display:grid;place-items:center;font-size:12px;transform:rotateZ(10deg)}.r1{left:0;top:0;width:36%;height:46%}.r2{left:36%;top:0;width:31%;height:46%}.r3{right:0;top:0;width:33%;height:46%}.r4{left:0;bottom:0;width:55%;height:54%;background:#d19b3d55}.r5{right:0;bottom:0;width:45%;height:54%;background:#76d1b655}.hud{display:flex;gap:8px;color:var(--muted);font-size:11px;margin-top:10px}.hud b{color:var(--cyan)}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}.metric{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.metric div{padding:10px 4px;text-align:center;background:#10222c;border:1px solid #203e49;border-radius:8px}.metric b{display:block;color:var(--cyan);font-size:21px}.metric span{font-size:10px;color:var(--muted)}.room{font-size:10px}.room-list{display:grid;gap:4px;margin-top:12px}.room-row{display:flex;justify-content:space-between;border-bottom:1px solid #1a303b;padding:8px 2px;font-size:11px}.room-row span{color:var(--muted)}.guard,.flow{margin-top:14px;padding:12px;border:1px solid var(--line);border-radius:9px;color:var(--muted);font-size:11px;line-height:1.6}.guard strong{color:var(--amber)}.flow{display:flex;flex-wrap:wrap;gap:6px}.flow span{border:1px solid #315563;border-radius:99px;padding:5px 7px}.log{margin-top:14px;color:var(--muted);font:11px Consolas,monospace;min-height:45px}@media(max-width:1050px){.wrap{grid-template-columns:260px 1fr}.right{grid-column:1/-1}.scene{min-height:480px}}@media(max-width:700px){.top{height:auto;padding:15px;display:block}.chip{display:inline-block;margin-top:10px}.wrap{display:block;padding:8px}.left,.right,.scene{margin-bottom:8px}.scene{min-height:500px}.house{width:82%}}
+:root{
+  --bg:#061017;--panel:#0a1821;--panel2:#0d202a;--line:#244654;
+  --text:#edf8fa;--muted:#81a0ad;--cyan:#5fe0df;--cyan2:#2ba9ae;
+  --amber:#f3bd70;--red:#ef8f91;--green:#66d5a2
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden}
+body{
+  background:radial-gradient(circle at 45% -20%,#1a4652 0,#08151e 38%,#050c12 78%);
+  color:var(--text);font-family:Inter,"Microsoft YaHei","PingFang SC",sans-serif
+}
+button,textarea{font:inherit}
+button{cursor:pointer}
+.topbar{
+  height:70px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 22px;border-bottom:1px solid var(--line);background:#07131bcc;
+  backdrop-filter:blur(16px)
+}
+.brand{font-size:20px;font-weight:850;letter-spacing:.12em}
+.brand b{color:var(--cyan);font-size:14px;margin-left:9px;letter-spacing:.04em}
+.subtitle{font-size:10px;color:var(--muted);margin-top:5px;letter-spacing:.06em}
+.pill{padding:8px 12px;border:1px solid #376572;border-radius:999px;color:#bdebed;background:#0b1c25;font-size:11px}
+.layout{
+  display:grid;grid-template-columns:300px minmax(540px,1fr) 370px;
+  gap:10px;padding:10px;height:calc(100vh - 70px)
+}
+.panel{
+  min-height:0;border:1px solid var(--line);border-radius:14px;
+  background:linear-gradient(180deg,#0b1922ee,#08131bee);box-shadow:0 16px 40px #0005
+}
+.left,.right{padding:15px;overflow:auto}
+.stage{position:relative;overflow:hidden;background:#06121a}
+.eyebrow{font-size:9px;letter-spacing:.16em;color:var(--cyan);font-weight:750}
+h2{font-size:14px;margin:7px 0 12px}
+.muted{font-size:11px;line-height:1.65;color:var(--muted)}
+.life-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
+.life-grid button,.tabs button,.secondary{
+  color:#cfe1e6;background:#0d222d;border:1px solid #28505e;border-radius:8px;padding:9px
+}
+.life-grid button:hover,.tabs button:hover,.secondary:hover{border-color:#62d8d8;background:#113541}
+label{display:block;margin:16px 0 7px;font-size:11px;color:#8aa9b5}
+textarea{
+  width:100%;min-height:138px;resize:vertical;background:#050e14;color:var(--text);
+  border:1px solid #28505e;border-radius:10px;padding:11px;line-height:1.65;outline:none
+}
+textarea:focus{border-color:var(--cyan)}
+.primary{
+  width:100%;margin-top:9px;border:0;border-radius:10px;padding:11px;
+  background:linear-gradient(90deg,#268e95,#45b7b6);color:white;font-weight:800
+}
+.primary:hover{filter:brightness(1.08)}
+.primary:disabled{opacity:.5;cursor:not-allowed}
+.secondary{width:100%;margin-top:8px}
+.plan{
+  display:none;margin-top:12px;border:1px solid #2d5a65;border-radius:10px;padding:11px;
+  background:#0a2028
+}
+.plan.show{display:block}
+.plan-title{font-weight:800;color:#dffbfb}
+.plan-summary{color:#8ca8b3;font-size:11px;line-height:1.55;margin:7px 0}
+.tags{display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:9px;padding:4px 6px;border:1px solid #2d5964;border-radius:99px;color:#9fd3d5}
+.warn{color:var(--amber);font-size:10px;margin-top:7px}
+.message{font-size:10px;color:var(--cyan);line-height:1.5;margin-top:8px}
+.canvas-wrap{position:absolute;inset:0}
+#viewport{width:100%;height:100%;display:block}
+.stage-head{
+  position:absolute;z-index:4;left:16px;top:15px;pointer-events:none;
+  padding:11px 13px;border:1px solid #31505d66;border-radius:10px;background:#07131bbb;backdrop-filter:blur(8px)
+}
+.stage-head h1{font-size:15px;margin:4px 0 2px}
+.stage-head small{font-size:9px;color:#7898a5}
+.hud{
+  position:absolute;z-index:4;left:15px;right:15px;bottom:14px;
+  display:flex;gap:7px;flex-wrap:wrap;pointer-events:none
+}
+.hud span{
+  background:#07141ddd;border:1px solid #2c4f5c;padding:7px 9px;border-radius:8px;
+  font-size:9px;color:#87a7b3;backdrop-filter:blur(10px)
+}
+.hud b{color:var(--cyan);margin-left:3px}
+.scene-status{
+  position:absolute;right:14px;top:14px;z-index:5;background:#07151dcc;border:1px solid #315864;
+  border-radius:999px;padding:7px 10px;font-size:9px;color:#9ac2cc
+}
+.scene-status i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:6px;box-shadow:0 0 10px var(--green)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}
+.tabs button.active{border-color:var(--cyan);background:#133640;color:#efffff}
+.metric{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.metric>div{background:#0d222c;border:1px solid #203f4b;border-radius:9px;padding:10px 5px;text-align:center}
+.metric b{display:block;color:var(--cyan);font-size:20px}
+.metric span{font-size:9px;color:#718e9a}
+.room-list{margin-top:12px}
+.room-row{display:flex;align-items:center;justify-content:space-between;padding:8px 2px;border-bottom:1px solid #17313b;font-size:10px}
+.room-row span{color:#7896a2}
+.room-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);margin-right:6px;display:inline-block}
+.guard{
+  margin-top:14px;border:1px solid #2b505d;border-radius:10px;padding:11px;font-size:10px;
+  line-height:1.7;color:#8aa5b0;background:#0a1b24
+}
+.guard strong{color:var(--amber)}
+.timeline{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:14px}
+.timeline strong{width:100%;font-size:10px;margin-bottom:4px}
+.timeline span{border:1px solid #2b4d59;border-radius:999px;padding:5px 7px;font-size:9px;color:#7898a4}
+.timeline i{width:10px;height:1px;background:#315963}
+#fabrication{display:none}
+.fabrication-card{
+  margin-top:9px;border:1px solid #264854;border-radius:10px;background:#091821;padding:10px
+}
+.fabrication-card h3{font-size:11px;margin:0 0 8px}
+.fake-video{
+  aspect-ratio:16/8;background:linear-gradient(145deg,#061019,#102f38);
+  border:1px solid #244a56;border-radius:8px;display:grid;place-items:center;
+  color:#658794;font-size:10px;position:relative;overflow:hidden
+}
+.fake-video:after{
+  content:"";position:absolute;width:140%;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  animation:scan 2.5s linear infinite
+}
+@keyframes scan{from{transform:translateY(-55px)}to{transform:translateY(55px)}}
+.progress{height:5px;background:#122b35;border-radius:9px;margin-top:8px;overflow:hidden}
+.progress i{display:block;height:100%;width:72%;background:linear-gradient(90deg,#279ca2,#62d6cd);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.55}}
+.legend{position:absolute;right:14px;bottom:14px;z-index:5;background:#07151dc4;border:1px solid #284d59;border-radius:8px;padding:7px;font-size:8px;color:#7494a1}
+.legend div{margin:3px}.legend i{display:inline-block;width:7px;height:7px;border-radius:2px;margin-right:5px}
+@media(max-width:1100px){.layout{grid-template-columns:270px 1fr}.right{position:absolute;right:10px;top:80px;bottom:10px;width:330px;z-index:10;opacity:.97}.stage{margin-right:340px}}
+@media(max-width:760px){html,body{overflow:auto}.topbar{height:auto;padding:13px;display:block}.pill{display:inline-block;margin-top:9px}.layout{display:block;height:auto}.panel{margin-bottom:8px}.stage{height:560px;margin-right:0}.right{position:static;width:auto}}
 </style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.0/examples/jsm/"
+  }
+}
+</script>
 </head>
 <body>
-<header class="top"><div><div class="brand">IDEAL HOME <span>理想家</span></div><div class="sub">Lifecycle-driven Residential Reconfiguration</div></div><div class="chip">HOUSE_001 · 固定住宅骨架</div></header>
-<main class="wrap">
-<aside class="panel left"><div class="eyebrow">LIFECYCLE CONTROL</div><h2>家庭生命阶段</h2><p class="muted">在同一住宅骨架上持续重构生活空间。承重墙与外轮廓始终锁定。</p><div class="stages"><button data-prompt="single"><b>01</b>单人居住</button><button data-prompt="couple"><b>02</b>两人生活</button><button data-prompt="child"><b>03</b>育儿阶段</button><button data-prompt="nanny"><b>04</b>育儿 + 保姆</button></div><label class="muted">空间改造指令</label><textarea id="prompt">把电竞房改成衣帽间</textarea><button class="primary" id="plan">生成改造方案</button><button id="reset" style="width:100%;margin-top:8px">恢复初始住宅</button><div id="message" class="message" hidden></div></aside>
-<section class="panel scene"><div class="scene-head"><div><div class="eyebrow">PASCAL SCENE PREVIEW</div><h1>同一住宅，持续重构生活</h1><div class="muted">Base House · Living Scenario · Constraint Guard</div></div><span class="chip">DESIGN</span></div><div class="view"><div class="house"><div class="room r1">主卧</div><div class="room r2" id="gaming">电竞房</div><div class="room r3">卫生间</div><div class="room r4">客厅</div><div class="room r5">书房</div></div></div><div class="hud"><span>房间语义 <b id="rooms">5</b></span><span>承重墙 <b>4</b> LOCKED</span><span>可变隔墙 <b>4</b></span><span>版本 <b id="version">v1</b></span></div><div id="log" class="log">READY · Pascal 场景已加载 · HOUSE_001</div></section>
-<aside class="panel right"><div class="tabs"><button class="active">DESIGN</button><button>FABRICATION</button></div><div class="eyebrow">SEMANTIC SUMMARY</div><h2>住宅语义与约束</h2><div class="metric"><div><b id="roomMetric">5</b><span>房间语义</span></div><div><b>4</b><span>锁定承重墙</span></div><div><b id="patchMetric">0</b><span>待应用 Patch</span></div></div><div class="room-list" id="list"><div class="room-row"><strong>主卧</strong><span>master_bedroom</span></div><div class="room-row"><strong>电竞房</strong><span>gaming_room</span></div><div class="room-row"><strong>卫生间</strong><span>bathroom</span></div><div class="room-row"><strong>客厅</strong><span>living_room</span></div><div class="room-row"><strong>书房</strong><span>study</span></div></div><div class="guard"><strong>Constraint Guard</strong><br>外轮廓 / 承重墙：LOCKED<br>非承重墙 / Zone / 语义：EDITABLE</div><div class="eyebrow" style="margin-top:18px">MANUFACTURING LIFECYCLE</div><div class="flow"><span>Approved Scene</span><b>→</b><span>Simulation</span><b>→</b><span>STL/Slice</span><b>→</b><span>Print</span><b>→</b><span>Robot</span></div></aside>
+<header class="topbar">
+  <div><div class="brand">IDEAL HOME <b>理想家</b></div><div class="subtitle">LIFECYCLE-DRIVEN RESIDENTIAL RECONFIGURATION</div></div>
+  <div class="pill">HOUSE_001 · 固定住宅骨架</div>
+</header>
+
+<main class="layout">
+  <aside class="panel left">
+    <div class="eyebrow">INTERACTION</div>
+    <h2>生活变化，空间随之重构</h2>
+    <p class="muted">外轮廓与承重结构锁定。非承重隔墙、房间语义和生活功能可以持续变化。</p>
+    <label>家庭生命周期</label>
+    <div class="life-grid">
+      <button data-mode="single">01 单人</button>
+      <button data-mode="couple">02 两人</button>
+      <button data-mode="child">03 育儿</button>
+      <button data-mode="nanny">04 育儿+保姆</button>
+    </div>
+    <label>空间改造指令</label>
+    <textarea id="prompt">家里有孩子了，还需要一个保姆房，并把卫生间切成主卫和公卫。</textarea>
+    <button class="primary" id="planBtn">生成改造方案</button>
+
+    <div class="plan" id="planCard">
+      <div class="plan-title" id="planTitle"></div>
+      <div class="plan-summary" id="planSummary"></div>
+      <div class="tags" id="planTags"></div>
+      <div class="warn" id="planWarn"></div>
+      <button class="primary" id="applyBtn">应用改造并播放动画</button>
+    </div>
+
+    <button class="secondary" id="resetBtn">恢复初始住宅</button>
+    <div class="message" id="message">READY · 等待空间改造指令</div>
+  </aside>
+
+  <section class="panel stage">
+    <div class="stage-head">
+      <div class="eyebrow">INTERACTIVE 3D SCENE</div>
+      <h1>同一住宅 · 动态空间重构</h1>
+      <small>Real Three.js geometry · Pascal-ready scene model</small>
+    </div>
+    <div class="scene-status"><i></i><span id="statusText">RENDERING</span></div>
+    <div class="canvas-wrap"><canvas id="viewport"></canvas></div>
+    <div class="hud">
+      <span>房间 <b id="hudRooms">5</b></span>
+      <span>承重墙 <b>4 LOCKED</b></span>
+      <span>非承重墙 <b id="hudPartitions">4</b></span>
+      <span>版本 <b id="hudVersion">v1</b></span>
+      <span>鼠标 <b>旋转 / 缩放</b></span>
+    </div>
+    <div class="legend">
+      <div><i style="background:#8d7ee7"></i>承重墙</div>
+      <div><i style="background:#5bc6cd"></i>非承重墙</div>
+      <div><i style="background:#57a7b3"></i>语义房间</div>
+    </div>
+  </section>
+
+  <aside class="panel right">
+    <div class="tabs"><button class="active" id="designTab">DESIGN</button><button id="fabTab">FABRICATION</button></div>
+
+    <section id="design">
+      <div class="eyebrow">SEMANTIC + STRUCTURE</div>
+      <h2>住宅语义与结构约束</h2>
+      <div class="metric">
+        <div><b id="roomMetric">5</b><span>房间语义</span></div>
+        <div><b>4</b><span>锁定承重墙</span></div>
+        <div><b id="patchMetric">0</b><span>本次 Patch</span></div>
+      </div>
+      <div class="room-list" id="roomList"></div>
+      <div class="guard"><strong>Constraint Guard</strong><br>承重墙 / 外轮廓：LOCKED<br>非承重墙 / Zone / Semantic：EDITABLE<br><span id="guardText">当前无待执行修改。</span></div>
+      <div class="timeline"><strong>LIFE TIMELINE</strong><span>单人</span><i></i><span>两人</span><i></i><span>育儿</span><i></i><span>自定义</span></div>
+    </section>
+
+    <section id="fabrication">
+      <div class="eyebrow">DOWNSTREAM</div>
+      <h2>仿真与制造展示</h2>
+      <div class="fabrication-card"><h3>Simulation</h3><div class="fake-video">仿真视频 / WebRTC / MP4 接口</div><div class="progress"><i></i></div></div>
+      <div class="fabrication-card"><h3>3D Printer</h3><div class="fake-video">打印机实时视频接口</div><div class="progress"><i style="width:48%"></i></div></div>
+      <div class="fabrication-card"><h3>Robot Assembly</h3><div class="fake-video">机械臂装配视频接口</div><div class="progress"><i style="width:22%"></i></div></div>
+      <div class="guard"><strong>后续真实接口</strong><br>Pascal Scene → STL / OBJ / GLB<br>Simulation → 视频流<br>Printer / Robot → 状态 API + 视频流</div>
+    </section>
+  </aside>
 </main>
-<script>
-const prompts={single:'现在是一个人居住，保留主卧、电竞房和书房。',couple:'我要结婚了，变成两个人居住，把电竞房改成衣帽间。',child:'家里有孩子了，把电竞房改成儿童房，并把卫生间切成主卫和公卫。',nanny:'家里有孩子了，还需要一个保姆房，并把卫生间切成主卫和公卫。'};
-const $=s=>document.querySelector(s),msg=$('#message'),log=$('#log');document.querySelectorAll('[data-prompt]').forEach(b=>b.onclick=()=>{$('#prompt').value=prompts[b.dataset.prompt]});
-$('#plan').onclick=()=>{const p=$('#prompt').value;const child=/儿童|孩子/.test(p),nanny=/保姆/.test(p),couple=/衣帽|结婚|两个人/.test(p);let patches=couple?1:child?2:nanny?3:1;$('#patchMetric').textContent=patches;$('#version').textContent='v'+(patches+1);$('#gaming').textContent=child?'儿童房':nanny?'保姆房':couple?'衣帽间':'改造房';$('#gaming').style.background=child?'#75d4d255':couple?'#e2b46b88':'#c779d055';msg.hidden=false;msg.textContent='Constraint Guard 已批准 '+patches+' 个 Pascal Patch，可应用到 HOUSE_001';log.textContent='PLAN READY · 规则规划器生成方案 · 外轮廓与承重墙未改变'};$('#reset').onclick=()=>{location.reload()};
-</script></body></html>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const canvas = document.getElementById('viewport');
+const stage = canvas.parentElement.parentElement;
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x07151e);
+scene.fog = new THREE.FogExp2(0x07151e, 0.025);
+
+const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+camera.position.set(14.5, 11.5, 15.5);
+
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(6,0.7,4.5);
+controls.enableDamping = true;
+controls.dampingFactor = .06;
+controls.autoRotate = true;
+controls.autoRotateSpeed = .35;
+controls.minDistance = 7;
+controls.maxDistance = 30;
+controls.maxPolarAngle = Math.PI * .49;
+
+scene.add(new THREE.HemisphereLight(0xaadbe4,0x18252d,1.65));
+const sun = new THREE.DirectionalLight(0xffffff,3.2);
+sun.position.set(8,15,7); sun.castShadow=true;
+sun.shadow.mapSize.set(2048,2048); sun.shadow.camera.left=-15;sun.shadow.camera.right=15;sun.shadow.camera.top=15;sun.shadow.camera.bottom=-15;
+scene.add(sun);
+const fill = new THREE.PointLight(0x4ddad8,12,25,2); fill.position.set(-2,4,5); scene.add(fill);
+
+const base = new THREE.Mesh(
+  new THREE.BoxGeometry(13,0.18,10),
+  new THREE.MeshStandardMaterial({color:0x0b2028,roughness:.72,metalness:.05})
+);
+base.position.set(6,-.12,4.5);base.receiveShadow=true;scene.add(base);
+
+const grid = new THREE.GridHelper(30,30,0x315764,0x17313a);
+grid.position.y=-.205;scene.add(grid);
+
+const world = new THREE.Group(); scene.add(world);
+const wallGroup = new THREE.Group(); const roomGroup = new THREE.Group(); const labelGroup = new THREE.Group();
+world.add(roomGroup,wallGroup,labelGroup);
+
+const C = {
+  load:0x9987f0, partition:0x54cbd0,
+  master:0x295c71, gaming:0x46537a, bath:0x2f6972, living:0x645f44, study:0x35695f,
+  dressing:0x775e4f, sharedStudy:0x3e6d77, child:0x46766c, nanny:0x70634c,
+  masterBath:0x356e82, publicBath:0x3d7f76
+};
+
+const initialRooms = [
+  {id:'master',name:'主卧',semantic:'master_bedroom',x:0,z:0,w:4,d:4,color:C.master},
+  {id:'gaming',name:'电竞房',semantic:'gaming_room',x:4,z:0,w:4,d:4,color:C.gaming},
+  {id:'bath',name:'卫生间',semantic:'bathroom',x:8,z:0,w:4,d:4,color:C.bath},
+  {id:'living',name:'客厅',semantic:'living_room',x:0,z:4,w:7,d:5,color:C.living},
+  {id:'study',name:'书房',semantic:'study',x:7,z:4,w:5,d:5,color:C.study}
+];
+const loadWalls = [
+  {id:'extS',a:[0,0],b:[12,0],t:.24},
+  {id:'extE',a:[12,0],b:[12,9],t:.24},
+  {id:'extN',a:[12,9],b:[0,9],t:.24},
+  {id:'extW',a:[0,9],b:[0,0],t:.24}
+];
+const initialPartitions = [
+  {id:'pH1',a:[0,4],b:[12,4],t:.12},
+  {id:'pV1',a:[4,0],b:[4,4],t:.12},
+  {id:'pV2',a:[8,0],b:[8,4],t:.12},
+  {id:'pV3',a:[7,4],b:[7,9],t:.12}
+];
+
+let rooms = structuredClone(initialRooms);
+let partitions = structuredClone(initialPartitions);
+let version = 1;
+let pending = null;
+let anims = [];
+
+function mat(color,opacity=1){
+  return new THREE.MeshStandardMaterial({
+    color,roughness:.42,metalness:.05,transparent:opacity<1,opacity,
+    side:THREE.DoubleSide
+  })
+}
+function makeWall(seg,structural=false,animate=false){
+  const [x1,z1]=seg.a,[x2,z2]=seg.b;
+  const len=Math.hypot(x2-x1,z2-z1), angle=Math.atan2(z2-z1,x2-x1);
+  const mesh=new THREE.Mesh(new THREE.BoxGeometry(len,2.8,seg.t),mat(structural?C.load:C.partition));
+  mesh.position.set((x1+x2)/2,1.4,(z1+z2)/2);
+  mesh.rotation.y=-angle;
+  mesh.castShadow=true;mesh.receiveShadow=true;
+  mesh.userData={kind:'wall',id:seg.id,structural};
+  if(animate){mesh.scale.y=.02;mesh.position.y=.028;animateScale(mesh,1,650)}
+  return mesh;
+}
+function makeRoom(r,animate=false){
+  const g=new THREE.BoxGeometry(r.w-.08,.08,r.d-.08);
+  const m=mat(r.color,.72);
+  const mesh=new THREE.Mesh(g,m);
+  mesh.position.set(r.x+r.w/2,.02,r.z+r.d/2);
+  mesh.receiveShadow=true;
+  mesh.userData={kind:'room',id:r.id};
+  if(animate){mesh.material.opacity=.05;animateOpacity(mesh,.72,600)}
+  return mesh;
+}
+function labelTexture(text){
+  const cn=document.createElement('canvas');cn.width=512;cn.height=160;
+  const ctx=cn.getContext('2d');ctx.clearRect(0,0,512,160);
+  ctx.fillStyle='rgba(5,15,22,.72)';ctx.roundRect(70,32,372,96,24);ctx.fill();
+  ctx.strokeStyle='rgba(103,225,221,.55)';ctx.lineWidth=3;ctx.stroke();
+  ctx.fillStyle='#f0fbfc';ctx.font='700 38px Microsoft YaHei, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,256,80);
+  const tx=new THREE.CanvasTexture(cn);tx.colorSpace=THREE.SRGBColorSpace;return tx;
+}
+function makeLabel(r){
+  const s=new THREE.Sprite(new THREE.SpriteMaterial({map:labelTexture(r.name),transparent:true,depthTest:false}));
+  s.position.set(r.x+r.w/2,.45,r.z+r.d/2);s.scale.set(2.6,.81,1);s.userData={kind:'label',id:r.id};return s;
+}
+function animateScale(obj,to,dur){
+  anims.push({type:'scale',obj,from:obj.scale.y,to,start:performance.now(),dur});
+}
+function animateOpacity(obj,to,dur){
+  anims.push({type:'opacity',obj,from:obj.material.opacity,to,start:performance.now(),dur});
+}
+function fadeRemove(obj,dur=450){
+  const start=performance.now(),from=obj.material.opacity??1;obj.material.transparent=true;
+  anims.push({type:'remove',obj,from,to:0,start,dur});
+}
+function rebuild({animate=false}={}){
+  [...wallGroup.children].forEach(o=>wallGroup.remove(o));
+  [...roomGroup.children].forEach(o=>roomGroup.remove(o));
+  [...labelGroup.children].forEach(o=>labelGroup.remove(o));
+  loadWalls.forEach(w=>wallGroup.add(makeWall(w,true,false)));
+  partitions.forEach(w=>wallGroup.add(makeWall(w,false,animate)));
+  rooms.forEach(r=>{roomGroup.add(makeRoom(r,animate));labelGroup.add(makeLabel(r))});
+  refreshUI();
+}
+function refreshUI(){
+  document.getElementById('hudRooms').textContent=rooms.length;
+  document.getElementById('hudPartitions').textContent=partitions.length;
+  document.getElementById('hudVersion').textContent='v'+version;
+  document.getElementById('roomMetric').textContent=rooms.length;
+  const list=document.getElementById('roomList');
+  list.innerHTML=rooms.map(r=>`<div class="room-row"><strong><i class="room-dot" style="background:#${r.color.toString(16).padStart(6,'0')}"></i>${r.name}</strong><span>${r.semantic}</span></div>`).join('');
+}
+function resetState(animate=true){
+  rooms=structuredClone(initialRooms);partitions=structuredClone(initialPartitions);version=1;pending=null;
+  document.getElementById('patchMetric').textContent='0';
+  document.getElementById('guardText').textContent='当前无待执行修改。';
+  document.getElementById('planCard').classList.remove('show');
+  document.getElementById('message').textContent='RESET · 已恢复单人居住初始住宅';
+  rebuild({animate});
+}
+function detectPlan(text){
+  const t=text.trim();
+  // 注意优先级：保姆要在“孩子”前面判断，避免同时命中时被 child 吞掉。
+  if(/保姆/.test(t)){
+    return {type:'nanny',title:'育儿 + 保姆空间方案',summary:'电竞房转为儿童房，书房转为保姆房，原卫生间拆分为主卫与公卫。',patches:4,tags:['Semantic×2','Room Split','Partition +1'],warn:'承重结构保持锁定。卫生间真实施工仍需校核给排水/防水。'};
+  }
+  if(/孩子|儿童|宝宝|育儿/.test(t)){
+    return {type:'child',title:'育儿家庭空间方案',summary:'电竞房转为儿童房，并把原卫生间拆分为主卫与公卫。',patches:3,tags:['Semantic Change','Room Split','Partition +1'],warn:'承重结构保持锁定。'};
+  }
+  if(/结婚|两个人|伴侣|衣帽|双人/.test(t)){
+    return {type:'couple',title:'两人共同居住方案',summary:'电竞房转换为衣帽间，书房转换为双人办公空间，原有结构边界不变。',patches:2,tags:['Semantic×2','Geometry Keep'],warn:'不涉及承重结构修改。'};
+  }
+  if(/拆.*非承重|拆.*隔墙|清空.*隔墙/.test(t)){
+    return {type:'open',title:'住宅空壳重构方案',summary:'保留外轮廓与承重墙，移除全部可变非承重隔墙，进入自由重新规划状态。',patches:4,tags:['Partition Delete×4','Structure Locked'],warn:'原房间 Zone 将同步清除。'};
+  }
+  if(/电竞.*衣帽|游戏.*衣帽/.test(t)){
+    return {type:'dressing',title:'房间语义重构',summary:'保持该房间几何边界不变，仅将“电竞房”改为“衣帽间”。',patches:1,tags:['Semantic Change'],warn:''};
+  }
+  return {type:'custom',title:'自定义改造',summary:'当前静态演示未识别该语句。正式系统可将此处替换为 LLM → RenovationPlan。',patches:0,tags:['LLM-ready'],warn:'没有生成几何修改。'};
+}
+function applyScenario(type){
+  if(type==='custom')return;
+  if(type==='open'){
+    partitions=[];
+    rooms=[{id:'open',name:'自由规划空间',semantic:'open_plan',x:0,z:0,w:12,d:9,color:0x315c66}];
+  }else{
+    rooms=structuredClone(initialRooms);
+    partitions=structuredClone(initialPartitions);
+    if(type==='dressing'||type==='couple'){
+      const g=rooms.find(r=>r.id==='gaming');g.name='衣帽间';g.semantic='dressing_room';g.color=C.dressing;
+    }
+    if(type==='couple'){
+      const s=rooms.find(r=>r.id==='study');s.name='双人书房';s.semantic='shared_study';s.color=C.sharedStudy;
+    }
+    if(type==='child'||type==='nanny'){
+      const g=rooms.find(r=>r.id==='gaming');g.name='儿童房';g.semantic='child_room';g.color=C.child;
+      if(type==='nanny'){const s=rooms.find(r=>r.id==='study');s.name='保姆房';s.semantic='nanny_room';s.color=C.nanny}
+      // 真正改变几何：删除原 bath zone，切成两间，并新增隔墙。
+      rooms=rooms.filter(r=>r.id!=='bath');
+      rooms.push(
+        {id:'masterBath',name:'主卫',semantic:'master_bathroom',x:8,z:0,w:2,d:4,color:C.masterBath},
+        {id:'publicBath',name:'公卫',semantic:'public_bathroom',x:10,z:0,w:2,d:4,color:C.publicBath}
+      );
+      partitions.push({id:'bathSplit',a:[10,0],b:[10,4],t:.12});
+    }
+  }
+  version++;
+  rebuild({animate:true});
+  focusCamera(type);
+}
+function focusCamera(type){
+  controls.autoRotate=false;
+  let target=new THREE.Vector3(6,.7,4.5);
+  if(type==='child'||type==='nanny')target.set(9.5,.8,2.3);
+  if(type==='couple'||type==='dressing')target.set(5.5,.8,2.2);
+  const start=controls.target.clone(),beg=performance.now();
+  anims.push({type:'target',startVec:start,toVec:target,start:beg,dur:900});
+  setTimeout(()=>controls.autoRotate=true,2600);
+}
+
+document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{
+  const m=b.dataset.mode;
+  const texts={
+    single:'现在是一个人居住，保留主卧、电竞房和书房。',
+    couple:'我要结婚了，变成两个人居住，把电竞房改成衣帽间，把书房改成双人书房。',
+    child:'家里有孩子了，把电竞房改成儿童房，并把卫生间切成主卫和公卫。',
+    nanny:'家里有孩子了，还需要一个保姆房，并把卫生间切成主卫和公卫。'
+  };
+  document.getElementById('prompt').value=texts[m];
+}));
+
+document.getElementById('planBtn').addEventListener('click',()=>{
+  pending=detectPlan(document.getElementById('prompt').value);
+  document.getElementById('planTitle').textContent=pending.title;
+  document.getElementById('planSummary').textContent=pending.summary;
+  document.getElementById('planTags').innerHTML=pending.tags.map(x=>`<span class="tag">${x}</span>`).join('');
+  document.getElementById('planWarn').textContent=pending.warn;
+  document.getElementById('planCard').classList.add('show');
+  document.getElementById('patchMetric').textContent=pending.patches;
+  document.getElementById('guardText').textContent=pending.patches?`Constraint Guard 已批准 ${pending.patches} 个演示 Patch。等待应用。`:'没有可执行 Patch。';
+  document.getElementById('message').textContent=`PLAN READY · ${pending.title}`;
+});
+document.getElementById('applyBtn').addEventListener('click',()=>{
+  if(!pending||!pending.patches)return;
+  document.getElementById('statusText').textContent='RECONFIGURING';
+  applyScenario(pending.type);
+  document.getElementById('message').textContent=`APPLIED · ${pending.title} · 3D 几何和语义已更新`;
+  document.getElementById('guardText').textContent=`已应用 ${pending.patches} 个改造操作，承重墙保持锁定。`;
+  setTimeout(()=>document.getElementById('statusText').textContent='RENDERING',900);
+});
+document.getElementById('resetBtn').addEventListener('click',()=>resetState(true));
+
+const designTab=document.getElementById('designTab'),fabTab=document.getElementById('fabTab');
+designTab.addEventListener('click',()=>{designTab.classList.add('active');fabTab.classList.remove('active');document.getElementById('design').style.display='block';document.getElementById('fabrication').style.display='none'});
+fabTab.addEventListener('click',()=>{fabTab.classList.add('active');designTab.classList.remove('active');document.getElementById('design').style.display='none';document.getElementById('fabrication').style.display='block'});
+
+function resize(){
+  const r=stage.getBoundingClientRect();
+  renderer.setSize(r.width,r.height,false);
+  camera.aspect=r.width/r.height;camera.updateProjectionMatrix();
+}
+window.addEventListener('resize',resize);resize();rebuild();
+
+function tick(now){
+  requestAnimationFrame(tick);
+  for(let i=anims.length-1;i>=0;i--){
+    const a=anims[i],t=Math.min(1,(now-a.start)/a.dur),e=1-Math.pow(1-t,3);
+    if(a.type==='scale'){a.obj.scale.y=a.from+(a.to-a.from)*e;a.obj.position.y=1.4*a.obj.scale.y}
+    if(a.type==='opacity'){a.obj.material.opacity=a.from+(a.to-a.from)*e}
+    if(a.type==='remove'){a.obj.material.opacity=a.from*(1-e);if(t>=1)a.obj.parent?.remove(a.obj)}
+    if(a.type==='target')controls.target.lerpVectors(a.startVec,a.toVec,e);
+    if(t>=1)anims.splice(i,1);
+  }
+  controls.update();renderer.render(scene,camera);
+}
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>

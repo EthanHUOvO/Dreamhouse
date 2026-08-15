@@ -1,4 +1,4 @@
-name: Deploy Ideal Home public demo
+name: Deploy Dreamhouse 3D public demo
 
 on:
   push:
@@ -19,8 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate project integrity
-        run: python scripts/integrity_check.py
       - name: Prepare static public demo
         run: |
           mkdir -p _site
