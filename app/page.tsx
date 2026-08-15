@@ -1,5 +1,5 @@
-import IdealHomeShell from '@/components/IdealHomeShell'
+import WhiteboardApp from '@/components/WhiteboardApp'
 
-export default function Page() {
-  return <IdealHomeShell />
+export default function Page(){
+  return <WhiteboardApp/>
 }

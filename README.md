@@ -1,108 +1,162 @@
-# Dreamhouse Pascal-native v2
+# 理想家可变空间智能建造解决方案 — 白板严格执行版
 
-这版已经不再用 `public/index.html` 手写 Three.js 房子。
-中间区域是真正的 Pascal Editor，住宅 Scene Graph 直接包含：
+本工程不对白板模块进行扩展或重新解释，页面严格按照白板流程：
 
-- 承重外墙 / 非承重隔墙
-- 入户门、内部房门
-- 外窗、卫生间高窗
-- Pascal Wall CSG 门窗开洞
-- Slab
-- Room Zone + semantic_type
-- Pascal 内置 GLB 家具资产
-- 生命周期方案：单人 / 两人 / 育儿 / 育儿+保姆 / 清空非承重墙
-- Render / Semantic / Structure / 透视 / 正交控制
-- STL / OBJ / GLB 导出
-- Simulation / Printer / Robot 视频接口面板
+```text
+1 设计
+→ 2 生产
+→ 3 库存运输
+→ 4 现场施工
+→ 5 验收
+```
 
-## 1. 本地运行
+## 1 设计
 
-要求 Node.js 22.13+（建议 22.16）。
+严格分成三个板块：
+
+```text
+对话式交互 | 2D图纸 | 3D展示
+```
+
+- 对话式交互：无语音版，输入居住变化需求。
+- 2D图纸：同步显示当前设计。
+- 3D展示：Pascal Viewer，只展示住宅，不显示 Pascal 工具栏。
+- 点击“确认当前设计”后锁定当前版本，并生成生产阶段 BOM。
+
+## 2 生产
+
+严格包含：
+
+```text
+BOM清单及排序展示
+墙体
+家具
+状态信息（打印机）
+视频
+```
+
+- BOM 由确认设计自动生成。
+- 地板、墙体进入 3D 打印任务。
+- 家具进入采购清单。
+- 打印机状态支持内置进度模拟。
+- 视频位置支持替换真实打印机视频流。
+
+## 3 库存运输
+
+严格包含：
+
+```text
+入库
+出库
+运输
+```
+
+点击构件即可依次推进：
+
+```text
+待入库 → 已入库 → 已出库 → 运输中 → 已到场
+```
+
+## 4 现场施工
+
+严格包含：
+
+```text
+人工
+机械臂
+状态信息（机械臂）
+视频
+```
+
+- 人工任务与机械臂任务分开显示。
+- 机械臂支持进度模拟。
+- 视频位置可替换真实机械臂视频流。
+
+## 5 验收
+
+只有白板要求的“验收”阶段。
+
+只有当：
+
+- 设计已确认；
+- 生产完成；
+- 构件全部到场；
+- 人工和机械臂施工均完成；
+
+才能点击“完成验收”。
+
+---
+
+## 启动
+
+要求 Node.js 22。
 
 ```bash
-npm install
-npm run typecheck
+npm install --no-audit --no-fund
+npm run check:project
 npm run dev
 ```
 
-打开 `http://localhost:3000`。
-
-## 2. 直接部署到 GitHub Pages
-
-把本项目内容覆盖到你的 `Dreamhouse` 仓库根目录，然后：
-
-```bash
-git add .
-git commit -m "upgrade to Pascal-native Dreamhouse"
-git push
-```
-
-`.github/workflows/deploy-pages.yml` 会：
-
-1. 安装 npm 依赖
-2. TypeScript 检查
-3. 真正执行 `next build`
-4. 部署 `out/`
-
-这与旧版本“只复制 public/”完全不同。
-
-仓库名为 `Dreamhouse` 时，GitHub Actions 会自动使用 `/Dreamhouse` basePath。
-
-## 3. Vercel 部署
-
-也可以把仓库导入 Vercel，保持默认设置直接部署。Vercel 环境没有 GitHub Pages basePath。
-
-## 4. 数据保存
-
-为了让 GitHub Pages 也能直接运行，本版场景与版本保存在浏览器 localStorage：
-
-- `dreamhouse.v2.current`
-- `dreamhouse.v2.versions`
-
-适合展厅单机和演示。
-
-以后如果做多人系统，再替换成数据库即可。
-
-## 5. 大模型
-
-当前不需要大模型。左侧是确定性生命周期 Planner。
-
-真正需要自由自然语言时，建议在独立后端加入：
+打开：
 
 ```text
-User Text
-  → LLM Planner
-  → Restricted RenovationPlan
-  → Constraint Guard
-  → Pascal Scene Patch
+http://localhost:3000
 ```
 
-不要把 API Key 放进 GitHub Pages 前端。
-
-## 6. 门窗为什么这次是真实的
-
-`lib/house-scene.ts` 中 Door / Window 是 Pascal 原生节点：
+Windows 可直接运行：
 
 ```text
-Wall
- ├─ Door
- └─ Window
+START_WINDOWS.bat
 ```
 
-Door/Window 的 `parentId` 和 `wallId` 都指向真实墙体，`position` 使用 wall-local 坐标。
-Pascal WallSystem 会根据这些 opening 节点自动进行 CSG 切洞。
+## GitHub Pages 部署
 
-## 7. 关键文件
+工程已经配置：
 
-- `lib/house-scene.ts`：完整初始住宅，门窗和家具
-- `lib/scene-utils.ts`：生命周期重构
-- `components/PascalWorkspace.tsx`：真正嵌入 Pascal Editor
-- `components/DesignControls.tsx`：Render / Semantic / Structure
-- `components/FabricationPanel.tsx`：下游制造与视频展示
-- `.github/workflows/deploy-pages.yml`：真实 Next 静态构建部署
+```text
+output: 'export'
+```
 
-## 8. 当前已知限制
+并包含：
 
-- 家具来自 Pascal 内置 CDN，首次加载需要网络。
-- GitHub Pages 为纯静态托管，不能安全保存大模型 API Key，也不能提供服务器侧设备网关。
-- Pascal 原生 STL 是全场景导出。正式 3D 打印建议继续开发 Manufacturing Export Plugin，将 Floor / Walls / Furniture 分开并做 mesh repair / slicing。
+```text
+.github/workflows/deploy-pages.yml
+```
+
+将整个工程推到 GitHub 仓库 main 分支后：
+
+```text
+GitHub → Settings → Pages → Source → GitHub Actions
+```
+
+之后每次 push 会自动：
+
+```text
+npm install
+→ 项目结构检查
+→ next build
+→ 发布 out/
+```
+
+## Vercel 部署
+
+也可以直接将仓库导入 Vercel。
+
+## Pascal
+
+3D展示部分使用 Pascal Viewer：
+
+- 门窗是 Wall 的子节点；
+- 门窗使用正确 wall-local distance；
+- Pascal 负责真实门窗开洞和 3D 渲染；
+- 中间不显示 Pascal Editor 自己的工具界面。
+
+## 真实设备接口
+
+白板版已经保留视频和状态显示位置，但默认运行 Mock。
+
+以后真实接入时只替换数据来源，不改变白板页面布局：
+
+- 打印机：状态 API + 视频流；
+- 机械臂：状态 API + 视频流；
+- 3D 展示：继续使用 Pascal Scene。

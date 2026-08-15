@@ -1,4 +1,4 @@
-name: Deploy Pascal-native Dreamhouse
+name: Deploy Dreamhouse Whiteboard Strict
 
 on:
   push:
@@ -21,12 +21,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22.16.0'
+          node-version: 22
           cache: npm
-      - run: npm ci --no-audit --no-fund
+      - run: npm install --no-audit --no-fund
+      - run: npm run check:project
       - run: npm run build
+      - run: touch out/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: out
       - uses: actions/deploy-pages@v4
