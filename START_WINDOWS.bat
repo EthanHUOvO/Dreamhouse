@@ -1,13 +1,13 @@
 @echo off
 cd /d %~dp0
-if not exist .env.local copy .env.example .env.local >nul
 where node >nul 2>nul
 if errorlevel 1 (
-  echo Node.js not found. Install Node.js 22.13+ first.
+  echo Please install Node.js 22.13 or newer.
   pause
   exit /b 1
 )
-if not exist node_modules call npm install
-call npm run doctor
+if not exist node_modules (
+  call npm install --no-audit --no-fund
+)
 call npm run dev
 pause

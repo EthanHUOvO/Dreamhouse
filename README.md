@@ -1,123 +1,108 @@
-# Ideal Home Lifecycle + Pascal v1.0
+# Dreamhouse Pascal-native v2
 
-面向“同一住宅随家庭生命周期持续重构”的工程骨架。
+这版已经不再用 `public/index.html` 手写 Three.js 房子。
+中间区域是真正的 Pascal Editor，住宅 Scene Graph 直接包含：
 
-## 核心目标
+- 承重外墙 / 非承重隔墙
+- 入户门、内部房门
+- 外窗、卫生间高窗
+- Pascal Wall CSG 门窗开洞
+- Slab
+- Room Zone + semantic_type
+- Pascal 内置 GLB 家具资产
+- 生命周期方案：单人 / 两人 / 育儿 / 育儿+保姆 / 清空非承重墙
+- Render / Semantic / Structure / 透视 / 正交控制
+- STL / OBJ / GLB 导出
+- Simulation / Printer / Robot 视频接口面板
 
-不是二居/三居/四居模板，也不是重新生成一套房子。系统始终维护一个 `HOUSE_001`：
+## 1. 本地运行
 
-- **Base House（不可变）**：外轮廓、承重墙、楼板等。
-- **Living Scenario（可变）**：非承重隔墙、房间 Zone、房间语义、家具布局。
-
-典型变化：
-
-- 电竞房 → 衣帽间：语义重构。
-- 卫生间 → 主卫 + 公卫：几何 + 拓扑 + 语义重构。
-- 清空非承重隔墙：保留住宅骨架，重新规划内部空间。
-- 单人 → 两人 → 育儿 → 多代居住：版本化生命周期演化。
-
-## 系统链路
-
-```text
-User Text
-  ↓
-Rule Planner（默认，不需要大模型） / LLM Planner（可选）
-  ↓
-RenovationPlan
-  ↓
-Constraint Guard
-  ↓
-Pascal Scene Patch
-  ↓
-Pascal Editor
-  ↓
-DESIGN / FABRICATION
-  ↓
-STL / OBJ / GLB / Simulation / Printer / Robot
-```
-
-## 启动
-
-要求 Node.js 22.13+。
+要求 Node.js 22.13+（建议 22.16）。
 
 ```bash
-cp .env.example .env.local
 npm install
-npm run doctor
+npm run typecheck
 npm run dev
 ```
 
 打开 `http://localhost:3000`。
 
-Windows 可直接双击 `START_WINDOWS.bat`。
+## 2. 直接部署到 GitHub Pages
 
-## 默认不需要大模型
+把本项目内容覆盖到你的 `Dreamhouse` 仓库根目录，然后：
 
-`.env.local`：
-
-```env
-PLANNER_MODE=rules
+```bash
+git add .
+git commit -m "upgrade to Pascal-native Dreamhouse"
+git push
 ```
 
-可测试：
+`.github/workflows/deploy-pages.yml` 会：
 
-- `把电竞房改成衣帽间`
-- `把卫生间切成主卫和公卫`
-- `拆除所有非承重隔墙`
-- `我要结婚了，变成两个人居住`
-- `家里有孩子了，还需要一个保姆房`
+1. 安装 npm 依赖
+2. TypeScript 检查
+3. 真正执行 `next build`
+4. 部署 `out/`
 
-## 什么时候需要接自己的大模型
+这与旧版本“只复制 public/”完全不同。
 
-只有当你希望用户可以自由说自然语言，例如：
+仓库名为 `Dreamhouse` 时，GitHub Actions 会自动使用 `/Dreamhouse` basePath。
 
-> 我们准备要孩子，希望保留我的工作区，同时增加儿童房，并把卫生间重新规划。
+## 3. Vercel 部署
 
-这时把：
+也可以把仓库导入 Vercel，保持默认设置直接部署。Vercel 环境没有 GitHub Pages basePath。
 
-```env
-PLANNER_MODE=llm
-LLM_BASE_URL=https://你的模型服务/v1
-LLM_API_KEY=...
-LLM_MODEL=...
+## 4. 数据保存
+
+为了让 GitHub Pages 也能直接运行，本版场景与版本保存在浏览器 localStorage：
+
+- `dreamhouse.v2.current`
+- `dreamhouse.v2.versions`
+
+适合展厅单机和演示。
+
+以后如果做多人系统，再替换成数据库即可。
+
+## 5. 大模型
+
+当前不需要大模型。左侧是确定性生命周期 Planner。
+
+真正需要自由自然语言时，建议在独立后端加入：
+
+```text
+User Text
+  → LLM Planner
+  → Restricted RenovationPlan
+  → Constraint Guard
+  → Pascal Scene Patch
 ```
 
-模型最好兼容 `POST /chat/completions`。
+不要把 API Key 放进 GitHub Pages 前端。
 
-大模型只负责输出受限的 `RenovationPlan`，**不直接删除 Pascal 墙体**。承重墙保护、房间拆分、节点 ID 校验和版本保存全部由后端确定性代码执行。
+## 6. 门窗为什么这次是真实的
 
-## Pascal 连接
+`lib/house-scene.ts` 中 Door / Window 是 Pascal 原生节点：
 
-`components/PascalWorkspace.tsx` 直接挂载 `@pascal-app/editor` 的 `Editor`：
+```text
+Wall
+ ├─ Door
+ └─ Window
+```
 
-- `onLoad` → `/api/scene`
-- `onSave` → `/api/scene`
-- `projectId` → `HOUSE_001`
+Door/Window 的 `parentId` 和 `wallId` 都指向真实墙体，`position` 使用 wall-local 坐标。
+Pascal WallSystem 会根据这些 opening 节点自动进行 CSG 切洞。
 
-因此 Pascal 负责编辑/渲染，本项目负责住宅生命周期、版本、约束和下游制造。
+## 7. 关键文件
 
-## 当前制造输出
+- `lib/house-scene.ts`：完整初始住宅，门窗和家具
+- `lib/scene-utils.ts`：生命周期重构
+- `components/PascalWorkspace.tsx`：真正嵌入 Pascal Editor
+- `components/DesignControls.tsx`：Render / Semantic / Structure
+- `components/FabricationPanel.tsx`：下游制造与视频展示
+- `.github/workflows/deploy-pages.yml`：真实 Next 静态构建部署
 
-右侧 FABRICATION 已调用 Pascal 的 `exportScene()`，可导出完整：
+## 8. 当前已知限制
 
-- STL
-- OBJ
-- GLB
-
-如果最终需要严格拆成：
-
-- `01_floor.stl`
-- `02_walls.stl`
-- `03_furniture.stl`
-
-下一步增加 `ManufacturingExportPlugin`，按 Pascal node type / metadata 分组后分别调用 STLExporter。见 `docs/MANUFACTURING_EXPORT.md`。
-
-## 关键文件
-
-- `lib/base-house.ts`：单一住宅基础场景。
-- `lib/rule-planner.ts`：无需大模型的演示 Planner。
-- `lib/llm-planner.ts`：你自己的大模型接口接入点。
-- `lib/constraint-guard.ts`：承重墙和操作约束。
-- `components/PascalWorkspace.tsx`：Pascal Editor 嵌入。
-- `components/FabricationPanel.tsx`：仿真/打印/机械臂展示。
-- `data/house_001/versions/`：生命周期版本历史。
+- 家具来自 Pascal 内置 CDN，首次加载需要网络。
+- GitHub Pages 为纯静态托管，不能安全保存大模型 API Key，也不能提供服务器侧设备网关。
+- Pascal 原生 STL 是全场景导出。正式 3D 打印建议继续开发 Manufacturing Export Plugin，将 Floor / Walls / Furniture 分开并做 mesh repair / slicing。

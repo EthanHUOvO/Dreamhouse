@@ -1,12 +1,12 @@
 {
-  "name": "ideal-home-lifecycle-pascal",
-  "version": "1.0.0",
+  "name": "dreamhouse-pascal-native",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3000",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 3000",
-    "doctor": "node scripts/doctor.mjs"
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@pascal-app/core": "1.0.0-beta.4",
@@ -15,7 +15,7 @@
     "@pascal-app/viewer": "1.0.0-beta.4",
     "@react-three/drei": "^10.0.0",
     "@react-three/fiber": "^9.0.0",
-    "lucide-react": "^0.468.0",
+    "lucide-react": "^1.31.0",
     "next": "^16.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

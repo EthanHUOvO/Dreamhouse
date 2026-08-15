@@ -1,4 +1,4 @@
-name: Deploy Dreamhouse 3D public demo
+name: Deploy Pascal-native Dreamhouse
 
 on:
   push:
@@ -15,19 +15,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Prepare static public demo
-        run: |
-          mkdir -p _site
-          cp -R public/. _site/
-          touch _site/.nojekyll
-      - uses: actions/configure-pages@v5
+      - uses: actions/setup-node@v4
         with:
-          enablement: true
+          node-version: '22.16.0'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: ./out
       - uses: actions/deploy-pages@v4
