@@ -171,7 +171,7 @@ export function createInitialHouseScene():SceneGraph{
     furnitureItem('item_gaming_closet','zone_gaming','closet',[5.2,0,3.65],Math.PI/2,[.65,1,.62]),
     furnitureItem('item_bath_toilet','zone_bath','toilet',[-1.05,0,2.15],Math.PI/2,[.7,1,.75]),
     furnitureItem('item_bath_sink','zone_bath','sink',[0.1,0,3.95],0,[.52,1,.52]),
-    furnitureItem('item_bath_shower','zone_bath','shower',[0.45,0,3.2],0,[.72,1,.72])
+    furnitureItem('item_bath_shower','zone_bath','shower',[-1.15,0,3.78],0,[.72,1,.72])
   ]
   for(const n of items)nodes[n.id]=n
 

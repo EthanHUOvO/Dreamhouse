@@ -1,8 +1,8 @@
 import { createDemoOrders } from './demo-orders'
-import type { DesignVersion, Order, ScenarioType } from './types'
+import type { DesignVersion, Order, ScenarioType, SceneGraph } from './types'
 import { createScenarioScene } from './scenarios'
 
-const KEY='dreamhouse.dualportal.orders.v3'
+const KEY='dreamhouse.dualportal.orders.v4'
 
 export function loadOrders():Order[]{
   if(typeof window==='undefined')return createDemoOrders()
@@ -23,8 +23,23 @@ export function createRedesign(order:Order):Order{
   return {...order,draftVersionId:draft.id,designVersions:[...order.designVersions,draft],changeRequest:{id:`CR-${order.id}-${nextVersion}`,fromVersion:approved.version,toVersion:nextVersion,status:'draft',summary:'住户发起设计变更',createdAt:new Date().toISOString()}}
 }
 export function updateDraftScenario(order:Order,scenario:ScenarioType,label:string):Order{
-  if(!order.draftVersionId)return order
-  return {...order,designVersions:order.designVersions.map(v=>v.id===order.draftVersionId?{...v,scenario,label,scene:createScenarioScene(scenario)}:v)}
+  const nextScene=createScenarioScene(scenario)
+  if(order.draftVersionId){
+    return {...order,designVersions:order.designVersions.map(v=>v.id===order.draftVersionId?{...v,scenario,label,scene:nextScene}:v)}
+  }
+  if(order.status==='design'){
+    return {...order,designVersions:order.designVersions.map(v=>v.version===order.approvedVersion?{...v,scenario,label,scene:nextScene}:v)}
+  }
+  return order
+}
+export function updateEditableScene(order:Order,scene:SceneGraph):Order{
+  if(order.draftVersionId){
+    return {...order,designVersions:order.designVersions.map(v=>v.id===order.draftVersionId?{...v,scene}:v)}
+  }
+  if(order.status==='design'){
+    return {...order,designVersions:order.designVersions.map(v=>v.version===order.approvedVersion?{...v,scene}:v)}
+  }
+  return order
 }
 export function submitChange(order:Order):Order{return order.changeRequest?{...order,changeRequest:{...order.changeRequest,status:'submitted'}}:order}
 export function acceptChange(order:Order):Order{
