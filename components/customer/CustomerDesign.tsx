@@ -136,7 +136,7 @@ export default function CustomerDesign({
         <div className="version-warning">
           <div>
             <strong>当前后续流程使用：Design V{approved.version}</strong>
-            <span>如需继续修改，请创建新的设计变更版本。原批准版本不会被直接覆盖。</span>
+            <span>如需继续修改，可从施工页点击“重新设计”，或直接在这里创建新的设计变更版本。原批准版本不会被直接覆盖。</span>
           </div>
           <button onClick={onStartRedesign}>重新设计</button>
         </div>

@@ -75,3 +75,9 @@
 .flow-sync-chip{display:inline-block;margin-bottom:12px;padding:6px 9px;border-radius:99px;background:#eaf5ef;color:#4d795f;font-size:9px;font-weight:800}.stage-progress-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 14px}.stage-progress-grid>div{display:flex;justify-content:space-between;padding:9px 10px;border:1px solid #e0e6e8;border-radius:8px;background:#fafbfb;font-size:10px}.stage-progress-grid span{color:var(--muted)}.stage-progress-grid b{color:var(--blue)}
 .downstream-sync-alert{display:flex;align-items:center;gap:10px;background:#edf8f1;border:1px solid #add1bb;padding:9px 13px;margin-top:7px;border-radius:10px}.downstream-sync-alert strong{font-size:10px;color:#4d795f}.downstream-sync-alert span{font-size:9px;color:#6a7d70}.bom-section h3 small{font-weight:500;color:#6f8087}
 @media(max-width:900px){.design-flow-banner{align-items:flex-start;flex-direction:column}.design-save-status span{white-space:normal}.customer-design{height:auto}.customer-design>.design-columns{height:auto}}
+
+/* Iterative redesign entry on resident construction page */
+.construction-design-actions{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:14px 0 20px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,#f7fbfd,#fff)}
+.construction-design-actions>div{display:flex;flex-direction:column;gap:4px;min-width:0}.construction-design-actions strong{font-size:13px}.construction-design-actions span{font-size:11px;line-height:1.55;color:var(--muted)}
+.redesign-return-btn{flex:none;border:1px solid #8aa8b7;background:#edf6fa;color:#244b5d;border-radius:10px;padding:9px 13px;font-weight:700;cursor:pointer}.redesign-return-btn:hover{background:#e1f0f7}.redesign-return-btn.warning{border-color:#c8a878;background:#fff7e9;color:#76531e}
+@media(max-width:760px){.construction-design-actions{align-items:stretch;flex-direction:column}.redesign-return-btn{width:100%}}

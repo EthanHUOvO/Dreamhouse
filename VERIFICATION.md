@@ -52,3 +52,30 @@ npm install
 ```
 
 因此仓库部署时，如果依赖安装或 Next/Pascal 构建存在真实编译问题，部署任务会停止，不会把失败构建发布到 Pages。
+
+
+## v5 iterative redesign checks
+
+Run `npm run test:iterative` to verify the resident construction page exposes:
+
+- new redesign → create Draft and return to Design;
+- continue an existing Draft;
+- withdraw a submitted but unaccepted Change Request and continue editing.
+
+The existing Approved version remains unchanged until the contractor accepts the newly submitted version.
+
+
+## v5 actual verification result
+
+Executed successfully in the provided environment:
+
+```text
+Dual portal structure: PASS
+TS/TSX syntax: PASS (23 files, 0 errors)
+Furniture nudge / rotation / drag clamp: PASS
+Continuous Design -> Submit -> Accept -> BOM workflow: PASS
+Iterative redesign: PASS
+Approved V2 -> Draft V3 -> Submit -> Withdraw -> Resubmit -> Accept -> Draft V4
+```
+
+A fresh `npm install` was also attempted, but the runtime network timed out while contacting the npm registry, so a fresh `next build` could not be completed in this container. This was a dependency download timeout rather than a project verification failure.

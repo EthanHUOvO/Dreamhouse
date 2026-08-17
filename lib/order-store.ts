@@ -78,6 +78,20 @@ export function submitChange(order:Order):Order{
   }
 }
 
+// 施工方尚未接受时，住户可以撤回已提交的设计变更并继续修改同一个 Draft。
+export function withdrawChange(order:Order):Order{
+  if(!order.changeRequest||!order.draftVersionId||order.changeRequest.status!=='submitted')return order
+  const draft=order.designVersions.find(v=>v.id===order.draftVersionId)
+  return {
+    ...order,
+    changeRequest:{
+      ...order.changeRequest,
+      status:'draft',
+      summary:`${draft?.label??'设计变更'}：住户已撤回提交，继续修改`,
+    },
+  }
+}
+
 // 施工方接受后：Draft 升级为 Approved，并立即用该版本重新生成 BOM / 生产 / 施工任务。
 export function acceptChange(order:Order):Order{
   if(!order.changeRequest||!order.draftVersionId||order.changeRequest.status!=='submitted')return order

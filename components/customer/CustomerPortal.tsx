@@ -5,7 +5,7 @@ import CustomerStepper from './CustomerStepper'
 import CustomerDesign from './CustomerDesign'
 import CustomerConstruction from './CustomerConstruction'
 import CustomerAcceptance from './CustomerAcceptance'
-import { confirmDesignAndStartProduction,createRedesign,loadOrders,saveOrders,submitChange,updateDraftScenario,updateEditableScene } from '@/lib/order-store'
+import { confirmDesignAndStartProduction,createRedesign,loadOrders,saveOrders,submitChange,updateDraftScenario,updateEditableScene,withdrawChange } from '@/lib/order-store'
 import type { Order,ScenarioType, SceneGraph } from '@/lib/types'
 
 type ViewStage='design'|'construction'|'acceptance'
@@ -64,7 +64,12 @@ export default function CustomerPortal(){
           }}
           onSaveScene={(scene:SceneGraph)=>mutate(o=>updateEditableScene(o,scene))}
         />}
-        {view==='construction'&&<CustomerConstruction order={order}/>} 
+        {view==='construction'&&<CustomerConstruction
+          order={order}
+          onRedesign={()=>{mutate(createRedesign);setView('design')}}
+          onContinueDraft={()=>setView('design')}
+          onWithdrawAndEdit={()=>{mutate(withdrawChange);setView('design')}}
+        />} 
         {view==='acceptance'&&<CustomerAcceptance order={order} onAccept={()=>mutate(o=>({...o,accepted:true,status:'completed',acceptanceProgress:100}))}/>} 
       </section>
       <CustomerStepper current={view} projectStage={projectStage} onSelect={setView}/>
