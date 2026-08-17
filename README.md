@@ -118,7 +118,7 @@ V2 → V3
 当前可部署 Demo 为纯前端版本，使用：
 
 ```text
-localStorage: dreamhouse.dualportal.orders.v1
+localStorage: dreamhouse.dualportal.orders.v2
 ```
 
 所以同一个域名、同一个浏览器中，住户端与施工方端的数据是联动的。
