@@ -1,0 +1,40 @@
+Dreamhouse Dual Portal Stable Mover v2 - Verification
+Date: 2026-08-17
+
+1. JavaScript syntax check: PASS
+   - assets/data.js
+   - assets/render.js
+   - assets/customer.js
+   - assets/contractor.js
+
+2. Static asset reference check: PASS
+   - index.html
+   - customer.html
+   - contractor.html
+
+3. Furniture movement integration logic: PASS
+   Test sequence:
+   - Load customer data
+   - Enter Design
+   - Create redesign draft
+   - Switch to Single scheme
+   - Select masterBed
+   - Move RIGHT by 0.15m
+   - Save layout
+   Result: x -4.05 -> -3.90
+
+4. Direction controls: PASS
+   - Front
+   - Back
+   - Left
+   - Right
+   Count: 4
+
+5. Furniture height: LOCKED
+   Movement only changes floor-plane coordinates; vertical height is not editable.
+
+6. Bathroom shower default location: PASS
+   bathShower x=-1.28, z=3.88
+   Located at lower-left corner of bathroom.
+
+Note: The container's managed Chromium policy blocks localhost/file navigation, so visual Chromium screenshot verification is unavailable in this environment. The interaction code was executed in a JavaScript VM with simulated DOM/localStorage and passed the persisted-coordinate test above.
