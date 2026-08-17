@@ -139,11 +139,37 @@ function applyChild(scene:SceneGraph,nanny=false){
   }
 }
 
+
+function applyReplan(scene:SceneGraph){
+  // 南侧原电竞/儿童房拆成：书房 + 储物间
+  if(scene.nodes.zone_gaming)removeNode(scene,'zone_gaming')
+  deleteRoomFurniture(scene,'zone_gaming')
+  addLevelChild(scene,partitionWall('wall_replan_split',[3.6,1.2],[3.6,4.5]))
+  addLevelChild(scene,roomZone('zone_new_study','书房','study',[[1.2,1.2],[3.6,1.2],[3.6,4.5],[1.2,4.5]],'#5b8f82'))
+  addLevelChild(scene,roomZone('zone_storage','储物间','storage',[[3.6,1.2],[6,1.2],[6,4.5],[3.6,4.5]],'#8f806e'))
+  ;[
+    furnitureItem('r_study_table','zone_new_study','table',[2.35,0,3.0],0,[.55,1,.65]),
+    furnitureItem('r_study_chair','zone_new_study','diningChair',[2.35,0,2.25],Math.PI),
+    furnitureItem('r_storage_1','zone_storage','closet',[4.55,0,3.7],0,[.65,1,.62]),
+    furnitureItem('r_storage_2','zone_storage','closet',[5.45,0,3.7],0,[.65,1,.62])
+  ].forEach(n=>addLevelChild(scene,n))
+
+  // 原书房改为儿童房
+  setRoom(scene,'zone_study','儿童房','child_room','#4e897b')
+  deleteRoomFurniture(scene,'zone_study')
+  ;[
+    furnitureItem('r_child_bed','zone_study','singleBed',[3.2,0,-2.8],Math.PI,[.85,1,.85]),
+    furnitureItem('r_child_table','zone_study','table',[5.0,0,-2.5],Math.PI/2,[.5,1,.6]),
+    furnitureItem('r_child_chair','zone_study','diningChair',[4.25,0,-2.5],Math.PI/2)
+  ].forEach(n=>addLevelChild(scene,n))
+}
+
 export function createScenarioScene(type:ScenarioType):SceneGraph{
   const scene=createInitialHouseScene()
   if(type==='couple')applyCouple(scene)
   if(type==='child')applyChild(scene,false)
   if(type==='nanny')applyChild(scene,true)
+  if(type==='replan')applyReplan(scene)
   scene.nodes.building_house.metadata={
     ...(scene.nodes.building_house.metadata??{}),
     scenario:type,
@@ -152,40 +178,18 @@ export function createScenarioScene(type:ScenarioType):SceneGraph{
   return scene
 }
 
-export function planFromPrompt(prompt:string):RenovationPlan{
+export function scenarioFromPrompt(prompt:string):{scenario:ScenarioType;title:string;summary:string}{
   const p=prompt.trim()
-
-  if(/保姆/.test(p)){
-    return {
-      type:'nanny',
-      title:'育儿 + 保姆方案',
-      summary:'儿童房、保姆房、主卫、公卫共同形成育儿阶段的住宅空间方案。',
-      changes:['电竞房改为儿童房','书房改为保姆房','卫生间拆分为主卫和公卫']
-    }
+  if(/两个房间/.test(p)&&/储物/.test(p)&&/书房/.test(p)&&/儿童房/.test(p)){
+    return {scenario:'replan',title:'空间重新规划方案',summary:'将原儿童/电竞房拆分为书房与储物间，并将原书房调整为儿童房。'}
   }
+  if(/保姆/.test(p))return {scenario:'nanny',title:'育儿 + 保姆方案',summary:'儿童房、保姆房、主卫、公卫共同形成育儿阶段方案。'}
+  if(/孩子|儿童|宝宝|育儿/.test(p))return {scenario:'child',title:'育儿家庭方案',summary:'电竞房调整为儿童房，并拆分主卫和公卫。'}
+  if(/结婚|两个人|伴侣|双人|衣帽/.test(p))return {scenario:'couple',title:'两人共同居住方案',summary:'电竞房改衣帽间，书房改双人书房。'}
+  return {scenario:'single',title:'单人居住方案',summary:'保留主卧、电竞房、书房、客餐厨和卫生间。'}
+}
 
-  if(/孩子|儿童|宝宝|育儿/.test(p)){
-    return {
-      type:'child',
-      title:'育儿家庭方案',
-      summary:'将电竞房调整为儿童房，并把原卫生间拆分成主卫和公卫。',
-      changes:['电竞房改为儿童房','卫生间拆分为主卫和公卫']
-    }
-  }
-
-  if(/结婚|两个人|伴侣|双人|衣帽/.test(p)){
-    return {
-      type:'couple',
-      title:'两人共同居住方案',
-      summary:'电竞房改为衣帽间，书房改为双人书房。',
-      changes:['电竞房改为衣帽间','书房改为双人书房']
-    }
-  }
-
-  return {
-    type:'single',
-    title:'单人居住方案',
-    summary:'保留主卧、电竞房、书房、客餐厨和卫生间。',
-    changes:['恢复单人居住空间语义']
-  }
+export function planFromPrompt(prompt:string):RenovationPlan{
+  const result=scenarioFromPrompt(prompt)
+  return {type:result.scenario,title:result.title,summary:result.summary,changes:[result.summary]}
 }

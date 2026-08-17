@@ -1,0 +1,7 @@
+'use client'
+import type { Order,OrderStatus } from '@/lib/types'
+const labels:Record<OrderStatus,string>={design:'设计中',production:'生产中',transport:'运输中',construction:'施工中',acceptance:'待验收',completed:'已完成'}
+export default function OrderSidebar({orders,selectedId,onSelect,filter,setFilter}:{orders:Order[];selectedId:string;onSelect:(id:string)=>void;filter:'all'|OrderStatus;setFilter:(v:'all'|OrderStatus)=>void}){
+  const list=filter==='all'?orders:orders.filter(o=>o.status===filter)
+  return <aside className="order-sidebar"><div className="orders-title">订单管理</div><div className="filter-row"><button className={filter==='all'?'active':''} onClick={()=>setFilter('all')}>全部</button><button className={filter==='production'?'active':''} onClick={()=>setFilter('production')}>生产</button><button className={filter==='construction'?'active':''} onClick={()=>setFilter('construction')}>施工</button><button className={filter==='completed'?'active':''} onClick={()=>setFilter('completed')}>完成</button></div><div className="order-list">{list.map(o=><button key={o.id} className={`order-card ${selectedId===o.id?'selected':''}`} onClick={()=>onSelect(o.id)}><div><strong>{o.id}</strong><em>{labels[o.status]}</em></div><span>{o.customer} · {o.projectName}</span><div className="mini-progress"><i style={{width:`${Math.max(o.productionProgress,o.constructionProgress)}%`}}/></div></button>)}</div></aside>
+}

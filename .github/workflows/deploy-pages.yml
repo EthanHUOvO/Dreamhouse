@@ -1,4 +1,4 @@
-name: Deploy Dreamhouse Whiteboard Strict
+name: Deploy Dreamhouse Dual Portal
 
 on:
   push:

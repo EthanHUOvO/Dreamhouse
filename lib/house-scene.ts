@@ -103,8 +103,7 @@ export function createInitialHouseScene():SceneGraph{
 
   const openings:SceneNode[]=[
     door('door_entry','wall_e',5.10,1.05,{name:'入户门'}),
-    door('door_living','wall_n_band',3.80,1.05,{name:'客餐厅门',openingKind:'opening',handle:false,threshold:false}),
-    door('door_study','wall_n_band',9.60,.86,{name:'书房门'}),
+    door('door_study','wall_n_band',2.55,.86,{name:'书房门'}),
     door('door_master','wall_s_band',2.20,.90,{name:'主卧门'}),
     door('door_bath','wall_s_band',6.45,.82,{name:'卫生间门'}),
     door('door_gaming','wall_s_band',9.60,.90,{name:'电竞房门'}),
@@ -127,7 +126,7 @@ export function createInitialHouseScene():SceneGraph{
     wall('wall_e',[6,-4.5],[6,4.5],'load_bearing',['win_e_study','door_entry','win_e_gaming']),
     wall('wall_s',[-6,4.5],[6,4.5],'load_bearing',['win_s_master','win_s_bath','win_s_gaming']),
     wall('wall_w',[-6,-4.5],[-6,4.5],'load_bearing',['win_w_living','win_w_master']),
-    wall('wall_n_band',[-6,0],[6,0],'partition',['door_living','door_study']),
+    wall('wall_n_band',[1.5,0],[6,0],'partition',['door_study']),
     wall('wall_s_band',[-6,1.2],[6,1.2],'partition',['door_master','door_bath','door_gaming']),
     wall('wall_n_v',[1.5,-4.5],[1.5,0],'partition'),
     wall('wall_s_v1',[-1.8,1.2],[-1.8,4.5],'partition'),

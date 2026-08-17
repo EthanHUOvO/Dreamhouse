@@ -1,5 +1,2 @@
-import WhiteboardApp from '@/components/WhiteboardApp'
-
-export default function Page(){
-  return <WhiteboardApp/>
-}
+import HomePortal from '@/components/HomePortal'
+export default function Page(){return <HomePortal/>}

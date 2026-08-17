@@ -10,53 +10,73 @@ export type SceneNode = {
   [key: string]: any
 }
 
-export type SceneGraph = {
-  nodes: Record<string, SceneNode>
-  rootNodeIds: string[]
+export type SceneGraph = { nodes: Record<string, SceneNode>; rootNodeIds: string[] }
+export type ScenarioType = 'single' | 'couple' | 'child' | 'nanny' | 'replan'
+export type RenovationPlan = { type: ScenarioType; title: string; summary: string; changes: string[] }
+export type DesignStatus = 'draft' | 'approved' | 'superseded'
+export type OrderStatus = 'design' | 'production' | 'transport' | 'construction' | 'acceptance' | 'completed'
+
+export type DesignVersion = {
+  id: string
+  version: number
+  label: string
+  status: DesignStatus
+  scenario: ScenarioType
+  scene: SceneGraph
+  createdAt: string
+  notes?: string
 }
 
-export type ScenarioType = 'single' | 'couple' | 'child' | 'nanny'
-
-export type RenovationPlan = {
-  type: ScenarioType
-  title: string
+export type ChangeRequest = {
+  id: string
+  fromVersion: number
+  toVersion: number
+  status: 'draft' | 'submitted' | 'accepted' | 'rejected'
   summary: string
-  changes: string[]
+  createdAt: string
 }
 
-export type BomRow = {
+export type BomItem = {
   id: string
   order: number
   category: 'floor' | 'wall' | 'furniture'
   label: string
   quantity: number
-  method: '3D打印' | '采购'
-  status: '待生产' | '生产中' | '已完成'
+  source: '3D打印' | '采购'
+  status: '待处理' | '生产中' | '已完成'
 }
 
-export type InventoryStatus = '待入库' | '已入库' | '已出库' | '运输中' | '已到场'
-
-export type InventoryRow = {
-  id: string
-  label: string
-  quantity: number
-  status: InventoryStatus
-}
-
-export type ConstructionTask = {
+export type TaskItem = {
   id: string
   label: string
   method: '人工' | '机械臂'
   status: '待施工' | '施工中' | '已完成'
 }
 
-export type PipelineState = {
-  approved: boolean
-  approvedVersion: string
-  bom: BomRow[]
-  inventory: InventoryRow[]
-  construction: ConstructionTask[]
-  printerProgress: number
-  robotProgress: number
+export type DeviceState = {
+  name: string
+  status: '待机' | '运行中' | '完成' | '离线'
+  task: string
+  progress: number
+}
+
+export type Order = {
+  id: string
+  customer: string
+  projectName: string
+  houseId: string
+  status: OrderStatus
+  approvedVersion: number
+  designVersions: DesignVersion[]
+  draftVersionId?: string
+  changeRequest?: ChangeRequest
+  bom: BomItem[]
+  manualTasks: TaskItem[]
+  robotTasks: TaskItem[]
+  printer: DeviceState
+  robot: DeviceState
+  productionProgress: number
+  constructionProgress: number
+  acceptanceProgress: number
   accepted: boolean
 }
