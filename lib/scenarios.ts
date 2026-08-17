@@ -110,9 +110,9 @@ function splitBathroom(scene:SceneGraph){
 
   ;[
     furnitureItem('item_masterbath_toilet','zone_master_bath','toilet',[-0.95,0,2.15],Math.PI/2,[.55,1,.65]),
-    furnitureItem('item_masterbath_sink','zone_master_bath','sink',[-0.72,0,3.95],Math.PI/2,[.42,1,.42]),
+    furnitureItem('item_masterbath_sink','zone_master_bath','sink',[-1.05,0,4.0],0,[.42,1,.42]),
     furnitureItem('item_publicbath_toilet','zone_public_bath','toilet',[0.55,0,3.55],0,[.55,1,.65]),
-    furnitureItem('item_publicbath_sink','zone_public_bath','sink',[0.45,0,1.95],-Math.PI/2,[.42,1,.42]),
+    furnitureItem('item_publicbath_sink','zone_public_bath','sink',[0.45,0,1.75],0,[.42,1,.42]),
     furnitureItem('item_masterbath_shower','zone_master_bath','shower',[-1.18,0,3.05],0,[.58,1,.58])
   ].forEach(n=>addLevelChild(scene,n))
 }

@@ -2,7 +2,7 @@ import { createDemoOrders } from './demo-orders'
 import type { DesignVersion, Order, ScenarioType } from './types'
 import { createScenarioScene } from './scenarios'
 
-const KEY='dreamhouse.dualportal.orders.v2'
+const KEY='dreamhouse.dualportal.orders.v3'
 
 export function loadOrders():Order[]{
   if(typeof window==='undefined')return createDemoOrders()
