@@ -18,19 +18,26 @@ const orders=fs.readFileSync('lib/demo-orders.ts','utf8')
 for(const id of ['DH-2026-001','DH-2026-002','DH-2026-003','DH-2026-004'])if(!orders.includes(id))throw new Error(`Order missing: ${id}`)
 
 const design=fs.readFileSync('components/customer/CustomerDesign.tsx','utf8')
-for(const x of ['3D展示','调整家具','前','后','左','右','左转','右转','ROTATE_STEP_DEG','controlOpen','onSaveScene(next)']){
-  if(!design.includes(x))throw new Error(`Furniture popup feature missing: ${x}`)
+for(const x of ['3D展示','调整家具','完成调整','onNudgeItem','onRotateItem','onDragCommit','onSaveScene(next)']){
+  if(!design.includes(x))throw new Error(`Furniture direct-edit feature missing: ${x}`)
 }
-if(design.includes('3D展示 · 家具傻瓜式移动'))throw new Error('Old visible furniture mover title still present')
-if(design.includes('type="number"'))throw new Error('Numeric furniture editor still present')
+if(design.includes('type="number"'))throw new Error('Numeric furniture editor must not be present')
+if(design.includes('furniture-modal-backdrop'))throw new Error('Old modal furniture editor still present')
+
+const viewer=fs.readFileSync('components/shared/PascalViewer.tsx','utf8')
+for(const x of ["emitter.on('item:click'","emitter.on('item:pointerdown'",'sceneRegistry.nodes.get','pointermove','inworld-dpad','↺ 左转','右转 ↻']){
+  if(!viewer.includes(x))throw new Error(`Pascal in-canvas interaction missing: ${x}`)
+}
 
 const css=fs.readFileSync('app/globals.css','utf8')
-for(const x of ['.furniture-modal-backdrop','.furniture-modal','.open-furniture-control','.rotation-control']){
-  if(!css.includes(x))throw new Error(`Popup CSS missing: ${x}`)
+for(const x of ['.pascal-viewer-shell','.inworld-furniture-control','.inworld-dpad','.inworld-rotate-row','.open-furniture-control.active']){
+  if(!css.includes(x))throw new Error(`Direct furniture CSS missing: ${x}`)
 }
+if(css.includes('.furniture-modal-backdrop'))throw new Error('Old modal backdrop CSS still present')
+if(css.includes('backdrop-filter:blur'))throw new Error('Blurred modal background must not be present')
 
 const store=fs.readFileSync('lib/order-store.ts','utf8')
-if(!store.includes("dreamhouse.pascal.furniturepopup.orders.v2"))throw new Error('New storage key missing')
+if(!store.includes('dreamhouse.pascal.directfurniture.orders.v3'))throw new Error('v3 storage key missing')
 
 const house=fs.readFileSync('lib/house-scene.ts','utf8')
 if(!house.includes("item_bath_shower','zone_bath','shower',[-1.15,0,3.78]")){
@@ -38,4 +45,4 @@ if(!house.includes("item_bath_shower','zone_bath','shower',[-1.15,0,3.78]")){
 }
 
 console.log('Dual portal structure: OK')
-console.log('Pascal furniture popup controls: OK')
+console.log('Pascal direct furniture click/drag/rotate controls: OK')

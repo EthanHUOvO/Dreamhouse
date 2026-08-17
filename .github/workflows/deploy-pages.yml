@@ -22,9 +22,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
       - run: npm install --no-audit --no-fund
-      - run: npm run check:project
+      - run: npm run verify
       - run: npm run build
       - run: touch out/.nojekyll
       - uses: actions/configure-pages@v5

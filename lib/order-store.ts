@@ -2,7 +2,7 @@ import { createDemoOrders } from './demo-orders'
 import type { DesignVersion, Order, ScenarioType, SceneGraph } from './types'
 import { createScenarioScene } from './scenarios'
 
-const KEY='dreamhouse.pascal.furniturepopup.orders.v2'
+const KEY='dreamhouse.pascal.directfurniture.orders.v3'
 
 export function loadOrders():Order[]{
   if(typeof window==='undefined')return createDemoOrders()

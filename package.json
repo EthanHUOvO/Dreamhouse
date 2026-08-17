@@ -1,12 +1,15 @@
 {
-  "name": "dreamhouse-pascal-furniture-popup",
-  "version": "2.0.0",
+  "name": "dreamhouse-pascal-direct-furniture",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
-    "check:project": "node scripts/check-project.mjs"
+    "check:project": "node scripts/check-project.mjs",
+    "test:furniture": "node scripts/test-furniture-edit.mjs",
+    "check:syntax": "node scripts/check-syntax.mjs",
+    "verify": "npm run check:project && npm run check:syntax && npm run test:furniture"
   },
   "dependencies": {
     "@pascal-app/core": "1.0.0-beta.4",
