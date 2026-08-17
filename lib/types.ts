@@ -79,4 +79,6 @@ export type Order = {
   constructionProgress: number
   acceptanceProgress: number
   accepted: boolean
+  downstreamVersion?: number
+  lastDesignSyncAt?: string
 }

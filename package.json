@@ -1,6 +1,6 @@
 {
-  "name": "dreamhouse-pascal-direct-furniture",
-  "version": "3.0.0",
+  "name": "dreamhouse-pascal-continuous-flow",
+  "version": "4.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000",
@@ -9,7 +9,8 @@
     "check:project": "node scripts/check-project.mjs",
     "test:furniture": "node scripts/test-furniture-edit.mjs",
     "check:syntax": "node scripts/check-syntax.mjs",
-    "verify": "npm run check:project && npm run check:syntax && npm run test:furniture"
+    "verify": "npm run check:project && npm run check:syntax && npm run test:furniture && npm run test:workflow",
+    "test:workflow": "node scripts/test-continuous-workflow.mjs"
   },
   "dependencies": {
     "@pascal-app/core": "1.0.0-beta.4",
