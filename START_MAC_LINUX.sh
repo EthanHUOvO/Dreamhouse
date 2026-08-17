@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
+set -e
 cd "$(dirname "$0")"
-python3 -m http.server 8080 --bind 0.0.0.0
+[ -d node_modules ] || npm install --no-audit --no-fund
+npm run check:project
+npm run dev
