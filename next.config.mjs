@@ -9,8 +9,8 @@ const nextConfig = {
   assetPrefix: basePath,
   trailingSlash: true,
   images: { unoptimized: true },
-  // Pascal's beta packages ship source-level type errors that do not affect
-  // the exported viewer at runtime.
+  // Pascal beta packages currently expose source-level type errors that do
+  // not affect the statically exported viewer at runtime.
   typescript: { ignoreBuildErrors: true },
   transpilePackages: [
     '@pascal-app/core',

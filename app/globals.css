@@ -30,18 +30,43 @@
   .editor-list{grid-template-columns:1fr}
 .portal-choices{grid-template-columns:1fr}.customer-shell{height:auto;grid-template-columns:1fr}.customer-stepper{order:-1}.design-columns,.customer-construction,.acceptance-grid{height:auto;grid-template-columns:1fr}.visual-card{height:520px}.contractor-shell{height:auto;grid-template-columns:1fr}.order-sidebar{max-height:420px}.contractor-board{grid-template-columns:1fr}.production-side,.construction-side{min-height:900px}}
 
-/* Pascal dumb-mover interaction: no numeric tuning panel. */
-.scheme-intro{margin:12px;padding:12px;border:1px solid #dce4e7;border-radius:10px;background:#f7fafb;display:flex;flex-direction:column;gap:5px}
-.scheme-intro b{font-size:13px}.scheme-intro span{font-size:10px;color:var(--muted);line-height:1.55}
+
+/* Furniture control: hidden during normal viewing, opened only on demand. */
 .mover-visual-card{position:relative;overflow:hidden}
 .mover-visual-card>.pascal-viewer{flex:1;min-height:0}
-.simple-mover{position:absolute;right:14px;bottom:14px;z-index:20;width:230px;padding:11px;border:1px solid rgba(74,111,126,.45);border-radius:14px;background:rgba(255,255,255,.94);box-shadow:0 12px 35px rgba(24,45,55,.2);backdrop-filter:blur(10px)}
-.simple-mover label{display:flex;flex-direction:column;gap:5px;font-size:9px;color:var(--muted)}
-.simple-mover select{width:100%;border:1px solid #cbd8dd;border-radius:8px;background:white;padding:8px;color:#253239;font-size:10px}
-.mover-selected{text-align:center;font-size:10px;font-weight:800;color:#2d5f75;margin:8px 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dpad{display:grid;grid-template-columns:48px 48px 48px;grid-template-rows:44px 44px 44px;gap:4px;justify-content:center;align-items:center}
-.dpad button{height:44px;border:1px solid #b8c9d0;border-radius:9px;background:#f8fbfc;color:#24566e;font-size:18px;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:15px}
-.dpad button:hover:not(:disabled){background:#e5f2f6;border-color:#6e9fb2}.dpad button:active:not(:disabled){transform:translateY(1px)}.dpad button:disabled{opacity:.35;cursor:not-allowed}
-.dpad button small{font-size:8px;font-weight:700}.dpad-center{height:44px;border-radius:9px;background:#183846;color:white;display:grid;place-items:center;font-size:9px;font-weight:800}
-.mover-help{margin-top:5px;font-size:8px;line-height:1.45;color:#73868e;text-align:center}.mover-message{margin-top:6px;padding:6px;border-radius:7px;background:#eaf6ef;color:#397255;text-align:center;font-size:8px}
-@media(max-width:900px){.simple-mover{right:8px;bottom:8px;width:205px;padding:8px}.dpad{grid-template-columns:42px 42px 42px;grid-template-rows:38px 38px 38px}.dpad button,.dpad-center{height:38px}.mover-help{display:none}}
+.viewer-titlebar{justify-content:space-between;gap:12px}
+.open-furniture-control{border:1px solid #91adb9;background:#eef6f8;color:#2f647e;border-radius:8px;padding:6px 11px;font-size:10px;font-weight:800}
+.open-furniture-control:hover{background:#dfeff3}
+
+.furniture-modal-backdrop{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:18px;background:rgba(9,23,30,.46);backdrop-filter:blur(4px)}
+.furniture-modal{width:min(520px,calc(100vw - 28px));border:1px solid #bdcbd0;border-radius:18px;background:#fff;box-shadow:0 28px 90px rgba(15,36,46,.32);overflow:hidden}
+.furniture-modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:16px 18px;border-bottom:1px solid var(--line);background:#fbfcfc}
+.furniture-modal-head b{display:block;font-size:16px}
+.furniture-modal-head span{display:block;margin-top:4px;font-size:10px;line-height:1.5;color:var(--muted)}
+.modal-close{width:32px;height:32px;border:1px solid #cdd8dc;border-radius:50%;background:white;color:#60737c;font-size:20px;line-height:1}
+.furniture-modal-body{padding:16px 18px}
+.furniture-select-row{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;color:#596a72}
+.furniture-select-row select{flex:1;min-width:0;border:1px solid #c8d5da;border-radius:9px;background:white;padding:9px 10px;color:#26353c}
+.modal-current-item{margin:12px 0;padding:9px;border-radius:9px;background:#eef6f8;text-align:center;color:#315f73;font-size:11px;font-weight:800}
+.furniture-control-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;padding:8px 4px}
+.modal-dpad{justify-self:center;display:grid;grid-template-columns:52px 52px 52px;grid-template-rows:48px 48px 48px;gap:6px;align-items:center;justify-items:center}
+.modal-dpad button,.dpad-center{width:52px;height:48px;border:1px solid #b9cbd2;border-radius:11px;background:#f5fafb;color:#2f647e;font-size:19px;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.modal-dpad button:hover{background:#e4f1f4;border-color:#7fa8b8}
+.modal-dpad button small{font-size:8px;font-weight:700;line-height:1;margin-top:1px}
+.dpad-center{background:#eef2f3;color:#88989f;font-size:10px}
+.rotation-control{display:grid;gap:10px}
+.rotation-control button{height:72px;border:1px solid #c3cfd3;border-radius:12px;background:#fff;color:#315f73;font-size:25px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:10px}
+.rotation-control button:hover{background:#f1f7f8;border-color:#83a9b7}
+.rotation-control button small{font-size:10px;font-weight:800}
+.modal-help{margin-top:8px;padding:9px;border:1px dashed #cbd6da;border-radius:9px;background:#fafcfc;text-align:center;color:#74868e;font-size:9px;line-height:1.5}
+.modal-message{margin-top:9px}
+.furniture-modal-foot{display:flex;justify-content:flex-end;padding:12px 18px;border-top:1px solid var(--line);background:#fbfcfc}
+.modal-done{min-width:100px;border:0;border-radius:9px;background:var(--blue);color:white;padding:9px 16px;font-weight:800}
+
+@media(max-width:900px){
+  .furniture-control-grid{grid-template-columns:1fr}
+  .rotation-control{grid-template-columns:1fr 1fr}
+  .rotation-control button{height:58px}
+  .furniture-modal-backdrop{align-items:end;padding:8px}
+  .furniture-modal{width:100%;max-height:90vh;overflow:auto;border-radius:18px 18px 10px 10px}
+}

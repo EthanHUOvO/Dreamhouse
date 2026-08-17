@@ -1,6 +1,6 @@
 {
-  "name": "dreamhouse-pascal-dumb-mover",
-  "version": "1.1.0",
+  "name": "dreamhouse-pascal-furniture-popup",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000",
