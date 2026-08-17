@@ -152,9 +152,9 @@ export function createInitialHouseScene():SceneGraph{
   for(const n of zones)nodes[n.id]=n
 
   const items=[
-    furnitureItem('item_master_bed','zone_master','doubleBed',[-4.2,0,3.0]),
-    furnitureItem('item_master_bedside','zone_master','bedside',[-5.35,0,3.6]),
-    furnitureItem('item_master_closet','zone_master','closet',[-2.55,0,3.55],Math.PI/2,[.78,1,.72]),
+    furnitureItem('item_master_bed','zone_master','doubleBed',[-4.15,0,3.7],-Math.PI/2,[.96,1,.96]),
+    furnitureItem('item_master_bedside','zone_master','bedside',[-5.45,0,4.05],0,[.95,1,.95]),
+    furnitureItem('item_master_closet','zone_master','closet',[-3.35,0,2.0],0,[.86,1,.70]),
     furnitureItem('item_living_sofa','zone_living','sofa',[-3.8,0,-1.8],Math.PI/2,[.9,1,.85]),
     furnitureItem('item_living_coffee','zone_living','coffee',[-2.45,0,-1.8],0,[.75,1,.7]),
     furnitureItem('item_living_tv','zone_living','tv',[-1.2,0,-1.8],Math.PI/2,[.8,1,.8]),
@@ -169,9 +169,9 @@ export function createInitialHouseScene():SceneGraph{
     furnitureItem('item_gaming_table','zone_gaming','table',[3.6,0,3.6],0,[.72,1,.7]),
     furnitureItem('item_gaming_chair','zone_gaming','diningChair',[3.6,0,2.75],Math.PI),
     furnitureItem('item_gaming_closet','zone_gaming','closet',[5.2,0,3.65],Math.PI/2,[.65,1,.62]),
-    furnitureItem('item_bath_toilet','zone_bath','toilet',[-1.15,0,3.7],0,[.7,1,.75]),
-    furnitureItem('item_bath_sink','zone_bath','sink',[0.35,0,3.6],0,[.55,1,.55]),
-    furnitureItem('item_bath_shower','zone_bath','shower',[0.55,0,1.9],0,[.72,1,.72])
+    furnitureItem('item_bath_toilet','zone_bath','toilet',[-1.05,0,2.15],Math.PI/2,[.7,1,.75]),
+    furnitureItem('item_bath_sink','zone_bath','sink',[-0.55,0,3.75],Math.PI/2,[.52,1,.52]),
+    furnitureItem('item_bath_shower','zone_bath','shower',[0.45,0,3.2],0,[.72,1,.72])
   ]
   for(const n of items)nodes[n.id]=n
 

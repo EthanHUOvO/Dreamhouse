@@ -77,18 +77,18 @@ function applyCouple(scene:SceneGraph){
   setRoom(scene,'zone_gaming','衣帽间','dressing_room','#9b765d')
   deleteRoomFurniture(scene,'zone_gaming')
   ;[
-    furnitureItem('item_dress_closet_1','zone_gaming','closet',[2.2,0,3.7],0,[.75,1,.62]),
-    furnitureItem('item_dress_closet_2','zone_gaming','closet',[4.1,0,3.7],0,[.75,1,.62]),
-    furnitureItem('item_dress_dresser','zone_gaming','dresser',[5.25,0,2.2],Math.PI/2,[.7,1,.65])
+    furnitureItem('item_dress_closet_1','zone_gaming','closet',[5.15,0,2.15],Math.PI/2,[.72,1,.62]),
+    furnitureItem('item_dress_closet_2','zone_gaming','closet',[5.15,0,3.85],Math.PI/2,[.72,1,.62]),
+    furnitureItem('item_dress_dresser','zone_gaming','dresser',[2.25,0,3.85],0,[.68,1,.62])
   ].forEach(n=>addLevelChild(scene,n))
 
   setRoom(scene,'zone_study','双人书房','shared_study','#4f7f86')
   deleteRoomFurniture(scene,'zone_study')
   ;[
-    furnitureItem('item_shared_table_1','zone_study','table',[2.8,0,-3.15],0,[.62,1,.7]),
-    furnitureItem('item_shared_chair_1','zone_study','diningChair',[2.8,0,-2.3],Math.PI),
-    furnitureItem('item_shared_table_2','zone_study','table',[4.8,0,-3.15],0,[.62,1,.7]),
-    furnitureItem('item_shared_chair_2','zone_study','diningChair',[4.8,0,-2.3],Math.PI)
+    furnitureItem('item_shared_table_1','zone_study','table',[2.65,0,-3.35],0,[.58,1,.68]),
+    furnitureItem('item_shared_chair_1','zone_study','diningChair',[2.65,0,-2.55],Math.PI),
+    furnitureItem('item_shared_table_2','zone_study','table',[4.85,0,-3.35],0,[.58,1,.68]),
+    furnitureItem('item_shared_chair_2','zone_study','diningChair',[4.85,0,-2.55],Math.PI)
   ].forEach(n=>addLevelChild(scene,n))
 }
 
@@ -109,10 +109,11 @@ function splitBathroom(scene:SceneGraph){
   addWallChild(scene,'wall_s_v1',doorNode('door_master_bath','wall_s_v1',1.0,'主卫门'))
 
   ;[
-    furnitureItem('item_masterbath_toilet','zone_master_bath','toilet',[-1.35,0,3.55],0,[.55,1,.65]),
-    furnitureItem('item_masterbath_sink','zone_master_bath','sink',[-1.1,0,2.0],Math.PI/2,[.42,1,.42]),
-    furnitureItem('item_publicbath_toilet','zone_public_bath','toilet',[.55,0,3.55],0,[.55,1,.65]),
-    furnitureItem('item_publicbath_sink','zone_public_bath','sink',[.45,0,2.0],-Math.PI/2,[.42,1,.42])
+    furnitureItem('item_masterbath_toilet','zone_master_bath','toilet',[-0.95,0,2.15],Math.PI/2,[.55,1,.65]),
+    furnitureItem('item_masterbath_sink','zone_master_bath','sink',[-0.72,0,3.95],Math.PI/2,[.42,1,.42]),
+    furnitureItem('item_publicbath_toilet','zone_public_bath','toilet',[0.55,0,3.55],0,[.55,1,.65]),
+    furnitureItem('item_publicbath_sink','zone_public_bath','sink',[0.45,0,1.95],-Math.PI/2,[.42,1,.42]),
+    furnitureItem('item_masterbath_shower','zone_master_bath','shower',[-1.18,0,3.05],0,[.58,1,.58])
   ].forEach(n=>addLevelChild(scene,n))
 }
 
@@ -120,11 +121,11 @@ function applyChild(scene:SceneGraph,nanny=false){
   setRoom(scene,'zone_gaming','儿童房','child_room','#4e897b')
   deleteRoomFurniture(scene,'zone_gaming')
   ;[
-    furnitureItem('item_child_bed','zone_gaming','singleBed',[3.0,0,3.0],0,[.9,1,.9]),
-    furnitureItem('item_child_bedside','zone_gaming','bedside',[2.0,0,3.7]),
-    furnitureItem('item_child_dresser','zone_gaming','dresser',[5.1,0,3.65],Math.PI/2,[.65,1,.62]),
-    furnitureItem('item_child_table','zone_gaming','table',[4.5,0,1.95],0,[.5,1,.6]),
-    furnitureItem('item_child_chair','zone_gaming','diningChair',[4.5,0,2.55],Math.PI)
+    furnitureItem('item_child_bed','zone_gaming','singleBed',[2.35,0,3.15],-Math.PI/2,[.9,1,.9]),
+    furnitureItem('item_child_bedside','zone_gaming','bedside',[2.05,0,4.0],0,[.95,1,.95]),
+    furnitureItem('item_child_dresser','zone_gaming','dresser',[5.05,0,3.8],Math.PI/2,[.65,1,.62]),
+    furnitureItem('item_child_table','zone_gaming','table',[4.55,0,2.0],0,[.5,1,.6]),
+    furnitureItem('item_child_chair','zone_gaming','diningChair',[4.55,0,2.6],Math.PI)
   ].forEach(n=>addLevelChild(scene,n))
 
   splitBathroom(scene)
@@ -133,8 +134,9 @@ function applyChild(scene:SceneGraph,nanny=false){
     setRoom(scene,'zone_study','保姆房','nanny_room','#8a7654')
     deleteRoomFurniture(scene,'zone_study')
     ;[
-      furnitureItem('item_nanny_bed','zone_study','singleBed',[3.0,0,-2.5],Math.PI,[.85,1,.85]),
-      furnitureItem('item_nanny_dresser','zone_study','dresser',[5.1,0,-3.5],Math.PI/2,[.65,1,.62])
+      furnitureItem('item_nanny_bed','zone_study','singleBed',[2.35,0,-2.65],Math.PI/2,[.85,1,.85]),
+      furnitureItem('item_nanny_dresser','zone_study','dresser',[5.05,0,-3.65],Math.PI/2,[.65,1,.62]),
+      furnitureItem('item_nanny_bedside','zone_study','bedside',[2.1,0,-1.95],0,[.9,1,.9])
     ].forEach(n=>addLevelChild(scene,n))
   }
 }
@@ -148,19 +150,20 @@ function applyReplan(scene:SceneGraph){
   addLevelChild(scene,roomZone('zone_new_study','书房','study',[[1.2,1.2],[3.6,1.2],[3.6,4.5],[1.2,4.5]],'#5b8f82'))
   addLevelChild(scene,roomZone('zone_storage','储物间','storage',[[3.6,1.2],[6,1.2],[6,4.5],[3.6,4.5]],'#8f806e'))
   ;[
-    furnitureItem('r_study_table','zone_new_study','table',[2.35,0,3.0],0,[.55,1,.65]),
-    furnitureItem('r_study_chair','zone_new_study','diningChair',[2.35,0,2.25],Math.PI),
-    furnitureItem('r_storage_1','zone_storage','closet',[4.55,0,3.7],0,[.65,1,.62]),
-    furnitureItem('r_storage_2','zone_storage','closet',[5.45,0,3.7],0,[.65,1,.62])
+    furnitureItem('r_study_table','zone_new_study','table',[2.35,0,3.35],0,[.55,1,.65]),
+    furnitureItem('r_study_chair','zone_new_study','diningChair',[2.35,0,2.55],Math.PI),
+    furnitureItem('r_storage_1','zone_storage','closet',[5.15,0,2.2],Math.PI/2,[.62,1,.60]),
+    furnitureItem('r_storage_2','zone_storage','closet',[5.15,0,3.85],Math.PI/2,[.62,1,.60])
   ].forEach(n=>addLevelChild(scene,n))
 
   // 原书房改为儿童房
   setRoom(scene,'zone_study','儿童房','child_room','#4e897b')
   deleteRoomFurniture(scene,'zone_study')
   ;[
-    furnitureItem('r_child_bed','zone_study','singleBed',[3.2,0,-2.8],Math.PI,[.85,1,.85]),
-    furnitureItem('r_child_table','zone_study','table',[5.0,0,-2.5],Math.PI/2,[.5,1,.6]),
-    furnitureItem('r_child_chair','zone_study','diningChair',[4.25,0,-2.5],Math.PI/2)
+    furnitureItem('r_child_bed','zone_study','singleBed',[2.45,0,-2.95],Math.PI/2,[.85,1,.85]),
+    furnitureItem('r_child_table','zone_study','table',[5.0,0,-3.15],Math.PI/2,[.5,1,.6]),
+    furnitureItem('r_child_chair','zone_study','diningChair',[4.25,0,-3.15],Math.PI/2),
+    furnitureItem('r_child_dresser','zone_study','dresser',[5.15,0,-1.2],Math.PI/2,[.58,1,.56])
   ].forEach(n=>addLevelChild(scene,n))
 }
 
