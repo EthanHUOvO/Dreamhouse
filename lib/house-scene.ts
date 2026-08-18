@@ -43,7 +43,7 @@ function door(id:string,wallId:string,distance:number,width=.86,options:Partial<
     openingKind:'door',openingShape:'rectangle',openingRadiusMode:'all',
     openingTopRadii:[0.15,0.15],cornerRadius:0.08,archHeight:0.45,openingRevealRadius:0.025,
     frameThickness:0.05,frameDepth:0.07,threshold:true,thresholdHeight:0.02,
-    hingesSide:'left',swingDirection:'inward',swingAngle:Math.PI/7,
+    hingesSide:'left',swingDirection:'inward',swingAngle:0,
     segments:[{type:'panel',heightRatio:1,columnRatios:[1],dividerThickness:0.03,panelDepth:0.01,panelInset:0.04}],
     handle:true,handleHeight:1.05,handleSide:'right',contentPadding:[0.04,0.04],
     doorCloser:false,panicBar:false,panicBarHeight:1,
@@ -98,7 +98,7 @@ export function createInitialHouseScene():SceneGraph{
   nodes.building_house={
     object:'node',id:'building_house',type:'building',parentId:'site_house',visible:true,
     name:'HOUSE_001',children:[LEVEL],position:[0,0,0],rotation:[0,0,0],
-    metadata:{scenario:'single',scene_schema_version:4}
+    metadata:{scenario:'single',scene_schema_version:6}
   }
 
   const openings:SceneNode[]=[
@@ -141,6 +141,14 @@ export function createInitialHouseScene():SceneGraph{
     metadata:{manufacturing_layer:'floor'}
   }
 
+  // 第一人称漫游出生点：位于东侧入户门内侧，面向住宅内部。
+  // visible:false 只隐藏出生点标记，不影响 FirstPersonControls 读取 position / rotation。
+  nodes.spawn_walkthrough={
+    object:'node',id:'spawn_walkthrough',type:'spawn',parentId:LEVEL,visible:false,name:'漫游出生点',
+    position:[5.15,0,0.60],rotation:Math.PI/2,supportSlabId:FLOOR,
+    metadata:{role:'walkthrough_spawn'}
+  }
+
   const zones=[
     zone('zone_living','客餐厨一体','living_room',[[-6,-4.5],[1.5,-4.5],[1.5,0],[-6,0]],'#4f92b6'),
     zone('zone_study','书房','study',[[1.5,-4.5],[6,-4.5],[6,0],[1.5,0]],'#5b8f82'),
@@ -178,7 +186,7 @@ export function createInitialHouseScene():SceneGraph{
   nodes[LEVEL]={
     object:'node',id:LEVEL,type:'level',parentId:'building_house',visible:true,
     name:'住宅一层',level:0,baseElevation:0,height:H,
-    children:[FLOOR,...walls.map(x=>x.id),...zones.map(x=>x.id),...items.map(x=>x.id)],
+    children:[FLOOR,'spawn_walkthrough',...walls.map(x=>x.id),...zones.map(x=>x.id),...items.map(x=>x.id)],
     metadata:{}
   }
 

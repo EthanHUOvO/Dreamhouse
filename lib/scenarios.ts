@@ -66,7 +66,7 @@ function doorNode(id:string,wallId:string,distance:number,name:string):SceneNode
     garagePanelCount:4,openingKind:'door',openingShape:'rectangle',
     openingRadiusMode:'all',openingTopRadii:[.15,.15],cornerRadius:.08,archHeight:.45,
     openingRevealRadius:.025,frameThickness:.05,frameDepth:.07,threshold:true,
-    thresholdHeight:.02,hingesSide:'right',swingDirection:'inward',swingAngle:Math.PI/7,
+    thresholdHeight:.02,hingesSide:'right',swingDirection:'inward',swingAngle:0,
     segments:[{type:'panel',heightRatio:1,columnRatios:[1],dividerThickness:.03,panelDepth:.01,panelInset:.04}],
     handle:true,handleHeight:1.05,handleSide:'left',contentPadding:[.04,.04],
     doorCloser:false,panicBar:false,panicBarHeight:1,metadata:{opening_role:'door'}

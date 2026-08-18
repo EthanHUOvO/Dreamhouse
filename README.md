@@ -1,80 +1,101 @@
-# Dreamhouse Pascal Continuous Flow v4
+# Dreamhouse Pascal Walkthrough + Interactive Doors v6
 
-本版本继续使用 Pascal Viewer / Pascal Scene 作为住宅 3D 模型，不替换现有 3D 渲染。
+本版本继续基于现有 **Pascal Viewer / Pascal SceneGraph**，保留此前已经完成的：固定方案、2D 图纸、Pascal 3D、家具点击/拖动/方向微调/旋转、Design Version、施工阶段重新设计、施工方接受变更、BOM / 生产 / 施工连续同步。
 
-## 这版解决的问题
+v6 新增的是同一份住宅 Scene 上的 **第一人称游戏式漫游**，没有替换现有 3D 渲染模型。
 
-上一版中，“应用当前固定方案”本质上只修改设计数据，没有把“保存”和“下一阶段”明确拆开，所以用户容易认为点击后没有反应；设计变更提交以后，施工方接受也没有真正重新生成后续 BOM / 生产 / 施工数据。
+## 3D 页面现在有三种模式
 
-v4 将流程明确为：
+### 1. 普通 3D 查看
+
+- 保持原 Pascal 俯视 / 轴测展示；
+- 可以正常旋转、缩放模型；
+- 家具不能误拖动；
+- 门保持正常建筑模型显示。
+
+### 2. 调整家具
+
+点击 **“调整家具”** 后：
+
+- 点击家具，家具旁出现前 / 后 / 左 / 右控制；
+- 左转 / 右转；
+- 直接按住家具拖动；
+- 家具高度固定；
+- 修改自动保存到当前 Design Version。
+
+### 3. 第一人称漫游
+
+点击 **“进入漫游”** 后：
+
+- 自动切换到 Pascal 第一人称相机；
+- 出生点位于东侧入户门内侧；
+- WASD / 方向键行走；
+- 鼠标转动视角；
+- Shift 加速；
+- 墙体、家具和门参与碰撞；
+- 靠近门并把屏幕准星对准门后，**鼠标左键或 E** 可开 / 关门；
+- Pascal 支持的可开启窗也可用相同方式交互；
+- Esc 退出漫游并返回原来的俯视 3D 模型。
+
+进入漫游时家具编辑会自动关闭，避免“拖家具”和“控制人物”两套交互冲突。
+
+## 门的行为
+
+基础场景中的室内门改为关闭状态开始。漫游过程中的门开启 / 关闭属于 **体验运行时状态**：
+
+- 开门会真实改变 Pascal 门扇动画和第一人称碰撞；
+- 门完全打开后可通过门洞；
+- 再次交互可关闭；
+- 退出漫游后不把“门当前开着还是关着”写入 Design Version，因为这是体验状态，不是户型设计修改。
+
+家具位置、旋转、户型方案仍然按原流程保存到 Design Version。
+
+## 与设计版本 / 后续施工的关系
 
 ```text
 固定方案
-  ↓ 应用并保存
-Design Vn Draft
-  ↓ 家具点击 / 拖动 / 旋转（自动保存）
-完成设计
   ↓
-初始设计：确认设计并进入生产
-施工中改版：提交设计变更
+家具调整
+  ↓ 自动保存
+第一人称漫游验证空间
   ↓
-施工方接受 Design Vn
+发现不合理 → 退出漫游 → 再调家具
   ↓
-自动升级为 Approved
+确认 / 提交 Design Vn
   ↓
-根据同一份 Pascal Scene 重新生成 BOM
+施工方接受
   ↓
-3D 打印 / 生产
+重新生成 BOM
   ↓
-运输
-  ↓
-机械臂 / 人工施工
-  ↓
-验收
+生产 / 运输 / 施工 / 验收
 ```
 
-## 住户端如何保存
+施工阶段仍可以：
 
-不再需要单独的“保存家具”按钮：
+- 重新设计；
+- 继续已有 Draft；
+- 撤回尚未接受的提交并继续修改；
+- Design V2 → V3 → V4 → V5 ... 持续迭代。
 
-- 点击“应用并保存当前方案”：方案立即在 2D / Pascal 3D 中显示，同时保存到当前 Design Version。
-- 点击方向键移动家具：自动保存。
-- 直接拖动家具：松开鼠标时自动保存。
-- 左转 / 右转家具：自动保存。
-- 页面顶部“保存状态”会告诉用户最近一次保存结果。
+验收页面的批准模型也增加了 **“进入漫游”**，可以从最终居住视角检查空间。
 
-## 如何进入后续流程
+## 操作说明
 
-### 还处于设计阶段
-
-点击“确认设计并进入生产”。当前 Design Version 会冻结为批准版本，并自动生成 BOM、打印任务、人工任务、机械臂任务，订单进入生产阶段。
-
-### 已经生产 / 施工后重新设计
-
-1. 点击“重新设计”，创建新的 Design Draft。
-2. 应用固定方案和调整家具，所有修改自动保存在 Draft 中。
-3. 点击“提交设计变更”。此时 Draft 被锁定，旧 Approved 版本仍然是施工依据。
-4. 进入施工方端，订单会显示“收到设计变更”。
-5. 点击“接受并同步后续”。Draft 升级为新的 Approved Version。
-6. 系统从新版本的 Pascal Scene 重新统计墙体和家具数量，重新生成 BOM，并把生产/施工任务关联到新 Design Version。
-
-## 双端同步
-
-住户端和施工方端共用同一个 localStorage Order Store；v4 还增加了 `storage`、页面 focus 和自定义更新事件监听。在同一域名下打开两个标签页时，施工方接受变更后，住户端重新聚焦即可读取最新订单状态。
-
-正式部署到多设备时，将 `lib/order-store.ts` 替换为后端数据库/API 即可，业务流程和页面接口可以保持不变。
-
-## 验证
-
-```bash
-npm run verify
+```text
+W / ↑        前进
+S / ↓        后退
+A / ←        左移
+D / →        右移
+鼠标          转动视角
+Shift         加速
+左键 / E / R  开关当前对准的门或可操作窗
+T             关闭当前对准的门或窗
+Esc           退出漫游
 ```
 
-验证包括：项目结构、TS/TSX 语法、Pascal 家具移动/旋转/拖动逻辑，以及完整的：
+第一次进入时，点击 3D 画面后浏览器会进入 Pointer Lock（游戏式鼠标控制）。
 
-`Approved V2 → Draft V3 → 保存方案/家具 → Submitted → Contractor Accepted → Approved V3 → BOM 重建 → Production`
-
-## 本地启动
+## 本地运行
 
 ```bash
 npm install --no-audit --no-fund
@@ -86,14 +107,40 @@ npm run dev
 
 施工方端：`/contractor/`
 
+## GitHub Pages
 
-## v5：施工阶段可再次返回设计
+项目保留 `.github/workflows/deploy-pages.yml`：
 
-住户确认设计进入生产 / 施工后，不再是单向流程。施工页面新增设计回退入口：
+```text
+npm install
+→ npm run verify
+→ npm run build
+→ build 成功后部署 out/
+```
 
-- 当前没有 Draft：点击 **“重新设计”**，系统从当前 Approved Design 复制并创建下一版 Draft，然后自动返回设计页；
-- 已有未提交 Draft：点击 **“继续修改 Design Vn”**，直接回到现有 Draft；
-- 变更已经提交、但施工方尚未接受：点击 **“撤回并继续修改”**，把 Change Request 从 submitted 退回 draft，再返回设计页；
-- 施工方接受后，新的版本成为 Approved。之后仍可再次发起下一轮重新设计，因此 Design V2 → V3 → V4 → V5 可以持续迭代。
+## 验证
 
-旧的 Approved 版本不会在住户编辑时直接覆盖，BOM / 生产 / 施工也只有在施工方接受新变更后才切换到新版本。
+```bash
+npm run verify
+```
+
+v6 新增 `test:walkthrough`，会检查：
+
+- 漫游出生点；
+- 5 个基础门是否是可交互的 hinged door；
+- 门初始关闭；
+- Pascal `FirstPersonControls` 是否接入；
+- `InteractiveSystem` 是否接入；
+- walkthrough wall mode / pointer lock / 60 FPS 配置；
+- 住户端“进入漫游 / 退出漫游”控制；
+- 原有家具编辑、Design Version、BOM 同步、施工阶段反复重新设计测试仍全部通过。
+
+详细结果见 `VERIFICATION.md`。
+
+## 数据缓存说明
+
+v6 使用新的 localStorage key：
+
+`dreamhouse.pascal.walkthrough.orders.v6`
+
+因此部署后会生成包含漫游出生点的新演示订单，避免旧版本浏览器缓存继续加载不含 spawn 节点的历史 Scene。

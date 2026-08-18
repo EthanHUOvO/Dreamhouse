@@ -41,6 +41,7 @@ export default function CustomerDesign({
   const [revision, setRevision] = useState(0)
   const [scene, setScene] = useState<SceneGraph>(() => cloneScene(editable.scene))
   const [furnitureEditMode, setFurnitureEditMode] = useState(false)
+  const [walkthroughMode, setWalkthroughMode] = useState(false)
   const [selectedItemId, setSelectedItemId] = useState('')
   const [saveMessage, setSaveMessage] = useState('当前设计已加载。后续方案应用和家具调整都会自动保存。')
 
@@ -48,6 +49,7 @@ export default function CustomerDesign({
     setScene(cloneScene(editable.scene))
     setChosen(editable.scenario)
     setFurnitureEditMode(false)
+    setWalkthroughMode(false)
     setSelectedItemId('')
   }, [editable.id, editable.scenario])
 
@@ -79,6 +81,7 @@ export default function CustomerDesign({
     const next = createScenarioScene(currentScheme.scenario)
     setScene(cloneScene(next))
     setFurnitureEditMode(false)
+    setWalkthroughMode(false)
     setSelectedItemId('')
     onUpdateDraft(currentScheme.scenario, currentScheme.title)
     setRevision((value) => value + 1)
@@ -120,12 +123,27 @@ export default function CustomerDesign({
 
   function toggleFurnitureEdit() {
     if (!editableMode) return
+    setWalkthroughMode(false)
     setFurnitureEditMode((current) => {
       const next = !current
       if (!next) setSelectedItemId('')
       setSaveMessage(next
         ? '已进入家具调整模式：点击家具后可拖动，也可使用方向键和旋转键；每次修改自动保存。'
         : `家具调整已结束，当前布局已保存在 Design V${editable.version}。`)
+      return next
+    })
+  }
+
+  function toggleWalkthrough() {
+    setWalkthroughMode((current) => {
+      const next = !current
+      if (next) {
+        setFurnitureEditMode(false)
+        setSelectedItemId('')
+        setSaveMessage('已进入第一人称漫游：点击 3D 画面后使用 WASD 行走；靠近门可用左键或 E 开关。漫游只用于体验，不会改变家具设计。')
+      } else {
+        setSaveMessage(`已退出漫游，返回 Design V${editable.version} 的正常 3D 展示。`)
+      }
       return next
     })
   }
@@ -210,14 +228,22 @@ export default function CustomerDesign({
         <section className="card visual-card mover-visual-card">
           <div className="card-title viewer-titlebar">
             <span>3D展示</span>
-            {editableMode && (
+            <div className="viewer-mode-actions">
+              {editableMode && !walkthroughMode && (
+                <button
+                  className={`open-furniture-control ${furnitureEditMode ? 'active' : ''}`}
+                  onClick={toggleFurnitureEdit}
+                >
+                  {furnitureEditMode ? '完成调整' : '调整家具'}
+                </button>
+              )}
               <button
-                className={`open-furniture-control ${furnitureEditMode ? 'active' : ''}`}
-                onClick={toggleFurnitureEdit}
+                className={`open-walkthrough-control ${walkthroughMode ? 'active' : ''}`}
+                onClick={toggleWalkthrough}
               >
-                {furnitureEditMode ? '完成调整' : '调整家具'}
+                {walkthroughMode ? '退出漫游' : '进入漫游'}
               </button>
-            )}
+            </div>
           </div>
           <PascalViewer
             scene={scene}
@@ -230,6 +256,8 @@ export default function CustomerDesign({
             onRotateItem={rotateItem}
             onDragCommit={commitDrag}
             onClearSelection={() => setSelectedItemId('')}
+            walkthroughMode={walkthroughMode}
+            onExitWalkthrough={() => setWalkthroughMode(false)}
           />
         </section>
       </div>

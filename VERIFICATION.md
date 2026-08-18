@@ -1,10 +1,10 @@
-# Verification — Continuous Flow v4
+# Verification — Pascal Walkthrough + Interactive Doors v6
 
-验证日期：2026-08-17
+验证日期：2026-08-18
 
-## 已通过
+## 已实际执行并通过
 
-执行：
+在项目目录运行：
 
 ```bash
 npm run verify
@@ -15,67 +15,65 @@ npm run verify
 ```text
 Dual portal structure: OK
 Pascal design -> save -> submit -> downstream workflow: OK
+Pascal first-person walkthrough + interactive doors integration: OK
 TS/TSX syntax: PASS (23 files, 0 errors)
+
 Furniture edit logic: PASS
 Bed nudge: X -4.15 -> -4.00; Y locked at 0.00
 Bed rotation: -90° -> -75°
+Drag clamp result: X -2.08, Z 4.22
 Bathroom shower: X -1.15, Z 3.78
+
 Continuous design workflow: PASS
 Approved V2 -> Draft V3 -> Submitted -> Accepted -> Production
 BOM regenerated from approved Scene: walls=10, furniture=22
+
+Iterative redesign workflow: PASS
+Approved V2 -> Draft V3 -> Submit -> Withdraw -> Resubmit -> Accept -> Draft V4
+Approved versions remain protected until contractor acceptance.
+
+Pascal walkthrough integration: PASS
+Spawn: X 5.15, Y 0.00, Z 0.60
+Interactive door-ready nodes: 5
+Controls wired: WASD/mouse via Pascal FirstPersonControls, pointer lock lifecycle, native door targeting/toggle path.
 ```
 
-完整业务链路测试实际执行：
+## v6 漫游检查内容
 
-1. 从施工中的 Design V2 创建 Design V3 Draft；
-2. 应用“空间重新规划方案”；
-3. 调整主卧床位置并写回 Draft Scene；
-4. 提交 Change Request；
-5. 验证提交时 Approved 仍保持 V2，没有覆盖当前施工依据；
-6. 施工方接受 V3；
-7. V3 升级为 Approved；
-8. 订单返回 production；
-9. 从 V3 Pascal Scene 重新统计墙体与家具并生成 BOM；
-10. 生产 / 施工进度按新设计版本重新建立。
+1. `spawn_walkthrough` 存在，类型为 Pascal `spawn`；
+2. 出生点固定在入户门内侧 `[5.15, 0, 0.60]`；
+3. 出生点属于 `level_ground`，并绑定住宅地板；
+4. 基础场景 5 个门均为真实 `door` 节点；
+5. 5 个门均为 `hinged`，初始 `swingAngle = 0`；
+6. `PascalViewer` 使用 `FirstPersonControls`；
+7. 漫游时 `wallMode = up`；
+8. 漫游时 Viewer 切换到默认交互选择路径并提高到 60 FPS；
+9. Pointer Lock 进入 / 退出生命周期已接入；
+10. 家具编辑与第一人称漫游互斥；
+11. 设计页和验收页均可进入漫游；
+12. 原有家具移动、旋转、拖拽、版本迭代和 BOM 同步回归测试通过。
 
-## 构建说明
+## 完整 Next 构建说明
 
-本执行环境中 `npm install --no-audit --no-fund` 在 120 秒后网络超时，未能从 npm registry 下载 Pascal / Next 依赖，因此无法在此容器声称完成新的 `next build`。
+本执行环境没有预装项目 `node_modules`。实际执行了：
 
-GitHub Actions 已配置为：
+```bash
+npm install --no-audit --no-fund
+```
+
+npm 在访问 `registry.npmjs.org/@pascal-app/core` 时出现 `EAI_AGAIN`，120 秒后超时，因此无法在当前容器重新下载 Pascal / Next 依赖。
+
+随后 `npm run build` 无法执行的直接原因是本地没有 `next` 可执行文件，而不是已经出现了一个 Next / TypeScript 编译报错。
+
+因此本文件只把**实际通过**的项目结构、TS/TSX 语法、业务逻辑和 walkthrough 集成测试记为 PASS；不虚构“fresh next build 已通过”。
+
+GitHub Actions 仍按以下顺序部署：
 
 ```text
 npm install
 → npm run verify
 → npm run build
-→ 成功后才部署 Pages
+→ 只有 build 成功才发布 GitHub Pages
 ```
 
-因此仓库部署时，如果依赖安装或 Next/Pascal 构建存在真实编译问题，部署任务会停止，不会把失败构建发布到 Pages。
-
-
-## v5 iterative redesign checks
-
-Run `npm run test:iterative` to verify the resident construction page exposes:
-
-- new redesign → create Draft and return to Design;
-- continue an existing Draft;
-- withdraw a submitted but unaccepted Change Request and continue editing.
-
-The existing Approved version remains unchanged until the contractor accepts the newly submitted version.
-
-
-## v5 actual verification result
-
-Executed successfully in the provided environment:
-
-```text
-Dual portal structure: PASS
-TS/TSX syntax: PASS (23 files, 0 errors)
-Furniture nudge / rotation / drag clamp: PASS
-Continuous Design -> Submit -> Accept -> BOM workflow: PASS
-Iterative redesign: PASS
-Approved V2 -> Draft V3 -> Submit -> Withdraw -> Resubmit -> Accept -> Draft V4
-```
-
-A fresh `npm install` was also attempted, but the runtime network timed out while contacting the npm registry, so a fresh `next build` could not be completed in this container. This was a dependency download timeout rather than a project verification failure.
+如果真实依赖环境存在 API 版本或构建问题，Actions 会停止在部署前。

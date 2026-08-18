@@ -3,7 +3,7 @@ import type { DesignVersion, Order, ScenarioType, SceneGraph } from './types'
 import { createScenarioScene } from './scenarios'
 import { syncOrderDownstream } from './downstream'
 
-const KEY='dreamhouse.pascal.continuousflow.orders.v4'
+const KEY='dreamhouse.pascal.walkthrough.orders.v6'
 const UPDATE_EVENT='dreamhouse:orders-updated'
 
 export function loadOrders():Order[]{

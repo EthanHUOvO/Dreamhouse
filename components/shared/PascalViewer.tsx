@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { emitter, loadPlugin, sceneRegistry } from '@pascal-app/core'
-import { applySceneSnapshot } from '@pascal-app/editor'
-import { Viewer, useViewer } from '@pascal-app/viewer'
+import { applySceneSnapshot, FirstPersonControls } from '@pascal-app/editor'
+import { InteractiveSystem, Viewer, useViewer } from '@pascal-app/viewer'
 import { builtinPlugin } from '@pascal-app/nodes'
 import { CameraControls } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
@@ -25,23 +25,140 @@ type PascalViewerProps = {
   onRotateItem?: (itemId: string, deltaDegrees: number) => void
   onDragCommit?: (itemId: string, x: number, z: number) => void
   onClearSelection?: () => void
+  walkthroughMode?: boolean
+  onExitWalkthrough?: () => void
 }
 
-function CameraRig({ revision, interactionActive }: { revision: number; interactionActive: boolean }) {
+function CameraRig({
+  revision,
+  interactionActive,
+  walkthroughMode,
+}: {
+  revision: number
+  interactionActive: boolean
+  walkthroughMode: boolean
+}) {
   const controls = useRef<any>(null)
   useEffect(() => {
+    if (walkthroughMode) return
     requestAnimationFrame(() => controls.current?.setLookAt(10.6, 9.0, 11.8, 0, 0.75, 0, true))
-  }, [revision])
+  }, [revision, walkthroughMode])
   return (
     <CameraControls
       ref={controls}
       makeDefault
-      enabled={!interactionActive}
+      enabled={!interactionActive && !walkthroughMode}
       minDistance={6}
       maxDistance={26}
       dollySpeed={0.55}
       truckSpeed={0.65}
     />
+  )
+}
+
+function WalkthroughLifecycleBridge({
+  active,
+  onExit,
+  onPointerLockChange,
+}: {
+  active: boolean
+  onExit?: () => void
+  onPointerLockChange: (locked: boolean) => void
+}) {
+  const { gl } = useThree()
+  const hadPointerLock = useRef(false)
+
+  useEffect(() => {
+    if (!active) return
+    const canvas = gl.domElement
+    hadPointerLock.current = false
+    canvas.dataset.walkthrough = 'true'
+    canvas.style.cursor = 'crosshair'
+    canvas.style.touchAction = 'none'
+
+    const handlePointerLockChange = () => {
+      const locked = document.pointerLockElement === canvas
+      onPointerLockChange(locked)
+      if (locked) {
+        hadPointerLock.current = true
+        return
+      }
+      // Pascal's P key temporarily releases the pointer for screenshots; that
+      // pause must not be interpreted as leaving walkthrough mode.
+      if (hadPointerLock.current && !useViewer.getState().walkthroughSuspended) {
+        onExit?.()
+      }
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code !== 'Escape') return
+      event.preventDefault()
+      if (document.pointerLockElement === canvas) document.exitPointerLock()
+      onExit?.()
+    }
+
+    document.addEventListener('pointerlockchange', handlePointerLockChange)
+    document.addEventListener('keydown', handleKeyDown, true)
+    handlePointerLockChange()
+
+    return () => {
+      document.removeEventListener('pointerlockchange', handlePointerLockChange)
+      document.removeEventListener('keydown', handleKeyDown, true)
+      delete canvas.dataset.walkthrough
+      canvas.style.cursor = ''
+      canvas.style.touchAction = ''
+      onPointerLockChange(false)
+      if (document.pointerLockElement === canvas) document.exitPointerLock()
+    }
+  }, [active, gl, onExit, onPointerLockChange])
+
+  return null
+}
+
+function WalkthroughOverlay({
+  scene,
+  pointerLocked,
+  onExit,
+}: {
+  scene: SceneGraph
+  pointerLocked: boolean
+  onExit?: () => void
+}) {
+  const hoveredId = useViewer((state) => state.hoveredId)
+  const hoveredNode: any = hoveredId ? scene.nodes[hoveredId] : null
+  const doorTarget = hoveredNode?.type === 'door' ? hoveredNode : null
+  const windowTarget = hoveredNode?.type === 'window' ? hoveredNode : null
+
+  return (
+    <div className="walkthrough-overlay">
+      <div className="walkthrough-topbar">
+        <div>
+          <b>第一人称漫游</b>
+          <span>WASD 移动 · 鼠标看方向 · Shift 加速 · 左键 / E 开关门 · Esc 退出</span>
+        </div>
+        <button onClick={onExit}>退出漫游</button>
+      </div>
+
+      <div className={`walkthrough-crosshair ${doorTarget || windowTarget ? 'interactive' : ''}`}>
+        <i />
+        <i />
+      </div>
+
+      {(doorTarget || windowTarget) && (
+        <div className="walkthrough-interact-tip">
+          <b>{doorTarget ? doorTarget.name || '门' : windowTarget.name || '窗'}</b>
+          <span>左键 / E：{doorTarget ? '开关门' : '开关窗'}</span>
+        </div>
+      )}
+
+      {!pointerLocked && (
+        <div className="walkthrough-start-card">
+          <b>点击 3D 画面开始行走</b>
+          <span>鼠标将锁定到画面中。靠近门并把准星对准门，点击左键或按 E 即可开关。</span>
+          <small>W / S 前后 · A / D 左右 · Shift 加速 · Esc 返回俯视模型</small>
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -260,10 +377,13 @@ export default function PascalViewer({
   onRotateItem,
   onDragCommit,
   onClearSelection,
+  walkthroughMode = false,
+  onExitWalkthrough,
 }: PascalViewerProps) {
   const [ready, setReady] = useState(false)
   const [interactionActive, setInteractionActive] = useState(false)
   const [anchor, setAnchor] = useState<Anchor | null>(null)
+  const [pointerLocked, setPointerLocked] = useState(false)
 
   useEffect(() => {
     let disposed = false
@@ -299,33 +419,81 @@ export default function PascalViewer({
     }
   }, [editMode])
 
+  useEffect(() => {
+    if (!ready) return
+    const viewer = useViewer.getState()
+    if (walkthroughMode) {
+      setAnchor(null)
+      setInteractionActive(false)
+      viewer.setCameraMode('perspective')
+      viewer.setWallMode('up')
+      viewer.setWalkthroughMode(true)
+      viewer.setSelection({ selectedIds: [], zoneId: null })
+      return
+    }
+
+    viewer.setWalkthroughMode(false)
+    viewer.setWalkthroughSuspended(false)
+    viewer.setHoveredId(null)
+    viewer.setWallMode('cutaway')
+    setPointerLocked(false)
+  }, [ready, walkthroughMode])
+
   if (!ready) return <div className="viewer-loading">正在加载住宅模型…</div>
 
   return (
-    <div className={`pascal-viewer-shell ${editMode ? 'is-furniture-editing' : ''}`}>
+    <div className={`pascal-viewer-shell ${editMode ? 'is-furniture-editing' : ''} ${walkthroughMode ? 'is-walkthrough' : ''}`}>
       <div className="pascal-viewer">
-        <Viewer selectionManager="custom">
-          <CameraRig revision={revision} interactionActive={interactionActive} />
-          <FurnitureInteractionBridge
-            scene={scene}
-            editMode={editMode}
-            selectedItemId={selectedItemId}
-            onSelectItem={onSelectItem}
-            onAnchorChange={setAnchor}
-            onInteractionActive={setInteractionActive}
-            onDragCommit={onDragCommit}
+        <Viewer
+          selectionManager={walkthroughMode ? 'default' : 'custom'}
+          maxFps={walkthroughMode ? 60 : 50}
+        >
+          <CameraRig
+            revision={revision}
+            interactionActive={interactionActive}
+            walkthroughMode={walkthroughMode}
           />
+          {!walkthroughMode && (
+            <FurnitureInteractionBridge
+              scene={scene}
+              editMode={editMode}
+              selectedItemId={selectedItemId}
+              onSelectItem={onSelectItem}
+              onAnchorChange={setAnchor}
+              onInteractionActive={setInteractionActive}
+              onDragCommit={onDragCommit}
+            />
+          )}
+          {walkthroughMode && (
+            <>
+              <InteractiveSystem />
+              <FirstPersonControls />
+              <WalkthroughLifecycleBridge
+                active={walkthroughMode}
+                onExit={onExitWalkthrough}
+                onPointerLockChange={setPointerLocked}
+              />
+            </>
+          )}
         </Viewer>
       </div>
 
-      {editMode && (
+      {walkthroughMode && (
+        <WalkthroughOverlay
+          scene={scene}
+          pointerLocked={pointerLocked}
+          onExit={onExitWalkthrough}
+        />
+      )}
+
+      {editMode && !walkthroughMode && (
         <div className="furniture-edit-hint">
           <b>家具调整中</b>
           <span>点击家具显示控制键；按住家具可直接拖动。</span>
         </div>
       )}
 
-      {editMode && anchor && selectedItemId && (
+      {editMode && !walkthroughMode && anchor && selectedItemId && (
         <div className="inworld-furniture-control" style={{ left: anchor.x, top: anchor.y }}>
           <div className="inworld-control-head">
             <b>{selectedItemLabel || '已选择家具'}</b>

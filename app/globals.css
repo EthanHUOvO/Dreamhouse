@@ -81,3 +81,25 @@
 .construction-design-actions>div{display:flex;flex-direction:column;gap:4px;min-width:0}.construction-design-actions strong{font-size:13px}.construction-design-actions span{font-size:11px;line-height:1.55;color:var(--muted)}
 .redesign-return-btn{flex:none;border:1px solid #8aa8b7;background:#edf6fa;color:#244b5d;border-radius:10px;padding:9px 13px;font-weight:700;cursor:pointer}.redesign-return-btn:hover{background:#e1f0f7}.redesign-return-btn.warning{border-color:#c8a878;background:#fff7e9;color:#76531e}
 @media(max-width:760px){.construction-design-actions{align-items:stretch;flex-direction:column}.redesign-return-btn{width:100%}}
+
+/* Pascal first-person walkthrough. The actual movement / collision / door interaction stays inside Pascal. */
+.viewer-mode-actions{display:flex;align-items:center;gap:7px}
+.open-walkthrough-control{border:1px solid #8d9aaa;background:#f4f6f8;color:#344654;border-radius:8px;padding:6px 11px;font-size:10px;font-weight:800;transition:.16s ease}
+.open-walkthrough-control:hover{background:#e9eef2}
+.open-walkthrough-control.active{background:#1f3542;color:#fff;border-color:#1f3542}
+.pascal-viewer-shell.is-walkthrough{background:#111820;box-shadow:inset 0 0 0 2px rgba(66,106,128,.2)}
+.pascal-viewer-shell canvas[data-walkthrough="true"]{cursor:crosshair}
+.walkthrough-overlay{position:absolute;inset:0;z-index:30;pointer-events:none;color:#fff;font-family:inherit}
+.walkthrough-topbar{position:absolute;top:10px;left:10px;right:10px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.walkthrough-topbar>div{max-width:min(620px,75%);padding:8px 11px;border:1px solid rgba(255,255,255,.16);border-radius:9px;background:rgba(17,28,35,.72);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.walkthrough-topbar b{display:block;font-size:11px;letter-spacing:.02em}.walkthrough-topbar span{display:block;margin-top:3px;font-size:9px;line-height:1.45;color:rgba(255,255,255,.76)}
+.walkthrough-topbar button{pointer-events:auto;border:1px solid rgba(255,255,255,.26);border-radius:8px;background:rgba(22,37,46,.8);color:#fff;padding:7px 10px;font-size:9px;font-weight:800;cursor:pointer}
+.walkthrough-crosshair{position:absolute;left:50%;top:50%;width:24px;height:24px;transform:translate(-50%,-50%);filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
+.walkthrough-crosshair i{position:absolute;left:50%;top:50%;display:block;background:rgba(255,255,255,.9);border-radius:99px;transform:translate(-50%,-50%)}
+.walkthrough-crosshair i:first-child{width:18px;height:2px}.walkthrough-crosshair i:last-child{width:2px;height:18px}
+.walkthrough-crosshair.interactive i{background:#a9e4bd}
+.walkthrough-interact-tip{position:absolute;left:50%;top:calc(50% + 27px);transform:translateX(-50%);min-width:145px;padding:6px 10px;border-radius:8px;background:rgba(15,29,35,.78);border:1px solid rgba(169,228,189,.4);text-align:center}
+.walkthrough-interact-tip b{display:block;font-size:10px;color:#d7f6e1}.walkthrough-interact-tip span{display:block;margin-top:2px;font-size:9px;color:rgba(255,255,255,.78)}
+.walkthrough-start-card{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);width:min(390px,calc(100% - 30px));padding:11px 14px;border:1px solid rgba(255,255,255,.2);border-radius:12px;background:rgba(17,30,38,.84);box-shadow:0 14px 42px rgba(0,0,0,.25);text-align:center}
+.walkthrough-start-card b,.walkthrough-start-card span,.walkthrough-start-card small{display:block}.walkthrough-start-card b{font-size:12px}.walkthrough-start-card span{margin-top:5px;font-size:10px;line-height:1.5;color:rgba(255,255,255,.82)}.walkthrough-start-card small{margin-top:6px;font-size:8px;color:rgba(255,255,255,.6)}
+@media(max-width:900px){.viewer-titlebar{height:auto;min-height:42px;flex-wrap:wrap}.viewer-mode-actions{gap:5px}.open-furniture-control,.open-walkthrough-control{padding:5px 8px}.walkthrough-topbar span{display:none}.walkthrough-topbar>div{padding:7px 9px}.walkthrough-start-card{bottom:10px}}
