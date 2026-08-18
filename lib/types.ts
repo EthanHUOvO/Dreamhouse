@@ -11,7 +11,7 @@ export type SceneNode = {
 }
 
 export type SceneGraph = { nodes: Record<string, SceneNode>; rootNodeIds: string[] }
-export type ScenarioType = 'single' | 'couple' | 'child' | 'nanny' | 'replan'
+export type ScenarioType = 'single' | 'single_female' | 'couple' | 'child' | 'nanny' | 'replan'
 export type RenovationPlan = { type: ScenarioType; title: string; summary: string; changes: string[] }
 export type DesignStatus = 'draft' | 'approved' | 'superseded'
 export type OrderStatus = 'design' | 'production' | 'transport' | 'construction' | 'acceptance' | 'completed'

@@ -144,3 +144,55 @@ v6 使用新的 localStorage key：
 `dreamhouse.pascal.walkthrough.orders.v6`
 
 因此部署后会生成包含漫游出生点的新演示订单，避免旧版本浏览器缓存继续加载不含 spawn 节点的历史 Scene。
+
+
+## v7：居住人数引导式方案选择
+
+设计页不再一次性平铺所有固定方案，而是按照居住需求逐步引导：
+
+1. 先选择居住人数：**单身贵族 / 双人世界 / 三口之家**；
+2. 单身贵族继续选择 **男士 / 女士**：
+   - 男士：保留电竞房 + 单人书房；
+   - 女士：电竞房改衣帽间，但仍保留单人书房；
+3. 双人世界直接使用原有 **两人共同居住方案**；
+4. 三口之家继续从原有两套方案中选择：
+   - **育儿家庭方案**；
+   - **育儿 + 保姆方案**。
+
+完成引导后点击 **“生成并应用方案”**，同一个 Scene 会继续进入 Pascal 3D、家具移动/拖拽/旋转、第一人称漫游、Design Version、BOM、生产和施工流程。
+
+
+## v8：第一人称漫游相机修复
+
+### 上一版为什么会出现“点击进入漫游，但镜头还停在俯视界面”
+
+上一版在 bare `<Viewer>` 中直接挂载了 Pascal Editor 导出的 `FirstPersonControls`，同时项目自身还维护了 `walkthroughMode`，普通展示又长期挂载了 `CameraControls makeDefault`。Pascal 官方的 FirstPersonControls 原本依赖 Editor 自身的 first-person 生命周期；在本项目这种精简 Viewer 宿主里，两套状态/相机生命周期并不完全一致，可能出现 UI 已经切到漫游状态，但真正的 Camera Controller 没有稳定接管相机。
+
+### v8 的处理
+
+- **没有更换 Pascal 3D 渲染器**，房屋、墙、门、窗、家具仍由 Pascal Viewer 渲染。
+- 不再把 Editor 内部的 `FirstPersonControls` 直接当作 bare Viewer 的完整模式管理器。
+- 新增 `PascalWalkthroughController.tsx`，专门负责当前页面的 first-person Camera 生命周期。
+- 点击“进入漫游”后，控制器挂载的第一帧就把**同一个 Pascal Camera**移动到 `spawn_walkthrough`：`[5.15, 1.65, 0.60]`。
+- 鼠标 Pointer Lock 只负责“鼠标看方向”，不再承担“进入第一人称”的职责。因此即使用户还没有再次点击 3D Canvas，画面也应该已经位于住宅内部。
+- 漫游状态下完全卸载普通 `CameraControls`，避免两套 Camera Controller 抢相机。
+- WASD/方向键：行走；Shift：加速；E/R 或鼠标左键：开/关面前的门；Esc：退出。
+- 增加轻量平面碰撞：外墙/内墙、关闭的门、家具会阻挡；打开门后对应墙洞允许通过。
+- 门的开关只属于漫游体验状态。退出漫游时恢复 Design Scene 中原本的门状态，不会污染 Design Version、BOM 或施工数据。
+
+### 漫游自检
+
+运行：
+
+```bash
+npm run test:walkthrough
+```
+
+测试会实际检查：
+
+1. 出生点不在墙/家具碰撞区；
+2. 从入户门内侧沿走廊可以移动；
+3. 主卧门关闭时不能穿墙；
+4. 主卧门打开后可以穿过门洞；
+5. 面向主卧门时可以正确识别交互门；
+6. 页面代码已经移除旧的 `FirstPersonControls + WalkthroughLifecycleBridge` 双状态实现。

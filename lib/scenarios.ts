@@ -73,6 +73,18 @@ function doorNode(id:string,wallId:string,distance:number,name:string):SceneNode
   }
 }
 
+
+function applySingleFemale(scene:SceneGraph){
+  // 单身女性：只把原电竞房改为衣帽间，书房仍保留单人书房。
+  setRoom(scene,'zone_gaming','衣帽间','dressing_room','#9b765d')
+  deleteRoomFurniture(scene,'zone_gaming')
+  ;[
+    furnitureItem('item_single_dress_closet_1','zone_gaming','closet',[5.15,0,2.15],Math.PI/2,[.72,1,.62]),
+    furnitureItem('item_single_dress_closet_2','zone_gaming','closet',[5.15,0,3.85],Math.PI/2,[.72,1,.62]),
+    furnitureItem('item_single_dress_dresser','zone_gaming','dresser',[2.25,0,3.85],0,[.68,1,.62])
+  ].forEach(n=>addLevelChild(scene,n))
+}
+
 function applyCouple(scene:SceneGraph){
   setRoom(scene,'zone_gaming','衣帽间','dressing_room','#9b765d')
   deleteRoomFurniture(scene,'zone_gaming')
@@ -169,6 +181,7 @@ function applyReplan(scene:SceneGraph){
 
 export function createScenarioScene(type:ScenarioType):SceneGraph{
   const scene=createInitialHouseScene()
+  if(type==='single_female')applySingleFemale(scene)
   if(type==='couple')applyCouple(scene)
   if(type==='child')applyChild(scene,false)
   if(type==='nanny')applyChild(scene,true)
@@ -187,9 +200,10 @@ export function scenarioFromPrompt(prompt:string):{scenario:ScenarioType;title:s
     return {scenario:'replan',title:'空间重新规划方案',summary:'将原儿童/电竞房拆分为书房与储物间，并将原书房调整为儿童房。'}
   }
   if(/保姆/.test(p))return {scenario:'nanny',title:'育儿 + 保姆方案',summary:'儿童房、保姆房、主卫、公卫共同形成育儿阶段方案。'}
-  if(/孩子|儿童|宝宝|育儿/.test(p))return {scenario:'child',title:'育儿家庭方案',summary:'电竞房调整为儿童房，并拆分主卫和公卫。'}
+  if(/孩子|儿童|宝宝|育儿|三口/.test(p))return {scenario:'child',title:'育儿家庭方案',summary:'电竞房调整为儿童房，并拆分主卫和公卫。'}
+  if(/单身|一人|一个人/.test(p)&&/女|女士|女性/.test(p))return {scenario:'single_female',title:'单身女性 · 衣帽间方案',summary:'保留单人书房，并将原电竞房调整为衣帽间。'}
   if(/结婚|两个人|伴侣|双人|衣帽/.test(p))return {scenario:'couple',title:'两人共同居住方案',summary:'电竞房改衣帽间，书房改双人书房。'}
-  return {scenario:'single',title:'单人居住方案',summary:'保留主卧、电竞房、书房、客餐厨和卫生间。'}
+  return {scenario:'single',title:'单身男性 · 电竞房方案',summary:'保留主卧、电竞房、单人书房、客餐厨和卫生间。'}
 }
 
 export function planFromPrompt(prompt:string):RenovationPlan{

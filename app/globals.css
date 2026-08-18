@@ -82,7 +82,7 @@
 .redesign-return-btn{flex:none;border:1px solid #8aa8b7;background:#edf6fa;color:#244b5d;border-radius:10px;padding:9px 13px;font-weight:700;cursor:pointer}.redesign-return-btn:hover{background:#e1f0f7}.redesign-return-btn.warning{border-color:#c8a878;background:#fff7e9;color:#76531e}
 @media(max-width:760px){.construction-design-actions{align-items:stretch;flex-direction:column}.redesign-return-btn{width:100%}}
 
-/* Pascal first-person walkthrough. The actual movement / collision / door interaction stays inside Pascal. */
+/* Pascal headless first-person walkthrough. Rendering remains Pascal Viewer; this page owns the camera lifecycle to avoid Editor/Viewer state conflicts. */
 .viewer-mode-actions{display:flex;align-items:center;gap:7px}
 .open-walkthrough-control{border:1px solid #8d9aaa;background:#f4f6f8;color:#344654;border-radius:8px;padding:6px 11px;font-size:10px;font-weight:800;transition:.16s ease}
 .open-walkthrough-control:hover{background:#e9eef2}
@@ -103,3 +103,13 @@
 .walkthrough-start-card{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);width:min(390px,calc(100% - 30px));padding:11px 14px;border:1px solid rgba(255,255,255,.2);border-radius:12px;background:rgba(17,30,38,.84);box-shadow:0 14px 42px rgba(0,0,0,.25);text-align:center}
 .walkthrough-start-card b,.walkthrough-start-card span,.walkthrough-start-card small{display:block}.walkthrough-start-card b{font-size:12px}.walkthrough-start-card span{margin-top:5px;font-size:10px;line-height:1.5;color:rgba(255,255,255,.82)}.walkthrough-start-card small{margin-top:6px;font-size:8px;color:rgba(255,255,255,.6)}
 @media(max-width:900px){.viewer-titlebar{height:auto;min-height:42px;flex-wrap:wrap}.viewer-mode-actions{gap:5px}.open-furniture-control,.open-walkthrough-control{padding:5px 8px}.walkthrough-topbar span{display:none}.walkthrough-topbar>div{padding:7px 9px}.walkthrough-start-card{bottom:10px}}
+
+
+/* Guided household selection */
+.guided-scheme-card{padding-bottom:12px}.guided-flow{padding:12px;display:flex;flex-direction:column;gap:12px;overflow:auto;max-height:calc(100% - 96px)}
+.guided-step{border:1px solid #dde6e9;border-radius:12px;background:#fbfcfd;padding:11px}.guided-followup{background:#f7fafb;border-color:#cfdee4}
+.guided-step-title{display:flex;align-items:center;gap:8px;margin-bottom:10px}.guided-step-title>span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#304c5a;color:#fff;font-size:11px;font-weight:900}.guided-step-title b{font-size:13px}
+.guided-choice-grid{display:grid;gap:8px}.household-grid{grid-template-columns:repeat(3,1fr)}.two-choice-grid{grid-template-columns:1fr 1fr}
+.guided-choice,.guided-result-option{border:1px solid #d5e0e4;background:#fff;border-radius:10px;padding:11px 9px;text-align:left;min-height:68px;display:flex;flex-direction:column;justify-content:center;gap:5px;transition:.16s ease}.guided-choice:hover:not(:disabled){transform:translateY(-1px);border-color:#8aabba;box-shadow:0 5px 14px #47677516}.guided-choice strong,.guided-result-option strong{font-size:12px}.guided-choice small,.guided-result-option small{font-size:10px;line-height:1.45;color:var(--muted)}.guided-choice.selected,.guided-result-option.selected{border-color:#7096a8;background:#edf6fa;box-shadow:inset 0 0 0 1px #a4c2cf}.guided-choice:disabled{opacity:.58;cursor:not-allowed}.guided-result-option{width:100%}
+.guided-result-card{border-radius:12px;padding:11px 12px;background:#263f4b;color:#fff}.guided-result-card span,.guided-result-card b{display:block}.guided-result-card span{font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em}.guided-result-card b{font-size:13px;margin-top:3px}.guided-result-card p{font-size:10px;line-height:1.5;margin:5px 0 0;color:#dce8ed}.guided-apply{margin-top:0}
+@media(max-width:1200px){.household-grid{grid-template-columns:1fr}.two-choice-grid{grid-template-columns:1fr}}

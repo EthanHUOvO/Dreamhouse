@@ -1,21 +1,21 @@
 
-> dreamhouse-pascal-walkthrough-doors@6.0.0 verify
-> npm run check:project && npm run check:syntax && npm run test:furniture && npm run test:workflow && npm run test:iterative && npm run test:walkthrough
+> dreamhouse-pascal-walkthrough-fixed@8.0.0 verify
+> npm run check:project && npm run check:syntax && npm run test:furniture && npm run test:workflow && npm run test:iterative && npm run test:walkthrough && npm run test:guided
 
 
-> dreamhouse-pascal-walkthrough-doors@6.0.0 check:project
+> dreamhouse-pascal-walkthrough-fixed@8.0.0 check:project
 > node scripts/check-project.mjs
 
 Dual portal structure: OK
 Pascal design -> save -> submit -> downstream workflow: OK
 Pascal first-person walkthrough + interactive doors integration: OK
 
-> dreamhouse-pascal-walkthrough-doors@6.0.0 check:syntax
+> dreamhouse-pascal-walkthrough-fixed@8.0.0 check:syntax
 > node scripts/check-syntax.mjs
 
-TS/TSX syntax: PASS (23 files, 0 errors)
+TS/TSX syntax: PASS (25 files, 0 errors)
 
-> dreamhouse-pascal-walkthrough-doors@6.0.0 test:furniture
+> dreamhouse-pascal-walkthrough-fixed@8.0.0 test:furniture
 > node scripts/test-furniture-edit.mjs
 
 Furniture edit logic: PASS
@@ -24,24 +24,33 @@ Bed rotation: -90° -> -75°
 Drag clamp result: X -2.08, Z 4.22
 Bathroom shower: X -1.15, Z 3.78
 
-> dreamhouse-pascal-walkthrough-doors@6.0.0 test:workflow
+> dreamhouse-pascal-walkthrough-fixed@8.0.0 test:workflow
 > node scripts/test-continuous-workflow.mjs
 
 Continuous design workflow: PASS
 Approved V2 -> Draft V3 -> Submitted -> Accepted -> Production
 BOM regenerated from approved Scene: walls=10, furniture=22
 
-> dreamhouse-pascal-walkthrough-doors@6.0.0 test:iterative
+> dreamhouse-pascal-walkthrough-fixed@8.0.0 test:iterative
 > node scripts/test-iterative-redesign.mjs
 
 Iterative redesign workflow: PASS
 Approved V2 -> Draft V3 -> Submit -> Withdraw -> Resubmit -> Accept -> Draft V4
 Approved versions remain protected until contractor acceptance.
 
-> dreamhouse-pascal-walkthrough-doors@6.0.0 test:walkthrough
+> dreamhouse-pascal-walkthrough-fixed@8.0.0 test:walkthrough
 > node scripts/test-walkthrough.mjs
 
-Pascal walkthrough integration: PASS
-Spawn: X 5.15, Y 0.00, Z 0.60
-Interactive door-ready nodes: 5
-Controls wired: WASD/mouse via Pascal FirstPersonControls, pointer lock lifecycle, native door targeting/toggle path.
+Pascal headless walkthrough runtime: PASS
+Indoor spawn: X 5.15, eyeY 1.65, Z 0.60
+Corridor move: X 5.15 -> 3.50
+Closed door stop Z: 0.88; opened door pass Z: 1.65
+Camera switch, WASD, mouse-look/pointer-lock, collision and door open/close paths are wired.
+
+> dreamhouse-pascal-walkthrough-fixed@8.0.0 test:guided
+> node scripts/test-guided-scenarios.mjs
+
+Guided household selection: PASS
+1 person: male -> gaming room; female -> dressing room + single study
+2 people: existing couple plan
+3-person family: child plan / child + nanny plan

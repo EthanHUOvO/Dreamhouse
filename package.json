@@ -1,6 +1,6 @@
 {
-  "name": "dreamhouse-pascal-walkthrough-doors",
-  "version": "6.0.0",
+  "name": "dreamhouse-pascal-walkthrough-fixed",
+  "version": "8.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000",
@@ -9,10 +9,11 @@
     "check:project": "node scripts/check-project.mjs",
     "test:furniture": "node scripts/test-furniture-edit.mjs",
     "check:syntax": "node scripts/check-syntax.mjs",
-    "verify": "npm run check:project && npm run check:syntax && npm run test:furniture && npm run test:workflow && npm run test:iterative && npm run test:walkthrough",
+    "verify": "npm run check:project && npm run check:syntax && npm run test:furniture && npm run test:workflow && npm run test:iterative && npm run test:walkthrough && npm run test:guided",
     "test:workflow": "node scripts/test-continuous-workflow.mjs",
     "test:iterative": "node scripts/test-iterative-redesign.mjs",
-    "test:walkthrough": "node scripts/test-walkthrough.mjs"
+    "test:walkthrough": "node scripts/test-walkthrough.mjs",
+    "test:guided": "node scripts/test-guided-scenarios.mjs"
   },
   "dependencies": {
     "@pascal-app/core": "1.0.0-beta.4",

@@ -8,13 +8,56 @@ import { createScenarioScene } from '@/lib/scenarios'
 import type { Order, ScenarioType, SceneGraph } from '@/lib/types'
 import { cloneScene, moveFurniture, placeFurniture, rotateFurniture } from '@/lib/furniture-edit'
 
-const SCHEMES: { scenario: ScenarioType; title: string; summary: string }[] = [
-  { scenario: 'single', title: '单人居住方案', summary: '主卧、书房、客餐厨一体与开放走廊。' },
-  { scenario: 'couple', title: '两人共同居住方案', summary: '电竞房改为衣帽间，书房改为双人书房。' },
-  { scenario: 'child', title: '育儿家庭方案', summary: '电竞房改为儿童房，卫生间拆分为主卫和公卫。' },
-  { scenario: 'nanny', title: '育儿 + 保姆方案', summary: '增加儿童房、保姆房、主卫和公卫。' },
-  { scenario: 'replan', title: '空间重新规划方案', summary: '南侧房间拆成书房 + 储物间，原书房改儿童房。' },
-]
+const SCHEMES: Record<ScenarioType, { scenario: ScenarioType; title: string; summary: string }> = {
+  single: {
+    scenario: 'single',
+    title: '单身男性 · 电竞房方案',
+    summary: '保留单人书房，并将独立兴趣房保留为电竞房。',
+  },
+  single_female: {
+    scenario: 'single_female',
+    title: '单身女性 · 衣帽间方案',
+    summary: '保留单人书房，并将原电竞房调整为独立衣帽间。',
+  },
+  couple: {
+    scenario: 'couple',
+    title: '双人世界方案',
+    summary: '沿用原来的双人方案：电竞房改为衣帽间，书房改为双人书房。',
+  },
+  child: {
+    scenario: 'child',
+    title: '育儿家庭方案',
+    summary: '沿用原育儿方案：电竞房改为儿童房，卫生间拆分为主卫和公卫。',
+  },
+  nanny: {
+    scenario: 'nanny',
+    title: '育儿 + 保姆方案',
+    summary: '沿用原育儿 + 保姆方案：儿童房、保姆房、主卫和公卫共同形成家庭空间。',
+  },
+  replan: {
+    scenario: 'replan',
+    title: '空间重新规划方案',
+    summary: '旧版本保留项。可通过上方居住人数引导重新选择新的居住方案。',
+  },
+}
+
+type HouseholdChoice = 'single' | 'couple' | 'family3'
+type SingleGender = 'male' | 'female'
+type FamilyPlan = 'child' | 'nanny'
+
+function guidanceFromScenario(scenario: ScenarioType): {
+  household: HouseholdChoice | null
+  gender: SingleGender | null
+  familyPlan: FamilyPlan | null
+} {
+  if (scenario === 'single') return { household: 'single', gender: 'male', familyPlan: null }
+  if (scenario === 'single_female') return { household: 'single', gender: 'female', familyPlan: null }
+  if (scenario === 'couple') return { household: 'couple', gender: null, familyPlan: null }
+  if (scenario === 'child') return { household: 'family3', gender: null, familyPlan: 'child' }
+  if (scenario === 'nanny') return { household: 'family3', gender: null, familyPlan: 'nanny' }
+  return { household: null, gender: null, familyPlan: null }
+}
+
 
 export default function CustomerDesign({
   order,
@@ -37,7 +80,11 @@ export default function CustomerDesign({
   const changeSubmitted = order.changeRequest?.status === 'submitted'
   const editableMode = order.status === 'design' || (redesign && !changeSubmitted)
 
+  const initialGuidance = guidanceFromScenario(editable.scenario)
   const [chosen, setChosen] = useState<ScenarioType>(editable.scenario)
+  const [household, setHousehold] = useState<HouseholdChoice | null>(initialGuidance.household)
+  const [singleGender, setSingleGender] = useState<SingleGender | null>(initialGuidance.gender)
+  const [familyPlan, setFamilyPlan] = useState<FamilyPlan | null>(initialGuidance.familyPlan)
   const [revision, setRevision] = useState(0)
   const [scene, setScene] = useState<SceneGraph>(() => cloneScene(editable.scene))
   const [furnitureEditMode, setFurnitureEditMode] = useState(false)
@@ -48,6 +95,10 @@ export default function CustomerDesign({
   useEffect(() => {
     setScene(cloneScene(editable.scene))
     setChosen(editable.scenario)
+    const guidance = guidanceFromScenario(editable.scenario)
+    setHousehold(guidance.household)
+    setSingleGender(guidance.gender)
+    setFamilyPlan(guidance.familyPlan)
     setFurnitureEditMode(false)
     setWalkthroughMode(false)
     setSelectedItemId('')
@@ -64,16 +115,50 @@ export default function CustomerDesign({
     }
   }, [editableMode])
 
-  const currentScheme = useMemo(
-    () => SCHEMES.find((scheme) => scheme.scenario === chosen) ?? SCHEMES[0],
-    [chosen],
-  )
+  const currentScheme = useMemo(() => SCHEMES[chosen], [chosen])
 
   const selectedItem: any = selectedItemId ? scene.nodes[selectedItemId] : null
   const selectedRoomName = selectedItem
     ? (scene.nodes[selectedItem.metadata?.room_id]?.name ?? '未分类空间')
     : ''
   const selectedItemLabel = selectedItem ? `${selectedRoomName} · ${selectedItem.name}` : ''
+
+  function chooseHousehold(next: HouseholdChoice) {
+    if (!editableMode) return
+    setHousehold(next)
+    setFurnitureEditMode(false)
+    setWalkthroughMode(false)
+    setSelectedItemId('')
+    if (next === 'single') {
+      const gender = singleGender ?? 'male'
+      setSingleGender(gender)
+      setFamilyPlan(null)
+      setChosen(gender === 'female' ? 'single_female' : 'single')
+      return
+    }
+    if (next === 'couple') {
+      setSingleGender(null)
+      setFamilyPlan(null)
+      setChosen('couple')
+      return
+    }
+    const plan = familyPlan ?? 'child'
+    setSingleGender(null)
+    setFamilyPlan(plan)
+    setChosen(plan)
+  }
+
+  function chooseSingleGender(gender: SingleGender) {
+    if (!editableMode) return
+    setSingleGender(gender)
+    setChosen(gender === 'female' ? 'single_female' : 'single')
+  }
+
+  function chooseFamilyPlan(plan: FamilyPlan) {
+    if (!editableMode) return
+    setFamilyPlan(plan)
+    setChosen(plan)
+  }
 
   function applyScheme() {
     if (!editableMode) return
@@ -196,27 +281,105 @@ export default function CustomerDesign({
       </div>
 
       <div className="design-columns">
-        <section className="card interaction-card fixed-scheme-card">
-          <div className="card-title">固定方案选择</div>
-          <div className="scheme-intro">
-            <b>{currentScheme.title}</b>
-            <span>{currentScheme.summary}</span>
+        <section className="card interaction-card guided-scheme-card">
+          <div className="card-title">居住需求引导</div>
+          <div className="guided-flow">
+            <div className="guided-step">
+              <div className="guided-step-title"><span>1</span><b>请选择居住人数</b></div>
+              <div className="guided-choice-grid household-grid">
+                <button
+                  className={`guided-choice ${household === 'single' ? 'selected' : ''}`}
+                  onClick={() => chooseHousehold('single')}
+                  disabled={!editableMode}
+                >
+                  <strong>单身贵族</strong>
+                  <small>1 人居住</small>
+                </button>
+                <button
+                  className={`guided-choice ${household === 'couple' ? 'selected' : ''}`}
+                  onClick={() => chooseHousehold('couple')}
+                  disabled={!editableMode}
+                >
+                  <strong>双人世界</strong>
+                  <small>2 人居住</small>
+                </button>
+                <button
+                  className={`guided-choice ${household === 'family3' ? 'selected' : ''}`}
+                  onClick={() => chooseHousehold('family3')}
+                  disabled={!editableMode}
+                >
+                  <strong>三口之家</strong>
+                  <small>家庭居住</small>
+                </button>
+              </div>
+            </div>
+
+            {household === 'single' && (
+              <div className="guided-step guided-followup">
+                <div className="guided-step-title"><span>2</span><b>请选择居住者</b></div>
+                <div className="guided-choice-grid two-choice-grid">
+                  <button
+                    className={`guided-choice detail-choice ${singleGender === 'male' ? 'selected' : ''}`}
+                    onClick={() => chooseSingleGender('male')}
+                    disabled={!editableMode}
+                  >
+                    <strong>男士</strong>
+                    <small>保留电竞房 + 单人书房</small>
+                  </button>
+                  <button
+                    className={`guided-choice detail-choice ${singleGender === 'female' ? 'selected' : ''}`}
+                    onClick={() => chooseSingleGender('female')}
+                    disabled={!editableMode}
+                  >
+                    <strong>女士</strong>
+                    <small>衣帽间 + 单人书房</small>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {household === 'couple' && (
+              <div className="guided-step guided-followup">
+                <div className="guided-step-title"><span>2</span><b>双人世界推荐</b></div>
+                <button className="guided-result-option selected" disabled>
+                  <strong>两人共同居住方案</strong>
+                  <small>衣帽间 + 双人书房，沿用你之前确定的双人方案。</small>
+                </button>
+              </div>
+            )}
+
+            {household === 'family3' && (
+              <div className="guided-step guided-followup">
+                <div className="guided-step-title"><span>2</span><b>请选择家庭方案</b></div>
+                <div className="guided-choice-grid two-choice-grid">
+                  <button
+                    className={`guided-choice detail-choice ${familyPlan === 'child' ? 'selected' : ''}`}
+                    onClick={() => chooseFamilyPlan('child')}
+                    disabled={!editableMode}
+                  >
+                    <strong>育儿家庭方案</strong>
+                    <small>儿童房 + 主卫 / 公卫</small>
+                  </button>
+                  <button
+                    className={`guided-choice detail-choice ${familyPlan === 'nanny' ? 'selected' : ''}`}
+                    onClick={() => chooseFamilyPlan('nanny')}
+                    disabled={!editableMode}
+                  >
+                    <strong>育儿 + 保姆方案</strong>
+                    <small>儿童房 + 保姆房 + 主卫 / 公卫</small>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <div className="guided-result-card">
+              <span>当前将生成</span>
+              <b>{currentScheme.title}</b>
+              <p>{currentScheme.summary}</p>
+            </div>
           </div>
-          <div className="scheme-list">
-            {SCHEMES.map((scheme) => (
-              <button
-                key={scheme.scenario}
-                className={`scheme-item ${chosen === scheme.scenario ? 'selected' : ''}`}
-                onClick={() => setChosen(scheme.scenario)}
-                disabled={!editableMode}
-              >
-                <b>{scheme.title}</b>
-                <span>{scheme.summary}</span>
-              </button>
-            ))}
-          </div>
-          <button className="primary" onClick={applyScheme} disabled={!editableMode}>
-            应用并保存当前方案
+          <button className="primary guided-apply" onClick={applyScheme} disabled={!editableMode || !household}>
+            生成并应用方案
           </button>
         </section>
 

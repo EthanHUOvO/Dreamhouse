@@ -2,13 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { emitter, loadPlugin, sceneRegistry } from '@pascal-app/core'
-import { applySceneSnapshot, FirstPersonControls } from '@pascal-app/editor'
-import { InteractiveSystem, Viewer, useViewer } from '@pascal-app/viewer'
+import { applySceneSnapshot } from '@pascal-app/editor'
+import { Viewer, useViewer } from '@pascal-app/viewer'
 import { builtinPlugin } from '@pascal-app/nodes'
 import { CameraControls } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Plane, Raycaster, Vector2, Vector3 } from 'three'
 import type { SceneGraph } from '@/lib/types'
+import PascalWalkthroughController from '@/components/shared/PascalWalkthroughController'
 import { clampValue, FURNITURE_MOVE_STEP, FURNITURE_ROTATE_STEP_DEG, getFurnitureBounds } from '@/lib/furniture-edit'
 
 const pluginReady = loadPlugin(builtinPlugin)
@@ -56,72 +57,15 @@ function CameraRig({
   )
 }
 
-function WalkthroughLifecycleBridge({
-  active,
-  onExit,
-  onPointerLockChange,
-}: {
-  active: boolean
-  onExit?: () => void
-  onPointerLockChange: (locked: boolean) => void
-}) {
-  const { gl } = useThree()
-  const hadPointerLock = useRef(false)
-
-  useEffect(() => {
-    if (!active) return
-    const canvas = gl.domElement
-    hadPointerLock.current = false
-    canvas.dataset.walkthrough = 'true'
-    canvas.style.cursor = 'crosshair'
-    canvas.style.touchAction = 'none'
-
-    const handlePointerLockChange = () => {
-      const locked = document.pointerLockElement === canvas
-      onPointerLockChange(locked)
-      if (locked) {
-        hadPointerLock.current = true
-        return
-      }
-      // Pascal's P key temporarily releases the pointer for screenshots; that
-      // pause must not be interpreted as leaving walkthrough mode.
-      if (hadPointerLock.current && !useViewer.getState().walkthroughSuspended) {
-        onExit?.()
-      }
-    }
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.code !== 'Escape') return
-      event.preventDefault()
-      if (document.pointerLockElement === canvas) document.exitPointerLock()
-      onExit?.()
-    }
-
-    document.addEventListener('pointerlockchange', handlePointerLockChange)
-    document.addEventListener('keydown', handleKeyDown, true)
-    handlePointerLockChange()
-
-    return () => {
-      document.removeEventListener('pointerlockchange', handlePointerLockChange)
-      document.removeEventListener('keydown', handleKeyDown, true)
-      delete canvas.dataset.walkthrough
-      canvas.style.cursor = ''
-      canvas.style.touchAction = ''
-      onPointerLockChange(false)
-      if (document.pointerLockElement === canvas) document.exitPointerLock()
-    }
-  }, [active, gl, onExit, onPointerLockChange])
-
-  return null
-}
-
 function WalkthroughOverlay({
   scene,
   pointerLocked,
+  ready,
   onExit,
 }: {
   scene: SceneGraph
   pointerLocked: boolean
+  ready: boolean
   onExit?: () => void
 }) {
   const hoveredId = useViewer((state) => state.hoveredId)
@@ -151,10 +95,16 @@ function WalkthroughOverlay({
         </div>
       )}
 
-      {!pointerLocked && (
+      {!ready && (
         <div className="walkthrough-start-card">
-          <b>点击 3D 画面开始行走</b>
-          <span>鼠标将锁定到画面中。靠近门并把准星对准门，点击左键或按 E 即可开关。</span>
+          <b>正在切换到室内视角…</b>
+          <span>系统正在把 Pascal 相机移动到入户门内侧。</span>
+        </div>
+      )}
+      {ready && !pointerLocked && (
+        <div className="walkthrough-start-card">
+          <b>已经进入住宅内部 · 点击 3D 画面锁定鼠标</b>
+          <span>现在镜头已经位于入户门内侧。点击画面后即可用鼠标转向；靠近门按 E 或点击左键开关门。</span>
           <small>W / S 前后 · A / D 左右 · Shift 加速 · Esc 返回俯视模型</small>
         </div>
       )}
@@ -384,6 +334,7 @@ export default function PascalViewer({
   const [interactionActive, setInteractionActive] = useState(false)
   const [anchor, setAnchor] = useState<Anchor | null>(null)
   const [pointerLocked, setPointerLocked] = useState(false)
+  const [walkthroughReady, setWalkthroughReady] = useState(false)
 
   useEffect(() => {
     let disposed = false
@@ -425,6 +376,7 @@ export default function PascalViewer({
     if (walkthroughMode) {
       setAnchor(null)
       setInteractionActive(false)
+      setWalkthroughReady(false)
       viewer.setCameraMode('perspective')
       viewer.setWallMode('up')
       viewer.setWalkthroughMode(true)
@@ -434,6 +386,7 @@ export default function PascalViewer({
 
     viewer.setWalkthroughMode(false)
     viewer.setWalkthroughSuspended(false)
+    setWalkthroughReady(false)
     viewer.setHoveredId(null)
     viewer.setWallMode('cutaway')
     setPointerLocked(false)
@@ -445,14 +398,16 @@ export default function PascalViewer({
     <div className={`pascal-viewer-shell ${editMode ? 'is-furniture-editing' : ''} ${walkthroughMode ? 'is-walkthrough' : ''}`}>
       <div className="pascal-viewer">
         <Viewer
-          selectionManager={walkthroughMode ? 'default' : 'custom'}
+          selectionManager="custom"
           maxFps={walkthroughMode ? 60 : 50}
         >
-          <CameraRig
-            revision={revision}
-            interactionActive={interactionActive}
-            walkthroughMode={walkthroughMode}
-          />
+          {!walkthroughMode && (
+            <CameraRig
+              revision={revision}
+              interactionActive={interactionActive}
+              walkthroughMode={false}
+            />
+          )}
           {!walkthroughMode && (
             <FurnitureInteractionBridge
               scene={scene}
@@ -465,15 +420,13 @@ export default function PascalViewer({
             />
           )}
           {walkthroughMode && (
-            <>
-              <InteractiveSystem />
-              <FirstPersonControls />
-              <WalkthroughLifecycleBridge
-                active={walkthroughMode}
-                onExit={onExitWalkthrough}
-                onPointerLockChange={setPointerLocked}
-              />
-            </>
+            <PascalWalkthroughController
+              scene={scene}
+              active={walkthroughMode}
+              onExit={onExitWalkthrough}
+              onPointerLockChange={setPointerLocked}
+              onReadyChange={setWalkthroughReady}
+            />
           )}
         </Viewer>
       </div>
@@ -482,6 +435,7 @@ export default function PascalViewer({
         <WalkthroughOverlay
           scene={scene}
           pointerLocked={pointerLocked}
+          ready={walkthroughReady}
           onExit={onExitWalkthrough}
         />
       )}

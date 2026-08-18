@@ -142,7 +142,7 @@ export function createInitialHouseScene():SceneGraph{
   }
 
   // 第一人称漫游出生点：位于东侧入户门内侧，面向住宅内部。
-  // visible:false 只隐藏出生点标记，不影响 FirstPersonControls 读取 position / rotation。
+  // visible:false 只隐藏出生点标记，不影响漫游控制器读取 position / rotation。
   nodes.spawn_walkthrough={
     object:'node',id:'spawn_walkthrough',type:'spawn',parentId:LEVEL,visible:false,name:'漫游出生点',
     position:[5.15,0,0.60],rotation:Math.PI/2,supportSlabId:FLOOR,
