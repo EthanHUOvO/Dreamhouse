@@ -1,27 +1,23 @@
-# Dreamhouse Pascal Walkthrough v8 Verification
+# Verification
 
-本版本重点修复“点击进入漫游后仍停留在原俯视/轴测相机”的问题。
+目标：验证这一版仅使用本地预设资源，且用户提供的 BOM 数据完整进入网页。
 
-验证命令：
+已检查：
+
+- 4 张页面结果图片存在；
+- 2 份原始 Excel 被保留在 `public/bom/`；
+- PC BOM 数据行：41；
+- 连接材料及辅材：12；
+- 构件汇总：17；
+- 全屋 BOM：42；
+- 预算汇总：7；
+- 按键 1 / 2 / 3 与 Prompt 样板存在；
+- 按键 1 生成结果、渲染图和 BOM 展开逻辑存在；
+- 页面代码不包含 `/api/` 调用；
+- GitHub Pages 静态导出配置存在。
+
+运行：
 
 ```bash
 npm run verify
 ```
-
-验证内容：
-
-- 项目双端结构与 Design Version 连续流程；
-- 23+ TS/TSX 源文件语法解析；
-- 家具前后左右、旋转、拖动逻辑；
-- 设计提交/撤回/再次提交/施工方接受/BOM 同步；
-- 引导式家庭方案；
-- 第一人称室内出生点；
-- 第一人称走廊移动；
-- 墙体/家具碰撞；
-- 关闭门阻挡；
-- 打开门允许通过；
-- 面向门的交互目标识别；
-- Pascal Viewer 在漫游期间卸载普通 CameraControls；
-- 第一人称相机在控制器挂载后立即写入室内 spawn，不依赖 Pointer Lock 才切镜头。
-
-说明：当前执行容器不能稳定访问 npm registry，因此不能重新下载完整 Pascal/Next 依赖做 fresh `next build`。本项目的离线验证脚本与 TypeScript 语法解析均会实际执行；GitHub Actions 仍设置为 build 成功后才部署。

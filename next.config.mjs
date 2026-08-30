@@ -1,6 +1,6 @@
 const isGitHubPages = process.env.GITHUB_ACTIONS === 'true'
-const repo = process.env.GITHUB_REPOSITORY?.split('/')[1] || 'Dreamhouse'
-const basePath = isGitHubPages ? `/${repo}` : ''
+const repo = process.env.GITHUB_REPOSITORY?.split('/')[1] || ''
+const basePath = isGitHubPages && repo ? `/${repo}` : ''
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -9,14 +9,8 @@ const nextConfig = {
   assetPrefix: basePath,
   trailingSlash: true,
   images: { unoptimized: true },
-  // Pascal beta packages currently expose source-level type errors that do
-  // not affect the statically exported viewer at runtime.
   typescript: { ignoreBuildErrors: true },
-  transpilePackages: [
-    '@pascal-app/core',
-    '@pascal-app/viewer',
-    '@pascal-app/editor',
-    '@pascal-app/nodes'
-  ]
+  env: { NEXT_PUBLIC_BASE_PATH: basePath }
 }
+
 export default nextConfig

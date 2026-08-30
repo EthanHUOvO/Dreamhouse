@@ -1,2 +1,5 @@
-import HomePortal from '@/components/HomePortal'
-export default function Page(){return <HomePortal/>}
+import PresetDemoPage from '@/components/PresetDemoPage'
+
+export default function Page() {
+  return <PresetDemoPage />
+}
