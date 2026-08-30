@@ -1,13 +1,15 @@
-DreamHouse v10 Preset Demo v1 verification
+DreamHouse V10 Preset Demo v10.5 verification
 
-PASS: preset assets
-PASS: imported BOM JSON rows 41 / 12 / 17 / 42 / 7
-PASS: preset buttons and prompt workflow
+PASS: original two-bedroom preset retained
+PASS: one-bedroom original + 3 plans + 3 renders
+PASS: Preset 02 = 增加一个卫生间
+PASS: Preset 01 remains reserved for later upload
+PASS: generic prompt maps to 1室1厅2卫1厨
+PASS: one-bedroom BOM JSON item counts 38 / 42 / 42
+PASS: BOM formula quantities populated in static JSON
 PASS: no external API dependency
-PASS: GitHub Pages static export configuration present
+PASS: GitHub Pages basePath-safe asset helper retained
 
-Additional environment note:
-- npm install was attempted in the execution environment but the registry request timed out.
-- The project intentionally has no API/server requirement and uses only Next.js + React dependencies.
-- Run `npm install && npm run verify && npm run build` in a normal network environment before deployment.
-- The two supplied generated 2D result files are byte/pixel-equivalent, so the result switch works but currently looks identical until the second asset is replaced.
+Build note:
+- npm install --offline could not run because required packages are not cached in this execution environment.
+- npm run verify completed successfully.
