@@ -43,6 +43,7 @@ checkJson('public/data/one-bedroom/add-bedroom-bom-plan-02.json')
 checkJson('public/data/one-bedroom/add-bedroom-bom-plan-03.json')
 
 const component = fs.readFileSync(path.join(root, 'components/PresetDemoPage.tsx'), 'utf8')
+const bridge = fs.readFileSync(path.join(root, 'server/bambu-api.mjs'), 'utf8')
 for (const text of [
   '增加一个卧室','增加一个卫生间','同时增加卧室 + 卫生间','生成方案','BOM 清单',
   '在这张图的基础上，整体户型变成升级成二室一厅二卫一厨的格局。',
@@ -51,11 +52,14 @@ for (const text of [
 ]) {
   if (!component.includes(text)) { console.error('UI marker missing:', text); failed = true }
 }
-if (component.includes('/api/')) { console.error('Static preset demo should not call API routes'); failed = true }
 
+if (failed) process.exit(1)
+for (const marker of ['/api/bambu/status', '/api/bambu/command', 'BAMBU_PRINTER_IP', 'BAMBU_ACCESS_CODE']) {
+  if (!bridge.includes(marker)) { console.error('Bambu bridge marker missing:', marker); failed = true }
+}
 if (failed) process.exit(1)
 console.log('PASS: original two-bedroom preset retained')
 console.log('PASS: one-bedroom preset 01 (add bedroom) integrated with 3 plans + 3 renders + 3 BOMs')
 console.log('PASS: one-bedroom preset 02 (add bathroom) retained')
 console.log('PASS: one-bedroom original image kept for comparison')
-console.log('PASS: no external API dependency')
+console.log('PASS: Bambu bridge integration markers present')

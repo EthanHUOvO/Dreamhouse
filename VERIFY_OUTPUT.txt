@@ -7,7 +7,7 @@ PASS: Preset 01 remains reserved for later upload
 PASS: generic prompt maps to 1室1厅2卫1厨
 PASS: one-bedroom BOM JSON item counts 38 / 42 / 42
 PASS: BOM formula quantities populated in static JSON
-PASS: no external API dependency
+PASS: Bambu bridge integration markers present
 PASS: GitHub Pages basePath-safe asset helper retained
 
 Build note:

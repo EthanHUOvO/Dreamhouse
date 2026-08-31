@@ -4,7 +4,7 @@ const basePath = isGitHubPages && repo ? `/${repo}` : ''
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  ...(isGitHubPages ? { output: 'export' } : {}),
   basePath,
   assetPrefix: basePath,
   trailingSlash: true,

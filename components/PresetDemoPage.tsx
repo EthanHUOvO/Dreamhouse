@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 type PresetKey = 'add-bedroom' | 'add-bathroom' | 'both'
 type BomBundle = {
@@ -48,6 +48,68 @@ type OneCaseMeta = {
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const asset = (path: string) => `${BASE}${path}`
+const BAMBU_API = process.env.NEXT_PUBLIC_BAMBU_API_URL || 'http://localhost:3030'
+
+type BambuStatus = { configured?: boolean; connected?: boolean; error?: string; printer?: { status: string; progress: number; task: string }; device?: { model: string }; camera?: { configured: boolean; url: string | null }; model?: { configured: boolean; file: string | null } }
+
+function BambuPanel() {
+  const [status, setStatus] = useState<BambuStatus | null>(null)
+  const [busy, setBusy] = useState(false)
+  const [message, setMessage] = useState('正在检查本机桥接服务…')
+  const [cameraOpen, setCameraOpen] = useState(false)
+  const [cameraError, setCameraError] = useState('')
+  const [cameraTick, setCameraTick] = useState(0)
+  const [cameraNonce, setCameraNonce] = useState(0)
+  const cameraReconnectTimer = useRef<number | null>(null)
+  async function refresh(updateMessage = true) {
+    try {
+      const response = await fetch(`${BAMBU_API}/api/bambu/status`, { cache: 'no-store' })
+      const data = await response.json() as BambuStatus
+      setStatus(data)
+      if (updateMessage) setMessage(data.error || (data.connected ? '已连接拓竹局域网 MQTT' : data.configured ? '已配置但暂时无法连接' : '尚未配置拓竹连接信息'))
+    } catch { setStatus(null); setMessage('本机桥接服务未启动，请运行 npm run bambu-api') }
+  }
+  useEffect(() => { refresh(); const timer = window.setInterval(refresh, 15000); return () => window.clearInterval(timer) }, [])
+  useEffect(() => {
+    if (!cameraOpen) return
+    setCameraError('')
+    setCameraNonce(Date.now())
+    const timer = window.setInterval(() => setCameraTick(Date.now()), 2500)
+    return () => {
+      window.clearInterval(timer)
+      if (cameraReconnectTimer.current !== null) window.clearTimeout(cameraReconnectTimer.current)
+      cameraReconnectTimer.current = null
+    }
+  }, [cameraOpen])
+  async function command(commandName: 'start' | 'pause' | 'resume' | 'stop') {
+    setBusy(true)
+    try {
+      const response = await fetch(`${BAMBU_API}/api/bambu/command`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ command: commandName }) })
+      const data = await response.json() as { error?: string, command?: string }
+      const label = commandName === 'start' ? '开始' : commandName === 'pause' ? '暂停' : commandName === 'resume' ? '继续' : '停止'
+      setMessage(data.error || (data.command ? `打印机已确认${label}命令` : `${label}命令未获确认`))
+      await refresh(false)
+    } catch { setMessage('命令发送失败，请检查桥接服务') } finally { setBusy(false) }
+  }
+  function openCamera() { setCameraError(''); setCameraNonce(Date.now()); setCameraOpen(true) }
+  function retryCamera() {
+    if (!cameraOpen || cameraReconnectTimer.current !== null) return
+    setCameraError('摄像头连接中断，正在自动重连…')
+    cameraReconnectTimer.current = window.setTimeout(() => {
+      cameraReconnectTimer.current = null
+      setCameraError('')
+      setCameraNonce(Date.now())
+    }, 1500)
+  }
+  const printer = status?.printer
+  const cameraSource = status?.device?.model === 'H2C'
+    ? `${BAMBU_API}/api/bambu/camera/stream?session=${cameraNonce}`
+    : `${BAMBU_API}/api/bambu/camera/snapshot?ts=${cameraTick}`
+  return <section className="device-section card">
+    <div className="section-heading"><div><span>07</span><div><b>拓竹打印机与摄像头</b><small>本机局域网桥接 · MQTT 状态与控制</small></div></div><em className={status?.connected ? 'device-online' : ''}>{status?.connected ? '已连接' : '未连接'}</em></div>
+    <div className="device-panel"><div className="device-main"><div className="device-led" data-online={status?.connected ? 'true' : 'false'} /><div><b>{printer?.task || 'Printer bridge'}</b><span>{message}</span></div></div><div className="device-metrics"><div><small>设备</small><b>{status?.device?.model || '—'}</b></div><div><small>状态</small><b>{printer?.status || '—'}</b></div><div><small>进度</small><b>{printer ? `${printer.progress}%` : '—'}</b></div><div><small>模型</small><b>{status?.model?.configured ? '已配置' : '未配置'}</b></div></div><div className="device-actions"><button disabled={busy || !status?.connected || !status?.model?.configured} onClick={() => command('start')}>开始</button><button disabled={busy || !status?.connected} onClick={() => command('stop')}>停止</button><button disabled={busy || !status?.connected} onClick={() => command('pause')}>暂停</button><button disabled={busy || !status?.connected} onClick={() => command('resume')}>继续</button><button className="refresh-device" onClick={() => refresh()}>刷新状态</button><button disabled={!status?.camera?.url} onClick={openCamera}>开启摄像头</button></div><div className="device-progress"><div><span>打印进度</span><b>{printer ? `${printer.progress}%` : '—'}</b></div><div className="device-progress-track"><i style={{ width: `${printer?.progress || 0}%` }} /></div></div>{cameraOpen && <div className="camera-monitor"><div className="camera-monitor-heading"><b>实时摄像头</b><button onClick={() => setCameraOpen(false)}>关闭</button></div>{cameraError ? <div className="camera-error">{cameraError}</div> : <img key={cameraNonce} src={cameraSource} alt="拓竹打印机实时摄像头" onError={retryCamera} />}</div>}</div>
+  </section>
+}
 
 const TWO_PRESETS: PresetConfig = {
   'add-bedroom': {
@@ -359,10 +421,12 @@ export default function PresetDemoPage() {
           <div>
             <span className="eyebrow">PRESET RESIDENTIAL RECONFIGURATION</span>
             <h1>户型升级预设演示</h1>
-            <p>先用确定的样板把“需求描述 → 多方案结果 → 渲染图 → BOM”完整串起来。本版本不调用外部 API，后续只需要替换生成动作即可。</p>
+            <p>先用确定的样板把“需求描述 → 多方案结果 → 渲染图 → BOM”完整串起来；拓竹设备通过本机桥接服务提供状态读取与控制。</p>
           </div>
           <div className="intro-status"><i /><div><b>Preset Mode</b><span>当前使用本地预设资源</span></div></div>
         </section>
+
+        <BambuPanel />
 
         <section className="guide-section card">
           <div className="section-heading"><div><span>01</span><div><b>户型导览</b><small>一居 / 两居 / 三居</small></div></div><em>{guideStatus}</em></div>
