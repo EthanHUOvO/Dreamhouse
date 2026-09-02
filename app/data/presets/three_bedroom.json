@@ -1,0 +1,570 @@
+{
+  "id": "three_bedroom",
+  "preset_id": "three_bedroom",
+  "name": "三居室 · 120.8㎡（真实户型参考）",
+  "metadata": {
+    "area": 120.8,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "unit": "m",
+    "scale_mm_per_unit": 50,
+    "wall_height": 2.8,
+    "wall_thickness": 0.18,
+    "semantic_schema": "smart-room-semantic-v1.1",
+    "reference": {
+      "title": "Thanh Đa View — 120.80 m² apartment layout",
+      "source": "Nhadat24h.net",
+      "url": "https://nhadat24h.net/du-an/can-ho-thanh-da-view-142",
+      "source_area_m2": 120.8,
+      "adaptation": "保留公开户型中“左侧公共区+中部走廊+右侧三卧+双卫+独立厨房”的空间逻辑，并重新编码为可拉伸、可制造的语义几何。"
+    }
+  },
+  "floor": {
+    "x": 0,
+    "z": 0,
+    "w": 12.4,
+    "d": 9.8,
+    "h": 0.22
+  },
+  "walls": [
+    {
+      "id": "w01",
+      "x": 0,
+      "z": -4.81,
+      "w": 12.4,
+      "d": 0.18,
+      "h": 2.8,
+      "semantic_type": "wall"
+    },
+    {
+      "id": "w02",
+      "x": 0,
+      "z": 4.81,
+      "w": 12.4,
+      "d": 0.18,
+      "h": 2.8,
+      "semantic_type": "wall"
+    },
+    {
+      "id": "w03",
+      "x": -6.11,
+      "z": -1.85,
+      "w": 0.18,
+      "d": 5.92,
+      "h": 2.8,
+      "semantic_type": "wall"
+    },
+    {
+      "id": "w04",
+      "x": -6.11,
+      "z": 3.48,
+      "w": 0.18,
+      "d": 2.66,
+      "h": 2.8,
+      "semantic_type": "wall"
+    },
+    {
+      "id": "w05",
+      "x": 6.11,
+      "z": 0,
+      "w": 0.18,
+      "d": 9.8,
+      "h": 2.8,
+      "semantic_type": "wall"
+    },
+    {
+      "id": "w06",
+      "x": -1.72,
+      "z": -2.75,
+      "w": 0.18,
+      "d": 4.12,
+      "h": 2.8,
+      "semantic_type": "wall",
+      "separates": [
+        "living",
+        "hall"
+      ]
+    },
+    {
+      "id": "w07",
+      "x": -1.72,
+      "z": 2.78,
+      "w": 0.18,
+      "d": 4.05,
+      "h": 2.8,
+      "semantic_type": "wall",
+      "separates": [
+        "kitchen",
+        "hall"
+      ]
+    },
+    {
+      "id": "w08",
+      "x": 0.98,
+      "z": -3.95,
+      "w": 0.18,
+      "d": 1.55,
+      "h": 2.8,
+      "semantic_type": "wall",
+      "separates": [
+        "bath1",
+        "master"
+      ]
+    },
+    {
+      "id": "w09",
+      "x": 0.98,
+      "z": -1.55,
+      "w": 0.18,
+      "d": 1.65,
+      "h": 2.8,
+      "semantic_type": "wall",
+      "separates": [
+        "hall",
+        "master"
+      ]
+    },
+    {
+      "id": "w10",
+      "x": 0.98,
+      "z": 0.45,
+      "w": 0.18,
+      "d": 1.55,
+      "h": 2.8,
+      "semantic_type": "wall",
+      "separates": [
+        "hall",
+        "bed2"
+      ]
+    },
+    {
+      "id": "w11",
+      "x": 0.98,
+      "z": 3.65,
+      "w": 0.18,
+      "d": 2.2,
+      "h": 2.8,
+      "semantic_type": "wall",
+      "separates": [
+        "bath2",
+        "bed3"
+      ]
+    },
+    {
+      "id": "w12",
+      "x": 3.55,
+      "z": -1.08,
+      "w": 5.12,
+      "d": 0.18,
+      "h": 2.8,
+      "semantic_type": "wall",
+      "separates": [
+        "master",
+        "bed2"
+      ]
+    },
+    {
+      "id": "w13",
+      "x": 3.55,
+      "z": 1.85,
+      "w": 5.12,
+      "d": 0.18,
+      "h": 2.8,
+      "semantic_type": "wall",
+      "separates": [
+        "bed2",
+        "bed3"
+      ]
+    },
+    {
+      "id": "w14",
+      "x": 0.1,
+      "z": -2.03,
+      "w": 1.55,
+      "d": 0.18,
+      "h": 2.8,
+      "semantic_type": "wall",
+      "separates": [
+        "bath1",
+        "hall"
+      ]
+    },
+    {
+      "id": "w15",
+      "x": 0.1,
+      "z": 2.05,
+      "w": 1.55,
+      "d": 0.18,
+      "h": 2.8,
+      "semantic_type": "wall",
+      "separates": [
+        "bath2",
+        "hall"
+      ]
+    }
+  ],
+  "rooms": [
+    {
+      "id": "living",
+      "name": "客餐厅",
+      "semantic_type": "living_room",
+      "x": -3.8,
+      "z": -2.1,
+      "w": 4.5,
+      "d": 4.9,
+      "description": "家庭主要公共空间，包含会客与就餐功能",
+      "zone": "public",
+      "reference_area_m2": 24.36
+    },
+    {
+      "id": "foyer",
+      "name": "玄关",
+      "semantic_type": "entry",
+      "x": -5.15,
+      "z": 1.15,
+      "w": 1.45,
+      "d": 1.45,
+      "description": "入户缓冲区，与中央走廊相连",
+      "zone": "circulation",
+      "reference_area_m2": 1.995
+    },
+    {
+      "id": "kitchen",
+      "name": "厨房",
+      "semantic_type": "kitchen",
+      "x": -3.5,
+      "z": 3.35,
+      "w": 3.05,
+      "d": 2.45,
+      "description": "独立厨房，连接服务阳台/家政区",
+      "zone": "service",
+      "reference_area_m2": 10.693
+    },
+    {
+      "id": "hall",
+      "name": "中央走廊",
+      "semantic_type": "corridor",
+      "x": -1.15,
+      "z": 1.0,
+      "w": 0.8,
+      "d": 6.9,
+      "description": "贯穿公区、卧室和卫生间的主要交通空间",
+      "zone": "circulation",
+      "reference_area_m2": 13.777
+    },
+    {
+      "id": "bath1",
+      "name": "主卫",
+      "semantic_type": "bathroom",
+      "x": 0.15,
+      "z": -3.35,
+      "w": 1.7,
+      "d": 2.5,
+      "description": "靠近主卧的独立卫浴",
+      "zone": "service",
+      "reference_area_m2": 5.411
+    },
+    {
+      "id": "master",
+      "name": "主卧",
+      "semantic_type": "bedroom",
+      "x": 3.35,
+      "z": -2.95,
+      "w": 4.7,
+      "d": 3.7,
+      "description": "面积最大的主卧，设置衣柜并临近主卫",
+      "zone": "private",
+      "reference_area_m2": 23.616
+    },
+    {
+      "id": "bed2",
+      "name": "次卧A",
+      "semantic_type": "bedroom",
+      "x": 3.45,
+      "z": 0.45,
+      "w": 4.55,
+      "d": 2.55,
+      "description": "家庭成员卧室",
+      "zone": "private",
+      "reference_area_m2": 13.162
+    },
+    {
+      "id": "bath2",
+      "name": "公卫",
+      "semantic_type": "bathroom",
+      "x": 0.15,
+      "z": 3.25,
+      "w": 1.7,
+      "d": 2.35,
+      "description": "服务次卧与公共区域",
+      "zone": "service",
+      "reference_area_m2": 6.115
+    },
+    {
+      "id": "bed3",
+      "name": "次卧B",
+      "semantic_type": "bedroom",
+      "x": 3.45,
+      "z": 3.35,
+      "w": 4.55,
+      "d": 2.8,
+      "description": "家庭成员卧室或儿童房",
+      "zone": "private",
+      "reference_area_m2": 16.198
+    }
+  ],
+  "furniture": [
+    {
+      "id": "f01",
+      "kind": "sofa",
+      "semantic_type": "sofa",
+      "label": "L形沙发",
+      "room_id": "living",
+      "x": -4.45,
+      "z": -2.0,
+      "w": 2.35,
+      "d": 0.85,
+      "h": 0.75
+    },
+    {
+      "id": "f02",
+      "kind": "table",
+      "semantic_type": "table",
+      "label": "茶几",
+      "room_id": "living",
+      "x": -3.05,
+      "z": -2.0,
+      "w": 1.1,
+      "d": 0.65,
+      "h": 0.45
+    },
+    {
+      "id": "f03",
+      "kind": "dining",
+      "semantic_type": "dining",
+      "label": "餐桌",
+      "room_id": "living",
+      "x": -3.65,
+      "z": -0.45,
+      "w": 1.55,
+      "d": 0.9,
+      "h": 0.76
+    },
+    {
+      "id": "f04",
+      "kind": "kitchen",
+      "semantic_type": "kitchen",
+      "label": "厨房地柜",
+      "room_id": "kitchen",
+      "x": -4.7,
+      "z": 3.75,
+      "w": 1.9,
+      "d": 0.52,
+      "h": 0.88
+    },
+    {
+      "id": "f05",
+      "kind": "kitchen",
+      "semantic_type": "kitchen",
+      "label": "厨房操作台",
+      "room_id": "kitchen",
+      "x": -2.85,
+      "z": 3.35,
+      "w": 0.55,
+      "d": 1.85,
+      "h": 0.88
+    },
+    {
+      "id": "f06",
+      "kind": "bed",
+      "semantic_type": "bed",
+      "label": "主卧床",
+      "room_id": "master",
+      "x": 3.55,
+      "z": -3.15,
+      "w": 1.8,
+      "d": 2.0,
+      "h": 0.55
+    },
+    {
+      "id": "f07",
+      "kind": "cabinet",
+      "semantic_type": "cabinet",
+      "label": "主卧衣柜",
+      "room_id": "master",
+      "x": 5.15,
+      "z": -2.05,
+      "w": 0.45,
+      "d": 1.45,
+      "h": 2.1
+    },
+    {
+      "id": "f08",
+      "kind": "bed",
+      "semantic_type": "bed",
+      "label": "次卧A床",
+      "room_id": "bed2",
+      "x": 3.6,
+      "z": 0.45,
+      "w": 1.5,
+      "d": 1.9,
+      "h": 0.5
+    },
+    {
+      "id": "f09",
+      "kind": "cabinet",
+      "semantic_type": "cabinet",
+      "label": "次卧A衣柜",
+      "room_id": "bed2",
+      "x": 5.1,
+      "z": 0.45,
+      "w": 0.4,
+      "d": 1.15,
+      "h": 2.1
+    },
+    {
+      "id": "f10",
+      "kind": "bed",
+      "semantic_type": "bed",
+      "label": "次卧B床",
+      "room_id": "bed3",
+      "x": 3.55,
+      "z": 3.35,
+      "w": 1.55,
+      "d": 1.95,
+      "h": 0.5
+    },
+    {
+      "id": "f11",
+      "kind": "cabinet",
+      "semantic_type": "cabinet",
+      "label": "次卧B衣柜",
+      "room_id": "bed3",
+      "x": 5.1,
+      "z": 3.35,
+      "w": 0.4,
+      "d": 1.2,
+      "h": 2.1
+    }
+  ],
+  "semantic_graph": {
+    "nodes": [
+      {
+        "id": "living",
+        "name": "客餐厅",
+        "type": "living_room"
+      },
+      {
+        "id": "foyer",
+        "name": "玄关",
+        "type": "entry"
+      },
+      {
+        "id": "kitchen",
+        "name": "厨房",
+        "type": "kitchen"
+      },
+      {
+        "id": "hall",
+        "name": "中央走廊",
+        "type": "corridor"
+      },
+      {
+        "id": "bath1",
+        "name": "主卫",
+        "type": "bathroom"
+      },
+      {
+        "id": "master",
+        "name": "主卧",
+        "type": "bedroom"
+      },
+      {
+        "id": "bed2",
+        "name": "次卧A",
+        "type": "bedroom"
+      },
+      {
+        "id": "bath2",
+        "name": "公卫",
+        "type": "bathroom"
+      },
+      {
+        "id": "bed3",
+        "name": "次卧B",
+        "type": "bedroom"
+      }
+    ],
+    "edges": [
+      {
+        "from": "foyer",
+        "to": "hall",
+        "relation": "connected"
+      },
+      {
+        "from": "foyer",
+        "to": "living",
+        "relation": "connected"
+      },
+      {
+        "from": "living",
+        "to": "hall",
+        "relation": "open_connected"
+      },
+      {
+        "from": "hall",
+        "to": "kitchen",
+        "relation": "door_connected"
+      },
+      {
+        "from": "hall",
+        "to": "bath1",
+        "relation": "door_connected"
+      },
+      {
+        "from": "hall",
+        "to": "master",
+        "relation": "door_connected"
+      },
+      {
+        "from": "hall",
+        "to": "bed2",
+        "relation": "door_connected"
+      },
+      {
+        "from": "hall",
+        "to": "bath2",
+        "relation": "door_connected"
+      },
+      {
+        "from": "hall",
+        "to": "bed3",
+        "relation": "door_connected"
+      }
+    ]
+  },
+  "manufacturing": {
+    "layers": [
+      {
+        "id": "floor",
+        "name": "地板层",
+        "output": "01_floor.stl"
+      },
+      {
+        "id": "walls",
+        "name": "墙体层",
+        "output": "02_walls.stl"
+      },
+      {
+        "id": "furniture",
+        "name": "家具层",
+        "output": "03_furniture.stl"
+      }
+    ]
+  },
+  "simulation": {
+    "preferred_bundle": "simulation_bundle.zip",
+    "coordinate_system": "X-right, Y-up, Z-forward",
+    "semantic_sidecar": "semantic_scene.json"
+  }
+}

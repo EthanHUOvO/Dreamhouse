@@ -1,0 +1,36 @@
+{
+  "platform": {
+    "public_base_url": "http://YOUR-CONTROLLER-IP:8765",
+    "device_actuation_enabled": true
+  },
+  "simulation": {
+    "enabled": true,
+    "mode": "http",
+    "name": "Simulation Gateway",
+    "base_url": "http://SIM-IP:9101",
+    "health_path": "/health",
+    "status_path": "/simulation/status",
+    "command_path": "/simulation/command",
+    "token_env": "SIMULATION_TOKEN"
+  },
+  "printer": {
+    "enabled": true,
+    "mode": "http",
+    "name": "3D Printer Gateway",
+    "base_url": "http://PRINTER-GW-IP:9102",
+    "health_path": "/health",
+    "status_path": "/printer/status",
+    "command_path": "/printer/command",
+    "token_env": "PRINTER_TOKEN"
+  },
+  "robot": {
+    "enabled": true,
+    "mode": "http",
+    "name": "ROS2 Robot Gateway",
+    "base_url": "http://ROBOT-GW-IP:9103",
+    "health_path": "/health",
+    "status_path": "/robot/status",
+    "command_path": "/robot/command",
+    "token_env": "ROBOT_TOKEN"
+  }
+}

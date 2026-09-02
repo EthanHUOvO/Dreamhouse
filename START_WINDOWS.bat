@@ -1,6 +1,4 @@
 @echo off
 cd /d %~dp0
-if not exist node_modules call npm install --no-audit --no-fund
-call npm run verify
-call npm run dev
+py -3 run_demo.py 2>nul || python run_demo.py
 pause
