@@ -1,4 +1,4 @@
-语义户型智能制造平台 v3.1
+语义户型智能制造平台 v3.0
 
 1. 需要 Python 3.10+。
 2. Windows 双击 START_WINDOWS.bat。

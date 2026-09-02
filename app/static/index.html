@@ -1,11 +1,11 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>语义户型智能制造平台</title><link rel="stylesheet" href="/css/app.css"></head>
 <body>
-<header class="topbar"><div class="brand"><div class="logo">SC</div><div><h1>SEMANTIC CONSTRUCTION PIPELINE</h1><p>真实户型参考 · 语义空间 · 2D→3D · STL制造 · 仿真同步</p></div></div><div class="top-actions"><span class="status-dot"></span><span id="platformStatus">本地网关在线</span><time id="clock">--:--:--</time><button id="fullscreenBtn">⛶</button></div></header>
+<header class="topbar"><div class="brand"><div class="logo">SC</div><div><h1>SEMANTIC CONSTRUCTION PIPELINE</h1><p>固定户型 · 语义空间 · 2D→3D · STL制造 · 仿真同步</p></div></div><div class="top-actions"><span class="status-dot"></span><span id="platformStatus">本地网关在线</span><time id="clock">--:--:--</time><button id="fullscreenBtn">⛶</button></div></header>
 <aside class="sidebar">
   <section class="project-card"><div class="eyebrow">CURRENT PRESET</div><h2 id="projectName">未选择户型</h2><p id="projectMeta">请选择二居室 / 三居室 / 四居室</p><button class="primary wide" id="changePresetBtn">重新选择户型</button></section>
   <div class="section-title">任务行动链</div>
   <ol class="workflow">
-    <li class="stage active" data-stage="0"><b>01</b><div><strong>户型预设选择</strong><small>网络筛选后的二 / 三 / 四居室</small></div></li>
+    <li class="stage active" data-stage="0"><b>01</b><div><strong>户型预设选择</strong><small>固定二 / 三 / 四居室</small></div></li>
     <li class="stage" data-stage="1"><b>02</b><div><strong>语义空间读取</strong><small>卧室 / 客厅 / 厨房等</small></div></li>
     <li class="stage" data-stage="2"><b>03</b><div><strong>2D → 3D 拉伸</strong><small>平面几何纵向实体化</small></div></li>
     <li class="stage" data-stage="3"><b>04</b><div><strong>制造层拆分</strong><small>Floor / Walls / Furniture</small></div></li>
@@ -32,6 +32,6 @@
   <section class="panel device-card" id="printerCard"><div class="device-title"><div><span class="state-dot"></span><b>3D 打印机接口</b></div><small id="printerStatus">READY</small></div><p>接收 Floor / Walls / Furniture STL</p><div class="progress"><i id="printBar"></i></div><div class="device-meta"><span>温度 / 层数</span><b id="printMeta">26℃ · 0/180</b></div><button data-device="printer">发送 STL 到打印机</button></section>
   <section class="panel device-card" id="robotCard"><div class="device-title"><div><span class="state-dot"></span><b>机械臂接口</b></div><small id="robotStatus">READY</small></div><p>使用语义构件 ID 执行拼装顺序</p><div class="progress"><i id="robotBar"></i></div><div class="device-meta"><span>当前任务</span><b id="robotTask">等待装配</b></div><button data-device="robot">执行装配仿真</button></section>
 </aside>
-<div id="presetModal" class="modal"><div class="modal-box"><span class="eyebrow">STEP 01 · FLOOR PLAN PRESET</span><h2>请选择需要展示的固定户型</h2><p>三套预设根据公开真实/专业户型案例重新编码。选择后进入语义理解、三维拉伸、制造拆分与下游输出。</p><div id="presetGrid" class="preset-grid"></div></div></div>
+<div id="presetModal" class="modal"><div class="modal-box"><span class="eyebrow">STEP 01 · FLOOR PLAN PRESET</span><h2>请选择需要展示的固定户型</h2><p>暂不接入户型生成模型。选择后直接进入语义理解、三维拉伸、制造拆分与下游输出。</p><div id="presetGrid" class="preset-grid"></div></div></div>
 <div id="toastStack" class="toast-stack"></div>
 <script src="/js/app.js"></script></body></html>

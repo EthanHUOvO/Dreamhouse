@@ -22,7 +22,7 @@ def public_config():
         q={k:v for k,v in CONFIG[n].items() if k!='token_env'};q['auth_configured']=bool(CONFIG[n].get('token_env') and os.environ.get(CONFIG[n]['token_env']));out[n]=q
     return out
 class Handler(BaseHTTPRequestHandler):
-    server_version='SemanticConstructionGateway/3.1'
+    server_version='SemanticConstructionGateway/3.0'
     def log_message(self,fmt,*args): print(f'[{self.log_date_time_string()}] {fmt%args}')
     def js(self,obj,status=200):
         raw=json.dumps(obj,ensure_ascii=False).encode();self.send_response(status);self.send_header('Content-Type','application/json; charset=utf-8');self.send_header('Content-Length',str(len(raw)));self.send_header('Cache-Control','no-store');self.end_headers();self.wfile.write(raw)
@@ -33,7 +33,7 @@ class Handler(BaseHTTPRequestHandler):
         r.update(MANAGER.snapshot());return r
     def do_GET(self):
         path=urlparse(self.path).path
-        if path=='/api/health':return self.js({'ok':True,'service':'semantic-construction-gateway','version':'3.1.0'})
+        if path=='/api/health':return self.js({'ok':True,'service':'semantic-construction-gateway','version':'3.0.0'})
         if path=='/api/presets':return self.js({'ok':True,'presets':list(PRESET_DATA.values())})
         if path=='/api/project':return self.js({'ok':True,**self.state()})
         if path=='/api/integrations':return self.js({'ok':True,'config':public_config()})
@@ -84,7 +84,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--host',default='127.0.0.1');parser.add_argument('--port',type=int,default=8765);parser.add_argument('--no-browser',action='store_true');args=parser.parse_args()
     CONFIG['platform']['public_base_url']=CONFIG['platform'].get('public_base_url') or f'http://{args.host}:{args.port}'
     url=f'http://{args.host}:{args.port}';srv=ThreadingHTTPServer((args.host,args.port),Handler)
-    print('='*72);print(' 语义户型 → 3D打印 / 仿真流水线 v3.1');print(' '+url);print(' 户型入口: 二居室 / 三居室 / 四居室固定预设');print('='*72)
+    print('='*72);print(' 语义户型 → 3D打印 / 仿真流水线 v3.0');print(' '+url);print(' 户型入口: 二居室 / 三居室 / 四居室固定预设');print('='*72)
     if not args.no_browser:threading.Timer(.7,lambda:webbrowser.open(url)).start()
     try:srv.serve_forever()
     except KeyboardInterrupt:pass
