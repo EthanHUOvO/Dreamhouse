@@ -1,5 +1,2 @@
-import PortalHome from '@/components/PortalHome'
-
-export default function Page() {
-  return <PortalHome />
-}
+import HomePortal from '@/components/HomePortal'
+export default function Page(){return <HomePortal/>}

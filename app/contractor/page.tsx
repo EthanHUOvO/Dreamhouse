@@ -1,5 +1,2 @@
-import ContractorPortal from '@/components/ContractorPortal'
-
-export default function ContractorPage() {
-  return <ContractorPortal />
-}
+import ContractorPortal from '@/components/contractor/ContractorPortal'
+export default function Page(){return <ContractorPortal/>}

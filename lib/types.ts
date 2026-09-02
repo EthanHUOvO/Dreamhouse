@@ -16,6 +16,49 @@ export type RenovationPlan = { type: ScenarioType; title: string; summary: strin
 export type DesignStatus = 'draft' | 'approved' | 'superseded'
 export type OrderStatus = 'design' | 'production' | 'transport' | 'construction' | 'acceptance' | 'completed'
 
+export type HouseholdChoice = 'single' | 'couple' | 'family3'
+export type SingleGender = 'male' | 'female'
+export type FamilyPlan = 'child' | 'nanny'
+
+export type UserProfile = {
+  id: string
+  displayName: string
+  household: HouseholdChoice
+  singleGender?: SingleGender
+  familyPlan?: FamilyPlan
+  preferredScenario: ScenarioType
+  createdAt: string
+  updatedAt: string
+}
+
+export type DrawingImportRequest = {
+  source: 'upload' | 'sample'
+  fileName: string
+  fileType: string
+  fileSize: number
+}
+
+export type DrawingImportRecord = DrawingImportRequest & {
+  id: string
+  status: 'parsed'
+  importedAt: string
+  parsedAt: string
+  parserMode: 'demo-template'
+  templateId: 'HOUSE_001'
+  detected: {
+    rooms: number
+    walls: number
+    doors: number
+    windows: number
+  }
+}
+
+export type FurnitureTransformOverride = {
+  position: [number, number, number]
+  rotation: [number, number, number]
+}
+export type FurnitureOverrideMap = Record<string, FurnitureTransformOverride>
+
 export type DesignVersion = {
   id: string
   version: number
@@ -23,6 +66,11 @@ export type DesignVersion = {
   status: DesignStatus
   scenario: ScenarioType
   scene: SceneGraph
+  /**
+   * User-owned furniture transforms are stored independently from the scenario preset.
+   * Re-applying a scenario must overlay these values instead of resetting furniture.
+   */
+  furnitureOverrides?: FurnitureOverrideMap
   createdAt: string
   notes?: string
 }
@@ -65,11 +113,14 @@ export type Order = {
   customer: string
   projectName: string
   houseId: string
+  /** Links the residential project back to the user-profile repository. */
+  userProfileId?: string
   status: OrderStatus
   approvedVersion: number
   designVersions: DesignVersion[]
   draftVersionId?: string
   changeRequest?: ChangeRequest
+  drawing?: DrawingImportRecord
   bom: BomItem[]
   manualTasks: TaskItem[]
   robotTasks: TaskItem[]
