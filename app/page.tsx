@@ -1,5 +1,5 @@
-import PresetDemoPage from '@/components/PresetDemoPage'
+import PortalHome from '@/components/PortalHome'
 
 export default function Page() {
-  return <PresetDemoPage />
+  return <PortalHome />
 }
