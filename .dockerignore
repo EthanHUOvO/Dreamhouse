@@ -1,0 +1,10 @@
+.git
+.next
+node_modules
+artifacts
+*.log
+*.tar.gz
+logs
+.runtime
+work
+outputs

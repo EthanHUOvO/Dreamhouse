@@ -1,0 +1,8 @@
+'use client'
+import type { Order } from '@/lib/types'
+import { getMesStages } from '@/lib/downstream'
+export default function CustomerConstruction({order,onRedesign,onContinueDraft,onWithdrawAndEdit}:{order:Order;onRedesign:()=>void;onContinueDraft:()=>void;onWithdrawAndEdit:()=>void}){
+  const stages=getMesStages(order),submitted=order.changeRequest?.status==='submitted',hasDraft=Boolean(order.draftVersionId)
+  return <div className="construction-page"><section className="card construction-hero"><div><span>当前执行版本</span><h2>Design V{order.downstreamVersion??order.approvedVersion}</h2><p>设计确认后自动流入 BOM → 排产 → 生产 → 运输 → 现场装配 → 质检 → 验收。</p></div><div className="redesign-box"><b>需要再次修改？</b>{submitted?<button onClick={onWithdrawAndEdit}>撤回并继续修改</button>:hasDraft?<button onClick={onContinueDraft}>继续修改 Draft</button>:<button onClick={onRedesign}>重新设计</button>}</div></section><section className="card"><div className="card-title">项目执行链</div><div className="mes-timeline">{stages.map(s=><div key={s.id} className={s.status}><i/ ><b>{s.label}</b><span>{s.status==='done'?'完成':s.status==='active'?'进行中':'等待'}</span></div>)}</div></section><div className="metric-grid"><div><span>生产</span><b>{order.productionProgress}%</b></div><div><span>运输</span><b>{order.transportProgress}%</b></div><div><span>施工</span><b>{order.constructionProgress}%</b></div><div><span>验收</span><b>{order.acceptanceProgress}%</b></div></div><section className="card"><div className="card-title">现场视频</div><Video src={process.env.NEXT_PUBLIC_SITE_VIDEO}/></section></div>
+}
+function Video({src}:{src?:string}){return <div className="video-box">{src?<video src={src} controls muted loop playsInline/>:<div><b>现场施工视频接口</b><span>将 MP4 放到 public/videos/ 或配置 NEXT_PUBLIC_SITE_VIDEO</span></div>}</div>}

@@ -1,0 +1,19 @@
+[Interior Generation Failed] {
+  error: Error: 装修生成等待超时，请重新生成。
+      at main (/workspace/tests/edit-persistence/portal-handlers.ts:34:59),
+  captureId: 'c1',
+  selectedStyleId: 'modern'
+}
+{
+  "status": "PASS",
+  "kind": "actual-portal-handlers-with-stubs-no-ai",
+  "checks": [
+    "stale-photo-no-request",
+    "timeout-clears-busy",
+    "stale-scene-clears-rendering",
+    "cancelled-response-cannot-overwrite-new-request",
+    "storage-failure-keeps-draft",
+    "capture-auto-save-and-revision-guard",
+    "wall-drag-frozen-coordinates"
+  ]
+}

@@ -1,0 +1,1906 @@
+{
+  "audit_date": "2026-10-13",
+  "timezone": "Asia/Hong_Kong",
+  "audit_policy": "read-only business code; documentation only; no new inference, restart or full large-weight hashing",
+  "status_vocabulary": [
+    "VERIFIED",
+    "IMPLEMENTED_UNVERIFIED",
+    "ISSUE",
+    "UNKNOWN"
+  ],
+  "snapshot": {
+    "captured_at": "2026-10-13T14:31:10.351606+08:00",
+    "root": "/home/amd/Workspace/Ideal-house",
+    "head": "6206678170a50f136f99a5cad5c98842187fb910",
+    "branch": "CIIE",
+    "latest_commit": "6206678 2026-09-30T13:25:51+08:00 feat: optimize local Vulkan AI image pipeline",
+    "status": [
+      " M app/api/ai/floorplan-image/route.ts",
+      " M app/api/ai/model3d/stream/route.ts",
+      " M app/api/ai/status/route.ts",
+      " M app/globals.css",
+      " M components/customer/GenerationProgressModal.tsx",
+      " M components/customer/TouchCustomerPortal.tsx",
+      " M deploy/local-ai/Dockerfile.qwen-image",
+      " M deploy/local-ai/README.md",
+      " M deploy/local-ai/compose.yaml",
+      " M lib/ai/image-service.ts",
+      " M lib/ai/local-model3d-agent.ts",
+      " M lib/ai/pascal-mcp-client.ts",
+      " M lib/ai/qwen-client.ts",
+      " M lib/ai/qwen-image-client.ts",
+      " M lib/ai/server-image.ts",
+      " M lib/floorplans/pascal-v2/imported-two.ts",
+      " M lib/floorplans/wall-edit.ts",
+      " M package.json",
+      " M services/local-ai-gateway/server.ts",
+      " M services/qwen-image-local/server.ts",
+      "?? deploy/local-ai/Dockerfile.audit-web",
+      "?? deploy/local-ai/Dockerfile.qwen-image-ncnn",
+      "?? lib/ai/floorplan-image.test.ts",
+      "?? lib/ai/model3d-persistence.ts",
+      "?? lib/ai/model3d-source.ts",
+      "?? lib/ai/model3d-stream.ts",
+      "?? lib/ai/verified-preset-scene.ts",
+      "?? scripts/test-local-ai-runtime.mjs",
+      "?? scripts/test-model3d-regressions.ts",
+      "?? scripts/test-verified-preset-scenes.ts",
+      "?? services/local-ai-runtime.ts",
+      "?? services/qwen-image-ncnn/"
+    ]
+  },
+  "snapshot_file_count": 284,
+  "snapshot_manifest_sha256": "d1cf8b6d55b803c43bf5907b5b822b84e5f54b67a0977782d9f7ad09666bdb7d",
+  "old_reference": {
+    "repository": "https://github.com/EthanHUOvO/Ideal_home",
+    "branch": "main",
+    "sha": "b3778a49b0a60237df46c339bcf159dfe3421bef",
+    "commit_date": "2026-09-24T03:34:26Z",
+    "commit_title": "Initial release with one-click setup"
+  },
+  "runtime": {
+    "checked_at": "2026-10-13T14:26:31+08:00",
+    "readiness": {
+      "3000": {
+        "mode": "local",
+        "localOnly": true,
+        "ready": true,
+        "models": {
+          "layout": "Qwen3.8-27B-Q8_0",
+          "image": "Qwen-Image-2.1-Fun-Acc-4Step",
+          "bom": "Qwen3.8-27B-Q8_0"
+        },
+        "endpoints": {
+          "text": "http://ai-gateway-qwen-image21:8301/text/v1",
+          "image": "http://ai-gateway-qwen-image21:8301/image",
+          "mcp": "http://pascal-mcp:3100/mcp"
+        }
+      },
+      "3001": {
+        "mode": "local",
+        "localOnly": true,
+        "ready": true,
+        "models": {
+          "layout": "Qwen3.8-27B-Q8_0",
+          "image": "Z-Image-Turbo",
+          "bom": "Qwen3.8-27B-Q8_0"
+        },
+        "endpoints": {
+          "text": "http://ai-gateway:8300/text/v1",
+          "image": "http://ai-gateway:8300/image",
+          "mcp": "http://pascal-mcp:3100/mcp"
+        }
+      }
+    },
+    "containers": [
+      {
+        "name": "ideal-home-local-web-qwen-image21-1",
+        "declared_image": "ideal-home-local:web-audit-20261013",
+        "image_sha256": "553e140bb8403840c95ad6521ffe2f048cda06d7253d224c65c4fac3fc813a14",
+        "running": true,
+        "restart_count": 0,
+        "started_at": "2026-10-13T05:28:29.515356734Z"
+      },
+      {
+        "name": "ideal-home-local-web-1",
+        "declared_image": "ideal-home-local:web-audit-20261013",
+        "image_sha256": "553e140bb8403840c95ad6521ffe2f048cda06d7253d224c65c4fac3fc813a14",
+        "running": true,
+        "restart_count": 0,
+        "started_at": "2026-10-13T05:28:29.513984064Z"
+      },
+      {
+        "name": "ideal-home-local-ai-gateway-1",
+        "declared_image": "ideal-home-local:web-audit-20261013",
+        "image_sha256": "e03311284b8c0167de838ce21b863a8948bad44035ccb68aefbfe96f80769737",
+        "running": true,
+        "restart_count": 0,
+        "started_at": "2026-10-13T04:35:43.860836058Z"
+      },
+      {
+        "name": "ideal-home-local-ai-gateway-qwen-image21-1",
+        "declared_image": "ideal-home-local:web-audit-20261013",
+        "image_sha256": "e03311284b8c0167de838ce21b863a8948bad44035ccb68aefbfe96f80769737",
+        "running": true,
+        "restart_count": 0,
+        "started_at": "2026-10-13T04:35:43.85527479Z"
+      },
+      {
+        "name": "ideal-home-local-qwen-image-21-1",
+        "declared_image": "ideal-home-local:qwen-image-audit-20261013",
+        "image_sha256": "17abcc967d835f327b35a69fcf028098f1f108be087854a9eeb4a96bdf965419",
+        "running": true,
+        "restart_count": 0,
+        "started_at": "2026-10-13T04:35:43.74428721Z"
+      },
+      {
+        "name": "ideal-home-local-qwen-image-1",
+        "declared_image": "ideal-home-local:sd-cpp-audit-20261013",
+        "image_sha256": "72838aa9db75214c3507027dbae66ced421b5af4223b704180419a0dd4dcee43",
+        "running": true,
+        "restart_count": 0,
+        "started_at": "2026-10-13T04:35:43.742755336Z"
+      },
+      {
+        "name": "ideal-home-local-qwen-text-1",
+        "declared_image": "ghcr.io/ggml-org/llama.cpp:server-vulkan",
+        "image_sha256": "4278c53cbcbc7ace8e5f360f774a24a50c0f92484167f130eb4c58e10d756f20",
+        "running": true,
+        "restart_count": 181,
+        "started_at": "2026-09-29T16:31:21.178484539Z"
+      },
+      {
+        "name": "ideal-home-local-pascal-mcp-1",
+        "declared_image": "ideal-home-local:web",
+        "image_sha256": "235b1cdb26bcb40184884c17c3c00fc1251d952905ed0d5764ac9acaca1610fa",
+        "running": true,
+        "restart_count": 0,
+        "started_at": "2026-09-30T04:11:10.64674831Z"
+      }
+    ],
+    "selected_source_hashes": {
+      "services/local-ai-runtime.ts": "a3437fe2612a83713346df7090b8948f0c96cdc198287c1812be6627b7e94a6e",
+      "services/local-ai-gateway/server.ts": "b6529cc51a18a599e60a25786d244c2dfa335c510a898bb63c5df47a65af0327",
+      "services/qwen-image-local/server.ts": "4416a78a5b70addbe7f2fc0fd198f3d5eaaecfd352de5808b98a7ff91f37ca19",
+      "services/qwen-image-ncnn/server.ts": "bcdb6f313456bc01fb89518b5ad3298f7fbd181deea58a58810c3899aa0437e8",
+      "services/pascal-mcp/server.ts": "cbe54d07691620a2cea133958a0c6215972c80757e791bfeffd422db37eb76f7",
+      "services/pascal-mcp/session-store.ts": "9253d212f2e15f5e11b3c491ee80dfc7febbe3cfd25d9d2e1bf23cfa19a8a4b1",
+      "lib/floorplans/blueprint.ts": "a20c46b48b8995a97aa0b6b0029491131c44a08ce6fe42a87a6f469093a18023",
+      "lib/pascal/scene-integrity.ts": "605f8f6dfccfb43ef574141c63db9b5dc5b7526ac9b101c7f595b9fdb5209466",
+      "lib/ai/config.ts": "a0f6bad1f8f25f6e29e0d7a5764798aef23de1f686f17542d3a36a8559942665",
+      "lib/ai/qwen-client.ts": "912c6b0da4123a95a0a110d571c77292558f2730483bb135dc6061459da7f225",
+      "lib/ai/qwen-image-client.ts": "e0eba49e4848bc9f2524e3d146d1c95f31c0b84f66f854d7ce3c82aaad069f5c",
+      "lib/ai/qwen-provider.ts": "5254664a66e2a12457aa16f8d2fe46e349b14ef2df660d08ef76b546ae9801af",
+      "lib/ai/local-model3d-agent.ts": "8cddcb5c6a16e13e6bbe4fc13e192843a87027fa5dfcd74f3d44316963966128",
+      "lib/ai/model3d-source.ts": "a122799cc0ede5ca8c52e3ff80266d196f3205c045079e4ac744194d86c71301",
+      "lib/ai/model3d-persistence.ts": "2441365e1a62f1f3acbeacdc129aa154db68d3b440605f14a135ec935cbd58aa",
+      "lib/ai/image-service.ts": "7de3810edf2e39e0b9017b5a2df0c2c2b5ba583b801abbe580b16501f83e9769",
+      "lib/ai/server-image.ts": "379b3b90c03147e4cfc9718a3f8baca1a15e803d126e11999c38633393d720a0",
+      "lib/ai/verified-preset-scene.ts": "e1598422ee02791b3dbe2de78a107fc6b2bb80fa13b0afff0a626aa6644f8221",
+      "app/api/ai/model3d/stream/route.ts": "bba430627b656019dfa202dc2ad659072a986e37a2193abc884265a9912a9fe1",
+      "app/api/ai/floorplan-image/route.ts": "71d708beb1a022866712169cfefc3ef5763efe0c48f34227ac987b8991fd0029",
+      "app/api/ai/import-floorplan/route.ts": "030366d5d283d911a18206682395b8877abf11ac4fe91717ad6737fac55abc26",
+      "app/api/ai/floorplan-analyze/route.ts": "20ed562643456b93a02848aebdcfd285b12444c030171dc95b72a9d82df2295e",
+      "app/api/ai/layout/route.ts": "b22692aa29db14f560cbf46f333e60c379acb7335742d79e2de495d9b945a0df",
+      "lib/ai/qwen-layout-agent.ts": "029e181b418e67a8346c69b47b416853a839016b7ee5b034243fb7bba1b97491",
+      "lib/bom/service.ts": "bf8a24efd0c63aaacda60ff76f3fe0048a14a21dcde9881ab4a47240d16c93f2",
+      "components/customer/TouchCustomerPortal.tsx": "4b0c75a1af4643c515051d50e3d046227a9c957ac91f3294e3d01c8cf94b642d",
+      "app/globals.css": "1d86a6ba4dc55c58e00032811a26f7a028f208b48d24cb25aeccd03f82a2e65b",
+      "deploy/local-ai/compose.yaml": "a42c424b00e6e4b5d736775090a328d265a0526db89d67f26b2f70412e84a0cc"
+    },
+    "deployed_code_sha256": {
+      "ideal-home-local-web-qwen-image21-1": {
+        "services/local-ai-runtime.ts": "a3437fe2612a83713346df7090b8948f0c96cdc198287c1812be6627b7e94a6e",
+        "services/local-ai-gateway/server.ts": "b6529cc51a18a599e60a25786d244c2dfa335c510a898bb63c5df47a65af0327",
+        "services/qwen-image-local/server.ts": "4416a78a5b70addbe7f2fc0fd198f3d5eaaecfd352de5808b98a7ff91f37ca19",
+        "services/qwen-image-ncnn/server.ts": "bcdb6f313456bc01fb89518b5ad3298f7fbd181deea58a58810c3899aa0437e8",
+        "services/pascal-mcp/server.ts": "cbe54d07691620a2cea133958a0c6215972c80757e791bfeffd422db37eb76f7",
+        "services/pascal-mcp/session-store.ts": "9253d212f2e15f5e11b3c491ee80dfc7febbe3cfd25d9d2e1bf23cfa19a8a4b1",
+        "lib/floorplans/blueprint.ts": "a20c46b48b8995a97aa0b6b0029491131c44a08ce6fe42a87a6f469093a18023",
+        "lib/pascal/scene-integrity.ts": "605f8f6dfccfb43ef574141c63db9b5dc5b7526ac9b101c7f595b9fdb5209466",
+        "lib/ai/config.ts": "a0f6bad1f8f25f6e29e0d7a5764798aef23de1f686f17542d3a36a8559942665",
+        "lib/ai/qwen-client.ts": "912c6b0da4123a95a0a110d571c77292558f2730483bb135dc6061459da7f225",
+        "lib/ai/qwen-image-client.ts": "e0eba49e4848bc9f2524e3d146d1c95f31c0b84f66f854d7ce3c82aaad069f5c",
+        "lib/ai/qwen-provider.ts": "5254664a66e2a12457aa16f8d2fe46e349b14ef2df660d08ef76b546ae9801af",
+        "lib/ai/local-model3d-agent.ts": "8cddcb5c6a16e13e6bbe4fc13e192843a87027fa5dfcd74f3d44316963966128",
+        "lib/ai/model3d-source.ts": "a122799cc0ede5ca8c52e3ff80266d196f3205c045079e4ac744194d86c71301",
+        "lib/ai/model3d-persistence.ts": "2441365e1a62f1f3acbeacdc129aa154db68d3b440605f14a135ec935cbd58aa",
+        "lib/ai/image-service.ts": "7de3810edf2e39e0b9017b5a2df0c2c2b5ba583b801abbe580b16501f83e9769",
+        "lib/ai/server-image.ts": "379b3b90c03147e4cfc9718a3f8baca1a15e803d126e11999c38633393d720a0",
+        "lib/ai/verified-preset-scene.ts": "e1598422ee02791b3dbe2de78a107fc6b2bb80fa13b0afff0a626aa6644f8221",
+        "app/api/ai/model3d/stream/route.ts": "bba430627b656019dfa202dc2ad659072a986e37a2193abc884265a9912a9fe1",
+        "app/api/ai/floorplan-image/route.ts": "71d708beb1a022866712169cfefc3ef5763efe0c48f34227ac987b8991fd0029",
+        "app/api/ai/import-floorplan/route.ts": "030366d5d283d911a18206682395b8877abf11ac4fe91717ad6737fac55abc26",
+        "app/api/ai/floorplan-analyze/route.ts": "20ed562643456b93a02848aebdcfd285b12444c030171dc95b72a9d82df2295e",
+        "app/api/ai/layout/route.ts": "b22692aa29db14f560cbf46f333e60c379acb7335742d79e2de495d9b945a0df",
+        "lib/ai/qwen-layout-agent.ts": "029e181b418e67a8346c69b47b416853a839016b7ee5b034243fb7bba1b97491",
+        "lib/bom/service.ts": "bf8a24efd0c63aaacda60ff76f3fe0048a14a21dcde9881ab4a47240d16c93f2",
+        "components/customer/TouchCustomerPortal.tsx": "4b0c75a1af4643c515051d50e3d046227a9c957ac91f3294e3d01c8cf94b642d",
+        "app/globals.css": "1d86a6ba4dc55c58e00032811a26f7a028f208b48d24cb25aeccd03f82a2e65b"
+      },
+      "ideal-home-local-ai-gateway-1": {
+        "services/local-ai-runtime.ts": "a3437fe2612a83713346df7090b8948f0c96cdc198287c1812be6627b7e94a6e",
+        "services/local-ai-gateway/server.ts": "b6529cc51a18a599e60a25786d244c2dfa335c510a898bb63c5df47a65af0327"
+      },
+      "ideal-home-local-qwen-image-21-1": {
+        "services/local-ai-runtime.ts": "a3437fe2612a83713346df7090b8948f0c96cdc198287c1812be6627b7e94a6e",
+        "services/qwen-image-ncnn/server.ts": "bcdb6f313456bc01fb89518b5ad3298f7fbd181deea58a58810c3899aa0437e8"
+      },
+      "ideal-home-local-qwen-image-1": {
+        "services/local-ai-runtime.ts": "a3437fe2612a83713346df7090b8948f0c96cdc198287c1812be6627b7e94a6e",
+        "services/qwen-image-local/server.ts": "4416a78a5b70addbe7f2fc0fd198f3d5eaaecfd352de5808b98a7ff91f37ca19"
+      },
+      "ideal-home-local-pascal-mcp-1": {
+        "services/pascal-mcp/server.ts": "cbe54d07691620a2cea133958a0c6215972c80757e791bfeffd422db37eb76f7",
+        "services/pascal-mcp/session-store.ts": "9253d212f2e15f5e11b3c491ee80dfc7febbe3cfd25d9d2e1bf23cfa19a8a4b1",
+        "lib/floorplans/blueprint.ts": "a20c46b48b8995a97aa0b6b0029491131c44a08ce6fe42a87a6f469093a18023",
+        "lib/pascal/scene-integrity.ts": "605f8f6dfccfb43ef574141c63db9b5dc5b7526ac9b101c7f595b9fdb5209466"
+      }
+    },
+    "deployed_code_matches_current_source": true,
+    "snapshot_match": {
+      "files_checked": 23,
+      "mismatched_files": [],
+      "all_match": true
+    },
+    "queues": {
+      "8300": {
+        "ok": true,
+        "service": "local-ai-gateway",
+        "concurrency": 1,
+        "queue": {
+          "active": false,
+          "waiting": 0,
+          "capacity": 4
+        },
+        "gpuLock": true
+      },
+      "8301": {
+        "ok": true,
+        "service": "local-ai-gateway",
+        "concurrency": 1,
+        "queue": {
+          "active": false,
+          "waiting": 0,
+          "capacity": 4
+        },
+        "gpuLock": true
+      }
+    },
+    "shared_gpu_lock_available": true,
+    "hardware": {
+      "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
+      "logical_cpus": 32,
+      "physical_cores": 16,
+      "kernel": "7.0.0-34-generic",
+      "runtime_gpu": "AMD Radeon Graphics (RADV GFX1151)",
+      "backend": "Vulkan / RADV",
+      "cuda_or_pytorch_used_by_selected_services": false
+    },
+    "resources": {
+      "MemTotal": 33262915584,
+      "MemAvailable": 20842184704,
+      "SwapTotal": 8589930496,
+      "SwapFree": 2520100864,
+      "swap_used_bytes": 6069829632,
+      "configured_vram_bytes": 103079215104,
+      "used_vram_bytes": 60927344640,
+      "gtt_total_bytes": 16631455744,
+      "gtt_used_bytes": 2974195712,
+      "memory_pressure": [
+        "some avg10=0.00 avg60=0.00 avg300=0.00 total=43132835",
+        "full avg10=0.00 avg60=0.00 avg300=0.00 total=43021130"
+      ],
+      "vmstat_second_sample": " 0  0 5927568 2751672  51048 18010436    0    0     0  1332 1561  800  0  0 100  0  0  0"
+    },
+    "gguf_headers": [
+      {
+        "path": "/srv/ideal-home/models/llm/Qwen3.8-27B-Q8_0.gguf",
+        "bytes": 29047086048,
+        "gguf_version": 3,
+        "tensor_count": 866,
+        "metadata": {
+          "general.architecture": "qwen35",
+          "general.type": "model",
+          "general.name": "Qwen3.8-27B",
+          "general.basename": "Qwen3.8-27B",
+          "general.size_label": "27B",
+          "qwen35.block_count": 65,
+          "qwen35.context_length": 262144,
+          "qwen35.embedding_length": 5120,
+          "general.quantization_version": 2,
+          "general.file_type": 7
+        },
+        "full_weight_sha256_recomputed_in_this_audit": false
+      },
+      {
+        "path": "/srv/ideal-home/models/llm/mmproj-Qwen3.8-27B-Q8_0.gguf",
+        "bytes": 927607488,
+        "gguf_version": 3,
+        "tensor_count": 334,
+        "metadata": {
+          "general.architecture": "clip",
+          "general.type": "mmproj",
+          "general.name": "Qwen3.8-27B",
+          "general.basename": "Qwen3.8-27B",
+          "general.size_label": "461M",
+          "general.file_type": 1,
+          "clip.has_vision_encoder": true,
+          "clip.vision.image_size": 768,
+          "clip.vision.block_count": 27,
+          "clip.projector_type": "qwen3vl_merger",
+          "general.quantization_version": 2
+        },
+        "full_weight_sha256_recomputed_in_this_audit": false
+      },
+      {
+        "path": "/srv/ideal-home/models/llm/mtp-Qwen3.8-27B-Q8_0.gguf",
+        "bytes": 29047084352,
+        "gguf_version": 3,
+        "tensor_count": 866,
+        "metadata": {
+          "general.architecture": "qwen35",
+          "general.type": "model",
+          "general.name": "Qwen3.8 27B",
+          "general.basename": "Qwen3.8",
+          "general.size_label": "27B",
+          "qwen35.block_count": 65,
+          "qwen35.context_length": 262144,
+          "qwen35.embedding_length": 5120,
+          "general.quantization_version": 2,
+          "general.file_type": 7
+        },
+        "full_weight_sha256_recomputed_in_this_audit": false
+      },
+      {
+        "path": "/srv/ideal-home/models/z-image/Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+        "bytes": 2497281120,
+        "gguf_version": 3,
+        "tensor_count": 398,
+        "metadata": {
+          "general.architecture": "qwen3",
+          "general.type": "model",
+          "general.name": "Qwen3-4B-Instruct-2507",
+          "general.basename": "Qwen3-4B-Instruct-2507",
+          "general.size_label": "4B",
+          "qwen3.block_count": 36,
+          "qwen3.context_length": 262144,
+          "qwen3.embedding_length": 2560,
+          "general.quantization_version": 2,
+          "general.file_type": 15
+        },
+        "full_weight_sha256_recomputed_in_this_audit": false
+      },
+      {
+        "path": "/srv/ideal-home/models/z-image/z_image_turbo-Q8_0.gguf",
+        "bytes": 7224707136,
+        "gguf_version": 3,
+        "tensor_count": 453,
+        "metadata": {
+          "general.architecture": "lumina2",
+          "general.quantization_version": 2,
+          "general.file_type": 7
+        },
+        "full_weight_sha256_recomputed_in_this_audit": false
+      }
+    ],
+    "small_asset_sha256": {
+      "/srv/ideal-home/src/qwenimage-ncnn-vulkan/20261010/qwenimage-ncnn-vulkan": "815e93efe8d0b65b364e4f826ab7a1df6e964370b56a05c0604024ed63dce34e",
+      "/srv/ideal-home/models/qwen-image/lora/Qwen-Image-2.1-Fun-Acc-4Step.safetensors": "764c56ae94f330b6d06ccc322f95e1b8ce46424ddde5899a15432f95f720d558"
+    },
+    "frameworks": {
+      "node": "v22.23.3",
+      "next": "16.3.4",
+      "react": "19.2.8",
+      "pascal": "1.0.0-beta.4",
+      "mcp_sdk": "1.30.1",
+      "llama_cpp": "version: 0.5.0-dev (build 11223, commit 4da633776)",
+      "sd_cpp": "commit 3f8527a (CLI help verified in this audit)",
+      "ncnn_runtime": "official standalone qwenimage-ncnn-vulkan release20261010; library submodule version not separately reported"
+    },
+    "weight_integrity_boundary": "Large-model hashes are prior download provenance, not recomputed during this audit.",
+    "tool_choice_log_evidence": {
+      "tool_choice_object_warnings": [
+        "2026-10-13T04:43:18.880902463Z 19451.57.612.833 W Wrong type supplied for parameter 'tool_choice', using default value: [json.exception.type_error.302] type must be string, but is object",
+        "2026-10-13T04:44:35.725918478Z 19453.14.457.931 W Wrong type supplied for parameter 'tool_choice', using default value: [json.exception.type_error.302] type must be string, but is object",
+        "2026-10-13T04:56:52.232927142Z 19465.30.963.638 W Wrong type supplied for parameter 'tool_choice', using default value: [json.exception.type_error.302] type must be string, but is object",
+        "2026-10-13T04:57:51.814458691Z 19466.30.545.857 W Wrong type supplied for parameter 'tool_choice', using default value: [json.exception.type_error.302] type must be string, but is object"
+      ],
+      "timing_samples": [
+        "2026-10-13T04:57:51.702279302Z 19466.30.434.146 I slot print_timing: id  0 | task 3734 | prompt eval time =    9949.03 ms /  2060 tokens (    4.83 ms per token,   207.06 tokens per second)",
+        "2026-10-13T04:57:51.702330130Z 19466.30.434.180 I slot print_timing: id  0 | task 3734 |        eval time =   45784.82 ms /  1194 tokens (   38.38 ms per token,    26.06 tokens per second)",
+        "2026-10-13T04:57:51.702343850Z 19466.30.434.196 I slot print_timing: id  0 | task 3734 | draft acceptance = 0.74781 ( 1023 accepted /  1368 generated), mean len =  6.98",
+        "2026-10-13T04:58:26.549200205Z 19467.05.281.140 I slot print_timing: id  0 | task 3911 | prompt eval time =   14589.27 ms /  3126 tokens (    4.67 ms per token,   214.27 tokens per second)",
+        "2026-10-13T04:58:26.549246413Z 19467.05.281.148 I slot print_timing: id  0 | task 3911 |        eval time =   18133.67 ms /   475 tokens (   38.26 ms per token,    26.14 tokens per second)",
+        "2026-10-13T04:58:26.549257513Z 19467.05.281.158 I slot print_timing: id  0 | task 3911 | draft acceptance = 0.76306 (  409 accepted /   536 generated), mean len =  7.10"
+      ],
+      "classification": "Previously executed business requests from this same running image; no inference was run by this audit."
+    }
+  },
+  "verification_build": {
+    "path": "/home/amd/Workspace/Ideal-house/logs/audit-viewer-final-build-20261013.log",
+    "sha256": "372235d9c4887e626cbbe473d0f06c38e14b7bc7b9e4e74de622c85b72bbe685",
+    "full_verify_and_production_build_passed": true,
+    "syntax_fact": "TS/TSX syntax checked: 160 files, 0 errors",
+    "verify_command": "> npm run check:syntax && npm run check:imports && npm run test:core && npm run test:layout && npm run test:bom && npm run test:residential-budget && npm run test:floorplans && npm run test:imported-two && npm run test:floorplan-projection && npm run test:pascal-v2 && npm run test:floorplan-symbols && npm run test:doors && npm run test:variant-persistence && npm run test:session && npm run test:walls && npm run test:mcp && npm run test:model3d-regressions && npm run test:floorplan-image && npm run test:verified-presets && npm run test:local-ai-runtime",
+    "type_validation_skipped": true,
+    "warnings": [
+      "Pascal import.meta critical dependency warning",
+      "MODULE_TYPELESS_PACKAGE_JSON runtime test warning"
+    ],
+    "build_image": "553e140bb840"
+  },
+  "new_low_cost_checks": {
+    "catalog_restore": {
+      "status": "ISSUE",
+      "count": 24,
+      "passed": 23,
+      "records": [
+        {
+          "variantId": "one-option-01",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "one-option-02",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "one-option-03",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "one-option-04",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "one-option-05",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "one-option-06",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "one-option-07",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "one-option-08",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "two-option-01",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "two-option-02",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "two-option-03",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "two-option-04",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "two-option-05",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "two-option-06",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "two-option-07",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "two-option-08",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "three-option-01",
+          "initialApiValidation": true,
+          "blueprintValid": false,
+          "restoredLoaded": false,
+          "restoredStep": 2,
+          "issues": [
+            "window_three01_w8 瓒呭嚭澧欎綋鑼冨洿",
+            "window_three01_w9 瓒呭嚭澧欎綋鑼冨洿"
+          ]
+        },
+        {
+          "variantId": "three-option-02",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "three-option-03",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "three-option-04",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "three-option-05",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "three-option-06",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "three-option-07",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        },
+        {
+          "variantId": "three-option-08",
+          "initialApiValidation": true,
+          "blueprintValid": true,
+          "restoredLoaded": true,
+          "restoredStep": 3,
+          "issues": []
+        }
+      ],
+      "artifact_sha256": "50cdcb20037ef3761a38646fecb6f8a3eae8255fb4d291fdc4eae8310583e622",
+      "method": "read-only source fixture audit; no inference or MCP session mutation"
+    },
+    "typecheck": {
+      "status": "ISSUE",
+      "run": "read-only standalone tsc in current deployed web",
+      "exit_code": 2,
+      "diagnostics": 141,
+      "project_diagnostics": 31,
+      "dependency_source_diagnostics": 110,
+      "log": "typecheck.log",
+      "sha256": "caf96b124775592ff3409a4db5ce279cdfecf5c4f87021aa502ed05c12618de7",
+      "build_is_not_typecheck": true,
+      "command": "docker exec ideal-home-local-web-1 ./node_modules/.bin/tsc --noEmit --incremental false --pretty false",
+      "project_diagnostics_detail": [
+        {
+          "path": "lib/ai/floorplan-image.test.ts",
+          "line": 80,
+          "code": "TS2540",
+          "message": "Cannot assign to 'NODE_ENV' because it is a read-only property."
+        },
+        {
+          "path": "lib/ai/floorplan-image.test.ts",
+          "line": 92,
+          "code": "TS2540",
+          "message": "Cannot assign to 'NODE_ENV' because it is a read-only property."
+        },
+        {
+          "path": "lib/execution/BambuPrinterAdapter.ts",
+          "line": 51,
+          "code": "TS2322",
+          "message": "Type '{ printStatus: string; currentTask: string; progress: number; mode: ExecutionMode; connectionStatus: ExecutionConnection; remainingMinutes?: number; currentLayer?: number; ... 10 more ...; printerModel?: string; }' is not assignable to type 'PrinterStatus'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/one/option-01.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/one/option-02.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/one/option-03.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/one/option-04.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/one/option-05.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/one/option-06.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/one/option-07.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/one/option-08.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/three/option-01.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/three/option-02.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/three/option-03.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/three/option-04.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/three/option-05.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/three/option-06.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/three/option-07.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/three/option-08.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/two/option-01.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/two/option-02.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/two/option-03.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/two/option-04.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/two/option-05.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/two/option-06.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/two/option-07.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "lib/floorplans/pascal-v2/two/option-08.ts",
+          "line": 1,
+          "code": "TS2305",
+          "message": "Module '\"../../types\"' has no exported member 'PascalV2Spec'."
+        },
+        {
+          "path": "scripts/test-model3d-regressions.ts",
+          "line": 63,
+          "code": "TS2322",
+          "message": "Type '() => Promise<{}>' is not assignable to type '(body: any) => Promise<{ choices: { message: { tool_calls: { id: string; function: { name: any; arguments: string; }; }[]; }; }[]; }>'."
+        },
+        {
+          "path": "services/local-ai-gateway/server.ts",
+          "line": 2,
+          "code": "TS5097",
+          "message": "An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled."
+        },
+        {
+          "path": "services/qwen-image-local/server.ts",
+          "line": 6,
+          "code": "TS5097",
+          "message": "An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled."
+        },
+        {
+          "path": "services/qwen-image-ncnn/server.ts",
+          "line": 7,
+          "code": "TS5097",
+          "message": "An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled."
+        }
+      ],
+      "dependency_codes": {
+        "TS2322": 17,
+        "TS2352": 7,
+        "TS2345": 83,
+        "TS2556": 3
+      }
+    }
+  },
+  "retained_measurements_not_rerun": {
+    "catalog_http": {
+      "count": 48,
+      "completed": 48,
+      "ai_success_count": 0,
+      "min_seconds": 0.03,
+      "max_seconds": 0.38,
+      "mean_seconds": 0.0667,
+      "records": [
+        {
+          "artifact": "audit-source/verified-preset-3000-one-01.json",
+          "sha256": "72d82b019b4dfd6a69452088d817d0d9a43506744458bd964f53b6dff7f8e054",
+          "case": "one",
+          "option": 1,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.38,
+          "nodeCount": 138,
+          "roomCount": 6,
+          "wallCount": 16
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-one-02.json",
+          "sha256": "ae1d2d54b7dc06a129e52c79308f192a1cca8580fced085126032e9289bec846",
+          "case": "one",
+          "option": 2,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.08,
+          "nodeCount": 106,
+          "roomCount": 5,
+          "wallCount": 12
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-one-03.json",
+          "sha256": "dc8dd5e54eed5a6327655185a033620941061e0d9bec2ebafc1565b9d11082a0",
+          "case": "one",
+          "option": 3,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.1,
+          "nodeCount": 162,
+          "roomCount": 7,
+          "wallCount": 22
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-one-04.json",
+          "sha256": "b93f647867f8876149f18ffcc5da04d077efb83ae5c076dc4dea085afafee816",
+          "case": "one",
+          "option": 4,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.04,
+          "nodeCount": 144,
+          "roomCount": 6,
+          "wallCount": 17
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-one-05.json",
+          "sha256": "5984831fc0a6f0235a5a1f556b2e398ddf06f294d1a984126ccd8365c56bf29d",
+          "case": "one",
+          "option": 5,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.04,
+          "nodeCount": 138,
+          "roomCount": 5,
+          "wallCount": 15
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-one-06.json",
+          "sha256": "e6e70a33ae087d7989569d6d31838d4694cafd98335cd80365770a9ea0cd2baf",
+          "case": "one",
+          "option": 6,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.05,
+          "nodeCount": 161,
+          "roomCount": 6,
+          "wallCount": 24
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-one-07.json",
+          "sha256": "e4c7f8b85b5a25cf7caffa5e53d2e9939389feee633775f95c6846a8cd1ac06d",
+          "case": "one",
+          "option": 7,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.04,
+          "nodeCount": 110,
+          "roomCount": 4,
+          "wallCount": 16
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-one-08.json",
+          "sha256": "8f679dc96ee065cc1505941df339bd40f1053251dfabef11d6f984e0d546e451",
+          "case": "one",
+          "option": 8,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.03,
+          "nodeCount": 138,
+          "roomCount": 5,
+          "wallCount": 16
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-three-01.json",
+          "sha256": "f538d0c2a0d68347b10c39ffff3b36118f7f0f602f3f9c84365553b8f6941ef5",
+          "case": "three",
+          "option": 1,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.08,
+          "nodeCount": 259,
+          "roomCount": 9,
+          "wallCount": 19
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-three-02.json",
+          "sha256": "23acbea8045b42f52ab15138f144a7d36412faa6014d80a25eb0168810c2b50d",
+          "case": "three",
+          "option": 2,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.18,
+          "nodeCount": 256,
+          "roomCount": 11,
+          "wallCount": 27
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-three-03.json",
+          "sha256": "ebf54e5af143df34d9201337587d9e4caab8b6cb4aeca63aaba7e5f3f4d0b26e",
+          "case": "three",
+          "option": 3,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.17,
+          "nodeCount": 225,
+          "roomCount": 8,
+          "wallCount": 30
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-three-04.json",
+          "sha256": "6e07795c1f874815b559f41c18efa4828c291e0ab8816665cb3e7e80c9aa920f",
+          "case": "three",
+          "option": 4,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.09,
+          "nodeCount": 166,
+          "roomCount": 8,
+          "wallCount": 24
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-three-05.json",
+          "sha256": "61bd134014981b2aba3e2d3aa90e01e7e757ee213e9590c6ee1538971ace4b52",
+          "case": "three",
+          "option": 5,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.06,
+          "nodeCount": 218,
+          "roomCount": 8,
+          "wallCount": 20
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-three-06.json",
+          "sha256": "119e63447e758c954c5092a754ed0e6f22c1d80b72e4f531a57338eb4decb170",
+          "case": "three",
+          "option": 6,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.07,
+          "nodeCount": 272,
+          "roomCount": 13,
+          "wallCount": 40
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-three-07.json",
+          "sha256": "d30c0b83840e2a4dc3a002d1ec3f4e0bf28b5353921f8e98bce89ee0273d3175",
+          "case": "three",
+          "option": 7,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.06,
+          "nodeCount": 307,
+          "roomCount": 10,
+          "wallCount": 23
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-three-08.json",
+          "sha256": "e925fc0c24246a81b856ab6bb88a8d0106cba3d9d3bc180b75e2c6b034b68af4",
+          "case": "three",
+          "option": 8,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.06,
+          "nodeCount": 193,
+          "roomCount": 7,
+          "wallCount": 18
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-two-01.json",
+          "sha256": "47b9284c93e06789c5d188eb2fd9a0c67106fd7bd3c5bd03e06ba6349c288b06",
+          "case": "two",
+          "option": 1,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.05,
+          "nodeCount": 110,
+          "roomCount": 7,
+          "wallCount": 22
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-two-02.json",
+          "sha256": "e6fd42962ade52da2770c519864ad80969a935e06122cd8f5eb64ca764e06b22",
+          "case": "two",
+          "option": 2,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.05,
+          "nodeCount": 93,
+          "roomCount": 6,
+          "wallCount": 17
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-two-03.json",
+          "sha256": "4e94ac2ddc55a4ed9784fe3537c23863fabdcf6399f13a759b495333eaa34db2",
+          "case": "two",
+          "option": 3,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.05,
+          "nodeCount": 99,
+          "roomCount": 7,
+          "wallCount": 16
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-two-04.json",
+          "sha256": "22f9495b614b42b882a650a9638d0c6fcf38a787b972139c14a76d2840233d37",
+          "case": "two",
+          "option": 4,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.05,
+          "nodeCount": 97,
+          "roomCount": 6,
+          "wallCount": 22
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-two-05.json",
+          "sha256": "857d418f0164b1a35a1e03c80fff632696a16f4e72a73039cbb1054fde743215",
+          "case": "two",
+          "option": 5,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.05,
+          "nodeCount": 97,
+          "roomCount": 7,
+          "wallCount": 18
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-two-06.json",
+          "sha256": "0e029a00e3e5f37b03c989b72ef80bc0eaf3caf2a98e119eadd6ba3b2b27ad00",
+          "case": "two",
+          "option": 6,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.04,
+          "nodeCount": 102,
+          "roomCount": 6,
+          "wallCount": 27
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-two-07.json",
+          "sha256": "f4765c2a6ff3916f12f4cd248fcb12c835bdd77767eaf9cce53fc284f6ce72e4",
+          "case": "two",
+          "option": 7,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.05,
+          "nodeCount": 101,
+          "roomCount": 7,
+          "wallCount": 16
+        },
+        {
+          "artifact": "audit-source/verified-preset-3000-two-08.json",
+          "sha256": "e878c506f42f46e8435e45fb021e97700a9eea1014279731cfd9de438228b13d",
+          "case": "two",
+          "option": 8,
+          "port": 3000,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.05,
+          "nodeCount": 99,
+          "roomCount": 7,
+          "wallCount": 18
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-one-01.json",
+          "sha256": "daebc029a60e4a5fa671b017497539e769f26d9db55f1f2cbc43f171335c7cc0",
+          "case": "one",
+          "option": 1,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.13,
+          "nodeCount": 138,
+          "roomCount": 6,
+          "wallCount": 16
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-one-02.json",
+          "sha256": "88ec3212f806e3185d7144a0537b34a652c6a7455b33ff8aed56a066a8f46a6d",
+          "case": "one",
+          "option": 2,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.03,
+          "nodeCount": 106,
+          "roomCount": 5,
+          "wallCount": 12
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-one-03.json",
+          "sha256": "11b763e059fa343bcd7d91e3b670740e7c9e9889f6dbe02726f91ff2209d257b",
+          "case": "one",
+          "option": 3,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.03,
+          "nodeCount": 162,
+          "roomCount": 7,
+          "wallCount": 22
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-one-04.json",
+          "sha256": "3691607df4777fce5c488ce3bfbc7483e6c130ac341aef320f1d12d0eafdcb99",
+          "case": "one",
+          "option": 4,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.03,
+          "nodeCount": 144,
+          "roomCount": 6,
+          "wallCount": 17
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-one-05.json",
+          "sha256": "b2205837016fdf83cbf99f1ca3eb509be920f1d5046b0ccf845e6ad8025c4f77",
+          "case": "one",
+          "option": 5,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.04,
+          "nodeCount": 138,
+          "roomCount": 5,
+          "wallCount": 15
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-one-06.json",
+          "sha256": "a0a310dafb5c097c1d11312adafa404f01c41f49970f65ed772fb9b3b3b03613",
+          "case": "one",
+          "option": 6,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.04,
+          "nodeCount": 161,
+          "roomCount": 6,
+          "wallCount": 24
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-one-07.json",
+          "sha256": "466f5bfa5806edb61c6b480ca5b8122baa893ae46ca93e0455b77617f37360ad",
+          "case": "one",
+          "option": 7,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.03,
+          "nodeCount": 110,
+          "roomCount": 4,
+          "wallCount": 16
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-one-08.json",
+          "sha256": "9c7e18326632500430da852022ed16445499db712dcb20bbd9686000f2e643b0",
+          "case": "one",
+          "option": 8,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.03,
+          "nodeCount": 138,
+          "roomCount": 5,
+          "wallCount": 16
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-three-01.json",
+          "sha256": "9b9927f043477bd5a40ec6e1d6772bb867b2f992f2517401698c55c975bca8ca",
+          "case": "three",
+          "option": 1,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.07,
+          "nodeCount": 259,
+          "roomCount": 9,
+          "wallCount": 19
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-three-02.json",
+          "sha256": "c8365f79123b38a0afc169f68cfa3fd8c3cc4971b5fdfb9249fad0f85ce3d5d7",
+          "case": "three",
+          "option": 2,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.07,
+          "nodeCount": 256,
+          "roomCount": 11,
+          "wallCount": 27
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-three-03.json",
+          "sha256": "48fdf3b43a5c6163883e8c87c25cdee3d80cc62da280618087ce740eeff860aa",
+          "case": "three",
+          "option": 3,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.06,
+          "nodeCount": 225,
+          "roomCount": 8,
+          "wallCount": 30
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-three-04.json",
+          "sha256": "220c6c1935d5ad100faba863db0ee35b4129d50e0e2edb9666795321a8d9fcfc",
+          "case": "three",
+          "option": 4,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.04,
+          "nodeCount": 166,
+          "roomCount": 8,
+          "wallCount": 24
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-three-05.json",
+          "sha256": "5de9288ed491c679ba58314c5a568533820d2931295d4fd84cf61e81428fa3b9",
+          "case": "three",
+          "option": 5,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.06,
+          "nodeCount": 218,
+          "roomCount": 8,
+          "wallCount": 20
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-three-06.json",
+          "sha256": "8ca2ea4b3e49ff7b9c597d1957387d0f8245e9e70fe25a9f6923cc482d0935a5",
+          "case": "three",
+          "option": 6,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.07,
+          "nodeCount": 272,
+          "roomCount": 13,
+          "wallCount": 40
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-three-07.json",
+          "sha256": "a6c8f65b0649d814ab4afa5b23f56129e7990156b5b312d72bdc7f2f4a997da1",
+          "case": "three",
+          "option": 7,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.07,
+          "nodeCount": 307,
+          "roomCount": 10,
+          "wallCount": 23
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-three-08.json",
+          "sha256": "cd6291a6ad9f32f641abc726741d8aaefdb4ff7dfa4f269edaa8800909cb6f23",
+          "case": "three",
+          "option": 8,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.06,
+          "nodeCount": 193,
+          "roomCount": 7,
+          "wallCount": 18
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-two-01.json",
+          "sha256": "4abccce2c51af383d701c6ba9ab4d746bfd1780482dab1c531d8cc42ab10c8df",
+          "case": "two",
+          "option": 1,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.06,
+          "nodeCount": 110,
+          "roomCount": 7,
+          "wallCount": 22
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-two-02.json",
+          "sha256": "244f451a746735170b053eae20b586f08134c13ca7777d166a42ade8484506ca",
+          "case": "two",
+          "option": 2,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.05,
+          "nodeCount": 93,
+          "roomCount": 6,
+          "wallCount": 17
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-two-03.json",
+          "sha256": "0385aaf236cd0c786834ce0dbd36c418cf7ec94678adee73894491cc767342fb",
+          "case": "two",
+          "option": 3,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.06,
+          "nodeCount": 99,
+          "roomCount": 7,
+          "wallCount": 16
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-two-04.json",
+          "sha256": "365f33fdadd521aa7b84d0b4d226435934c7642b0ad71e71c5f17f4c0777a39b",
+          "case": "two",
+          "option": 4,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.05,
+          "nodeCount": 97,
+          "roomCount": 6,
+          "wallCount": 22
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-two-05.json",
+          "sha256": "e961f9ad81d4e6c72808579b18bab7cfa38795858b00b82216bb219f3cd01e46",
+          "case": "two",
+          "option": 5,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.06,
+          "nodeCount": 97,
+          "roomCount": 7,
+          "wallCount": 18
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-two-06.json",
+          "sha256": "dec5d0bdc7230ac81728a5b1456d2ee5ec991da14bca67c7ebe0406ecdcb3311",
+          "case": "two",
+          "option": 6,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.04,
+          "nodeCount": 102,
+          "roomCount": 6,
+          "wallCount": 27
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-two-07.json",
+          "sha256": "06b65f4a2e3aa071ef2c63ef584f5a439266b658a6c71c9bbb33bf6cf8224e63",
+          "case": "two",
+          "option": 7,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.05,
+          "nodeCount": 101,
+          "roomCount": 7,
+          "wallCount": 16
+        },
+        {
+          "artifact": "audit-source/verified-preset-3001-two-08.json",
+          "sha256": "dd12e196a52b87bb031e1f1756662b2a11760a49ba106d2d4ce73e9f9300bb89",
+          "case": "two",
+          "option": 8,
+          "port": 3001,
+          "label": "verified-preset",
+          "terminal": "complete",
+          "source": "verified-preset",
+          "success": true,
+          "aiSuccess": false,
+          "elapsedSeconds": 0.05,
+          "nodeCount": 99,
+          "roomCount": 7,
+          "wallCount": 18
+        }
+      ],
+      "boundary": "Exact image catalog lookup, not model reconstruction or all-plan save/reload."
+    },
+    "genuine_model": {
+      "records": [
+        {
+          "artifact": "audit-source/vision-3000-one-01.json",
+          "sha256": "0a77aa77c0b748e185694887bc112c95fc81e664e1e053e0564cec1b74a13447",
+          "case": "one",
+          "option": 1,
+          "port": 3000,
+          "label": "vision",
+          "terminal": "complete",
+          "source": "model",
+          "success": true,
+          "aiSuccess": true,
+          "elapsedSeconds": 93.18,
+          "nodeCount": 37,
+          "roomCount": 6,
+          "wallCount": 12
+        },
+        {
+          "artifact": "audit-source/vision-3001-two-01.json",
+          "sha256": "5b15b2cdb830771904ad655cca17020eb3be3b83187d79f8b29929a25a910f17",
+          "case": "two",
+          "option": 1,
+          "port": 3001,
+          "label": "vision",
+          "terminal": "complete",
+          "source": "model",
+          "success": true,
+          "aiSuccess": true,
+          "elapsedSeconds": 205.84,
+          "nodeCount": 54,
+          "roomCount": 7,
+          "wallCount": 21
+        },
+        {
+          "artifact": "audit-source/vision-3000-three-01.json",
+          "sha256": "6042975c90b16c7f4f0aeea1eb9ca4a17de8760ab54e8e8ad8a3393cbc98c433",
+          "case": "three",
+          "option": 1,
+          "port": 3000,
+          "label": "vision",
+          "terminal": "complete",
+          "source": "model",
+          "success": true,
+          "aiSuccess": true,
+          "elapsedSeconds": 123.7,
+          "nodeCount": 57,
+          "roomCount": 8,
+          "wallCount": 16
+        },
+        {
+          "artifact": "audit-source/edited-vision-3000-one-01.json",
+          "sha256": "18f287b336682f2db8aee94cab1ea28792975d4ef83ca117e2535021ef79fd66",
+          "case": "one",
+          "option": 1,
+          "port": 3000,
+          "label": "edited-vision",
+          "terminal": "complete",
+          "source": "model",
+          "success": true,
+          "aiSuccess": true,
+          "elapsedSeconds": 94.59,
+          "nodeCount": 42,
+          "roomCount": 6,
+          "wallCount": 14
+        }
+      ],
+      "boundary": "Completion/internal consistency only, no independent pixel/geometry fidelity or success-rate claim."
+    },
+    "i2i_quality_comparison": {
+      "source": "public/preset/variants/one/option-01.png",
+      "sourceDimensions": [
+        748,
+        718
+      ],
+      "modelCanvas": [
+        512,
+        512
+      ],
+      "seed": 42,
+      "binaryRelease": "20261010",
+      "cases": [
+        {
+          "profile": "Qwen-Image-2.1 base",
+          "steps": 8,
+          "elapsedSeconds": 182.86,
+          "requestedStudyCreated": false,
+          "preservationPassed": false,
+          "observation": "No new living-room partition; desk added in original main bedroom and window/labels changed."
+        },
+        {
+          "profile": "Qwen-Image-2.1 base",
+          "steps": 40,
+          "elapsedSeconds": 490.3,
+          "requestedStudyCreated": false,
+          "preservationPassed": false,
+          "observation": "No new living-room partition; main-bedroom wall/entry reshaped and top window added."
+        },
+        {
+          "profile": "Qwen-Image-2.1 + Fun Acc 4Step",
+          "steps": 4,
+          "elapsedSeconds": 144.83,
+          "requestedStudyCreated": false,
+          "preservationPassed": false,
+          "observation": "Desk cubicle partitioned inside original main bedroom, wrong target room."
+        },
+        {
+          "profile": "Qwen-Image-2.1 + Fun Acc 4Step",
+          "steps": 4,
+          "prompt": "Explicit room landmarks and corridor preservation",
+          "elapsedSeconds": 144.29,
+          "requestedStudyCreated": false,
+          "preservationPassed": false,
+          "observation": "Original bathroom converted into a study instead of creating study below bathroom."
+        }
+      ],
+      "verified": [
+        "Existing base weights compatible with official new binary",
+        "Restored output dimensions exactly 748x718 for all four cases",
+        "4-step adapter has 3.39x measured speed advantage over base40 with identical input/prompt/seed",
+        "Four preprocessing/default/cancellation regression tests pass"
+      ],
+      "geometryVerified": false,
+      "conclusion": "Faster preview and preprocessing are corrected; general image editing did not satisfy structural room editing or preservation in the tested case. Exact edits require a geometry or region constrained pipeline."
+    },
+    "public_i2i": [
+      {
+        "artifact": "audit-source/public-i2i-3000.json",
+        "sha256": "33ab2a538535551205dc558b2d37fdbdfff1666345cf87ae4d1932fe4b1b39a9",
+        "port": 3000,
+        "httpSuccess": true,
+        "elapsedSeconds": 174.66,
+        "sourceDimensions": [
+          748,
+          718
+        ],
+        "outputDimensions": [
+          748,
+          718
+        ],
+        "geometryVerified": false,
+        "qualityResult": "not a verified architectural edit"
+      },
+      {
+        "artifact": "audit-source/public-i2i-3001.json",
+        "sha256": "6f91b2bdd7858045e80462033ef43c674207715389e9db39e891b12a054437c9",
+        "port": 3001,
+        "httpSuccess": true,
+        "elapsedSeconds": 29.9,
+        "sourceDimensions": [
+          748,
+          718
+        ],
+        "outputDimensions": [
+          748,
+          718
+        ],
+        "geometryVerified": false,
+        "qualityResult": "not a verified architectural edit"
+      }
+    ],
+    "image_cancel": [
+      {
+        "port": 3000,
+        "route": "/api/ai/floorplan-image",
+        "elapsedSeconds": 3.75,
+        "curlExitCode": 28,
+        "clientStoppedAtSeconds": 3,
+        "childObservedDuringRequest": true,
+        "remainingInferenceProcesses": false,
+        "queueAfter": {
+          "active": false,
+          "waiting": 0,
+          "capacity": 4
+        },
+        "healthAfter": true,
+        "sharedLockAvailable": true,
+        "processesAfter": [
+          "PID                 COMMAND             COMMAND",
+          "897302              node                node --experimental-strip-types /app/services/qwen-image-ncnn/server.ts"
+        ]
+      },
+      {
+        "port": 3001,
+        "route": "/api/ai/floorplan-image",
+        "elapsedSeconds": 3.58,
+        "curlExitCode": 28,
+        "clientStoppedAtSeconds": 3,
+        "childObservedDuringRequest": true,
+        "remainingInferenceProcesses": false,
+        "queueAfter": {
+          "active": false,
+          "waiting": 0,
+          "capacity": 4
+        },
+        "healthAfter": true,
+        "sharedLockAvailable": true,
+        "processesAfter": [
+          "PID                 COMMAND             COMMAND",
+          "897303              node                node --experimental-strip-types /app/services/qwen-image-local/server.ts"
+        ]
+      }
+    ],
+    "ui_single_case": {
+      "artifact": "final-ui-check.json",
+      "sha256": "ea6f952a4e72e62086b911862b80181ac4e6a0117719b1f135b0734ca1f06ca3",
+      "status": "passed",
+      "checked_at": "2026-10-13T05:30:38.970Z",
+      "port": 3001,
+      "viewport": [
+        1280,
+        720
+      ],
+      "case": "one-option-01",
+      "manual_partition_length_m": 1.7,
+      "manual_partition_saved": true,
+      "manual_partition_retained_after_reload": true,
+      "step4_navigation_and_return_preserved_partition": true,
+      "limitations": [
+        "No browser UI test of every preset; all24 presets per port were separately tested through the actual HTTP endpoint.",
+        "Failed/edited blob alias reload cases were covered by regression tests; this browser case covers a verified built-in with saved manual geometry."
+      ]
+    },
+    "sd_cpu_vae_residency": {
+      "cases": [
+        {
+          "name": "sd-vulkan-cold512",
+          "seconds": 9.68,
+          "exitCode": 0,
+          "bytes": 322792
+        },
+        {
+          "name": "sd-cpu-vae-cold512",
+          "seconds": 15.49,
+          "exitCode": 0,
+          "bytes": 320081
+        },
+        {
+          "name": "sd-cpu-vae-resident-first512",
+          "seconds": 16.07,
+          "status": "completed",
+          "bytes": 0,
+          "error": null,
+          "resultKeys": [
+            "images",
+            "output_format"
+          ]
+        },
+        {
+          "name": "sd-cpu-vae-resident-warm512",
+          "seconds": 13.56,
+          "status": "completed",
+          "bytes": 0,
+          "error": null,
+          "resultKeys": [
+            "images",
+            "output_format"
+          ]
+        }
+      ],
+      "deployed": false,
+      "active_native_cancel_supported": false,
+      "boundary": "512 controlled experiment; not current production profile or a robust persistent service."
+    }
+  },
+  "unknowns": [
+    "full24 image/geometry fidelity",
+    "arbitrary upload and edit success rate",
+    "all Step4 styles geometry preservation",
+    "real full Step3 disconnect/600s behavior",
+    "MTP off/on speed benefit",
+    "safe resident image implementation",
+    "physical printer/robot execution",
+    "large-weight full integrity in this audit"
+  ],
+  "final_source_immutability": {
+    "checked_files": 284,
+    "mismatches": [],
+    "head": "6206678170a50f136f99a5cad5c98842187fb910",
+    "business_snapshot_unchanged": true
+  }
+}

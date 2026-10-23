@@ -1,0 +1,538 @@
+{
+  "kind": "real-local-model-inference",
+  "results": [
+    {
+      "key": "one-01",
+      "kind": "partition",
+      "httpStatus": 422,
+      "elapsedMs": 5386,
+      "status": "FAIL",
+      "error": "EDIT_DOOR_NOT_ON_NEW_WALL",
+      "attempts": [
+        {
+          "attempt": 1,
+          "valid": false,
+          "reason": "EDIT_DOOR_NOT_ON_NEW_WALL",
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 2766,
+            "completion_tokens": 190,
+            "total_tokens": 2956,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "cached_tokens": 0,
+            "prompt_tokens_per_second": 2785.9250024799367,
+            "completion_tokens_per_second": 87.50871156132175,
+            "draft_tokens": 118,
+            "draft_tokens_accepted": 106,
+            "gufo": {
+              "cache_hit": false,
+              "cache_miss_reason": "prefix_changed",
+              "cache_common_prefix_tokens": 723,
+              "cache_checkpoint_tokens": 4895,
+              "cache_restore_bytes": 0,
+              "cache_snapshot_bytes": 462018940,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 0,
+              "cache_snapshot_ms": 61.109134999999995,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 2766,
+              "prefill_chunks": 3,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 2048,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 11.934635,
+              "prefill_ms": 992.8479759999999,
+              "decode_ms": 2171.2124040000003,
+              "ttft_ms": 1049.301502,
+              "mean_inter_token_ms": 11.61424393650794,
+              "max_inter_token_ms": 58.358616,
+              "execution_plan": "serial-fallback"
+            }
+          },
+          "additions": "{\"additions\":[{\"type\":\"wall\",\"x1\":6.2,\"y1\":3.5,\"x2\":6.2,\"y2\":4.8},{\"type\":\"wall\",\"x1\":6.2,\"y1\":4.8,\"x2\":7,\"y2\":4.8},{\"type\":\"door\",\"x1\":6.2,\"y1\":4.425,\"x2\":6.95,\"y2\":4.425},{\"type\":\"label\",\"x\":6.6,\"y\":4.15,\"text\":\"卫生间\"}]}"
+        },
+        {
+          "attempt": 2,
+          "valid": false,
+          "reason": "EDIT_DOOR_NOT_ON_NEW_WALL",
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 2984,
+            "completion_tokens": 151,
+            "total_tokens": 3135,
+            "prompt_tokens_details": {
+              "cached_tokens": 2759
+            },
+            "cached_tokens": 2759,
+            "prompt_tokens_per_second": 1142.7244097940156,
+            "completion_tokens_per_second": 98.85239550348787,
+            "draft_tokens": 126,
+            "draft_tokens_accepted": 120,
+            "gufo": {
+              "cache_hit": true,
+              "cache_restore_bytes": 162105044,
+              "cache_snapshot_bytes": 339485396,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 11.486656,
+              "cache_snapshot_ms": 49.03667,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 225,
+              "prefill_chunks": 2,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 218,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 12.930444,
+              "prefill_ms": 196.897868,
+              "decode_ms": 1527.5300029999999,
+              "ttft_ms": 237.344721,
+              "mean_inter_token_ms": 10.390630333333345,
+              "max_inter_token_ms": 92.712961,
+              "execution_plan": "serial-fallback"
+            }
+          },
+          "additions": "{\"additions\":[{\"type\":\"wall\",\"x1\":6.2,\"y1\":3.5,\"x2\":6.2,\"y2\":4.8},{\"type\":\"wall\",\"x1\":6.2,\"y1\":4.8,\"x2\":7,\"y2\":4.8},{\"type\":\"door\",\"x1\":6.2,\"y1\":4.425,\"x2\":6.95,\"y2\":4.425},{\"type\":\"label\",\"x\":6.6,\"y\":4.15,\"text\":\"卫生间\"}]}"
+        }
+      ]
+    },
+    {
+      "key": "one-01",
+      "kind": "sliding",
+      "httpStatus": 200,
+      "elapsedMs": 1674,
+      "status": "PASS",
+      "attempts": [
+        {
+          "attempt": 1,
+          "valid": true,
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 1429,
+            "completion_tokens": 81,
+            "total_tokens": 1510,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "cached_tokens": 0,
+            "prompt_tokens_per_second": 2258.684617062926,
+            "completion_tokens_per_second": 94.57034277646537,
+            "draft_tokens": 68,
+            "draft_tokens_accepted": 63,
+            "gufo": {
+              "cache_hit": false,
+              "cache_miss_reason": "prefix_changed",
+              "cache_common_prefix_tokens": 690,
+              "cache_checkpoint_tokens": 12230,
+              "cache_restore_bytes": 0,
+              "cache_snapshot_bytes": 232190396,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 0,
+              "cache_snapshot_ms": 42.517083,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 1429,
+              "prefill_chunks": 2,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 1422,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 11.414925,
+              "prefill_ms": 632.669116,
+              "decode_ms": 856.505302,
+              "ttft_ms": 668.230191,
+              "mean_inter_token_ms": 10.583890587500001,
+              "max_inter_token_ms": 69.286272,
+              "execution_plan": "serial-fallback"
+            }
+          }
+        }
+      ],
+      "provenance": {
+        "stage": "svg-edit",
+        "actualInference": true,
+        "model": "Ours"
+      },
+      "validation": {
+        "valid": true,
+        "unit": "meter",
+        "checks": [
+          "target-polygon",
+          "room-count",
+          "door-host",
+          "door-reachability",
+          "existing-entry",
+          "unrelated-rooms"
+        ],
+        "warnings": [
+          "尺寸链与印刷面积可能不一致；sourceArea 保留原标注，expectedArea 为解析多边形面积。",
+          "红色平行开口按交接任务约定解释为推拉门；除 one-01 外其通行语义尚未由用户确认。",
+          "灰墙不证明承重属性，解析为 partition；墙厚为现有展示默认值，非施工尺寸。"
+        ]
+      },
+      "pascal": "PASS",
+      "rooms": [
+        "卫生间",
+        "主卧",
+        "客餐厅",
+        "厨房",
+        "阳台",
+        "阳台"
+      ],
+      "doors": 7
+    },
+    {
+      "key": "two-02",
+      "kind": "partition",
+      "httpStatus": 422,
+      "elapsedMs": 6132,
+      "status": "FAIL",
+      "error": "EDIT_DOOR_NOT_ON_NEW_WALL",
+      "attempts": [
+        {
+          "attempt": 1,
+          "valid": false,
+          "reason": "EDIT_DOOR_NOT_ON_NEW_WALL",
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 3288,
+            "completion_tokens": 208,
+            "total_tokens": 3496,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "cached_tokens": 0,
+            "prompt_tokens_per_second": 2380.821968125828,
+            "completion_tokens_per_second": 93.51306259828877,
+            "draft_tokens": 172,
+            "draft_tokens_accepted": 156,
+            "gufo": {
+              "cache_hit": false,
+              "cache_miss_reason": "prefix_changed",
+              "cache_common_prefix_tokens": 769,
+              "cache_checkpoint_tokens": 7004,
+              "cache_restore_bytes": 0,
+              "cache_snapshot_bytes": 498036940,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 0,
+              "cache_snapshot_ms": 88.940233,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 3288,
+              "prefill_chunks": 3,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 2048,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 9.593566,
+              "prefill_ms": 1381.035644,
+              "decode_ms": 2224.2881820000007,
+              "ttft_ms": 1453.188474,
+              "mean_inter_token_ms": 10.802543125603867,
+              "max_inter_token_ms": 98.963708,
+              "execution_plan": "serial-fallback"
+            }
+          },
+          "additions": "{\"additions\":[{\"type\":\"wall\",\"x1\":7.28,\"y1\":5.007,\"x2\":7.28,\"y2\":6.531},{\"type\":\"wall\",\"x1\":7.28,\"y1\":6.531,\"x2\":8.007,\"y2\":6.531},{\"type\":\"door\",\"x1\":7.28,\"y1\":6.156,\"x2\":7.28,\"y2\":6.906},{\"type\":\"label\",\"x\":7.6435,\"y\":5.769,\"text\":\"卫生间\"}]}"
+        },
+        {
+          "attempt": 2,
+          "valid": false,
+          "reason": "EDIT_DOOR_NOT_ON_NEW_WALL",
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 3526,
+            "completion_tokens": 171,
+            "total_tokens": 3697,
+            "prompt_tokens_details": {
+              "cached_tokens": 3281
+            },
+            "cached_tokens": 3281,
+            "prompt_tokens_per_second": 1017.1097834133631,
+            "completion_tokens_per_second": 92.29854331734754,
+            "draft_tokens": 139,
+            "draft_tokens_accepted": 133,
+            "gufo": {
+              "cache_hit": true,
+              "cache_restore_bytes": 180114044,
+              "cache_snapshot_bytes": 376883396,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 16.107463,
+              "cache_snapshot_ms": 54.044687999999994,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 245,
+              "prefill_chunks": 2,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 238,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 18.073273,
+              "prefill_ms": 240.878619,
+              "decode_ms": 1852.6836269999997,
+              "ttft_ms": 291.562949,
+              "mean_inter_token_ms": 11.160791988235303,
+              "max_inter_token_ms": 141.570491,
+              "execution_plan": "serial-fallback"
+            }
+          },
+          "additions": "{\"additions\":[{\"type\":\"wall\",\"x1\":7.28,\"y1\":5.007,\"x2\":7.28,\"y2\":6.531},{\"type\":\"wall\",\"x1\":7.28,\"y1\":6.531,\"x2\":8.007,\"y2\":6.531},{\"type\":\"door\",\"x1\":7.28,\"y1\":6.156,\"x2\":7.28,\"y2\":6.906},{\"type\":\"label\",\"x\":7.6435,\"y\":5.769,\"text\":\"卫生间\"}]}"
+        }
+      ]
+    },
+    {
+      "key": "two-02",
+      "kind": "sliding",
+      "httpStatus": 422,
+      "elapsedMs": 63,
+      "status": "FAIL",
+      "error": "EDIT_NO_FREE_LIVING_BALCONY_WALL:现有开口已占满共墙或两区域没有共墙，不能叠加重复门洞"
+    },
+    {
+      "key": "three-03",
+      "kind": "partition",
+      "httpStatus": 422,
+      "elapsedMs": 7812,
+      "status": "FAIL",
+      "error": "SVG_ROOM_LABEL_COLLISION:主卧/卫生间",
+      "attempts": [
+        {
+          "attempt": 1,
+          "valid": false,
+          "reason": "SVG_ROOM_LABEL_COLLISION:主卧/卫生间",
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 3810,
+            "completion_tokens": 192,
+            "total_tokens": 4002,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "cached_tokens": 0,
+            "prompt_tokens_per_second": 2351.1522621422655,
+            "completion_tokens_per_second": 94.71137904447222,
+            "draft_tokens": 168,
+            "draft_tokens_accepted": 147,
+            "gufo": {
+              "cache_hit": false,
+              "cache_miss_reason": "prefix_changed",
+              "cache_common_prefix_tokens": 784,
+              "cache_checkpoint_tokens": 8172,
+              "cache_restore_bytes": 0,
+              "cache_snapshot_bytes": 534054940,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 0,
+              "cache_snapshot_ms": 399.582823,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 3810,
+              "prefill_chunks": 3,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 2048,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 10.793655,
+              "prefill_ms": 1620.482034,
+              "decode_ms": 2027.211534,
+              "ttft_ms": 1685.160727,
+              "mean_inter_token_ms": 12.431169104712046,
+              "max_inter_token_ms": 376.565933,
+              "execution_plan": "serial-fallback"
+            }
+          },
+          "additions": "{\"additions\":[{\"type\":\"wall\",\"x1\":3.493,\"y1\":5.84,\"x2\":3.493,\"y2\":7.5},{\"type\":\"wall\",\"x1\":3.493,\"y1\":7.5,\"x2\":4.5,\"y2\":7.5},{\"type\":\"door\",\"x1\":3.6,\"y1\":7.5,\"x2\":4.35,\"y2\":7.5},{\"type\":\"label\",\"x\":4,\"y\":6.5,\"text\":\"卫生间\"}]}"
+        },
+        {
+          "attempt": 2,
+          "valid": false,
+          "reason": "SVG_ROOM_LABEL_COLLISION:主卧/卫生间",
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 4034,
+            "completion_tokens": 153,
+            "total_tokens": 4187,
+            "prompt_tokens_details": {
+              "cached_tokens": 3803
+            },
+            "cached_tokens": 3803,
+            "prompt_tokens_per_second": 919.1122895200529,
+            "completion_tokens_per_second": 119.24660797412011,
+            "draft_tokens": 133,
+            "draft_tokens_accepted": 132,
+            "gufo": {
+              "cache_hit": true,
+              "cache_restore_bytes": 198123044,
+              "cache_snapshot_bytes": 411935396,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 11.476215,
+              "cache_snapshot_ms": 1825.528069,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 231,
+              "prefill_chunks": 2,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 224,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 13.055735,
+              "prefill_ms": 251.329465,
+              "decode_ms": 1283.0553640000003,
+              "ttft_ms": 1215.381863,
+              "mean_inter_token_ms": 14.194487960526347,
+              "max_inter_token_ms": 897.919116,
+              "execution_plan": "serial-fallback"
+            }
+          },
+          "additions": "{\"additions\":[{\"type\":\"wall\",\"x1\":3.493,\"y1\":5.84,\"x2\":3.493,\"y2\":7.5},{\"type\":\"wall\",\"x1\":3.493,\"y1\":7.5,\"x2\":4.5,\"y2\":7.5},{\"type\":\"door\",\"x1\":3.6,\"y1\":7.5,\"x2\":4.35,\"y2\":7.5},{\"type\":\"label\",\"x\":4,\"y\":6.5,\"text\":\"卫生间\"}]}"
+        }
+      ]
+    },
+    {
+      "key": "three-03",
+      "kind": "sliding",
+      "httpStatus": 200,
+      "elapsedMs": 2957,
+      "status": "PASS",
+      "attempts": [
+        {
+          "attempt": 1,
+          "valid": true,
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 1807,
+            "completion_tokens": 81,
+            "total_tokens": 1888,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "cached_tokens": 0,
+            "prompt_tokens_per_second": 2441.9941883484385,
+            "completion_tokens_per_second": 97.69332974452261,
+            "draft_tokens": 66,
+            "draft_tokens_accepted": 61,
+            "gufo": {
+              "cache_hit": false,
+              "cache_miss_reason": "prefix_changed",
+              "cache_common_prefix_tokens": 684,
+              "cache_checkpoint_tokens": 1510,
+              "cache_restore_bytes": 0,
+              "cache_snapshot_bytes": 258272396,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 0,
+              "cache_snapshot_ms": 1174.41007,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 1807,
+              "prefill_chunks": 2,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 1800,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 9.525406,
+              "prefill_ms": 739.969001,
+              "decode_ms": 829.1251840000001,
+              "ttft_ms": 1662.471517,
+              "mean_inter_token_ms": 13.427739637499997,
+              "max_inter_token_ms": 305.458832,
+              "execution_plan": "serial-fallback"
+            }
+          }
+        }
+      ],
+      "provenance": {
+        "stage": "svg-edit",
+        "actualInference": true,
+        "model": "Ours"
+      },
+      "validation": {
+        "valid": true,
+        "unit": "meter",
+        "checks": [
+          "target-polygon",
+          "room-count",
+          "door-host",
+          "door-reachability",
+          "existing-entry",
+          "unrelated-rooms"
+        ],
+        "warnings": [
+          "尺寸链与印刷面积可能不一致；sourceArea 保留原标注，expectedArea 为解析多边形面积。",
+          "红色平行开口按交接任务约定解释为推拉门；除 one-01 外其通行语义尚未由用户确认。",
+          "灰墙不证明承重属性，解析为 partition；墙厚为现有展示默认值，非施工尺寸。"
+        ]
+      },
+      "pascal": "PASS",
+      "rooms": [
+        "次卧",
+        "卫生间",
+        "厨房",
+        "卫生间",
+        "客餐厅",
+        "主卧",
+        "次卧",
+        "阳台"
+      ],
+      "doors": 9
+    }
+  ]
+}

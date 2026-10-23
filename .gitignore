@@ -1,5 +1,25 @@
 node_modules
 .next
-out
+.next-*
+.runtime
+.env
 .env.local
+.env.local.backup-*
+.vercel
 .DS_Store
+*.log
+logs
+work
+outputs
+scripts/__pycache__
+*.pyc
+VERIFY_OUTPUT.txt
+VERIFICATION.md
+tsconfig.tsbuildinfo
+
+# Export excludes machine-specific state
+*.pem
+*.key
+.env.*
+!.env.example
+SOURCE_PACKAGE*.zip

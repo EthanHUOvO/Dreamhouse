@@ -1,0 +1,7 @@
+FROM ideal-home-local:qwen-image
+WORKDIR /app
+COPY services/local-ai-runtime.ts /app/services/local-ai-runtime.ts
+COPY services/qwen-image-local/server.ts /app/services/qwen-image-local/server.ts
+ENV NODE_ENV=production SD_CPP_BIN=/opt/sd/sd-cli SD_DIFFUSION_MODEL=/models/z_image_turbo-Q8_0.gguf SD_TEXT_ENCODER=/models/Qwen3-4B-Instruct-2507-Q4_K_M.gguf SD_VAE=/models/ae.safetensors GENERATED_IMAGE_DIR=/data/generated SD_JOB_TIMEOUT_MS=1800000
+EXPOSE 8200
+CMD ["node", "--experimental-strip-types", "/app/services/qwen-image-local/server.ts"]

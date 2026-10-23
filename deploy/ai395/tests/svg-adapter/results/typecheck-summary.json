@@ -1,0 +1,8 @@
+{
+  "fullTypecheck": "FAIL",
+  "baselineErrorCount": 141,
+  "currentErrorCount": 141,
+  "addedDiagnostics": [],
+  "baselineImage": "a05832f4b435",
+  "currentScope": "final SVG adapter source overlay in disposable image"
+}

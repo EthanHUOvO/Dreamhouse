@@ -1,0 +1,4 @@
+# Apply together with compose.migration.yaml. Keeps existing local configuration intact.
+services:
+  web:
+    image: ideal-home-local:web-edit-save-20261022

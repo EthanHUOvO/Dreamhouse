@@ -1,0 +1,269 @@
+{
+  "kind": "production-http-and-mcp",
+  "base": "http://web:3000",
+  "plans": [
+    {
+      "key": "one-01",
+      "status": "PASS",
+      "sessionId": "svg-http-one-01-1792472853972",
+      "sourceImageHash": "2f8c78f25af209858e3d39aa3fc48ac8069f70e871583dd7cd97805849a2aaac",
+      "rooms": 6,
+      "walls": 22,
+      "doors": 6,
+      "windows": 3,
+      "elapsedMs": 422,
+      "uriEncoded": false
+    },
+    {
+      "key": "one-02",
+      "status": "PASS",
+      "sessionId": "svg-http-one-02-1792472854415",
+      "sourceImageHash": "e0a8eb4add7749d52f23a8a07897e89b9fe5a193631dd028824301ab2bd31f85",
+      "rooms": 5,
+      "walls": 20,
+      "doors": 5,
+      "windows": 2,
+      "elapsedMs": 209,
+      "uriEncoded": true
+    },
+    {
+      "key": "one-07",
+      "status": "PASS",
+      "sessionId": "svg-http-one-07-1792472854645",
+      "sourceImageHash": "7be549e18e6758c37ec65638723035cc585acabc9fa9dede7108cec2908613b9",
+      "rooms": 4,
+      "walls": 23,
+      "doors": 4,
+      "windows": 5,
+      "elapsedMs": 345,
+      "uriEncoded": false
+    },
+    {
+      "key": "two-01",
+      "status": "PASS",
+      "sessionId": "svg-http-two-01-1792472855017",
+      "sourceImageHash": "9872b433a0a0057ca4d9e9d79babec21250398ff39951d40dc66b51b315913bf",
+      "rooms": 7,
+      "walls": 31,
+      "doors": 8,
+      "windows": 7,
+      "elapsedMs": 322,
+      "uriEncoded": false
+    },
+    {
+      "key": "two-02",
+      "status": "PASS",
+      "sessionId": "svg-http-two-02-1792472855367",
+      "sourceImageHash": "9282b2559475e118a06b2fecc22abce9ea9b706da651effad57ca21d62750965",
+      "rooms": 6,
+      "walls": 29,
+      "doors": 6,
+      "windows": 5,
+      "elapsedMs": 328,
+      "uriEncoded": false
+    },
+    {
+      "key": "two-07",
+      "status": "PASS",
+      "sessionId": "svg-http-two-07-1792472855717",
+      "sourceImageHash": "8494a72e9dcd662f656554d50c0c699c504f35b79bb0e98c3948bc9d1299e036",
+      "rooms": 7,
+      "walls": 24,
+      "doors": 8,
+      "windows": 5,
+      "elapsedMs": 234,
+      "uriEncoded": false
+    },
+    {
+      "key": "three-01",
+      "status": "PASS",
+      "sessionId": "svg-http-three-01-1792472855972",
+      "sourceImageHash": "21b876f2142b5c03055c8738699fcf9a2d8af9d941d29ab434de9bca3b8380ee",
+      "rooms": 8,
+      "walls": 43,
+      "doors": 7,
+      "windows": 11,
+      "elapsedMs": 291,
+      "uriEncoded": false
+    },
+    {
+      "key": "three-03",
+      "status": "PASS",
+      "sessionId": "svg-http-three-03-1792472856285",
+      "sourceImageHash": "a58d92b3ef52d71427025c3ca707014d098eed74ea590c817d2f958e5573fab1",
+      "rooms": 8,
+      "walls": 46,
+      "doors": 8,
+      "windows": 8,
+      "elapsedMs": 381,
+      "uriEncoded": false
+    },
+    {
+      "key": "three-07",
+      "status": "PASS",
+      "sessionId": "svg-http-three-07-1792472856689",
+      "sourceImageHash": "acec1a2c82f1e72140d3d88e6cba3d90f6a8adcd7091f5c3449d8b834335cc09",
+      "rooms": 10,
+      "walls": 44,
+      "doors": 10,
+      "windows": 0,
+      "elapsedMs": 339,
+      "uriEncoded": false
+    }
+  ],
+  "editedScenes": [
+    {
+      "key": "one-01-partition",
+      "status": "PASS",
+      "sessionId": "svg-http-one-01-partition-1792472857028",
+      "sourceImageHash": "919a919ec53577dfa0151356541ba5a9dba829ee5b8da4d98492a5d99b3b32cc",
+      "rooms": 7,
+      "walls": 26,
+      "doors": 7,
+      "windows": 3,
+      "elapsedMs": 315,
+      "uriEncoded": false
+    },
+    {
+      "key": "two-02-partition",
+      "status": "PASS",
+      "sessionId": "svg-http-two-02-partition-1792472857344",
+      "sourceImageHash": "7962ff1c988def10aa427da4557a6a6275275b2a8a22ec773e50cbcbb7ef4a5c",
+      "rooms": 7,
+      "walls": 32,
+      "doors": 7,
+      "windows": 5,
+      "elapsedMs": 347,
+      "uriEncoded": false
+    },
+    {
+      "key": "three-03-partition",
+      "status": "PASS",
+      "sessionId": "svg-http-three-03-partition-1792472857691",
+      "sourceImageHash": "835daf2e876db15e1488771c0313898d9cd7d6eea10f950d77e74bc7068ef8f5",
+      "rooms": 9,
+      "walls": 50,
+      "doors": 9,
+      "windows": 8,
+      "elapsedMs": 367,
+      "uriEncoded": false
+    },
+    {
+      "key": "one-01-sliding",
+      "status": "PASS",
+      "sessionId": "svg-http-one-01-sliding-1792472858058",
+      "sourceImageHash": "227db66b3e297d98c670ea3517fe7883cf4322ede89408458c8ed27ed020b23f",
+      "rooms": 6,
+      "walls": 22,
+      "doors": 7,
+      "windows": 3,
+      "elapsedMs": 225,
+      "uriEncoded": false
+    },
+    {
+      "key": "two-01-sliding",
+      "status": "PASS",
+      "sessionId": "svg-http-two-01-sliding-1792472858284",
+      "sourceImageHash": "5c2dd2c59879c1570a055390a5184e89c5cb8ab5ae272a4e17fe3e8155e00a36",
+      "rooms": 7,
+      "walls": 31,
+      "doors": 9,
+      "windows": 7,
+      "elapsedMs": 324,
+      "uriEncoded": false
+    },
+    {
+      "key": "three-03-sliding",
+      "status": "PASS",
+      "sessionId": "svg-http-three-03-sliding-1792472858608",
+      "sourceImageHash": "a3a1134c0b8cfef8b44b04b03643ec77c0720d50c6b41a2ce6a646df00778708",
+      "rooms": 8,
+      "walls": 46,
+      "doors": 9,
+      "windows": 8,
+      "elapsedMs": 397,
+      "uriEncoded": false
+    },
+    {
+      "key": "production-one-01-partition",
+      "status": "PASS",
+      "sessionId": "svg-http-production-one-01-partition-1792472861522",
+      "sourceImageHash": "96848ea0be662baa07c7c1d2278f4bd3a77337f3e57a1e0e74f286fca895c21a",
+      "rooms": 7,
+      "walls": 26,
+      "doors": 7,
+      "windows": 3,
+      "elapsedMs": 216,
+      "uriEncoded": false
+    }
+  ],
+  "negative": [
+    {
+      "case": "invalid-svg-no-prebuilt-fallback",
+      "status": "PASS"
+    },
+    {
+      "case": "unsupported-instruction-no-silent-other-edit",
+      "status": "PASS"
+    }
+  ],
+  "ai": [
+    {
+      "key": "one-01",
+      "kind": "partition",
+      "status": "PASS",
+      "model": "Ours",
+      "elapsedMs": 2517,
+      "attempts": [
+        {
+          "attempt": 1,
+          "valid": true,
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 1155,
+            "completion_tokens": 210,
+            "total_tokens": 1365,
+            "prompt_tokens_details": {
+              "cached_tokens": 1155
+            },
+            "cached_tokens": 1155,
+            "prompt_tokens_per_second": 0,
+            "completion_tokens_per_second": 103.00298583583867,
+            "draft_tokens": 154,
+            "draft_tokens_accepted": 146,
+            "gufo": {
+              "cache_hit": true,
+              "cache_restore_bytes": 106758852,
+              "cache_snapshot_bytes": 0,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 10.852575,
+              "cache_snapshot_ms": 0,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 0,
+              "prefill_chunks": 0,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 0,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 12.247305,
+              "prefill_ms": 0,
+              "decode_ms": 2038.7758500000004,
+              "ttft_ms": 12.586345,
+              "mean_inter_token_ms": 9.753469521531107,
+              "max_inter_token_ms": 57.872635,
+              "execution_plan": "serial-fallback"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,676 @@
+{
+  "kind": "programmatic-no-model-inference",
+  "plans": [
+    {
+      "key": "one-01",
+      "status": "PASS",
+      "rooms": 6,
+      "walls": 22,
+      "doors": 6,
+      "windows": 3,
+      "elapsedMs": 314.9,
+      "areas": [
+        {
+          "name": "卫生间",
+          "printed": 3.58,
+          "measured": 4.369,
+          "relativeDelta": 0.22
+        },
+        {
+          "name": "主卧",
+          "printed": 11.65,
+          "measured": 13.099,
+          "relativeDelta": 0.124
+        },
+        {
+          "name": "客餐厅",
+          "printed": 15.84,
+          "measured": 17.358,
+          "relativeDelta": 0.096
+        },
+        {
+          "name": "厨房",
+          "printed": 4.72,
+          "measured": 5.356,
+          "relativeDelta": 0.135
+        },
+        {
+          "name": "阳台",
+          "printed": 4.21,
+          "measured": 4.968,
+          "relativeDelta": 0.18
+        },
+        {
+          "name": "阳台",
+          "printed": 3.7,
+          "measured": 4.522,
+          "relativeDelta": 0.222
+        }
+      ],
+      "apertureHosts": []
+    },
+    {
+      "key": "one-02",
+      "status": "PASS",
+      "rooms": 5,
+      "walls": 20,
+      "doors": 5,
+      "windows": 2,
+      "elapsedMs": 204.6,
+      "areas": [
+        {
+          "name": "卫生间",
+          "printed": 2.13,
+          "measured": 2.685,
+          "relativeDelta": 0.261
+        },
+        {
+          "name": "客餐厅",
+          "printed": 10.27,
+          "measured": 11.595,
+          "relativeDelta": 0.129
+        },
+        {
+          "name": "厨房",
+          "printed": 4.3,
+          "measured": 4.89,
+          "relativeDelta": 0.137
+        },
+        {
+          "name": "主卧",
+          "printed": 11.68,
+          "measured": 13.298,
+          "relativeDelta": 0.139
+        },
+        {
+          "name": "阳台",
+          "printed": 2.3,
+          "measured": 2.878,
+          "relativeDelta": 0.251
+        }
+      ],
+      "apertureHosts": []
+    },
+    {
+      "key": "one-07",
+      "status": "PASS",
+      "rooms": 4,
+      "walls": 23,
+      "doors": 4,
+      "windows": 5,
+      "elapsedMs": 203.7,
+      "areas": [
+        {
+          "name": "主卧",
+          "printed": 15.14,
+          "measured": 17.267,
+          "relativeDelta": 0.141
+        },
+        {
+          "name": "阳台",
+          "printed": 3.25,
+          "measured": 4.359,
+          "relativeDelta": 0.341
+        },
+        {
+          "name": "卫生间",
+          "printed": 1.66,
+          "measured": 2.217,
+          "relativeDelta": 0.335
+        },
+        {
+          "name": "客餐厅",
+          "printed": 14.68,
+          "measured": 17.25,
+          "relativeDelta": 0.175
+        }
+      ],
+      "apertureHosts": []
+    },
+    {
+      "key": "two-01",
+      "status": "PASS",
+      "rooms": 7,
+      "walls": 31,
+      "doors": 8,
+      "windows": 7,
+      "elapsedMs": 242.3,
+      "areas": [
+        {
+          "name": "阳台",
+          "printed": 4.98,
+          "measured": 6.153,
+          "relativeDelta": 0.236
+        },
+        {
+          "name": "阳台",
+          "printed": 1.54,
+          "measured": 2.053,
+          "relativeDelta": 0.333
+        },
+        {
+          "name": "厨房",
+          "printed": 8.22,
+          "measured": 9.148,
+          "relativeDelta": 0.113
+        },
+        {
+          "name": "卫生间",
+          "printed": 7.75,
+          "measured": 8.816,
+          "relativeDelta": 0.138
+        },
+        {
+          "name": "客餐厅",
+          "printed": 44.63,
+          "measured": 47.28,
+          "relativeDelta": 0.059
+        },
+        {
+          "name": "主卧",
+          "printed": 17.02,
+          "measured": 18.701,
+          "relativeDelta": 0.099
+        },
+        {
+          "name": "次卧",
+          "printed": 12.52,
+          "measured": 13.973,
+          "relativeDelta": 0.116
+        }
+      ],
+      "apertureHosts": [
+        "window-01"
+      ]
+    },
+    {
+      "key": "two-02",
+      "status": "PASS",
+      "rooms": 6,
+      "walls": 29,
+      "doors": 6,
+      "windows": 5,
+      "elapsedMs": 219.9,
+      "areas": [
+        {
+          "name": "客餐厅",
+          "printed": 12.64,
+          "measured": 14.333,
+          "relativeDelta": 0.134
+        },
+        {
+          "name": "厨房",
+          "printed": 4.07,
+          "measured": 4.813,
+          "relativeDelta": 0.183
+        },
+        {
+          "name": "卫生间",
+          "printed": 2.94,
+          "measured": 3.787,
+          "relativeDelta": 0.288
+        },
+        {
+          "name": "次卧",
+          "printed": 9.14,
+          "measured": 10.51,
+          "relativeDelta": 0.15
+        },
+        {
+          "name": "主卧",
+          "printed": 14.83,
+          "measured": 16.916,
+          "relativeDelta": 0.141
+        },
+        {
+          "name": "阳台",
+          "printed": 3.22,
+          "measured": 4.103,
+          "relativeDelta": 0.274
+        }
+      ],
+      "apertureHosts": [
+        "parallel-opening-01"
+      ]
+    },
+    {
+      "key": "two-07",
+      "status": "PASS",
+      "rooms": 7,
+      "walls": 24,
+      "doors": 8,
+      "windows": 5,
+      "elapsedMs": 170.3,
+      "areas": [
+        {
+          "name": "阳台",
+          "printed": 9.57,
+          "measured": 11.777,
+          "relativeDelta": 0.231
+        },
+        {
+          "name": "客餐厅",
+          "printed": 28.58,
+          "measured": 31.455,
+          "relativeDelta": 0.101
+        },
+        {
+          "name": "主卧",
+          "printed": 15.19,
+          "measured": 17.22,
+          "relativeDelta": 0.134
+        },
+        {
+          "name": "卫生间",
+          "printed": 3.55,
+          "measured": 4.304,
+          "relativeDelta": 0.212
+        },
+        {
+          "name": "次卧",
+          "printed": 12.53,
+          "measured": 14.294,
+          "relativeDelta": 0.141
+        },
+        {
+          "name": "厨房",
+          "printed": 6.48,
+          "measured": 7.59,
+          "relativeDelta": 0.171
+        },
+        {
+          "name": "阳台",
+          "printed": 2.51,
+          "measured": 3.334,
+          "relativeDelta": 0.328
+        }
+      ],
+      "apertureHosts": []
+    },
+    {
+      "key": "three-01",
+      "status": "PASS",
+      "rooms": 8,
+      "walls": 43,
+      "doors": 7,
+      "windows": 11,
+      "elapsedMs": 223.7,
+      "areas": [
+        {
+          "name": "客餐厅",
+          "printed": 46.32,
+          "measured": 50.73,
+          "relativeDelta": 0.095
+        },
+        {
+          "name": "卧室",
+          "printed": 14.69,
+          "measured": 16.001,
+          "relativeDelta": 0.089
+        },
+        {
+          "name": "卧室",
+          "printed": 12.06,
+          "measured": 13.264,
+          "relativeDelta": 0.1
+        },
+        {
+          "name": "主卧",
+          "printed": 19.08,
+          "measured": 20.771,
+          "relativeDelta": 0.089
+        },
+        {
+          "name": "卫生间",
+          "printed": 3.74,
+          "measured": 4.562,
+          "relativeDelta": 0.22
+        },
+        {
+          "name": "卫生间",
+          "printed": 4.15,
+          "measured": 4.878,
+          "relativeDelta": 0.175
+        },
+        {
+          "name": "厨房",
+          "printed": 8.71,
+          "measured": 10.249,
+          "relativeDelta": 0.177
+        },
+        {
+          "name": "阳台",
+          "printed": 1.93,
+          "measured": 2.56,
+          "relativeDelta": 0.326
+        }
+      ],
+      "apertureHosts": [
+        "hinged-door-03",
+        "window-03",
+        "window-05",
+        "window-06",
+        "window-09"
+      ]
+    },
+    {
+      "key": "three-03",
+      "status": "PASS",
+      "rooms": 8,
+      "walls": 46,
+      "doors": 8,
+      "windows": 8,
+      "elapsedMs": 339.8,
+      "areas": [
+        {
+          "name": "次卧",
+          "printed": 8.6,
+          "measured": 9.968,
+          "relativeDelta": 0.159
+        },
+        {
+          "name": "卫生间",
+          "printed": 3.87,
+          "measured": 4.615,
+          "relativeDelta": 0.192
+        },
+        {
+          "name": "厨房",
+          "printed": 5.26,
+          "measured": 6.202,
+          "relativeDelta": 0.179
+        },
+        {
+          "name": "卫生间",
+          "printed": 3.88,
+          "measured": 4.655,
+          "relativeDelta": 0.2
+        },
+        {
+          "name": "客餐厅",
+          "printed": 33.79,
+          "measured": 37.305,
+          "relativeDelta": 0.104
+        },
+        {
+          "name": "主卧",
+          "printed": 14.38,
+          "measured": 16.04,
+          "relativeDelta": 0.115
+        },
+        {
+          "name": "次卧",
+          "printed": 9.2,
+          "measured": 10.414,
+          "relativeDelta": 0.132
+        },
+        {
+          "name": "阳台",
+          "printed": 8.21,
+          "measured": 10.218,
+          "relativeDelta": 0.245
+        }
+      ],
+      "apertureHosts": []
+    },
+    {
+      "key": "three-07",
+      "status": "PASS",
+      "rooms": 10,
+      "walls": 44,
+      "doors": 10,
+      "windows": 0,
+      "elapsedMs": 261.7,
+      "areas": [
+        {
+          "name": "主卧",
+          "printed": 14.96,
+          "measured": 18.432,
+          "relativeDelta": 0.232
+        },
+        {
+          "name": "主卫",
+          "printed": 4,
+          "measured": 5.113,
+          "relativeDelta": 0.278
+        },
+        {
+          "name": "次卧",
+          "printed": 14.07,
+          "measured": 17.339,
+          "relativeDelta": 0.232
+        },
+        {
+          "name": "冷藏室",
+          "printed": 4.95,
+          "measured": 6.566,
+          "relativeDelta": 0.326
+        },
+        {
+          "name": "厨房",
+          "printed": 7,
+          "measured": 9.143,
+          "relativeDelta": 0.306
+        },
+        {
+          "name": "客餐厅",
+          "printed": 43.34,
+          "measured": 51.95,
+          "relativeDelta": 0.199
+        },
+        {
+          "name": "阳台",
+          "printed": 5.46,
+          "measured": 7.278,
+          "relativeDelta": 0.333
+        },
+        {
+          "name": "书房",
+          "printed": 9.54,
+          "measured": 12.048,
+          "relativeDelta": 0.263
+        },
+        {
+          "name": "洗漱区",
+          "printed": 3,
+          "measured": 4.129,
+          "relativeDelta": 0.376
+        },
+        {
+          "name": "卫生间",
+          "printed": 4,
+          "measured": 5.132,
+          "relativeDelta": 0.283
+        }
+      ],
+      "apertureHosts": [
+        "parallel-opening-main-bath"
+      ]
+    }
+  ],
+  "negative": [
+    {
+      "name": "raw-source-ambiguity:two-01",
+      "status": "PASS"
+    },
+    {
+      "name": "raw-source-ambiguity:three-07",
+      "status": "PASS"
+    },
+    {
+      "name": "zero-window",
+      "status": "PASS"
+    },
+    {
+      "name": "entity",
+      "status": "PASS"
+    },
+    {
+      "name": "open-xml",
+      "status": "PASS"
+    },
+    {
+      "name": "duplicate-id",
+      "status": "PASS"
+    },
+    {
+      "name": "geometry-transform",
+      "status": "PASS"
+    },
+    {
+      "name": "floating-door",
+      "status": "PASS"
+    },
+    {
+      "name": "unsupported-wall-curve",
+      "status": "PASS"
+    },
+    {
+      "name": "wall-outside-target",
+      "status": "PASS"
+    },
+    {
+      "name": "opening-no-repair-and-rollback",
+      "status": "PASS"
+    },
+    {
+      "name": "cannot-claim-svg-provenance-without-svg",
+      "status": "PASS"
+    },
+    {
+      "name": "cannot-change-parsed-room-geometry",
+      "status": "PASS"
+    },
+    {
+      "name": "missing-version-xml-never-inherits-latest",
+      "status": "PASS"
+    }
+  ],
+  "edits": [
+    {
+      "key": "one-01",
+      "kind": "programmatic-candidate-not-ai",
+      "status": "PASS",
+      "candidates": 2
+    },
+    {
+      "key": "two-02",
+      "kind": "programmatic-candidate-not-ai",
+      "status": "PASS",
+      "candidates": 1
+    },
+    {
+      "key": "three-03",
+      "kind": "programmatic-candidate-not-ai",
+      "status": "PASS",
+      "candidates": 2
+    },
+    {
+      "key": "one-01",
+      "partition": true,
+      "freeSpans": 1,
+      "masterVertices": 80
+    },
+    {
+      "key": "one-01",
+      "partition": false,
+      "freeSpans": 1
+    },
+    {
+      "key": "one-02",
+      "partition": true,
+      "freeSpans": 0,
+      "masterVertices": 66
+    },
+    {
+      "key": "one-02",
+      "error": "EDIT_NO_FREE_LIVING_BALCONY_WALL:现有开口已占满共墙或两区域没有共墙，不能叠加重复门洞"
+    },
+    {
+      "key": "one-07",
+      "partition": true,
+      "freeSpans": 0,
+      "masterVertices": 108
+    },
+    {
+      "key": "one-07",
+      "error": "EDIT_NO_FREE_LIVING_BALCONY_WALL:现有开口已占满共墙或两区域没有共墙，不能叠加重复门洞"
+    },
+    {
+      "key": "two-01",
+      "partition": true,
+      "freeSpans": 1,
+      "masterVertices": 48
+    },
+    {
+      "key": "two-01",
+      "partition": false,
+      "freeSpans": 1
+    },
+    {
+      "key": "two-02",
+      "partition": true,
+      "freeSpans": 0,
+      "masterVertices": 108
+    },
+    {
+      "key": "two-02",
+      "error": "EDIT_NO_FREE_LIVING_BALCONY_WALL:现有开口已占满共墙或两区域没有共墙，不能叠加重复门洞"
+    },
+    {
+      "key": "two-07",
+      "partition": true,
+      "freeSpans": 0,
+      "masterVertices": 44
+    },
+    {
+      "key": "two-07",
+      "error": "EDIT_NO_FREE_LIVING_BALCONY_WALL:现有开口已占满共墙或两区域没有共墙，不能叠加重复门洞"
+    },
+    {
+      "key": "three-01",
+      "partition": true,
+      "freeSpans": 1,
+      "masterVertices": 72
+    },
+    {
+      "key": "three-01",
+      "partition": false,
+      "freeSpans": 1
+    },
+    {
+      "key": "three-03",
+      "partition": true,
+      "freeSpans": 1,
+      "masterVertices": 124
+    },
+    {
+      "key": "three-03",
+      "partition": false,
+      "freeSpans": 1
+    },
+    {
+      "key": "three-07",
+      "partition": true,
+      "freeSpans": 1,
+      "masterVertices": 70
+    },
+    {
+      "key": "three-07",
+      "partition": false,
+      "freeSpans": 1
+    }
+  ],
+  "legacy": {
+    "status": "PASS",
+    "rooms": 6
+  },
+  "versions": {
+    "status": "PASS",
+    "v1Rooms": 6,
+    "v2Rooms": 7,
+    "xmlRestored": true,
+    "wrongVersionRejected": true,
+    "svgNotReplacedByPreset": true
+  }
+}

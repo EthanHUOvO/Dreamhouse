@@ -1,34 +1,60 @@
-# API integration
+# API Integration
 
-## Qwen text / multimodal / Function Calling
+## Qwen3.8-Flash
 
-Files:
-
-```text
-lib/ai/qwen-client.ts
-lib/ai/qwen-layout-agent.ts
-lib/ai/qwen-provider.ts
-app/api/ai/layout/route.ts
-app/api/ai/status/route.ts
-```
-
-`qwen-client.ts` calls the OpenAI-compatible `chat/completions` endpoint and sets `enable_thinking:false` for predictable Function Calling / structured JSON behavior.
-
-The layout agent sends the model the user profile, current Design Version, optional uploaded floorplan image, and the DreamHouse Function Calling tool schemas. Tool calls execute only on a temporary SceneGraph copy. The result must pass `validate_layout` before the UI enables “Apply to Design”.
-
-## Required values from your Alibaba Cloud account
-
-You only need to identify these values; keep the API key private:
+OpenAI 兼容：
 
 ```text
-Region: Beijing / Singapore / other
-Workspace mode: dedicated workspace endpoint or public DashScope endpoint
-Workspace ID: if using a dedicated endpoint
-Model ID: e.g. qwen3.7-plus
+POST {QWEN_COMPAT_BASE_URL}/chat/completions
 ```
 
-Place the actual key only in `.env.local` locally or Vercel Environment Variables.
+用于：
 
-## Qwen-Image / Wan
+- Pascal Layout Agent / Function Calling
+- BOM 材料与工艺补充
 
-The layout-agent path is fully separated from image/video generation. `generateVisual()` and `generateVideo()` remain adapters so those services can be wired later without changing Pascal or the Geometry Engine.
+## Qwen-Image-3.0-Pro
+
+百炼原生同步接口：
+
+```text
+POST {QWEN_NATIVE_BASE_URL}/services/aigc/multimodal-generation/generation
+```
+
+用于：
+
+- 2D 户型图编辑
+- 整体空间渲染
+- 分房间渲染
+
+输入图片可为公网 URL 或 Base64 data URL。`lib/ai/server-image.ts` 会将 `/public/...` 路径转换为 data URL。
+
+## 调试
+
+先设置：
+
+```env
+AI_MODE=qwen
+```
+
+然后访问：
+
+```text
+GET /api/ai/status
+```
+
+确认：
+
+```json
+{
+  "mode": "qwen",
+  "qwenConfigured": true,
+  "models": {
+    "layout": "qwen3.8-flash",
+    "image": "qwen-image-3.0-pro",
+    "bom": "qwen3.8-flash"
+  }
+}
+```
+
+如果 strict Qwen 模式失败，接口会返回具体 stage/model/status，不会静默切到 mock。

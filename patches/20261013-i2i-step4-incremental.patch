@@ -1,0 +1,703 @@
+diff --git a/app/api/ai/floorplan-image/route.ts b/app/api/ai/floorplan-image/route.ts
+index a3e0abfbe20b0ff48fca943f65e21dcfe469ea04..8b56e27634a0f493e3d1fe118932218a64f11de5 100644
+--- a/app/api/ai/floorplan-image/route.ts
++++ b/app/api/ai/floorplan-image/route.ts
+@@ -11,7 +11,7 @@ export const runtime = "nodejs";
+ export async function POST(req: NextRequest) {
+   try {
+     const body = await req.json();
+-    const allowedBodyKeys = new Set(["sourceImage", "instruction"]);
++    const allowedBodyKeys = new Set(["sourceImage", "instruction", "fresh"]);
+     const unexpectedBodyKey = Object.keys(body || {}).find((key) => !allowedBodyKeys.has(key));
+     if (unexpectedBodyKey) {
+       return NextResponse.json(
+@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
+       mode: "floorplan-edit",
+       originalFloorplan: String(body.sourceImage),
+       userPrompt: instruction,
+-    }, { signal: req.signal });
++    }, { signal: req.signal, fresh: body.fresh === true });
+     if (image.fallback) {
+       return NextResponse.json({ error: "户型编辑失败，保留了原图，请重试。", stage: "floorplan-image", fallbackReason: 'fallbackReason' in image ? image.fallbackReason : undefined }, { status: 502 });
+     }
+diff --git a/app/api/ai/status/route.ts b/app/api/ai/status/route.ts
+index 59e9e8ee774787a3b54c9a4243b37f55109a4c35..aa976eee3b9097782bddc331280d1fc77352a4eb 100644
+--- a/app/api/ai/status/route.ts
++++ b/app/api/ai/status/route.ts
+@@ -37,7 +37,7 @@ function readGpuMemory() {
+ 
+ export async function GET() {
+   const config = getAiConfig()
+-  const imageModel = process.env.QWEN_INTERIOR_IMAGE_MODEL || config.imageModel
++  const imageModel = config.editImageModel
+   const probe = async (url: string) => {
+     const controller = new AbortController()
+     const timer = setTimeout(() => controller.abort(), 2500)
+@@ -61,7 +61,7 @@ export async function GET() {
+ 
+   const [text, image, mcp] = await Promise.all([
+     probe(`${config.compatBaseUrl.replace(/\/v1$/, '')}/health`),
+-    probe(`${config.nativeBaseUrl}/health`),
++    probe(`${config.editImageBaseUrl}/health`),
+     probe(config.mcpUrl.replace(/\/mcp$/, '/health')),
+   ])
+   const visionProjector = process.env.LOCAL_VISION_PROJECTOR || 'mmproj-F16.gguf'
+@@ -84,9 +84,9 @@ export async function GET() {
+     mode: config.mode,
+     localOnly: config.mode === 'local',
+     ready: text.healthy && vision.healthy && image.healthy && mcp.healthy && vulkan.healthy,
+-    models: { layout: config.layoutModel, image: imageModel, bom: config.bomModel },
++    models: { layout: config.layoutModel, image: imageModel, imagePreview: config.imageModel, bom: config.bomModel },
+     services: { text, vision, image, mcp, vulkan },
+-    endpoints: { text: config.compatBaseUrl, image: config.nativeBaseUrl, mcp: config.mcpUrl },
++    endpoints: { text: config.compatBaseUrl, image: config.editImageBaseUrl, imagePreview: config.nativeBaseUrl, mcp: config.mcpUrl },
+     acceleration: {
+       text: 'vulkan',
+       image: String(image.details?.backend || 'unknown'),
+diff --git a/app/globals.css b/app/globals.css
+index c88dd00e3a44816a8a049688d7588f3fb05a50b9..9392d8ae0b2cddf8206bbbdb9a5a0cc977dd4339 100644
+--- a/app/globals.css
++++ b/app/globals.css
+@@ -5437,3 +5437,33 @@ html, body { background: #fffafa; }
+   }
+   }
+ }
++
++/* Keep the complete model legible while its authored geometry stays unchanged. */
++.step3-slide .touch-pascal-host { flex:1 1 0; height:auto; min-height:230px; }
++.step3-slide .model-action-toolbar { position:sticky; top:0; z-index:45; background:#fff; padding:8px 0; }
++.overview-presentation-controls { position:absolute; top:10px; right:10px; z-index:40; display:flex; flex-wrap:wrap; gap:6px; }
++.overview-presentation-controls button { background:rgba(255,255,255,.94); border:1px solid #d4dbe1; border-radius:7px; padding:6px 10px; color:#304252; font-size:12px; }
++.overview-presentation-controls button.active { background:#edf5f6; border-color:#6593a1; }
++.overview-presentation-note { position:absolute; left:10px; bottom:10px; z-index:30; padding:5px 8px; border-radius:6px; background:rgba(255,255,255,.88); color:#546372; font-size:12px; }
++@media(max-width:800px) { .step3-slide .touch-pascal-host { flex-basis:260px; min-height:260px; } }
++
++.step3-slide .pascal-panel > .customer-result-note { margin:0 0 6px; padding:6px 10px; font-size:12px; }
++.step3-slide .panel-inline-head { gap:8px; margin-bottom:6px; }
++.step3-slide .panel-inline-head h3 { margin:0; font-size:20px; }
++.step3-slide .panel-inline-head p { margin:4px 0; font-size:12px; }
++.step3-slide .model-action-toolbar button { padding:6px 10px; min-height:34px; font-size:12px; }
++.step3-slide .pascal-view-tabs button { padding:6px 12px; min-height:34px; font-size:14px; }
++
++.pascal-viewer-shell.is-overview-expanded { position:fixed; inset:16px; height:auto; min-height:0; z-index:150; background:#edf0f3; border:1px solid #d5dce3; border-radius:12px; box-shadow:0 20px 80px #14253655; }
++
++/* The saved captures and style controls must not shrink the render to a thumbnail. */
++.touch-customer-page .render-touch-grid { display:block; overflow:auto; }
++.touch-customer-page .render-main-panel { display:block; height:auto; overflow:visible; }
++.touch-customer-page .interior-result-wrap { grid-template-rows:auto minmax(260px,36vh); }
++.touch-customer-page .source-capture-preview { min-height:300px; grid-template-rows:minmax(260px,36vh); }
++.touch-customer-page .render-caption { display:grid; grid-template-columns:minmax(220px,.8fr) minmax(320px,1fr); gap:12px 24px; margin-top:16px; }
++.touch-customer-page .render-caption > b { grid-column:1/-1; font-size:18px; }
++@media(max-width:760px) {
++  .touch-customer-page .render-caption { grid-template-columns:minmax(0,1fr); }
++  .touch-customer-page .interior-result-head { flex-wrap:wrap; }
++}
+diff --git a/components/customer/TouchCustomerPortal.tsx b/components/customer/TouchCustomerPortal.tsx
+index c2bbdc25c303f660ca6625691143dc1a06d85a32..0eb3f391022481ef497dc1fb7ed8ee8c75da93d1 100644
+--- a/components/customer/TouchCustomerPortal.tsx
++++ b/components/customer/TouchCustomerPortal.tsx
+@@ -73,6 +73,7 @@ import type { BlueprintCalibration, WallEditResult, WallEditTransaction, WallEnd
+ import { INTERIOR_STYLE_PRESETS, buildInteriorPrompt } from "@/config/interiorStyles";
+ import { inferRoomType } from "@/config/roomTypes";
+ import { generateInterior } from "@/services/qwenImageService";
++import { compactInteriorMetadata, inflateInteriorMetadata } from "@/lib/ai/interior-persistence";
+ import { BeforeAfterComparison } from "@/components/customer/BeforeAfterComparison";
+ import { clearFloorplanAssets, loadFloorplanAsset, saveFloorplanAsset } from "@/lib/floorplan-assets";
+ import { buildResidentialBudget, defaultResidentialBudgetSettings, recalculateResidentialBudget, type ResidentialBudget, type ResidentialBudgetSettings } from "@/lib/bom/residential";
+@@ -89,7 +90,7 @@ type Residence = "one" | "two" | "three";
+ type Slide = 0 | 1 | 2 | 3 | 4;
+ type ModelExperience = "intro" | "generating" | "viewer";
+ type ModelGenerationPhase = "idle" | "generating" | "preparing" | "completed" | "error";
+-type ProgressKind = "model" | "layout" | "render" | "bom";
++type ProgressKind = "model" | "layout" | "image-preview" | "render" | "bom";
+ type ProgressTask = {
+   id: string;
+   kind: ProgressKind;
+@@ -120,6 +121,8 @@ type GeneratedImage = {
+   userPrompt?: string;
+   warnings?: string[];
+   geometryVerified?: boolean;
++  requestId?: string;
++  generation?: { elapsedMs?: number; cacheHit?: boolean; changedRatio?: number };
+ };
+ type FloorplanSelection = GeneratedImage | OriginalFloorplanSelection;
+ 
+@@ -216,6 +219,11 @@ const PROGRESS_STAGES: Record<ProgressKind, GenerationStage[]> = {
+     { label: "正在优化空间，使方案更符合‘好房子’的舒适居住要求…" },
+     { label: "正在完成您的新方案…" },
+   ],
++  "image-preview": [
++    { label: "正在准备图片与修改描述…" },
++    { label: "正在使用本地图像模型生成预览…" },
++    { label: "正在检查图片结果是否可显示…" },
++  ],
+   render: [
+     { label: "正在识别当前空间…" },
+     { label: "正在匹配装修风格…" },
+@@ -246,9 +254,16 @@ const PROGRESS_META: Record<ProgressKind, { title: string; estimatedSeconds: num
+     completeDescription: "我们已经按照您的需求完成空间调整，并检查了门窗和通行关系。",
+     actionLabel: "查看调整方案",
+   },
++  "image-preview": {
++    title: "正在生成AI图片预览",
++    estimatedSeconds: 150,
++    completeTitle: "图片预览已生成",
++    completeDescription: "已生成供查看的图片预览；这不表示房间、墙体或门窗已完成结构修改。",
++    actionLabel: "查看图片预览",
++  },
+   render: {
+     title: "正在为您的空间进行装修设计",
+-    estimatedSeconds: 20,
++    estimatedSeconds: 150,
+     completeTitle: "装修效果已经生成",
+     completeDescription: "您可以查看已保存视角对应的装修效果。",
+     actionLabel: "查看装修效果",
+@@ -508,6 +523,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+   const layoutRequestId = useRef(0);
+   const adjustmentInFlight = useRef(false);
+   const floorplanAbortController = useRef<AbortController | null>(null);
++  const renderAbortController = useRef<AbortController | null>(null);
+   const requestControllers = useRef(new Set<AbortController>());
+   const objectUrls = useRef(new Set<string>());
+   const [sessionHydrated, setSessionHydrated] = useState(false);
+@@ -1489,7 +1505,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     try {
+       const raw = localStorage.getItem(sessionStorageKey(activeSessionId, "design"));
+       if (raw) {
+-        const saved = JSON.parse(raw);
++        const saved = inflateInteriorMetadata(JSON.parse(raw));
+         let savedBlueprintExists = false;
+         let savedManualBlueprint: { source: string; scene: SceneGraph } | undefined;
+         if (saved.selectedVariant) {
+@@ -1650,6 +1666,12 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+   }, []);
+   useEffect(() => {
+     if (!sessionHydrated || !sessionId) return;
++    // Waiting for AI is active work. A long image job must not erase its own
++    // scene/capture through the kiosk's idle-session reset.
++    if (floorplanBusy || renderBusy || structureBusy || layoutBusy || bomBusy || modelGenerationPhase === "generating" || modelGenerationPhase === "preparing") {
++      setIdleWarningSeconds(null);
++      return;
++    }
+     // Scene edits are drafts. Persist the session metadata only after the
+     // explicit Save action clears the dirty flag.
+     if (blueprintDirty.current) return;
+@@ -1694,7 +1716,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     try {
+       localStorage.setItem(
+          sessionStorageKey(sessionId, "design"),
+-        JSON.stringify({
++        JSON.stringify(compactInteriorMetadata({
+           ...designSession,
+           generatedFloorplanImage: currentFloorplan?.url || null,
+           overallRenderImage: overall?.url || null,
+@@ -1718,14 +1740,14 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+            selectedRegion,
+            currentStep: slide,
+            sceneVersion: scene.nodes.building_house?.metadata?.floorplanVersion || "legacy",
+-        }),
++        })),
+       );
+     } catch (error) {
+-      console.warn("[DreamHouse][persist] session metadata save failed", {
++      console.warn("[DreamHouse][persist] session metadata save failed", JSON.stringify({
+         errorType: error instanceof DOMException ? error.name : "unknown",
+         projectId: sessionId,
+         sourceRevision: sceneRevision,
+-      });
++      }));
+     }
+   }, [sessionHydrated, sessionId, designSession, currentFloorplan, overall, roomImages, floorPlanConfirmed, model3DLoaded, modelGenerationPhase, confirmedBinding, modelBinding, selectedStyleId, activeCaptureId, prompt, clarificationResolution, clarificationDraft, clarificationNote, floorplanAnalysis, floorplanVersions, selectedFloorplanVersionId, editSourceVersionId, selectedRegion, slide]);
+   useEffect(() => {
+@@ -1775,7 +1797,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       if (idleTimer.current) clearTimeout(idleTimer.current);
+       if (idleCountdownTimer.current) clearInterval(idleCountdownTimer.current);
+     };
+-  }, [sessionHydrated, sessionId]);
++  }, [sessionHydrated, sessionId, floorplanBusy, renderBusy, structureBusy, layoutBusy, bomBusy, modelGenerationPhase]);
+   useEffect(() => {
+     if (!wallEditMode) return;
+     const onKeyDown = (event: KeyboardEvent) => {
+@@ -2099,7 +2121,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     }
+   }
+ 
+-  async function generateFloorplan(): Promise<boolean> {
++  async function generateFloorplan(fresh = false): Promise<boolean> {
+     setError("");
+     setFloorplanBusy(true);
+     const requestId = ++floorplanRequestId.current;
+@@ -2140,6 +2162,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+         body: JSON.stringify({
+           sourceImage: originalImage,
+           instruction: requestPrompt,
++          fresh,
+         }),
+         signal: controller.signal,
+       });
+@@ -2300,7 +2323,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     updateRegion(event); regionStart.current = null;
+   }
+ 
+-  async function generateRenders(): Promise<boolean> {
++  async function generateRenders(fresh = false): Promise<boolean> {
+     if (!modelMatchesSelection) { setError("请先完成当前户型的3D空间创建"); return false; }
+     const job = { ...selectionEpoch.current };
+     const requestRevision = sceneRevision;
+@@ -2329,6 +2352,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     const controller = createSessionRequest();
+     try {
+       setCapturedViews((current) => current.map((view) => view.id === selected.id ? { ...view, status: "rendering" } : view));
++      renderAbortController.current = controller;
+       const data = await generateInterior({
+         image: sourceImage,
+         prompt: buildInteriorPrompt(selectedStyleId),
+@@ -2340,6 +2364,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+         sessionId,
+         sceneRevision,
+         signal: controller.signal,
++        fresh,
+       });
+       if (!isSessionCurrent(requestSessionId) || !isCurrent()) return false;
+       const main = data.image as GeneratedImage;
+@@ -2353,6 +2378,8 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+           url: main.url,
+           provider: main.provider,
+           model: main.model,
++          requestId: main.requestId,
++          generation: main.generation,
+           sourceCaptureId: selected.id,
+           sourceImage,
+           styleId: selectedStyleId,
+@@ -2376,7 +2403,9 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       return false;
+     } finally {
+       releaseSessionRequest(controller);
+-      if (isSessionCurrent(requestSessionId) && selectionJobCurrent(job, selectionEpoch.current)) setRenderBusy(false);
++      const ownsRequest = renderAbortController.current === controller;
++      if (ownsRequest) renderAbortController.current = null;
++      if (ownsRequest && isSessionCurrent(requestSessionId) && selectionJobCurrent(job, selectionEpoch.current)) setRenderBusy(false);
+     }
+   }
+ 
+@@ -2448,7 +2477,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     setSubmitMsg("预算已保存到当前户型和方案版本");
+   }
+ 
+-  async function startDesignAdjustment() {
++  async function startDesignAdjustment(fresh = false) {
+     if (adjustmentInFlight.current || originalSelectionInFlight.current || layoutBusy || floorplanBusy) return;
+     const normalizedPrompt = modificationRequest.trim();
+     if (!normalizedPrompt) {
+@@ -2469,12 +2498,12 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     setRoomImages([]);
+     setBom(null);
+     setBudget(null);
+-    const progressId = beginProgressTask("layout", 5000);
++    const progressId = beginProgressTask("image-preview", 150000);
+     const imageRequestId = floorplanRequestId.current + 1;
+-    const imageReady = await generateFloorplan();
++    const imageReady = await generateFloorplan(fresh);
+     if (!isSessionCurrent(requestSessionId) || imageRequestId !== floorplanRequestId.current) return;
+     if (imageReady) completeProgressTask(progressId);
+-    else completeProgressTask(progressId, "当前方案暂时未生成完成，请稍后重试。");
++    else completeProgressTask(progressId, "图片预览暂时未生成完成，请稍后重试。");
+     adjustmentInFlight.current = false;
+   }
+ 
+@@ -2530,26 +2559,27 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     } finally { releaseSessionRequest(controller); setStructureBusy(false); }
+   }
+ 
+-  async function generateStructureVisualPreview() {
++  async function generateStructureVisualPreview(fresh = false) {
+     const version = floorplanVersions.find((entry) => entry.id === selectedFloorplanVersionId);
+     if (!version?.sceneSnapshot || !modelMatchesSelection || structureBusy || floorplanBusy) return;
+     const job = { ...selectionEpoch.current }, snapshot = sceneForPersistence.current, controller = createSessionRequest();
++    floorplanAbortController.current = controller;
+     setFloorplanBusy(true); setError("");
+     try {
+       const response = await fetch("/api/ai/floorplan-image", { method: "POST", headers: { "content-type": "application/json" },
+-        body: JSON.stringify({ sourceImage: version.result.url, instruction: "仅优化此二维户型的线条和视觉配色。保留全部现有墙体、房间和门窗位置。" }), signal: controller.signal });
++        body: JSON.stringify({ sourceImage: version.result.url, instruction: "仅优化此二维户型的线条和视觉配色。保留全部现有墙体、房间和门窗位置。", fresh }), signal: controller.signal });
+       const data = await response.json();
+       if (!selectionJobCurrent(job, selectionEpoch.current) || snapshot !== sceneForPersistence.current) return;
+       if (!response.ok || !data.image?.url) throw new Error("视觉预览未完成");
+       setStructureVisualPreview(data.image.url);
+     } catch (error: any) { if (!controller.signal.aborted && selectionJobCurrent(job, selectionEpoch.current) && snapshot === sceneForPersistence.current) setError(error.message); }
+-    finally { releaseSessionRequest(controller); if (selectionJobCurrent(job, selectionEpoch.current)) setFloorplanBusy(false); }
++    finally { releaseSessionRequest(controller); if (floorplanAbortController.current === controller) { floorplanAbortController.current = null; if (selectionJobCurrent(job, selectionEpoch.current)) setFloorplanBusy(false); } }
+   }
+ 
+-  async function startRenderGeneration() {
++  async function startRenderGeneration(fresh = false) {
+     const requestSessionId = sessionId;
+     const progressId = beginProgressTask("render");
+-    const ready = await generateRenders();
++    const ready = await generateRenders(fresh);
+     if (!isSessionCurrent(requestSessionId)) return;
+     if (ready) completeProgressTask(progressId);
+     else setProgressTask((current) => current?.id === progressId ? null : current);
+@@ -2602,6 +2632,10 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       return;
+     }
+     const version = selection.provider === "preset" ? undefined : floorplanVersions.find((entry) => entry.id === selectedFloorplanVersionId);
++    if (selection.provider !== "preset" && !version?.sceneSnapshot && selection.geometryVerified !== true) {
++      setError("请先选择已校验结构版本；当前图片仅是视觉预览，可采用原始户型继续3D。");
++      return;
++    }
+     const binding = floorplanModelBinding(selectedVariant.variantId, selection, version?.id, aiFloorplan, version);
+     if (!binding) { setError("此户型图片缺少可恢复的来源，请重新选择或生成"); return; }
+     const committed = committedSceneRef.current;
+@@ -2859,11 +2893,14 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+                     {floorplanBusy ? "正在生成图片预览……" : "生成AI图片预览（不作为结构依据）"}
+                   </button>
+                   <button type="button" className="ghost" disabled={!canSelectOriginalFloorplan({ variantLoading: variantImporting, imageJobActive: floorplanBusy || adjustmentInFlight.current, layoutJobActive: layoutBusy, modelJobActive: modelGenerationPhase === "generating", selectionActive: originalSelectionBusy, progressActive: Boolean(progressTask) })} onClick={() => void useOriginalFloorplan()}>{originalSelectionBusy ? "正在准备原户型…" : "使用原户型创建3D空间"}</button>
+-                  {modifiedFloorPlan && <div className="customer-result-note">{modifiedFloorPlan.provider === "preset" ? "已选择原始户型，可以进入3D空间" : "✓ 新户型已生成，可以进入下一步"}</div>}
++                  {modifiedFloorPlan && <div className="customer-result-note">{modifiedFloorPlan.provider === "preset" ? "已选择原始户型，可以进入3D空间" : modifiedFloorPlan.geometryVerified === true ? "结构方案已通过程序几何校验，可确认后进入3D空间" : "图片预览已生成，不表示结构修改已完成"}</div>}
+                   {floorplanVersions.length > 0 && <div className="customer-result-note">已保留 {floorplanVersions.length} 个户型版本：{floorplanVersions.map((version, index) => <span key={version.id}><button type="button" className={version.id === selectedFloorplanVersionId ? "active" : "ghost"} onClick={() => selectFloorplanVersion(version)}>{`V${index + 1}`}</button><button type="button" className="ghost" onClick={() => setEditSourceVersionId(version.id)}>{editSourceVersionId === version.id ? "当前修改基准" : "继续修改此版本"}</button></span>)}</div>}
+                   {assetSaveError && <div className="customer-error-note">{assetSaveError}</div>}
+                   {structureVisualPreview && <div><small>AI视觉预览，结构仍采用已校验SceneGraph</small><img src={structureVisualPreview} alt="AI视觉预览" /></div>}
+-                  {modifiedFloorPlan && <button type="button" className="touch-primary-cta" onClick={confirmFloorPlan}>{modifiedFloorPlan.provider === "preset" ? "继续使用原户型创建3D空间" : "确认此户型并创建3D空间"}</button>}
++                  {floorplanBusy && <button type="button" className="ghost" onClick={() => { floorplanRequestId.current += 1; floorplanAbortController.current?.abort(); floorplanAbortController.current = null; adjustmentInFlight.current = false; setFloorplanBusy(false); setProgressTask(null); }}>取消图片生成</button>}
++                  {!floorplanBusy && modifiedFloorPlan?.provider === "qwen" && <button type="button" className="ghost" onClick={() => void (selectedImageVersion?.sceneSnapshot ? generateStructureVisualPreview(true) : startDesignAdjustment(true))}>重新生成图片预览</button>}
++                  <small>图片仅用于视觉预览；房间、墙体和门窗修改以已校验结构为准。</small>
++                  {modifiedFloorPlan && <button type="button" className="touch-primary-cta" onClick={modifiedFloorPlan.provider !== "preset" && !selectedImageVersion?.sceneSnapshot && modifiedFloorPlan.geometryVerified !== true ? () => void useOriginalFloorplan() : confirmFloorPlan}>{modifiedFloorPlan.provider === "preset" ? "继续使用原户型创建3D空间" : selectedImageVersion?.sceneSnapshot || modifiedFloorPlan.geometryVerified === true ? "确认结构并创建3D空间" : "以原始结构继续3D（图片仅作预览）"}</button>}
+                   {error && <div className="customer-error-note">{debugUi ? error : customerErrorMessage(error)}</div>}
+                   {floorPlanConfirmed && <div className="customer-result-note">已确认当前户型，您仍可以返回这里继续修改。</div>}
+                 </div>
+@@ -2871,17 +2908,17 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+               <div className="floorplan-compare-grid customer-floorplan-compare">
+                 <article className="touch-panel"><h3>原始户型</h3><div style={{ position: "relative", touchAction: "none" }} onPointerDown={startRegion} onPointerMove={updateRegion} onPointerUp={finishRegion}><img src={selectedVariant.imageUrl} alt="原始户型" />{selectedRegion && <span aria-label="已选择修改区域" style={{ position: "absolute", left: `${selectedRegion.x * 100}%`, top: `${selectedRegion.y * 100}%`, width: `${selectedRegion.width * 100}%`, height: `${selectedRegion.height * 100}%`, border: "2px solid #1d5c52", background: "rgba(29,92,82,.16)", pointerEvents: "none" }} />}</div><button type="button" className="ghost" onClick={() => setSelectedRegion(null)}>清除区域选择</button>{editSourceVersionId && <button type="button" className="ghost" onClick={() => setEditSourceVersionId(null)}>重新基于原始户型修改</button>}</article>
+                 <article className="touch-panel">
+-                  <h3>{visibleFloorplan?.provider === "preset" ? "当前采用的原始户型" : "调整后的户型"}</h3>
++                  <h3>{visibleFloorplan?.provider === "preset" ? "当前采用的原始户型" : visibleFloorplan?.geometryVerified === true ? "已通过几何校验的结构方案" : "AI图片预览"}</h3>
+                   {floorplanBusy ? (
+                     <div className="floorplan-generation-state" aria-live="polite">
+-                      <strong>正在生成新的户型照片</strong>
+-                      <span>正在结合您的描述和原始户型进行调整…</span>
++                      <strong>正在生成AI图片预览</strong>
++                      <span>正在根据原始图片和您的描述生成预览…</span>
+                       <div className="floorplan-generation-dots"><i /><i /><i /></div>
+                     </div>
+-                  ) : visibleFloorplan ? <img src={visibleFloorplan.url} alt={visibleFloorplan.provider === "preset" ? "当前采用的原始户型" : "调整后的户型"} /> : <div className="touch-empty">输入您的需求后，我们会在这里展示调整后的户型。</div>}
++                  ) : visibleFloorplan ? <img src={visibleFloorplan.url} alt={visibleFloorplan.provider === "preset" ? "当前采用的原始户型" : visibleFloorplan.geometryVerified === true ? "已通过几何校验的结构方案" : "AI图片预览"} /> : <div className="touch-empty">输入您的需求后，我们会在这里展示图片预览。</div>}
+                   {visibleFloorplan?.warnings?.map((warning, index) => <div key={index} className="customer-old-result-note" role="status">{warning}</div>)}
+                   {visibleFloorplan && !modifiedFloorPlan && <div className="customer-old-result-note">
+-                    <span>{visibleFloorplan.provider === "preset" ? "右侧仍保留原始户型；当前文字修改尚未执行。" : "右侧仍保留上一次已生成的户型；当前草稿尚未生成新结果。"}</span>
++                    <span>{visibleFloorplan.provider === "preset" ? "右侧仍保留原始户型；当前文字修改尚未执行。" : visibleFloorplan.geometryVerified === true ? "右侧仍保留上一次已校验的结构方案；当前草稿尚未生成新结果。" : "右侧仍保留上一次的图片预览；当前草稿尚未生成新结果。"}</span>
+                     <button type="button" className="touch-primary-cta" onClick={() => confirmFloorPlanSelection(visibleFloorplan)}>继续采用此结果并进入下一步</button>
+                   </div>}
+                 </article>
+@@ -3001,7 +3038,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+                 )}
+                 <div className="touch-pascal-host">
+                   <PascalViewer
+-                    key={`${selectedVariant.variantId}-${sceneRevision}`}
++                    key={`${selectedVariant.variantId}:${modelBinding?.versionId || "unconfirmed"}`}
+                     scene={scene}
+                     revision={sceneRevision}
+                     editMode={editMode}
+@@ -3085,9 +3122,10 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+                   上一页
+                 </button>
+                 <button onClick={() => setWalkthroughMode(true)}>进入3D空间</button>
+-                <button disabled={renderBusy || !activeCaptureId || !hasValidSelectedCaptureImage} onClick={startRenderGeneration}>
++                <button disabled={renderBusy || !activeCaptureId || !hasValidSelectedCaptureImage} onClick={() => void startRenderGeneration()}>
+                   {renderBusy ? "正在生成装修效果" : "生成装修效果"}
+                 </button>
++                {renderBusy ? <button className="ghost" onClick={() => { renderAbortController.current?.abort(); setRenderBusy(false); setProgressTask(null); setCapturedViews((current) => current.map((view) => view.status === "rendering" ? { ...view, status: "captured" } : view)); }}>取消生成</button> : selectedCaptureForRender?.renderedImage && <button className="ghost" onClick={() => void startRenderGeneration(true)}>重新生成效果</button>}
+                 <button onClick={() => go(4)}>下一页</button>
+                 {restartButton}
+               </div>
+@@ -3108,7 +3146,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+                 </div>
+                 <div className="touch-pascal-host">
+                   <PascalViewer
+-                    key={`${selectedVariant.variantId}-${sceneRevision}-walk`}
++                    key={`${selectedVariant.variantId}:${modelBinding?.versionId || "unconfirmed"}:walk`}
+                     scene={scene}
+                     revision={sceneRevision}
+                     walkthroughMode
+@@ -3128,8 +3166,10 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+                   <div className="interior-result-wrap">
+                     <div className="interior-result-head">
+                       <div>
+-                        <strong>AI装修方案已完成</strong>
++                        <strong>AI装修图片已生成</strong>
++                        <small>装修图片为视觉预览，房间与门窗结构以3D场景为准。</small>
+                         <span>装修风格：{selectedCaptureForRender.renderedImage.styleName || INTERIOR_STYLE_PRESETS[selectedStyleId as keyof typeof INTERIOR_STYLE_PRESETS]?.name || "现代简约"}</span>
++                        <small>{selectedCaptureForRender.renderedImage.generation?.cacheHit ? "已复用相同视角和风格的效果" : selectedCaptureForRender.renderedImage.generation?.elapsedMs ? `本地AI生成 · ${(selectedCaptureForRender.renderedImage.generation.elapsedMs / 1000).toFixed(1)}秒` : "本地AI装修效果"}</small>
+                       </div>
+                       <div className="comparison-mode-toggle" role="group" aria-label="装修前后查看方式">
+                         <button className={comparisonMode === "slider" ? "active" : ""} onClick={() => setComparisonMode("slider")}>滑动对比</button>
+@@ -3177,6 +3217,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+                       {capturedViews.map((v, index) => (
+                         <button
+                           key={v.id}
++                          disabled={renderBusy}
+                           className={activeCaptureId === v.id ? "active" : ""}
+                           onClick={() => setActiveCaptureId(v.id)}
+                         >
+@@ -3202,7 +3243,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+                     <h3>选择装修风格</h3>
+                     <div className="interior-style-grid">
+                       {Object.values(INTERIOR_STYLE_PRESETS).map((style) => (
+-                        <button key={style.id} className={selectedStyleId === style.id ? "active" : ""} onClick={() => setSelectedStyleId(style.id)}>
++                        <button key={style.id} disabled={renderBusy} className={selectedStyleId === style.id ? "active" : ""} onClick={() => setSelectedStyleId(style.id)}>
+                           {style.name}{selectedStyleId === style.id && <span>✓</span>}
+                         </button>
+                       ))}
+@@ -3477,8 +3518,8 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+           ready={progressPresentationReady}
+           error={progressTask.error}
+           maxProgress={progressTask.kind === "model" ? 100 : progressTask.kind === "layout" ? 95 : 92}
+-          showTimeoutMessage={progressTask.kind !== "model"}
+-          currentStageDetail={progressTask.kind === "model" ? layoutProgress : undefined}
++          showTimeoutMessage={progressTask.kind !== "model" && progressTask.kind !== "image-preview" && progressTask.kind !== "render"}
++          currentStageDetail={progressTask.kind === "model" ? layoutProgress : progressTask.kind === "image-preview" || progressTask.kind === "render" ? "正在使用本地图像模型生成图片，进度为估计；完成后请查看实际图片结果。" : undefined}
+           completeTitle={progressMeta.completeTitle}
+           completeDescription={progressMeta.completeDescription}
+           actionLabel={progressMeta.actionLabel}
+diff --git a/deploy/local-ai/compose.yaml b/deploy/local-ai/compose.yaml
+index c0f56fcf83133a8576bfcfbdac9f67e8caafe382..5a7b10a4097e2ade38cb64a3aea1e2d8af0405c9 100644
+--- a/deploy/local-ai/compose.yaml
++++ b/deploy/local-ai/compose.yaml
+@@ -2,7 +2,7 @@ name: ideal-home-local
+ 
+ services:
+   web:
+-    image: ${WEB_IMAGE:-ideal-home-local:web-audit-20261013}
++    image: ${WEB_IMAGE:-ideal-home-local:web-image-flow-20261013}
+     build:
+       context: ../..
+       dockerfile: Dockerfile
+@@ -15,11 +15,15 @@ services:
+       LOCAL_VISION_PROJECTOR: mmproj-Qwen3.8-27B-Q8_0.gguf
+       LOCAL_IMAGE_BASE_URL: http://ai-gateway:8300/image
+       LOCAL_IMAGE_MODEL: Z-Image-Turbo
++      LOCAL_EDIT_IMAGE_BASE_URL: http://ai-gateway-qwen-image21:8301/image
++      LOCAL_EDIT_IMAGE_MODEL: Qwen-Image-2.1-Fun-Acc-4Step
+       PASCAL_MCP_URL: http://pascal-mcp:3100/mcp
+       QWEN_TEXT_TIMEOUT_MS: "600000"
+       QWEN_IMAGE_TIMEOUT_MS: "1800000"
+-      QWEN_IMAGE_SIZE: "512*512"
+-      QWEN_FLOORPLAN_MAX_DIMENSION: "640"
++      QWEN_FLOORPLAN_STEPS: "4"
++      QWEN_INTERIOR_STEPS: "4"
++      QWEN_FLOORPLAN_MAX_DIMENSION: "512"
++      QWEN_INTERIOR_MAX_DIMENSION: "512"
+       MODEL3D_TIMEOUT_MS: "600000"
+       GENERATED_IMAGE_DIR: /data/generated
+       VULKAN_DEVICE_VISIBLE: "true"
+@@ -177,7 +181,7 @@ services:
+     networks: [local-ai]
+ 
+   web-qwen-image21:
+-    image: ${WEB_IMAGE:-ideal-home-local:web-audit-20261013}
++    image: ${WEB_IMAGE:-ideal-home-local:web-image-flow-20261013}
+     restart: unless-stopped
+     environment:
+       NODE_ENV: production
+@@ -187,15 +191,17 @@ services:
+       LOCAL_VISION_PROJECTOR: mmproj-Qwen3.8-27B-Q8_0.gguf
+       LOCAL_IMAGE_BASE_URL: http://ai-gateway-qwen-image21:8301/image
+       LOCAL_IMAGE_MODEL: Qwen-Image-2.1-Fun-Acc-4Step
++      LOCAL_EDIT_IMAGE_BASE_URL: http://ai-gateway-qwen-image21:8301/image
++      LOCAL_EDIT_IMAGE_MODEL: Qwen-Image-2.1-Fun-Acc-4Step
+       PASCAL_MCP_URL: http://pascal-mcp:3100/mcp
+       QWEN_TEXT_TIMEOUT_MS: "600000"
+       QWEN_IMAGE_TIMEOUT_MS: "1800000"
+       QWEN_IMAGE_STEPS: "4"
+       QWEN_INTERIOR_STEPS: "4"
+       QWEN_FLOORPLAN_STEPS: "4"
+-      QWEN_FLOORPLAN_MAX_DIMENSION: "640"
++      QWEN_FLOORPLAN_MAX_DIMENSION: "512"
+       MODEL3D_TIMEOUT_MS: "600000"
+-      QWEN_INTERIOR_MAX_DIMENSION: "1024"
++      QWEN_INTERIOR_MAX_DIMENSION: "512"
+       GENERATED_IMAGE_DIR: /data/generated
+       VULKAN_DEVICE_VISIBLE: "true"
+       VULKAN_DEVICE: /dev/dri/renderD128
+diff --git a/lib/ai/image-service.ts b/lib/ai/image-service.ts
+index 746348717ffc3f906f934d91dcbd5881ae6aa019..1c22504c6661377b0f82e2319dc5e9ee83107c35 100644
+--- a/lib/ai/image-service.ts
++++ b/lib/ai/image-service.ts
+@@ -2,7 +2,8 @@ import { fallbackAllowed,getAiConfig,getAiMode,qwenConfigured } from './config'
+ import { readFile, writeFile } from 'node:fs/promises'
+ import path from 'node:path'
+ import sharp from 'sharp'
+-import { qwenGenerateImage } from './qwen-image-client'
++import { qwenGenerateImage,localImageTarget,resolveLocalImageSteps } from './qwen-image-client'
++import { readGeneratedImage,imageResultKey,measureImageChange,readImageResult,reserveImageResult,writeImageResult } from './image-result-cache'
+ import { prepareFloorPlanForAI, prepareImageForInteriorEdit, restoreFloorPlanFromAI, type PreparedFloorPlanImage } from './server-image'
+ import { buildRoomTypePrompt, inferRoomType, roomTypeNegativePrompt, type RoomType } from '@/config/roomTypes'
+ import { BASE_EDIT_PROMPT, FINAL_RESULT_CONSTRAINT, LAYOUT_OPTIMIZATION_PROMPT } from '@/config/interiorStyles'
+@@ -67,13 +68,19 @@ async function normalizeLocalGeneratedImage(url:string, width?:number, height?:n
+     console.info('[DreamHouse][image][normalize]',{url,width,height,sourceWidth:metadata.width,sourceHeight:metadata.height,bytes:normalized.byteLength})
+   }catch(error){
+     console.warn('[DreamHouse][image][normalize-failed]',{url,width,height,message:(error as Error)?.message})
+-    if(floorplan)throw error
++    if(floorplan)throw Object.assign(new Error('图像服务输出不可读取或解码。'),{status:502,cause:error})
+   }
+ }
+ 
+ function promptFor(input:ImageGenerationInput){
+   if(input.mode==='floorplan-edit')return buildFloorPlanEditPrompt(input.userPrompt)
+   const roomType = input.roomType || inferRoomType(input.roomName)
++  // The installed four-step backend uses CFG=1: its negative prompt cannot
++  // suppress unwanted concepts. Keep local instructions short and positive,
++  // without demanding furniture outside this camera's visible area.
++  if(getAiMode()==='local')return `Edit reference image <image1> into a photorealistic material renovation of this existing ${roomType.replace(/_/g,' ')}.
++Style: ${input.stylePrompt||'Light natural wood, warm white surfaces and soft lighting.'}
++Keep exactly the same camera, perspective, room boundaries, ceiling height and visible scene. Preserve every visible object, its position, size and type. Keep all original architectural edges and openings in place: doors remain doors and windows remain windows. Keep the existing furniture in its original positions. Apply the style only to surface finishes, colors, fabrics and lighting. Add no new objects or openings. Output exactly this same view with realistic materials.`
+   return [BASE_EDIT_PROMPT, LAYOUT_OPTIMIZATION_PROMPT, `ROOM TYPE (${roomType}):\n${buildRoomTypePrompt(roomType, input.roomName)}`, `DESIGN STYLE (style language only; do not infer function or structure):\n${input.stylePrompt||'现代简约，原木+白色+浅灰'}`, FINAL_RESULT_CONSTRAINT].join("\n\n")
+ }
+ 
+@@ -93,7 +100,7 @@ function validateImageInput(input: ImageGenerationInput) {
+   }
+ }
+ 
+-export async function generateDreamHouseImage(input:ImageGenerationInput, options?:{signal?:AbortSignal}){
++export async function generateDreamHouseImage(input:ImageGenerationInput, options?:{signal?:AbortSignal;fresh?:boolean}){
+   options?.signal?.throwIfAborted()
+   validateImageInput(input)
+   const c=getAiConfig(),mode=getAiMode()
+@@ -102,6 +109,7 @@ export async function generateDreamHouseImage(input:ImageGenerationInput, option
+     if(fallbackAllowed())return{provider:'mock' as const,model:'local-preset',url:fallbackImage(input),ephemeral:false,fallback:true,fallbackReason:'QWEN_API_KEY is not configured',prompt:promptFor(input)}
+     throw new Error('QWEN_API_KEY is not configured')
+   }
++  let release:(()=>void)|undefined
+   try{
+     const source = input.mode === 'floorplan-edit'
+       ? input.originalFloorplan
+@@ -116,9 +124,13 @@ export async function generateDreamHouseImage(input:ImageGenerationInput, option
+       ? (input.size || prepared.size)
+       : prepared.size
+     const finalPrompt=promptFor(input)
++    const target=c.mode==='local'?localImageTarget(input.mode,c,input.mode==='walkthrough-render'?input.imageModel:undefined):null
++    const cacheKey=target?imageResultKey({mode:input.mode,source:sources[0],prompt:finalPrompt,size:outputSize,model:target.model,backend:target.baseUrl,steps:resolveLocalImageSteps(target.model,input.mode)}):null
++    if(cacheKey&&!options?.fresh){const cached=await readImageResult(cacheKey);options?.signal?.throwIfAborted();if(cached)return cached}
++    if(cacheKey)release=reserveImageResult(cacheKey)
+     if(input.mode==='floorplan-edit'){
+       console.info('[FLOOR PLAN I2I REQUEST]', {
+-        model:c.imageModel,
++        model:target?.model||c.imageModel,
+         imageCount:1,
+         textCount:1,
+         sourceImageWidth:prepared.width,
+@@ -143,7 +155,7 @@ export async function generateDreamHouseImage(input:ImageGenerationInput, option
+         sourceWidth:prepared.width,
+         sourceHeight:prepared.height,
+         outputSize,
+-        model:input.imageModel || c.imageModel,
++        model:target?.model||input.imageModel||c.imageModel,
+       })
+     }
+     const result=await qwenGenerateImage({
+@@ -165,13 +177,26 @@ export async function generateDreamHouseImage(input:ImageGenerationInput, option
+       signal:options?.signal,
+     })
+     await normalizeLocalGeneratedImage(result.url,prepared.originalWidth || prepared.width,prepared.originalHeight || prepared.height,input.mode==='floorplan-edit'?prepared as PreparedFloorPlanImage:undefined)
+-    return{provider:'qwen' as const,model:result.model,url:result.url,ephemeral:result.ephemeral,fallback:false,requestId:result.requestId,inputImageCount:images.length,prompt:promptFor(input),generation:result.generation}
++    options?.signal?.throwIfAborted()
++    let change:Awaited<ReturnType<typeof measureImageChange>>|undefined
++    const generatedBytes=c.mode==='local'?await readGeneratedImage(result.url):undefined
++    options?.signal?.throwIfAborted()
++    if(generatedBytes&&sources[0].startsWith('data:image/')){
++      change=await measureImageChange(Buffer.from(sources[0].slice(sources[0].indexOf(',')+1),'base64'),generatedBytes)
++      options?.signal?.throwIfAborted()
++      if(!change.changed)throw Object.assign(new Error('生成结果与原图几乎相同，未标记为编辑成功。请更换要求或重新采样。'),{status:422})
++    }
++    const output={provider:'qwen' as const,model:result.model,url:result.url,ephemeral:result.ephemeral,fallback:false,requestId:result.requestId,inputImageCount:images.length,prompt:finalPrompt,generation:{...result.generation,cacheHit:false,...change}}
++    options?.signal?.throwIfAborted()
++    if(cacheKey)await writeImageResult(cacheKey,output,undefined,options?.signal).catch(error=>{options?.signal?.throwIfAborted();console.warn('[DreamHouse][image][cache]',{message:error.message})})
++    options?.signal?.throwIfAborted()
++    return output
+   }catch(error:any){
+     if(options?.signal?.aborted)throw options.signal.reason||error
+     console.error('[DreamHouse][image][qwen]',{model:c.imageModel,mode:input.mode,status:error?.status,message:error?.message})
+     if(fallbackAllowed())return{provider:'mock' as const,model:'local-preset',url:fallbackImage(input),ephemeral:false,fallback:true,fallbackReason:error?.message||'Qwen image failed',prompt:promptFor(input)}
+     throw error
+-  }
++  }finally{release?.()}
+ }
+ 
+ export async function persistGeneratedImage(url:string){
+diff --git a/lib/ai/qwen-image-client.ts b/lib/ai/qwen-image-client.ts
+index ef22b98ab1ec58243b5bbe8fdfb054ee0d9fb1ca..03106e65e2d7f9cd024b68e6725a8a3a2046228e 100644
+--- a/lib/ai/qwen-image-client.ts
++++ b/lib/ai/qwen-image-client.ts
+@@ -1,9 +1,22 @@
+ import { request as httpRequest } from 'node:http'
+ import { getAiConfig } from './config'
+ import { QwenRequestError } from './qwen-client'
++import { generatedImageFile } from './image-result-cache'
+ 
+ export type QwenImageRequest={mode?:string;images?:string[];prompt:string;promptExtend?:boolean;negativePrompt?:string;size?:string;seed?:number;model?:string;steps?:number;signal?:AbortSignal}
+ 
++export function localImageTarget(mode:string|undefined,config:ReturnType<typeof getAiConfig>,requestedModel?:string){
++  const editing=mode==='floorplan-edit'||mode==='walkthrough-render'
++  const baseUrl=editing?config.editImageBaseUrl:config.nativeBaseUrl
++  const model=requestedModel||(editing?config.editImageModel:config.imageModel)
++  if(editing&&/^z-image-turbo/i.test(model))
++    throw new QwenRequestError({message:'当前后端是普通图生图预览，尚未配置指令编辑模型。',status:503,stage:'image',model})
++  const configured=editing?config.editImageModel:config.imageModel
++  if(requestedModel&&requestedModel!==configured)
++    throw new QwenRequestError({message:'请求的图像模型与实际后端配置不一致。',status:400,stage:'image',model})
++  return{baseUrl,model}
++}
++
+ export function resolveLocalImageSteps(model:string,mode?:string,explicitSteps?:number,env:Record<string,string|undefined>=process.env){
+   const baseQwen=/^qwen-image-2\.1/i.test(model)&&!/turbo|lightning|acc/i.test(model)
+   const fourStepQwen=/^qwen-image-2\.1/i.test(model)&&/(?:acc.*4|4.*acc)/i.test(model)
+@@ -48,7 +61,7 @@ function postLocalImage(urlString:string, body:string, timeoutMs:number,signal?:
+ }
+ 
+ export async function qwenGenerateImage(input:QwenImageRequest){
+-  const c=getAiConfig(),model=input.model||c.imageModel
++  const c=getAiConfig(),target=c.mode==='local'?localImageTarget(input.mode,c,input.model):{baseUrl:c.nativeBaseUrl,model:input.model||c.imageModel},model=target.model
+   if(c.mode!=='local'&&!c.apiKey)throw new QwenRequestError({message:'QWEN_API_KEY is not configured',stage:'image',model})
+   const images=(input.images||[]).slice(0,3)
+   const inputBytes=images.reduce((total,image)=>{
+@@ -64,11 +77,13 @@ export async function qwenGenerateImage(input:QwenImageRequest){
+   try{
+     if(c.mode==='local'){
+       const steps=resolveLocalImageSteps(model,input.mode,input.steps)
+-      const response=await postLocalImage(`${c.nativeBaseUrl}/v1/images/generations`,JSON.stringify({mode:input.mode,model,prompt:input.prompt,images,size:input.size,negativePrompt:input.negativePrompt,seed:input.seed,steps,guidanceScale:1}),c.imageTimeoutMs,signal)
++      const response=await postLocalImage(`${target.baseUrl}/v1/images/generations`,JSON.stringify({mode:input.mode,model,prompt:input.prompt,images,size:input.size,negativePrompt:input.negativePrompt,seed:input.seed,steps,guidanceScale:1}),c.imageTimeoutMs,signal)
+       const responseText=response.body;let data:any={};try{data=JSON.parse(responseText)}catch{}
+       if(response.status<200||response.status>=300)throw new QwenRequestError({message:`Local Qwen Image failed: HTTP ${response.status} ${responseText.slice(0,1200)}`,status:response.status,stage:'image',model})
+       const url=data?.url||data?.data?.[0]?.url
+-      if(!url)throw new QwenRequestError({message:'Local Qwen Image response did not include an image URL',stage:'image',model})
++      if(typeof url!=='string'||!generatedImageFile(url))throw new QwenRequestError({message:'本地图像服务未返回规范的生成图片地址。',status:502,stage:'image',model})
++      if(data?.model!==model)throw new QwenRequestError({message:'图像服务返回的实际模型与请求配置不一致。',status:502,stage:'image',model})
++      if(typeof data?.requestId!=='string'||!data.requestId.trim())throw new QwenRequestError({message:'本地图像服务返回结果缺少有效的请求标识。',status:502,stage:'image',model})
+       return{url,requestId:data?.requestId||'',usage:data?.usage||null,model:data?.model||model,ephemeral:false,generation:{steps:data?.usage?.steps||steps,backend:data?.usage?.backend,width:data?.width,height:data?.height,elapsedMs:data?.elapsedMs,queueMs:data?.usage?.queueMs,processMs:data?.usage?.processMs}}
+     }
+     const res=await fetch(`${c.nativeBaseUrl}/services/aigc/multimodal-generation/generation`,{
+diff --git a/lib/ai/server-image.ts b/lib/ai/server-image.ts
+index 6d6ffdee28aaab549be03e804cdf37726dad1767..3743414c35d450426fd5e0dff8a14598f9976908 100644
+--- a/lib/ai/server-image.ts
++++ b/lib/ai/server-image.ts
+@@ -1,6 +1,7 @@
+ import fs from 'node:fs/promises'
+ import path from 'node:path'
+ import sharp from 'sharp'
++import { getAiMode } from './config'
+ 
+ const round32=(n:number)=>Math.max(32,Math.round(n/32)*32)
+ 
+@@ -101,8 +102,10 @@ export async function prepareImageForInteriorEdit(value:string):Promise<Prepared
+   const sourceWidth=metadata.width,sourceHeight=metadata.height
+   if(!sourceWidth||!sourceHeight)throw new Error('Unable to read source image dimensions')
+ 
+-  const maxDimension=Number(process.env.QWEN_INTERIOR_MAX_DIMENSION||2048)
+-  const minArea=512*512
++  const local=getAiMode()==='local'
++  const configuredMax=Number(process.env.QWEN_INTERIOR_MAX_DIMENSION||(local?512:2048))
++  const maxDimension=Math.max(256,Math.min(2048,Number.isFinite(configuredMax)?configuredMax:512))
++  const minArea=local?256*256:512*512
+   const maxArea=2048*2048
+   let scale=Math.min(1,maxDimension/Math.max(sourceWidth,sourceHeight))
+   if(sourceWidth*sourceHeight*scale*scale<minArea)

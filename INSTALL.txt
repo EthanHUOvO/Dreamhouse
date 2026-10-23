@@ -1,6 +1,0 @@
-语义户型智能制造平台 v3.0
-
-1. 需要 Python 3.10+。
-2. Windows 双击 START_WINDOWS.bat。
-3. Linux/macOS 执行 ./START_LINUX_MAC.sh。
-4. 浏览器访问 http://127.0.0.1:8765。

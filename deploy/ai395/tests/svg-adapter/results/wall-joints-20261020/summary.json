@@ -1,0 +1,101 @@
+{
+  "kind": "programmatic-no-model-inference",
+  "typecheck": {
+    "status": "FAIL (preexisting)",
+    "baseline": 141,
+    "current": 141,
+    "introduced": [],
+    "removed": []
+  },
+  "plans": [
+    {
+      "key": "one-01",
+      "beforeUnjoinedStructuralEnds": 31,
+      "beforeMaxPhysicalGapM": 0.13653396494145337,
+      "afterUnjoinedStructuralEnds": 0,
+      "nativeJunctions": 20,
+      "apertureTerminals": []
+    },
+    {
+      "key": "one-02",
+      "beforeUnjoinedStructuralEnds": 31,
+      "beforeMaxPhysicalGapM": 0.12122640169910044,
+      "afterUnjoinedStructuralEnds": 0,
+      "nativeJunctions": 17,
+      "apertureTerminals": []
+    },
+    {
+      "key": "one-07",
+      "beforeUnjoinedStructuralEnds": 39,
+      "beforeMaxPhysicalGapM": 0.33026614481408956,
+      "afterUnjoinedStructuralEnds": 0,
+      "nativeJunctions": 20,
+      "apertureTerminals": []
+    },
+    {
+      "key": "two-01",
+      "beforeUnjoinedStructuralEnds": 48,
+      "beforeMaxPhysicalGapM": 0.17815304945681582,
+      "afterUnjoinedStructuralEnds": 0,
+      "nativeJunctions": 22,
+      "apertureTerminals": []
+    },
+    {
+      "key": "two-02",
+      "beforeUnjoinedStructuralEnds": 45,
+      "beforeMaxPhysicalGapM": 0.16856874946040348,
+      "afterUnjoinedStructuralEnds": 0,
+      "nativeJunctions": 22,
+      "apertureTerminals": []
+    },
+    {
+      "key": "two-07",
+      "beforeUnjoinedStructuralEnds": 44,
+      "beforeMaxPhysicalGapM": 0.1618947852125006,
+      "afterUnjoinedStructuralEnds": 0,
+      "nativeJunctions": 20,
+      "apertureTerminals": []
+    },
+    {
+      "key": "three-01",
+      "beforeUnjoinedStructuralEnds": 59,
+      "beforeMaxPhysicalGapM": 0.12183385796815784,
+      "afterUnjoinedStructuralEnds": 0,
+      "nativeJunctions": 27,
+      "apertureTerminals": [
+        {
+          "wall": "wall_9",
+          "point": [
+            15.379386018237081,
+            1.4787985865724382
+          ],
+          "gapM": 0.11551367781155086
+        },
+        {
+          "wall": "wall_14",
+          "point": [
+            15.31356838905775,
+            10.883957597173145
+          ],
+          "gapM": 0.0496960486322191
+        }
+      ]
+    },
+    {
+      "key": "three-03",
+      "beforeUnjoinedStructuralEnds": 69,
+      "beforeMaxPhysicalGapM": 0.25560434912322466,
+      "afterUnjoinedStructuralEnds": 0,
+      "nativeJunctions": 33,
+      "apertureTerminals": []
+    },
+    {
+      "key": "three-07",
+      "beforeUnjoinedStructuralEnds": 70,
+      "beforeMaxPhysicalGapM": 0.17322128854532415,
+      "afterUnjoinedStructuralEnds": 0,
+      "nativeJunctions": 37,
+      "apertureTerminals": []
+    }
+  ]
+}

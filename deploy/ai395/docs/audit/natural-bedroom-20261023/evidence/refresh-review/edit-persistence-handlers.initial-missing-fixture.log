@@ -1,0 +1,14 @@
+[Interior Generation Failed] {
+  error: Error: 装修生成等待超时，请重新生成。
+      at main (/workspace/tests/edit-persistence/portal-handlers.ts:34:59),
+  captureId: 'c1',
+  selectedStyleId: 'modern'
+}
+Error: ENOENT: no such file or directory, open '/workspace/app-src/components/shared/PascalViewer.tsx'
+    at readFileSync (node:fs:440:20)
+    at main (/workspace/tests/edit-persistence/portal-handlers.ts:65:15) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/workspace/app-src/components/shared/PascalViewer.tsx'
+}

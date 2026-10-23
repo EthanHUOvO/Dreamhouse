@@ -1,0 +1,9 @@
+# Offline rebuild using the installed runtime's matching dependencies.
+# The regular root Dockerfile remains the clean installation path.
+ARG WEB_RUNTIME_BASE=ideal-home-local:web
+FROM ${WEB_RUNTIME_BASE}
+WORKDIR /app
+COPY . .
+RUN npm run verify && npm run build
+EXPOSE 3000
+CMD ["npm", "start"]

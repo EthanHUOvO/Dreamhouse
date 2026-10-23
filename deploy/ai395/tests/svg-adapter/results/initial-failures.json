@@ -1,0 +1,53 @@
+{
+  "phase": "initial-direct-coordinates",
+  "results": [
+    {
+      "key": "one-01",
+      "kind": "partition",
+      "httpStatus": 422,
+      "status": "FAIL",
+      "error": "EDIT_DOOR_NOT_ON_NEW_WALL",
+      "elapsedMs": 6662
+    },
+    {
+      "key": "one-01",
+      "kind": "sliding",
+      "httpStatus": 422,
+      "status": "FAIL",
+      "error": "EDIT_UNRELATED_ROOM_CHANGED:阳台",
+      "elapsedMs": 12850
+    },
+    {
+      "key": "two-02",
+      "kind": "partition",
+      "httpStatus": 422,
+      "status": "FAIL",
+      "error": "EDIT_DOOR_NOT_ON_NEW_WALL",
+      "elapsedMs": 9754
+    },
+    {
+      "key": "two-02",
+      "kind": "sliding",
+      "httpStatus": 422,
+      "status": "FAIL",
+      "error": "EDIT_NO_FREE_LIVING_BALCONY_WALL:现有开口已占满共墙或两区域没有共墙，不能叠加重复门洞",
+      "elapsedMs": 34
+    },
+    {
+      "key": "three-03",
+      "kind": "partition",
+      "httpStatus": 422,
+      "status": "FAIL",
+      "error": "EDIT_DOOR_NOT_ON_NEW_WALL",
+      "elapsedMs": 9124
+    },
+    {
+      "key": "three-03",
+      "kind": "sliding",
+      "httpStatus": 422,
+      "status": "FAIL",
+      "error": "Qwen svg-edit failed: HTTP 400 {\"error\":{\"message\":\"prompt exceeds the 16384-token context; increase --context or shorten the conversation\",\"type\":\"invalid_request_error\",\"code\":\"context_length_exceeded\"}}",
+      "elapsedMs": 89
+    }
+  ]
+}

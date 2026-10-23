@@ -1,0 +1,24 @@
+diff --git a/app/api/ai/status/route.ts b/app/api/ai/status/route.ts
+--- a/app/api/ai/status/route.ts
++++ b/app/api/ai/status/route.ts
+@@ -17,15 +17,15 @@ export async function GET(){
+   ])
+   const visionProjector=process.env.LOCAL_VISION_PROJECTOR||'mmproj-F16.gguf'
+   const vision={healthy:text.healthy,projector:visionProjector,message:text.healthy?undefined:'vision projector depends on the text service'}
+-  const vulkanDeviceVisible=existsSync('/dev/dri/renderD128')||process.env.VULKAN_DEVICE_VISIBLE==='true'
+-  const vulkan={healthy:vulkanDeviceVisible&&text.healthy&&image.healthy,device:process.env.VULKAN_DEVICE||'/dev/dri/renderD128',message:vulkanDeviceVisible?undefined:'Vulkan render device is not visible to the web container'}
++  const rocmDeviceVisible=existsSync('/dev/kfd')
++  const rocm={healthy:rocmDeviceVisible&&text.healthy&&image.healthy,device:'/dev/kfd',message:rocmDeviceVisible?undefined:'ROCm KFD device is not visible to the web container'}
+   return NextResponse.json({
+     mode:c.mode,
+     localOnly:c.mode==='local',
+-    ready:text.healthy&&vision.healthy&&image.healthy&&mcp.healthy&&vulkan.healthy,
++    ready:text.healthy&&vision.healthy&&image.healthy&&mcp.healthy&&rocm.healthy,
+     models:{layout:c.layoutModel,image:imageModel,bom:c.bomModel},
+-    services:{text,vision,image,mcp,vulkan},
++    services:{text,vision,image,mcp,rocm},
+     endpoints:{text:c.compatBaseUrl,image:c.nativeBaseUrl,mcp:c.mcpUrl},
+-    acceleration:{text:'vulkan',image:'ncnn-vulkan',expectedVramBytes:103079215104},
++    acceleration:{text:'llama.cpp-hip',image:'pytorch-rocm',expectedVramBytes:103079215104},
+     persistence:{generatedImageDirectory:process.env.GENERATED_IMAGE_DIR||'/data/generated',imageUrlsMayExpire:false},
+     license:{qwenImage21:'research-use-until-commercial-license-confirmed'},

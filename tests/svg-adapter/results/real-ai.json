@@ -1,0 +1,568 @@
+{
+  "kind": "real-local-model-inference",
+  "results": [
+    {
+      "key": "one-01",
+      "kind": "partition",
+      "httpStatus": 200,
+      "elapsedMs": 3359,
+      "status": "PASS",
+      "attempts": [
+        {
+          "attempt": 1,
+          "valid": true,
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 1155,
+            "completion_tokens": 210,
+            "total_tokens": 1365,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "cached_tokens": 0,
+            "prompt_tokens_per_second": 2728.664159143216,
+            "completion_tokens_per_second": 103.51268247293301,
+            "draft_tokens": 154,
+            "draft_tokens_accepted": 146,
+            "gufo": {
+              "cache_hit": false,
+              "cache_miss_reason": "prefix_changed",
+              "cache_common_prefix_tokens": 644,
+              "cache_checkpoint_tokens": 2956,
+              "cache_restore_bytes": 0,
+              "cache_snapshot_bytes": 213284396,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 0,
+              "cache_snapshot_ms": 29.985627,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 1155,
+              "prefill_chunks": 2,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 1148,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 9.889016,
+              "prefill_ms": 423.284044,
+              "decode_ms": 2028.736914,
+              "ttft_ms": 448.443993,
+              "mean_inter_token_ms": 9.777215444976088,
+              "max_inter_token_ms": 56.990376,
+              "execution_plan": "serial-fallback"
+            }
+          }
+        }
+      ],
+      "provenance": {
+        "stage": "svg-edit",
+        "actualInference": true,
+        "model": "Ours"
+      },
+      "validation": {
+        "valid": true,
+        "unit": "meter",
+        "targetRoomId": "room_2",
+        "checks": [
+          "target-polygon",
+          "room-count",
+          "door-host",
+          "door-reachability",
+          "existing-entry",
+          "unrelated-rooms"
+        ],
+        "warnings": [
+          "尺寸链与印刷面积可能不一致；sourceArea 保留原标注，expectedArea 为解析多边形面积。",
+          "红色平行开口按交接任务约定解释为推拉门；除 one-01 外其通行语义尚未由用户确认。",
+          "灰墙不证明承重属性，解析为 partition；墙厚为现有展示默认值，非施工尺寸。"
+        ]
+      },
+      "pascal": "PASS",
+      "rooms": [
+        "卫生间",
+        "主卧",
+        "客餐厅",
+        "厨房",
+        "阳台",
+        "阳台",
+        "卫生间"
+      ],
+      "doors": 7
+    },
+    {
+      "key": "two-02",
+      "kind": "partition",
+      "httpStatus": 200,
+      "elapsedMs": 4370,
+      "status": "PASS",
+      "attempts": [
+        {
+          "attempt": 1,
+          "valid": true,
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 983,
+            "completion_tokens": 209,
+            "total_tokens": 1192,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "cached_tokens": 0,
+            "prompt_tokens_per_second": 2332.874496710806,
+            "completion_tokens_per_second": 87.13172560394092,
+            "draft_tokens": 173,
+            "draft_tokens_accepted": 155,
+            "gufo": {
+              "cache_hit": false,
+              "cache_miss_reason": "prefix_changed",
+              "cache_common_prefix_tokens": 712,
+              "cache_checkpoint_tokens": 1365,
+              "cache_restore_bytes": 0,
+              "cache_snapshot_bytes": 201416396,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 0,
+              "cache_snapshot_ms": 1037.008828,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 983,
+              "prefill_chunks": 2,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 976,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 12.516315,
+              "prefill_ms": 421.368574,
+              "decode_ms": 2398.6670590000003,
+              "ttft_ms": 1114.708215,
+              "mean_inter_token_ms": 13.24459880288461,
+              "max_inter_token_ms": 383.60879,
+              "execution_plan": "serial-fallback"
+            }
+          }
+        }
+      ],
+      "provenance": {
+        "stage": "svg-edit",
+        "actualInference": true,
+        "model": "Ours"
+      },
+      "validation": {
+        "valid": true,
+        "unit": "meter",
+        "targetRoomId": "room_5",
+        "checks": [
+          "target-polygon",
+          "room-count",
+          "door-host",
+          "door-reachability",
+          "existing-entry",
+          "unrelated-rooms"
+        ],
+        "warnings": [
+          "尺寸链与印刷面积可能不一致；sourceArea 保留原标注，expectedArea 为解析多边形面积。",
+          "红色平行开口按交接任务约定解释为推拉门；除 one-01 外其通行语义尚未由用户确认。",
+          "灰墙不证明承重属性，解析为 partition；墙厚为现有展示默认值，非施工尺寸。"
+        ]
+      },
+      "pascal": "PASS",
+      "rooms": [
+        "客餐厅",
+        "厨房",
+        "卫生间",
+        "次卧",
+        "主卧",
+        "阳台",
+        "卫生间"
+      ],
+      "doors": 7
+    },
+    {
+      "key": "three-03",
+      "kind": "partition",
+      "httpStatus": 200,
+      "elapsedMs": 3346,
+      "status": "PASS",
+      "attempts": [
+        {
+          "attempt": 1,
+          "valid": true,
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 1182,
+            "completion_tokens": 212,
+            "total_tokens": 1394,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "cached_tokens": 0,
+            "prompt_tokens_per_second": 2478.609204145426,
+            "completion_tokens_per_second": 95.69354466595458,
+            "draft_tokens": 166,
+            "draft_tokens_accepted": 159,
+            "gufo": {
+              "cache_hit": false,
+              "cache_miss_reason": "prefix_changed",
+              "cache_common_prefix_tokens": 712,
+              "cache_checkpoint_tokens": 1365,
+              "cache_restore_bytes": 0,
+              "cache_snapshot_bytes": 215147396,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 0,
+              "cache_snapshot_ms": 38.698744,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 1182,
+              "prefill_chunks": 2,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 1175,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 10.836756,
+              "prefill_ms": 476.88034,
+              "decode_ms": 2215.4054459999998,
+              "ttft_ms": 508.832568,
+              "mean_inter_token_ms": 10.65105470142181,
+              "max_inter_token_ms": 102.430767,
+              "execution_plan": "serial-fallback"
+            }
+          }
+        }
+      ],
+      "provenance": {
+        "stage": "svg-edit",
+        "actualInference": true,
+        "model": "Ours"
+      },
+      "validation": {
+        "valid": true,
+        "unit": "meter",
+        "targetRoomId": "room_6",
+        "checks": [
+          "target-polygon",
+          "room-count",
+          "door-host",
+          "door-reachability",
+          "existing-entry",
+          "unrelated-rooms"
+        ],
+        "warnings": [
+          "尺寸链与印刷面积可能不一致；sourceArea 保留原标注，expectedArea 为解析多边形面积。",
+          "红色平行开口按交接任务约定解释为推拉门；除 one-01 外其通行语义尚未由用户确认。",
+          "灰墙不证明承重属性，解析为 partition；墙厚为现有展示默认值，非施工尺寸。"
+        ]
+      },
+      "pascal": "PASS",
+      "rooms": [
+        "次卧",
+        "卫生间",
+        "厨房",
+        "卫生间",
+        "客餐厅",
+        "主卧",
+        "次卧",
+        "阳台",
+        "卫生间"
+      ],
+      "doors": 9
+    },
+    {
+      "key": "one-01",
+      "kind": "sliding",
+      "httpStatus": 200,
+      "elapsedMs": 1688,
+      "status": "PASS",
+      "attempts": [
+        {
+          "attempt": 1,
+          "valid": true,
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 1483,
+            "completion_tokens": 81,
+            "total_tokens": 1564,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "cached_tokens": 0,
+            "prompt_tokens_per_second": 2430.6718226455437,
+            "completion_tokens_per_second": 93.13035791812015,
+            "draft_tokens": 73,
+            "draft_tokens_accepted": 64,
+            "gufo": {
+              "cache_hit": false,
+              "cache_miss_reason": "prefix_changed",
+              "cache_common_prefix_tokens": 644,
+              "cache_checkpoint_tokens": 1888,
+              "cache_restore_bytes": 0,
+              "cache_snapshot_bytes": 235916396,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 0,
+              "cache_snapshot_ms": 54.391247,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 1483,
+              "prefill_chunks": 2,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 1476,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 14.471534,
+              "prefill_ms": 610.119386,
+              "decode_ms": 869.748617,
+              "ttft_ms": 647.77543,
+              "mean_inter_token_ms": 11.261703675000005,
+              "max_inter_token_ms": 73.216489,
+              "execution_plan": "serial-fallback"
+            }
+          }
+        }
+      ],
+      "provenance": {
+        "stage": "svg-edit",
+        "actualInference": true,
+        "model": "Ours"
+      },
+      "validation": {
+        "valid": true,
+        "unit": "meter",
+        "checks": [
+          "target-polygon",
+          "room-count",
+          "door-host",
+          "door-reachability",
+          "existing-entry",
+          "unrelated-rooms"
+        ],
+        "warnings": [
+          "尺寸链与印刷面积可能不一致；sourceArea 保留原标注，expectedArea 为解析多边形面积。",
+          "红色平行开口按交接任务约定解释为推拉门；除 one-01 外其通行语义尚未由用户确认。",
+          "灰墙不证明承重属性，解析为 partition；墙厚为现有展示默认值，非施工尺寸。"
+        ]
+      },
+      "pascal": "PASS",
+      "rooms": [
+        "卫生间",
+        "主卧",
+        "客餐厅",
+        "厨房",
+        "阳台",
+        "阳台"
+      ],
+      "doors": 7
+    },
+    {
+      "key": "two-01",
+      "kind": "sliding",
+      "httpStatus": 200,
+      "elapsedMs": 1816,
+      "status": "PASS",
+      "attempts": [
+        {
+          "attempt": 1,
+          "valid": true,
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 1825,
+            "completion_tokens": 81,
+            "total_tokens": 1906,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "cached_tokens": 0,
+            "prompt_tokens_per_second": 2431.6712471291803,
+            "completion_tokens_per_second": 97.6889433602437,
+            "draft_tokens": 74,
+            "draft_tokens_accepted": 67,
+            "gufo": {
+              "cache_hit": false,
+              "cache_miss_reason": "prefix_changed",
+              "cache_common_prefix_tokens": 738,
+              "cache_checkpoint_tokens": 1564,
+              "cache_restore_bytes": 0,
+              "cache_snapshot_bytes": 259514396,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 0,
+              "cache_snapshot_ms": 42.618093,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 1825,
+              "prefill_chunks": 2,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 1818,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 13.473054,
+              "prefill_ms": 750.512637,
+              "decode_ms": 829.162413,
+              "ttft_ms": 787.000181,
+              "mean_inter_token_ms": 10.608897325000001,
+              "max_inter_token_ms": 85.686484,
+              "execution_plan": "serial-fallback"
+            }
+          }
+        }
+      ],
+      "provenance": {
+        "stage": "svg-edit",
+        "actualInference": true,
+        "model": "Ours"
+      },
+      "validation": {
+        "valid": true,
+        "unit": "meter",
+        "checks": [
+          "target-polygon",
+          "room-count",
+          "door-host",
+          "door-reachability",
+          "existing-entry",
+          "unrelated-rooms"
+        ],
+        "warnings": [
+          "尺寸链与印刷面积可能不一致；sourceArea 保留原标注，expectedArea 为解析多边形面积。",
+          "红色平行开口按交接任务约定解释为推拉门；除 one-01 外其通行语义尚未由用户确认。",
+          "灰墙不证明承重属性，解析为 partition；墙厚为现有展示默认值，非施工尺寸。"
+        ]
+      },
+      "pascal": "PASS",
+      "rooms": [
+        "阳台",
+        "阳台",
+        "厨房",
+        "卫生间",
+        "客餐厅",
+        "主卧",
+        "次卧"
+      ],
+      "doors": 9
+    },
+    {
+      "key": "three-03",
+      "kind": "sliding",
+      "httpStatus": 200,
+      "elapsedMs": 1895,
+      "status": "PASS",
+      "attempts": [
+        {
+          "attempt": 1,
+          "valid": true,
+          "model": "Ours",
+          "usage": {
+            "prompt_tokens": 1861,
+            "completion_tokens": 81,
+            "total_tokens": 1942,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "cached_tokens": 0,
+            "prompt_tokens_per_second": 2452.6306449098183,
+            "completion_tokens_per_second": 91.52272654889138,
+            "draft_tokens": 66,
+            "draft_tokens_accepted": 61,
+            "gufo": {
+              "cache_hit": false,
+              "cache_miss_reason": "prefix_changed",
+              "cache_common_prefix_tokens": 738,
+              "cache_checkpoint_tokens": 1564,
+              "cache_restore_bytes": 0,
+              "cache_snapshot_bytes": 261998396,
+              "cache_disk_queued_bytes": 0,
+              "cache_shared_bytes": 0,
+              "cache_restore_ms": 0,
+              "cache_snapshot_ms": 45.611541,
+              "cache_disk_enqueue_ms": 0,
+              "cache_disk_hit": false,
+              "cache_shared_prefix_snapshots": 0,
+              "cache_shared_prefix_bytes": 0,
+              "cache_shared_prefix_ms": 0,
+              "prefill_tokens": 1861,
+              "prefill_chunks": 2,
+              "active_decode_prefill_chunks": 0,
+              "max_prefill_chunk_tokens": 1854,
+              "queue_depth_at_submit": 1,
+              "client_queue_depth_at_submit": 1,
+              "resident_requests_at_admission": 1,
+              "requested_logical_concurrency": 8,
+              "physical_execution_width": 1,
+              "queue_ms": 11.809085,
+              "prefill_ms": 758.777113,
+              "decode_ms": 885.026081,
+              "ttft_ms": 793.515009,
+              "mean_inter_token_ms": 10.931328687500002,
+              "max_inter_token_ms": 69.256851,
+              "execution_plan": "serial-fallback"
+            }
+          }
+        }
+      ],
+      "provenance": {
+        "stage": "svg-edit",
+        "actualInference": true,
+        "model": "Ours"
+      },
+      "validation": {
+        "valid": true,
+        "unit": "meter",
+        "checks": [
+          "target-polygon",
+          "room-count",
+          "door-host",
+          "door-reachability",
+          "existing-entry",
+          "unrelated-rooms"
+        ],
+        "warnings": [
+          "尺寸链与印刷面积可能不一致；sourceArea 保留原标注，expectedArea 为解析多边形面积。",
+          "红色平行开口按交接任务约定解释为推拉门；除 one-01 外其通行语义尚未由用户确认。",
+          "灰墙不证明承重属性，解析为 partition；墙厚为现有展示默认值，非施工尺寸。"
+        ]
+      },
+      "pascal": "PASS",
+      "rooms": [
+        "次卧",
+        "卫生间",
+        "厨房",
+        "卫生间",
+        "客餐厅",
+        "主卧",
+        "次卧",
+        "阳台"
+      ],
+      "doors": 9
+    }
+  ]
+}
