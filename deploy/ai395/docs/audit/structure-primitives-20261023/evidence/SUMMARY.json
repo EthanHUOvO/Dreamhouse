@@ -404,7 +404,42 @@
   },
   "unknown": [
     "Initial run3 study SVG_EDIT_FAILED root cause remains UNKNOWN despite later successful replays.",
-    "Exact text weight identity, construction/load-bearing/daylight compliance are UNKNOWN.",
-    "Legacy 24-plan CI was not rerun."
-  ]
+    "Exact text weight identity, construction/load-bearing/daylight compliance are UNKNOWN."
+  ],
+  "githubCi": {
+    "status": "FAIL_PREEXISTING_LEGACY_CATALOG_VALIDATION",
+    "testedCommit": "327445710ed6593dc9cfddd60a63fa1ed01989de",
+    "run": "https://github.com/EthanHUOvO/Dreamhouse/actions/runs/39971195860",
+    "baselineRun": "https://github.com/EthanHUOvO/Dreamhouse/actions/runs/39936023371",
+    "failureStep": "npm run verify -> test:pascal-v2 -> scripts/validate-pascal-v2.mjs",
+    "legacyCatalogSize": 24,
+    "issues": 21,
+    "failureMessagesExactlyMatchBaseline": true,
+    "failureMessageSha256": "48e78d19aff6b94dac985715943ddb677b20e98642759bfabdf7aa27a8427212",
+    "diagnostics": [
+      "one-option-02: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_2",
+      "one-option-03: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_1_split_1、room_living_room_1_split_2_split_1",
+      "one-option-04: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_1、room_living_room_1_split_2、room_master_bedroom_2_split_1",
+      "one-option-05: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_1_split_2、room_living_room_1_split_2_split_2",
+      "one-option-06: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_1_split_2、room_living_room_1_split_2_split_1、room_living_room_1_split_2_split_2、room_living_room_1_split_1_split_1_split_1",
+      "one-option-07: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_2_split_2",
+      "one-option-08: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_1_split_2、room_living_room_1_split_2_split_1、room_living_room_1_split_1_split_1_split_1、room_living_room_1_split_1_split_1_split_2",
+      "three-option-01: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_master_bedroom_2_split_1_split_1",
+      "three-option-03: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_1_split_1、room_living_room_1_split_1_split_2、room_living_room_1_split_2_split_1",
+      "three-option-04: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_1_split_1、room_living_room_1_split_1_split_2、room_living_room_1_split_2_split_2、room_master_bedroom_2_split_2",
+      "three-option-05: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_1_split_1_split_1、room_living_room_1_split_1_split_1_split_2、room_living_room_1_split_1_split_2_split_1、room_living_room_1_split_1_split_2_split_2、room_living_room_1_split_2_split_1_split_1、room_living_room_1_split_2_split_1_split_2",
+      "three-option-06: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_1_split_1_split_1、room_living_room_1_split_1_split_1_split_2、room_living_room_1_split_1_split_2_split_1、room_living_room_1_split_1_split_2_split_2、room_living_room_1_split_2_split_1_split_1、room_living_room_1_split_2_split_1_split_2、room_living_room_1_split_2_split_2_split_1、room_living_room_1_split_2_split_2_split_2",
+      "three-option-07: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_2、room_living_room_1_split_1_split_2",
+      "three-option-08: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_1_split_1、room_living_room_1_split_2_split_1、room_master_bedroom_2_split_2",
+      "two-option-01: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_1_split_2、room_living_room_1_split_2_split_1、room_living_room_1_split_2_split_2、room_living_room_1_split_1_split_1_split_1",
+      "two-option-02: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_bedroom_3_split_2",
+      "two-option-03: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_2、room_living_room_1_split_1_split_1",
+      "two-option-04: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_2_split_2",
+      "two-option-05: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_2_split_2、room_living_room_1_split_1_split_1_split_1、room_living_room_1_split_1_split_1_split_2、room_living_room_1_split_1_split_2_split_1",
+      "two-option-07: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_2_split_1、room_living_room_1_split_2_split_2、room_living_room_1_split_1_split_1_split_2",
+      "two-option-08: 编译失败：FloorplanBlueprint 校验失败：房间顶点落在外轮廓之外：room_living_room_1_split_1、room_living_room_1_split_2、room_master_bedroom_2_split_1_split_1、room_master_bedroom_2_split_1_split_2、room_master_bedroom_2_split_2_split_1"
+    ],
+    "newNinePlanRegression": "PASS (separate SVG catalog and structure-primitives suites)",
+    "modelsCalledInCi": false
+  }
 }
