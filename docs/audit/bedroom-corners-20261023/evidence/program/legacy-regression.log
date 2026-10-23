@@ -1,0 +1,65 @@
+TEST one-option-01
+TEST one-option-02
+TEST one-option-07
+TEST two-option-01
+TEST two-option-02
+TEST two-option-07
+TEST three-option-01
+TEST three-option-03
+TEST three-option-07
+{
+  "kind": "programmatic-no-ai-inference",
+  "summary": {
+    "pass": 1,
+    "noFeasible": 8,
+    "fail": 0
+  },
+  "plans": [
+    {
+      "variantId": "one-option-01",
+      "status": "PASS",
+      "candidateCount": 4,
+      "elapsedMs": 10015.190332
+    },
+    {
+      "variantId": "one-option-02",
+      "status": "NO_FEASIBLE_PLAN",
+      "elapsedMs": 401.5054280000004
+    },
+    {
+      "variantId": "one-option-07",
+      "status": "NO_FEASIBLE_PLAN",
+      "elapsedMs": 743.8419979999999
+    },
+    {
+      "variantId": "two-option-01",
+      "status": "NO_FEASIBLE_PLAN",
+      "elapsedMs": 12960.451125000001
+    },
+    {
+      "variantId": "two-option-02",
+      "status": "NO_FEASIBLE_PLAN",
+      "elapsedMs": 663.3319010000014
+    },
+    {
+      "variantId": "two-option-07",
+      "status": "NO_FEASIBLE_PLAN",
+      "elapsedMs": 607.6034639999998
+    },
+    {
+      "variantId": "three-option-01",
+      "status": "NO_FEASIBLE_PLAN",
+      "elapsedMs": 6553.550841
+    },
+    {
+      "variantId": "three-option-03",
+      "status": "NO_FEASIBLE_PLAN",
+      "elapsedMs": 1180.5961779999961
+    },
+    {
+      "variantId": "three-option-07",
+      "status": "NO_FEASIBLE_PLAN",
+      "elapsedMs": 6446.642474
+    }
+  ]
+}

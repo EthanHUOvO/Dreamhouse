@@ -1,0 +1,21 @@
+{
+  "kind": "historical-default-sofa-pose",
+  "sourceImage": "sha256:90f75275e2ffc86d2076deed11768934ebfdf63b86f623a6649cb517e28830c1",
+  "svgSha256": "6b2a61dd6d654587ea0860ca7a00234de7ee1d041c9cebfc82f643e3bac543e8",
+  "id": "item_room_3_3",
+  "position": [
+    3.4172475490196086,
+    0,
+    7.181256666666666
+  ],
+  "rotation": [
+    0,
+    0,
+    0
+  ],
+  "scale": [
+    0.72,
+    1,
+    0.72
+  ]
+}

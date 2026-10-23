@@ -8,14 +8,14 @@ import {sceneToFloorplanBlueprint} from '/app/lib/floorplans/blueprint';
 import {buildSceneFromSvg,clone,verifySaveRestore} from './assertions';
 const root=process.env.BEDROOM_TEST_WORKSPACE||'/workspace',output=process.env.BEDROOM_TEST_OUTPUT||'/evidence';
 const svg=readFileSync(`${root}/public/preset/svg-v2/one/option-01.svg`,'utf8');
-const source=buildSceneFromSvg(svg,'one-option-01','source-furniture-original'),candidate=bedroomPartitionCandidates(svg)[0],edit=applyBedroomPartition(svg,candidate.id),target=buildSceneFromSvg(edit.svg,'one-option-01','source-furniture-candidate');
+const source=buildSceneFromSvg(svg,'one-option-01','source-furniture-original'),candidate=bedroomPartitionCandidates(svg,{region:'upper'})[0],edit=applyBedroomPartition(svg,candidate.id,{region:'upper'}),target=buildSceneFromSvg(edit.svg,'one-option-01','source-furniture-candidate');
 const tests:any[]=[];const pass=(name:string,fn:()=>void)=>{fn();tests.push({name,status:'PASS'});};
 const originalCandidate=JSON.stringify(target.scene),originalSource=JSON.stringify(source.scene);
 pass('first-generation-defaults-are-cloned',()=>{const result=preserveBedroomSourceFurniture(target.scene,null,source.structure);assert.notEqual(result,target.scene);assert.deepEqual(Object.values(result.nodes).filter((n:any)=>n.type==='item'),Object.values(target.scene.nodes).filter((n:any)=>n.type==='item'));});
 pass('first-generation-legacy-block-rejected',()=>{const bad=clone(target.scene);bad.nodes.legacy={id:'legacy',type:'block'};assert.throws(()=>preserveBedroomSourceFurniture(bad,null,source.structure),/BEDROOM_SOURCE_FURNITURE_UNSAFE/);});
 const saved=clone(source.scene),sofa:any=Object.values(saved.nodes).find((n:any)=>n.type==='item'&&n.metadata?.furniture_asset_key==='sofa');
 const kitchen:any=Object.values(saved.nodes).find((n:any)=>n.type==='item'&&n.metadata?.furniture_asset_key==='kitchen');kitchen.rotation=[0,Math.PI/2,0];
-sofa.position=[2.6,0,7.25];sofa.rotation=[0,.1,0];sofa.metadata.userPlacement='saved-manual';sofa.material={color:'#284455',roughness:.61};sofa.asset.userAssetMarker='preserve-exact';
+sofa.position=[1.95,0,7.18];sofa.rotation=[0,Math.PI/2,0];sofa.metadata.userPlacement='saved-manual';sofa.material={color:'#284455',roughness:.61};sofa.asset.userAssetMarker='preserve-exact';
 let preserved:any;
 pass('saved-manual-furniture-and-assets-retained-exactly',()=>{
  preserved=preserveBedroomSourceFurniture(target.scene,saved,source.structure);
@@ -26,7 +26,7 @@ pass('saved-manual-furniture-and-assets-retained-exactly',()=>{
  assert.equal(assertPascalSceneIntegrity(preserved).valid,true);
  assert.deepEqual(preserved.nodes.building_house.metadata.floorplanBlueprint.furniture,sceneToFloorplanBlueprint(preserved).furniture);
 });
-pass('preserved-real-furniture-collision-and-entry-route',()=>{assertBedroomSceneUsable(preserved,source.structure,candidate.targetRoomId,edit.validation.newRoomId);});
+pass('preserved-real-furniture-collision-and-entry-route',()=>{assertBedroomSceneUsable(preserved,source.structure,candidate.targetRoomId,edit.validation.newRoomId,saved);});
 pass('preserved-furniture-save-and-refresh-roundtrip',()=>{verifySaveRestore('one-option-01',svg,edit.svg,saved,preserved);});
 const negative=(name:string,mutate:(s:any)=>void)=>pass(name,()=>{const s=clone(saved);mutate(s);const frozen=JSON.stringify(s);assert.throws(()=>preserveBedroomSourceFurniture(target.scene,s,source.structure),/BEDROOM_SOURCE_FURNITURE_UNSAFE/);assert.equal(JSON.stringify(s),frozen);});
 negative('saved-wall-change-is-not-overwritten',s=>{Object.values(s.nodes).find((n:any)=>n.type==='wall').start[0]+=.15;});

@@ -1,0 +1,15 @@
+{
+  "key": "two-01",
+  "instruction": "在客餐厅合适的墙角新增一个矩形卧室，方向不限，保留入户通道和厨房、卫生间的位置",
+  "httpStatus": 422,
+  "elapsedMs": 193,
+  "actualInference": false,
+  "error": "SVG_EDIT_FAILED",
+  "message": "改造未通过结构校验（SVG_EDIT_FAILED），原户型未改动。请调整位置或改造要求后重试。",
+  "provenance": {
+    "stage": "svg-edit",
+    "method": "natural-language-geometry/v1",
+    "actualInference": false,
+    "inference": []
+  }
+}

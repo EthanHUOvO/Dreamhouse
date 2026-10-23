@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "tests": 15,
+  "names": [
+    "first-generation-defaults-are-cloned",
+    "first-generation-legacy-block-rejected",
+    "saved-manual-furniture-and-assets-retained-exactly",
+    "preserved-real-furniture-collision-and-entry-route",
+    "preserved-furniture-save-and-refresh-roundtrip",
+    "saved-wall-change-is-not-overwritten",
+    "saved-door-change-is-not-overwritten",
+    "saved-window-change-is-not-overwritten",
+    "saved-room-change-is-not-overwritten",
+    "legacy-block-rejected",
+    "item-with-unknown-room-rejected",
+    "item-in-new-room-does-not-silently-change-ownership",
+    "item-with-unknown-dimensions-rejected",
+    "item-with-unrepresented-child-rejected",
+    "candidate-and-source-never-mutated"
+  ]
+}

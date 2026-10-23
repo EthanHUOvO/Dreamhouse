@@ -1,0 +1,12 @@
+[
+  {
+    "key": "synthetic-left",
+    "exitCode": 0,
+    "output": "{\n  \"kind\": \"independent-validation-of-live-AI-output\",\n  \"status\": \"PASS\",\n  \"elapsedMs\": 477.377151,\n  \"outputPath\": \"/evidence/live-directions/synthetic-left-validation.json\"\n}\n"
+  },
+  {
+    "key": "synthetic-right-paraphrase",
+    "exitCode": 0,
+    "output": "{\n  \"kind\": \"independent-validation-of-live-AI-output\",\n  \"status\": \"PASS\",\n  \"elapsedMs\": 488.47574900000006,\n  \"outputPath\": \"/evidence/live-directions/synthetic-right-paraphrase-validation.json\"\n}\n"
+  }
+]

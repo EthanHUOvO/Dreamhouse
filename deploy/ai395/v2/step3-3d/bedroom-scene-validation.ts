@@ -1,4 +1,4 @@
-import {sceneToFloorplanBlueprint} from '../floorplans/blueprint';
+import {sceneToFloorplanBlueprint,createFloorplanBlueprint,compileBlueprintToPascal} from '../floorplans/blueprint';
 import {isWalkthroughPositionBlocked, doorWorldXZ} from '../walkthrough-runtime';
 import {pointInPolygon, type svgToStructure} from './svg-geometry';
 import type {SceneGraph} from '../types';
@@ -29,7 +29,7 @@ function overlaps(a:Point[],b:Point[]) {
  * itself has no furniture. Never fix this check by deleting or moving an item.
  * A returned report proves the current walkthrough can reach the new bedroom;
  * it is not a building-code/accessibility certification. */
-export function assertBedroomSceneUsable(scene:SceneGraph,original:Structure,targetRoomId:string,newRoomId:string) {
+export function assertBedroomSceneUsable(scene:SceneGraph,original:Structure,targetRoomId:string,newRoomId:string,originalScene?:SceneGraph) {
  const blueprint=sceneToFloorplanBlueprint(scene);
  const living=blueprint.rooms.find(r=>r.id===targetRoomId),bedroom=blueprint.rooms.find(r=>r.id===newRoomId);
  if(!living||living.semantic!=='living_room'||!original.rooms.some(r=>r.id===targetRoomId&&r.semantic==='living_room')||!bedroom||bedroom.semantic!=='bedroom')fail('BEDROOM_SCENE_ROOMS_INVALID','新增卧室或原客餐厅与结构方案不一致');
@@ -70,16 +70,36 @@ export function assertBedroomSceneUsable(scene:SceneGraph,original:Structure,tar
  const entries=blueprint.doors.filter(d=>original.doors.some(o=>o.id===d.id)&&d.connects.includes(targetRoomId)&&d.connects.includes(null));
  if(!entries.length)fail('BEDROOM_SCENE_ENTRANCE_UNKNOWN','无法从当前结构确定原入户门，拒绝提交改造');
  const paths:{entryDoorId:string;path:Point[]}[]=[];
+ const warnings:string[]=[],originalRoutesChecked:string[]=[];
+ const baseline=originalScene??compileBlueprintToPascal(createFloorplanBlueprint({id:'bedroom-access-baseline',name:'原户型通行基准',factory:'PascalMCP/SVG-deterministic/v1',sourceImage:'',...original}));
+ const baselineOpen=new Set(Object.values(baseline.nodes).filter(n=>n.type==='door').map(n=>n.id));
+ const crossings=(graph:SceneGraph,door:typeof blueprint.doors[number],open:Set<string>)=>{
+  const node=graph.nodes[door.id],center=doorWorldXZ(graph,node),wall=graph.nodes[node?.hostWallId||node?.wallId||node?.parentId||''];if(!center||!wall?.start||!wall?.end)return[];
+  const length=Math.hypot(wall.end[0]-wall.start[0],wall.end[1]-wall.start[1]),dx=(wall.end[0]-wall.start[0])/length,dz=(wall.end[1]-wall.start[1])/length,span=Math.max(0,door.width/2-PLAYER_RADIUS-.02);
+  return[-span,-span/2,0,span/2,span].map(offset=>({x:center.x+dx*offset,z:center.z+dz*offset})).filter(p=>!isWalkthroughPositionBlocked(graph,p.x,p.z,open,PLAYER_RADIUS));
+ };
  for(const entry of entries) {
   const center=doorWorldXZ(scene,scene.nodes[entry.id]);if(!center)fail('BEDROOM_SCENE_ENTRANCE_UNKNOWN','原入户门缺少有效宿主墙');
   const start=nearest([center.x,center.z],living.polygon);if(start<0)fail('BEDROOM_SCENE_ENTRY_APPROACH_BLOCKED','原入户门内侧被墙体或家具阻挡');
   const previous=new Int32Array(free.length).fill(-2),queue=[start];previous[start]=-1;
-  for(let cursor=0;cursor<queue.length&&previous[end]===-2;cursor++) {
+  for(let cursor=0;cursor<queue.length;cursor++) {
    const current=queue[cursor],x=current%nx,z=Math.floor(current/nx);
    for(const [dx,dz] of [[1,0],[-1,0],[0,1],[0,-1]]) {const xx=x+dx,zz=z+dz,next=zz*nx+xx;if(xx<0||xx>=nx||zz<0||zz>=nz||!free[next]||previous[next]!==-2)continue;previous[next]=current;queue.push(next);}
   }
   if(previous[end]===-2)fail('BEDROOM_SCENE_ENTRANCE_PATH_BLOCKED','新增卧室在当前家具布局下无法从入户门到达，请在 Step3 手动调整家具后重试');
+  // A route to the new room alone is insufficient: retain access to every
+  // original doorway on the living side (bedrooms, kitchen, bathroom, balcony).
+  for(const door of blueprint.doors.filter(d=>original.doors.some(o=>o.id===d.id)&&d.connects.includes(targetRoomId))){
+   const center=doorWorldXZ(scene,scene.nodes[door.id]);
+   if(!crossings(baseline,door,baselineOpen).length){
+    warnings.push(`原场景门 ${door.id} 已被阻挡；不计为新增改造通过的通行项，需手动检查`);continue;
+   }
+   const available=crossings(scene,door,openDoors);
+   if(!center||!available.length)fail('BEDROOM_SCENE_ORIGINAL_DOOR_BLOCKED',`原有门 ${door.name||door.id} 被墙体或家具阻挡`);
+   if(!available.some(p=>{const approach=nearest([p.x,p.z],living.polygon);return approach>=0&&previous[approach]!==-2;}))fail('BEDROOM_SCENE_ORIGINAL_ROUTE_BLOCKED',`原有门 ${door.name||door.id} 无法从入户门到达`);
+   originalRoutesChecked.push(door.id);
+  }
   const path:Point[]=[];for(let i=end;i>=0;i=previous[i])path.push(point(i));path.reverse();paths.push({entryDoorId:entry.id,path});
  }
- return{valid:true as const,newDoorId:newDoor.id,newRoomId,targetRoomId,checkedFurniture:items.length,checkedNewWalls:newWalls.length,playerRadiusM:PLAYER_RADIUS,gridStepM:GRID_STEP,paths,furnitureMoved:false};
+ return{valid:true as const,newDoorId:newDoor.id,newRoomId,targetRoomId,checkedFurniture:items.length,checkedNewWalls:newWalls.length,playerRadiusM:PLAYER_RADIUS,gridStepM:GRID_STEP,paths,originalRoutesChecked:[...new Set(originalRoutesChecked)],warnings:[...new Set(warnings)],furnitureMoved:false};
 }

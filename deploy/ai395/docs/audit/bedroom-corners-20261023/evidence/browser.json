@@ -1,0 +1,47 @@
+{
+  "kind": "manual-browser-verification",
+  "status": "PASS",
+  "productionUrl": "http://172.21.16.36:3002/customer",
+  "images": {
+    "web": "sha256:da87be6ca4cd6723f761b48a283c3561eb8953714421fd3dd46f64c6da7cc1eb",
+    "pascal-mcp": "sha256:0742c263e943a032787a2319748c45cf60563ea70e9c7b12716de2f15a6e543c"
+  },
+  "production": {
+    "floorplan": "three-option-01",
+    "instruction": "在客餐厅合适的墙角新增一个矩形卧室，方向不限，保留入户通道和厨卫位置",
+    "actualRegion": "lower",
+    "bedroomAreaM2Approx": 6.44,
+    "checks": [
+      "real AI request accepted",
+      "incremental SVG preview preserves original drawing style",
+      "Pascal 3D loaded",
+      "saved adjustments",
+      "page reload restores saved 3D"
+    ],
+    "screenshots": [
+      "production-lower-bedroom.png",
+      "production-restored-3d.png"
+    ]
+  },
+  "isolatedStaging": {
+    "url": "http://127.0.0.1:13015/customer",
+    "floorplan": "three-option-01",
+    "checks": [
+      "direction-any chooses lower",
+      "confirm 3D",
+      "save and reload",
+      "Top View loaded",
+      "request for at least 1000 square metres rejected",
+      "prior V1 and scene retained after rejection and reload"
+    ],
+    "screenshots": [
+      "browser-lower-bedroom.png",
+      "browser-restored-top.png"
+    ]
+  },
+  "notTested": [
+    "browser manual furniture dragging in this round",
+    "Step4 rendering",
+    "construction suitability"
+  ]
+}

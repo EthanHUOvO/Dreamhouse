@@ -2262,7 +2262,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
     if (bedroom) {
       if (!originalSvg || !bedroom.targetRoomId || !bedroom.newRoomId) throw new Error("卧室改造缺少完整校验信息，已保留原方案");
       validatedScene = preserveBedroomSourceFurniture(validatedScene, furnitureSource ?? null, svgToStructure(originalSvg));
-      const circulation = assertBedroomSceneUsable(validatedScene, svgToStructure(originalSvg), bedroom.targetRoomId, bedroom.newRoomId);
+      const circulation = assertBedroomSceneUsable(validatedScene, svgToStructure(originalSvg), bedroom.targetRoomId, bedroom.newRoomId, furnitureSource);
       Object.assign(validatedScene.nodes.building_house.metadata ||= {}, { bedroomSceneValidation: circulation });
     }
     return validatedScene;
@@ -2328,7 +2328,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
         const svgEditRes = await fetch("/api/ai/svg-edit", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ svgText: inputSvg, instruction: requestPrompt }),
+          body: JSON.stringify({ svgText: inputSvg, instruction: requestPrompt, hasBoundScene: Boolean(furnitureSource) }),
           signal: controller.signal,
         });
         const svgEditData = await svgEditRes.json();
@@ -2351,8 +2351,9 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
           editValidation: svgEditData.validation,
         });
         const warnings = svgEditData.candidate ? [
-          `新增卧室约 ${svgEditData.candidate.newAreaM2.toFixed(2)}㎡，剩余客餐厅约 ${svgEditData.candidate.remainingAreaM2.toFixed(2)}㎡；通道按 ${svgEditData.candidate.entranceClearanceM}m 检查。`,
+          `新增卧室位于客餐厅${({ upper: "上侧", lower: "下侧", left: "左侧", right: "右侧" } as Record<string,string>)[svgEditData.candidate.position] || "墙角"}，约 ${svgEditData.candidate.newAreaM2.toFixed(2)}㎡，剩余客餐厅约 ${svgEditData.candidate.remainingAreaM2.toFixed(2)}㎡；通道按 ${svgEditData.candidate.entranceClearanceM}m 检查。`,
           "本次不新增外窗；新增卧室的采光和通风条件尚未验证。家具在 Step3 手动调整。",
+          ...(editedScene.nodes.building_house.metadata?.bedroomSceneValidation?.warnings || []),
         ] : [];
         data = { prompt: requestPrompt, image: { url: pngDataUrl, model: "svg-edit", provider: "qwen", ephemeral: true, fallback: false, geometryVerified: true, warnings } };
       } else {
@@ -3103,7 +3104,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
                   <h2>告诉我们您想怎么调整</h2>
                 </div>
                 {svgSource ? <div className="floorplan-example-list" aria-label="修改示例">
-                  <button type="button" onClick={() => changeModificationDraft("在客餐厅上侧新增一个卧室，保留入户通道和厨房、卫生间的位置")}>客餐厅上侧增加卧室</button>
+                  <button type="button" onClick={() => changeModificationDraft("在客餐厅合适的墙角新增一个矩形卧室，方向不限，保留入户通道和厨房、卫生间的位置")}>客餐厅增加卧室（方向不限）</button>
                   <button type="button" onClick={() => changeModificationDraft("在主卧内新增一个卫生间，需要加两面隔墙和一扇门")}>主卧增加卫生间</button>
                   <button type="button" onClick={() => changeModificationDraft("在客厅和阳台之间加一扇推拉门")}>客厅与阳台增加推拉门</button>
                 </div> : <FloorplanEditExamples onSelect={(text) => {

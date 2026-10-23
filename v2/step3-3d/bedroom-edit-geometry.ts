@@ -7,8 +7,9 @@ import { appendSvgAdditions, roomsBeside, type Addition } from './svg-edit-geome
 
 type Structure = ReturnType<typeof svgToStructure>;
 type Room = Structure['rooms'][number];
-export type BedroomConstraints = {targetRoomId?:string;region?:'upper';protectedRoomIds?:string[];preserveEntrance?:true;minAreaM2?:number};
-export type BedroomCandidate = {id:string;targetRoomId:string;position:'upper';newAreaM2:number;remainingAreaM2:number;minClearWidthM:number;entranceClearanceM:number;notes:string[]};
+export type BedroomRegion = 'upper'|'lower'|'left'|'right';
+export type BedroomConstraints = {targetRoomId?:string;region?:BedroomRegion|'any';protectedRoomIds?:string[];preserveEntrance?:true;minAreaM2?:number};
+export type BedroomCandidate = {id:string;targetRoomId:string;position:BedroomRegion;newAreaM2:number;remainingAreaM2:number;minClearWidthM:number;entranceClearanceM:number;notes:string[]};
 const POLICY = {minAreaM2:6,minClearWidthM:2,minRemainingAreaM2:7,minPassageWidthM:.9,doorWidthM:.8,wallThicknessM:.12,areaBasis:'parsed-room-centreline-polygon',scope:'concept-layout-not-construction-compliance'} as const;
 const fail=(s:string):never=>{throw new Error(s);};
 const round=(n:number)=>Math.round(n*10000)/10000;
@@ -19,7 +20,7 @@ const bounds=(p:Point[])=>({left:Math.min(...p.map(p=>p[0])),right:Math.max(...p
 function hash(s:string){let h=2166136261;for(let i=0;i<s.length;i++)h=Math.imul(h^s.charCodeAt(i),16777619);return(h>>>0).toString(36);}
 function openingSegment(st:Structure,o:Structure['doors'][number]):[Point,Point]{const w=st.walls.find(w=>w.id===o.wallId)||fail('BEDROOM_OPENING_HOST_MISSING'),l=Math.hypot(w.end[0]-w.start[0],w.end[1]-w.start[1]),v:Point=[(w.end[0]-w.start[0])/l,(w.end[1]-w.start[1])/l];return[-1,1].map(s=>[w.start[0]+v[0]*(o.distance+s*o.width/2),w.start[1]+v[1]*(o.distance+s*o.width/2)] as Point) as [Point,Point];}
 function context(svg:string,c:BedroomConstraints={}){
-  if(c.region!==undefined&&c.region!=='upper')fail('BEDROOM_REGION_UNSUPPORTED');
+  if(c.region!==undefined&&!['upper','lower','left','right','any'].includes(c.region))fail('BEDROOM_REGION_UNSUPPORTED');
   if(c.preserveEntrance!==undefined&&c.preserveEntrance!==true)fail('BEDROOM_ENTRANCE_MUST_BE_PRESERVED');
   if(c.minAreaM2!==undefined&&(!Number.isFinite(c.minAreaM2)||c.minAreaM2<=0))fail('BEDROOM_MIN_AREA_INVALID');
   const st=svgToStructure(svg),targets=st.rooms.filter(r=>r.semantic==='living_room'),target=c.targetRoomId?targets.find(r=>r.id===c.targetRoomId):targets.length===1?targets[0]:undefined;
@@ -29,11 +30,11 @@ function context(svg:string,c:BedroomConstraints={}){
 }
 export function bedroomEditContext(svg:string){
   const st=svgToStructure(svg);
-  return{unit:'meter',axes:'x向右，y向下；upper表示图上方',rooms:st.rooms.map(r=>({id:r.id,name:r.name,semantic:r.semantic,polygon:r.polygon,areaM2:round(polygonArea(r.polygon))})),policy:POLICY,furniture:{present:false,source:'source SVG contains architectural symbols, no furniture nodes; Step3 furniture is not edited here'},warnings:['新增卧室的采光、通风、承重及施工合规未经验证。',...st.warnings]};
+  return{unit:'meter',axes:'x向右，y向下；upper/lower/left/right分别指图上/下/左/右，any由宿主搜索四向靠墙角方案',rooms:st.rooms.map(r=>({id:r.id,name:r.name,semantic:r.semantic,polygon:r.polygon,areaM2:round(polygonArea(r.polygon))})),policy:POLICY,furniture:{present:false,source:'source SVG contains architectural symbols, no furniture nodes; Step3 furniture is not edited here'},warnings:['新增卧室的采光、通风、承重及施工合规未经验证。',...st.warnings]};
 }
 
-type Proposal={id:string;box:{left:number;right:number;top:number;bottom:number};additions:Addition[]};
-function proposals(svg:string,st:Structure,target:Room,minArea:number):Proposal[]{
+type Proposal={id:string;position:BedroomRegion;box:{left:number;right:number;top:number;bottom:number};additions:Addition[]};
+function upperProposals(svg:string,st:Structure,target:Room,minArea:number):Proposal[]{
   const p=target.polygon,b=bounds(p),out:Proposal[]=[],seen=new Set<string>();
   // Existing horizontal and vertical wall segments provide actual anchors.
   // A rectangle anchored to two source boundaries needs two new partitions.
@@ -47,31 +48,76 @@ function proposals(svg:string,st:Structure,target:Room,minArea:number):Proposal[
     // A top boundary may continue at a concave neck: candidate width can extend
     // beyond the top source wall only when the closed rectangle is supported.
     const widths=[2.16,2.3,2.5,2.7,3,3.3,maxW];
-    for(const width of widths)for(const depth of [2.8,3,3.2,3.4,3.6]){
+    for(const width of widths)for(const depth of [2.16,2.3,2.5,2.8,3,3.2,3.4,3.6]){
       if(width<2.12||width>maxW+.04||width*depth<minArea||y+depth>(b.top+b.bottom)/2+1.5)continue;
       const box={left:sign>0?x:x-width,right:sign>0?x+width:x,top:y,bottom:y+depth};
       if((box.top+box.bottom)/2>(b.top+b.bottom)/2)continue;
       const k=Object.values(box).map(round).join(':');if(seen.has(k))continue;seen.add(k);
       let inside=true;
-      for(let ix=0;ix<=12&&inside;ix++)for(let iy=0;iy<=12;iy++)if(!contains([box.left+(box.right-box.left)*ix/12,box.top+(box.bottom-box.top)*iy/12],p)){inside=false;break;}
+      // Proposal filtering samples free interior, not wall-centre T-junction
+      // raster corners. Exact output containment is still checked by execute.
+      for(let ix=0;ix<13&&inside;ix++)for(let iy=0;iy<13;iy++)if(!contains([box.left+(box.right-box.left)*(ix+.5)/13,box.top+(box.bottom-box.top)*(iy+.5)/13],p)){inside=false;break;}
       if(!inside)continue;
       const q:Point=[sign>0?box.right:box.left,box.bottom],a:Point=[q[0],box.top],z:Point=[sign>0?box.left+.12:box.right-.12,box.bottom];
       // The existing boundary must support both anchored sides, not just their corner.
-      if(!Array.from({length:21},(_,i)=>[x,y+depth*i/20] as Point).every(v=>boundaryDistance(v,p)<.085))continue;
-      if(!Array.from({length:21},(_,i)=>[x+sign*Math.min(width,supportedWidth)*i/20,y] as Point).every(v=>boundaryDistance(v,p)<.085))continue;
-      // Keep the bedroom entry on the retained circulation strip. A bottom
-      // entry was verified to be blocked by the existing default sofa.
-      for(const doorAt of ['side'] as ('bottom'|'side')[]){
+      if(!Array.from({length:21},(_,i)=>[x,y+.2+(depth-.4)*i/20] as Point).every(v=>boundaryDistance(v,p)<.085))continue;
+      if(!Array.from({length:21},(_,i)=>[x+sign*(.2+(Math.min(width,supportedWidth)-.4)*i/20),y] as Point).every(v=>boundaryDistance(v,p)<.085))continue;
+      // Both new partitions can host the door. Actual furniture and access
+      // checks decide feasibility; a single sofa-specific door position must
+      // not exclude an otherwise usable corner on another layout.
+      for(const doorAt of ['side','bottom'] as const){
+       const length=doorAt==='side'?depth:width;
+       for(const inset of [doorAt==='side'?.75:length/2]){
         // Keep a quarter metre jamb clear of partition junctions.
-        const centre=doorAt==='bottom'?[(box.left+box.right)/2,box.bottom]:[q[0],box.bottom-.75];
+        const centre=doorAt==='bottom'?[box.left+inset,box.bottom]:[q[0],box.bottom-inset];
         const d1:Point=doorAt==='bottom'?[centre[0]-.4,centre[1]]:[centre[0],centre[1]-.4],d2:Point=doorAt==='bottom'?[centre[0]+.4,centre[1]]:[centre[0],centre[1]+.4];
         const additions:Addition[]=[{type:'wall',x1:a[0],y1:a[1],x2:q[0],y2:q[1]},{type:'wall',x1:q[0],y1:q[1],x2:z[0],y2:z[1]},{type:'door',x1:d1[0],y1:d1[1],x2:d2[0],y2:d2[1]},{type:'label',x:(box.left+box.right)/2,y:(box.top+box.bottom)/2,text:'卧室'}];
         if(width>supportedWidth+.02)additions.unshift({type:'wall',x1:x+sign*(supportedWidth+.03),y1:y,x2:x+sign*width,y2:y});
-        out.push({id:`bedroom-${hash(svg)}-${hash(k+doorAt)}`,box,additions});
+        out.push({id:`bedroom-${hash(svg)}-${hash(k+doorAt+(inset===.75?'':String(inset)))}`,position:'upper',box,additions});
+       }
       }
     }
   }
   return out.sort((a,b)=>(a.box.top+a.box.bottom)-(b.box.top+b.box.bottom)||Math.abs((a.box.right-a.box.left)*(a.box.bottom-a.box.top)-7)-Math.abs((b.box.right-b.box.left)*(b.box.bottom-b.box.top)-7));
+}
+/** Rotate only the search coordinate frame. Source SVG, wall geometry and
+ * labels are never rotated or redrawn. Every candidate is executed against
+ * the original SVG and must pass the same strict preservation checks. */
+function proposals(svg:string,st:Structure,target:Room,minArea:number,region:BedroomConstraints['region']='any'):Proposal[]{
+  if(polygonArea(target.polygon)<minArea+POLICY.minRemainingAreaM2)return [];
+  const directions:BedroomRegion[]=region==='any'?['upper','left','right','lower']:[region];
+  const result:Proposal[]=[],seen=new Set<string>();
+  for(const direction of directions){
+    const forward=(p:Point):Point=>direction==='upper'?[...p]:direction==='lower'?[-p[0],-p[1]]:direction==='left'?[-p[1],p[0]]:[p[1],-p[0]];
+    const inverse=(p:Point):Point=>direction==='upper'?[...p]:direction==='lower'?[-p[0],-p[1]]:direction==='left'?[p[1],-p[0]]:[-p[1],p[0]];
+    const framed={...st,walls:st.walls.map(w=>{let a=forward(w.start),b=forward(w.end);if(a[0]>b[0]||a[1]>b[1])[a,b]=[b,a];return{...w,start:a,end:b};})};
+    const room={...target,polygon:target.polygon.map(forward)};
+    for(const proposal of upperProposals(svg,framed,room,minArea)){
+      const b=proposal.box,corners=([[b.left,b.top],[b.right,b.top],[b.right,b.bottom],[b.left,b.bottom]] as Point[]).map(inverse),box=bounds(corners);
+      const additions=proposal.additions.map(a=>{
+        if(a.type==='label'){const p=inverse([a.x!,a.y!]);return{...a,x:p[0],y:p[1]};}
+        let p=inverse([a.x1!,a.y1!]),q=inverse([a.x2!,a.y2!]);
+        // The existing SVG door glyph parser expects a positive axis segment.
+        if(p[0]>q[0]||p[1]>q[1])[p,q]=[q,p];
+        return{...a,x1:p[0],y1:p[1],x2:q[0],y2:q[1]};
+      });
+      const key=JSON.stringify(additions);if(seen.has(key))continue;seen.add(key);
+      const id=direction==='upper'?proposal.id:`bedroom-${hash(svg)}-${direction}-${hash(key)}`;
+      result.push({id,position:direction,box,additions});
+    }
+  }
+  // Interleave directions so bounded search cannot spend all work on one side.
+  const groups=directions.map(d=>result.filter(p=>p.position===d)),ordered:Proposal[]=[];
+  for(let i=0;i<Math.max(0,...groups.map(g=>g.length));i++)for(const group of groups)if(group[i])ordered.push(group[i]);
+  // Capturing an existing opening changes its adjacent room and is forbidden
+  // by preservedOpenings. Reject such proposals before expensive SVG parsing.
+  const openings=[...st.doors,...st.windows].map(o=>{const[a,b]=openingSegment(st,o);return[(a[0]+b[0])/2,(a[1]+b[1])/2] as Point;});
+  return ordered.filter(p=>{
+    if(openings.some(q=>q[0]>=p.box.left-.03&&q[0]<=p.box.right+.03&&q[1]>=p.box.top-.03&&q[1]<=p.box.bottom+.03))return false;
+    const door=p.additions.find(a=>a.type==='door')!,dx=door.x2!-door.x1!,dy=door.y2!-door.y1!,len=Math.hypot(dx,dy),mid:Point=[(door.x1!+door.x2!)/2,(door.y1!+door.y2!)/2];
+    // A door on an anchored existing wall cannot connect both new spaces.
+    return[-1,1].every(sign=>pointInPolygon([mid[0]-dy/len*.16*sign,mid[1]+dx/len*.16*sign],target.polygon));
+  });
 }
 function labelPoint(poly:Point[]):Point{
   const b=bounds(poly);let best:Point|undefined,clear=0;
@@ -154,6 +200,11 @@ function execute(svg:string,st:Structure,target:Room,minArea:number,proposal:Pro
   if(next.doors.length!==st.doors.length+1||next.windows.length!==st.windows.length)fail('BEDROOM_OPENING_COUNT_INVALID');
   const area=polygonArea(bedroom.polygon),remaining=polygonArea(retained.polygon),bb=bounds(bedroom.polygon),clear=Math.min(bb.right-bb.left,bb.bottom-bb.top)-POLICY.wallThicknessM;
   if(area<minArea||clear<POLICY.minClearWidthM||remaining<POLICY.minRemainingAreaM2)fail('BEDROOM_INSUFFICIENT_ROOM_DIMENSIONS');
+  const raster=Math.max(st.coordinates.metersPerUnitX,st.coordinates.metersPerUnitY)*st.coordinates.gridUnit,tolerance=POLICY.wallThicknessM/2+raster,inset=POLICY.wallThicknessM+raster;
+  if(bedroom.polygon.some(p=>p[0]<b.left-tolerance||p[0]>b.right+tolerance||p[1]<b.top-tolerance||p[1]>b.bottom+tolerance))fail('BEDROOM_RECTANGLE_HAS_EXTRA_BRANCH');
+  // A rectangular bounding box alone would accept an L-shaped room. Verify
+  // the actual interior rectangle, leaving only the existing wall/raster band.
+  for(let ix=0;ix<=16;ix++)for(let iy=0;iy<=16;iy++)if(!pointInPolygon([b.left+inset+(b.right-b.left-2*inset)*ix/16,b.top+inset+(b.bottom-b.top-2*inset)*iy/16],bedroom.polygon))fail('BEDROOM_RECTANGLE_INTERIOR_NOT_ENCLOSED');
   const outerRasterDelta=exteriorRasterDelta(st,next,proposal);
   const cellArea=st.coordinates.metersPerUnitX*st.coordinates.metersPerUnitY*st.coordinates.gridUnit**2;
   if(Math.abs(area+remaining-polygonArea(target.polygon)-outerRasterDelta.areaDeltaM2)>cellArea*2)fail('BEDROOM_TARGET_AREA_NOT_CONSERVED');
@@ -168,19 +219,23 @@ function execute(svg:string,st:Structure,target:Room,minArea:number,proposal:Pro
   const source=bedroom.sourceLabel.point;
   output=output.slice(0,label.end)+`<text x="${round(source[0])}" y="${round(source[1]+16)}" font-size="11.5" fill="#666" text-anchor="middle">${area.toFixed(2)} m²</text>`+output.slice(label.end);
   next=svgToStructure(output);
-  const candidate:BedroomCandidate={id:proposal.id,targetRoomId:target.id,position:'upper',newAreaM2:round(area),remainingAreaM2:round(remaining),minClearWidthM:round(clear),entranceClearanceM:POLICY.minPassageWidthM,notes:['保留全部原门窗及其相邻房间；保留厨卫和其他房间原始几何。','新增卧室无新开外窗；采光、通风及施工合规未验证。','家具不属于此次 SVG 结构编辑。']};
-  return{svg:output,structure:next,additions:proposal.additions,candidate,validation:{valid:true,unit:'meter',targetRoomId:target.id,newRoomId:bedroom.id,newDoorId:door.id,outerRasterDelta,checks:['target-polygon','upper-position','room-area','minimum-clear-width','preserved-room-polygons','original-opening-position-and-adjacency','new-door-reachable','entrance-circulation','source-label-measured-area'],...paths,furniture:{sourceCount:0,editedCount:0,status:'SOURCE_SVG_HAS_NO_FURNITURE'},warnings:[...next.warnings,...candidate.notes]}};
+  const candidate:BedroomCandidate={id:proposal.id,targetRoomId:target.id,position:proposal.position,newAreaM2:round(area),remainingAreaM2:round(remaining),minClearWidthM:round(clear),entranceClearanceM:POLICY.minPassageWidthM,notes:['保留全部原门窗及其相邻房间；保留厨卫和其他房间原始几何。','新增卧室无新开外窗；采光、通风及施工合规未验证。','家具不属于此次 SVG 结构编辑。']};
+  return{svg:output,structure:next,additions:proposal.additions,candidate,validation:{valid:true,unit:'meter',targetRoomId:target.id,newRoomId:bedroom.id,newDoorId:door.id,outerRasterDelta,checks:['target-polygon','requested-position','corner-rectangle','room-area','minimum-clear-width','preserved-room-polygons','original-opening-position-and-adjacency','new-door-reachable','entrance-circulation','source-label-measured-area'],...paths,furniture:{sourceCount:0,editedCount:0,status:'SOURCE_SVG_HAS_NO_FURNITURE'},warnings:[...next.warnings,...candidate.notes]}};
 }
 /** Diagnostics are computed with the same strict transaction as execution. */
-export function bedroomPartitionAnalysis(svg:string,constraints:BedroomConstraints={}){
-  const {st,target,minArea}=context(svg,constraints),raw=proposals(svg,st,target,minArea),candidates:BedroomCandidate[]=[],rejected:Record<string,number>={};
+export function bedroomPartitionAnalysis(svg:string,constraints:BedroomConstraints={},validateCandidate?:(result:ReturnType<typeof execute>,original:Structure)=>void){
+  const {st,target,minArea}=context(svg,constraints),raw=proposals(svg,st,target,minArea,constraints.region),candidates:BedroomCandidate[]=[],rejected:Record<string,number>={};
   let attempted=0;
-  for(const p of raw){attempted++;try{const result=execute(svg,st,target,minArea,p);candidates.push(result.candidate);if(candidates.length>=6)break;}catch(e){const reason=e instanceof Error?e.message:String(e);rejected[reason]=(rejected[reason]||0)+1;}}
-  return{candidates,diagnostics:{targetRoomId:target.id,attempted,considered:raw.length,rejected,noSolutionReason:candidates.length?null:raw.length?'BEDROOM_NO_FEASIBLE_PARTITION':'BEDROOM_NO_SUPPORTED_UPPER_CORNER',policy:{...POLICY,minAreaM2:minArea}}};
+  const started=Date.now();let searchLimited=false;
+  for(const p of raw){
+    if(attempted>=96||Date.now()-started>12000){searchLimited=true;break;}
+    attempted++;try{const result=execute(svg,st,target,minArea,p);validateCandidate?.(result,st);candidates.push(result.candidate);if(candidates.length>=6)break;}catch(e){const reason=e instanceof Error?e.message:String(e);rejected[reason]=(rejected[reason]||0)+1;}
+  }
+  return{candidates,diagnostics:{targetRoomId:target.id,attempted,considered:raw.length,searchLimited,rejected,noSolutionReason:candidates.length?null:searchLimited?'BEDROOM_SEARCH_LIMIT_REACHED':polygonArea(target.polygon)<minArea+POLICY.minRemainingAreaM2?'BEDROOM_INSUFFICIENT_TOTAL_AREA':raw.length?'BEDROOM_NO_FEASIBLE_PARTITION':'BEDROOM_NO_SUPPORTED_CORNER',policy:{...POLICY,minAreaM2:minArea}}};
 }
 export const bedroomPartitionCandidates=(svg:string,constraints:BedroomConstraints={})=>bedroomPartitionAnalysis(svg,constraints).candidates;
 export function applyBedroomPartition(svg:string,candidateId:string,constraints:BedroomConstraints={}){
-  const {st,target,minArea}=context(svg,constraints),p=proposals(svg,st,target,minArea).find(p=>p.id===candidateId);
+  const {st,target,minArea}=context(svg,constraints),p=proposals(svg,st,target,minArea,constraints.region).find(p=>p.id===candidateId);
   if(!p)fail('BEDROOM_CANDIDATE_INVALID');
   return execute(svg,st,target,minArea,p);
 }

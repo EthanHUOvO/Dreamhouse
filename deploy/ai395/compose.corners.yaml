@@ -1,0 +1,11 @@
+services:
+  web:
+    image: ideal-home-local:web-corners-20261023
+    build:
+      context: .
+      dockerfile: Dockerfile.corners
+  pascal-mcp:
+    image: ideal-home-local:mcp-corners-20261023
+    build:
+      context: .
+      dockerfile: Dockerfile.corners-mcp

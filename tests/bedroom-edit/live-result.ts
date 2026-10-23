@@ -4,7 +4,7 @@ import {dirname} from 'node:path';
 import {assertBedroomSceneUsable} from '/app/lib/ai/bedroom-scene-validation';
 import {verifyBedroomStructure,verifySceneMatchesSvg,buildSceneFromSvg,verifyDoorGraph,verifyFurnishedAccess,verifySaveRestore,hash} from './assertions';
 
-const root=process.env.BEDROOM_TEST_WORKSPACE||'/workspace';
+const root=process.env.BEDROOM_TEST_WORKSPACE||'/workspace',variantId=process.env.BEDROOM_LIVE_VARIANT||'one-option-01';
 const originalPath=process.env.BEDROOM_LIVE_SOURCE||`${root}/public/preset/svg-v2/one/option-01.svg`;
 const svgPath=process.env.BEDROOM_LIVE_SVG||'/live/one-01.svg';
 const scenePath=process.env.BEDROOM_LIVE_SCENE||'/live/one-01-scene.json';
@@ -17,17 +17,17 @@ try {
  const originalSceneText=JSON.stringify(scene);
  output.inputHashes={originalSvg:hash(originalSvg),editedSvg:hash(editedSvg),sceneFile:hash(sceneText)};
  output.actualSceneMetadata={floorplanSource:scene.nodes.building_house?.metadata?.floorplanSource,sourceImageHash:scene.nodes.building_house?.metadata?.sourceImageHash,mcpSessionId:scene.nodes.building_house?.metadata?.mcpSessionId,modelBinding:scene.nodes.building_house?.metadata?.modelBinding??null};
- const geometry=verifyBedroomStructure(originalSvg,editedSvg);
+ const geometry=verifyBedroomStructure(originalSvg,editedSvg,undefined,(process.env.BEDROOM_LIVE_DIRECTION||'upper') as any);
  output.checks.structure=geometry.summary;
  // Only the original scene is compiled to provide an independent before state.
- const baseline=buildSceneFromSvg(originalSvg,'one-option-01','live-result-original-reference');
+ const baseline=buildSceneFromSvg(originalSvg,variantId,'live-result-original-reference');
  const actual=verifySceneMatchesSvg(editedSvg,scene);
  output.checks.actualReturnedScene={status:'PASS',rooms:actual.bp.rooms.length,walls:actual.bp.walls.length,doors:actual.bp.doors.length,windows:actual.bp.windows.length,roomPolygonsExact:true,wallCoordinatesExact:true,openingHostsOffsetsWidthsExact:true,doorsAboveFloor:true};
  const graph=verifyDoorGraph(baseline.bp,actual.bp,geometry.target.id,geometry.bedroom.id);
  output.checks.doorGraph=graph;
  output.checks.independentFurnitureAndWalkthrough=verifyFurnishedAccess(baseline.scene,scene,actual.bp,geometry.before,geometry.target.id,geometry.bedroom.id,graph.newDoorId);
  output.checks.productionFinalSceneGuard=assertBedroomSceneUsable(scene,geometry.before,geometry.target.id,geometry.bedroom.id);
- output.checks.programmaticSaveRestore={scope:'actual scene clone bound to fixture V1/V2 using production binding, strict variant storage and session serializers; not a browser refresh claim',...verifySaveRestore('one-option-01',originalSvg,editedSvg,baseline.scene,scene)};
+ output.checks.programmaticSaveRestore={scope:'actual scene clone bound to fixture V1/V2 using production binding, strict variant storage and session serializers; not a browser refresh claim',...verifySaveRestore(variantId,originalSvg,editedSvg,baseline.scene,scene)};
  assert.equal(JSON.stringify(scene),originalSceneText,'validation or storage test must not mutate the actual returned scene');
  assert.equal(readFileSync(svgPath,'utf8'),editedSvg,'actual returned SVG was modified');
  assert.equal(readFileSync(scenePath,'utf8'),sceneText,'actual returned scene file was modified');

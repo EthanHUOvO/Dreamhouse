@@ -1,0 +1,109 @@
+Sending build context to Docker daemon  1.688MB
+
+Step 1/9 : FROM ideal-home-local:web-bedroom-20261023
+ ---> 90f75275e2ff
+Step 2/9 : COPY TouchCustomerPortal.tsx /app/components/customer/TouchCustomerPortal.tsx
+ ---> Using cache
+ ---> 15651b5582b9
+Step 3/9 : COPY v2/step3-3d/blueprint.ts /app/lib/floorplans/blueprint.ts
+ ---> Using cache
+ ---> fa4b4c38e588
+Step 4/9 : COPY v2/step3-3d/bedroom-edit-geometry.ts /app/lib/ai/bedroom-edit-geometry.ts
+ ---> 9eea8cd66330
+Step 5/9 : COPY v2/step3-3d/bedroom-scene-validation.ts /app/lib/ai/bedroom-scene-validation.ts
+ ---> f78f497f4951
+Step 6/9 : COPY v2/step3-3d/bedroom-candidate-scene.ts /app/lib/ai/bedroom-candidate-scene.ts
+ ---> dec64dcd09b9
+Step 7/9 : COPY v2/step2-edit/floorplan-edit-intent.ts /app/lib/ai/floorplan-edit-intent.ts
+ ---> 40a779879a8d
+Step 8/9 : COPY v2/step2-edit/svg-edit-route.ts /app/app/api/ai/svg-edit/route.ts
+ ---> 2e58ba8018c1
+Step 9/9 : RUN npm run build
+ ---> Running in 60951a045a27
+
+> dreamhouse-v14-qwen-pascal-touch@14.0.0 build
+> next build --webpack
+
+▲ Next.js 16.3.4 (webpack)
+✓ Running next.config.mjs took 8ms
+
+  Creating an optimized production build ...
+[91m⚠ Compiled with warnings in 9.9s
+
+./node_modules/@pascal-app/core/dist/registry/registry.js
+Critical dependency: Accessing import.meta directly is unsupported (only property access or destructuring is supported)
+
+Import trace for requested module:
+./node_modules/@pascal-app/core/dist/registry/registry.js
+./node_modules/@pascal-app/core/dist/store/use-scene.js
+[0m[91m
+[0m[91m⚠ Compiled with warnings in 9.9s
+
+./node_modules/@pascal-app/core/dist/registry/registry.js
+Critical dependency: Accessing import.meta directly is unsupported (only property access or destructuring is supported)
+
+Import trace for requested module:
+./node_modules/@pascal-app/core/dist/registry/registry.js
+./node_modules/@pascal-app/core/dist/store/use-scene.js
+[0m[91m
+[0m✓ Compiled successfully in 19.9s
+  Skipping validation of types
+  Finished TypeScript config validation in 4ms ...
+  Collecting page data using 31 workers ...
+  Generating static pages using 31 workers (0/23) ...
+  Generating static pages using 31 workers (5/23) 
+  Generating static pages using 31 workers (11/23) 
+  Generating static pages using 31 workers (17/23) 
+✓ Generating static pages using 31 workers (23/23) in 316ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/ai/floorplan-analyze
+├ ƒ /api/ai/floorplan-image
+├ ƒ /api/ai/image
+├ ƒ /api/ai/import-floorplan
+├ ƒ /api/ai/layout
+├ ƒ /api/ai/model3d/stream
+├ ƒ /api/ai/plans
+├ ƒ /api/ai/profile
+├ ƒ /api/ai/render
+├ ƒ /api/ai/render-view
+├ ƒ /api/ai/status
+├ ƒ /api/ai/structure-edit
+├ ƒ /api/ai/svg-edit
+├ ƒ /api/ai/svg-render
+├ ƒ /api/ai/video
+├ ƒ /api/bom/generate
+├ ƒ /api/devices/bambu/events
+├ ƒ /api/devices/bambu/health
+├ ƒ /api/devices/bambu/status
+├ ƒ /api/devices/bambu/video
+├ ƒ /api/devices/robot/camera/[cameraId]
+├ ƒ /api/devices/robot/events
+├ ƒ /api/devices/robot/health
+├ ƒ /api/devices/robot/status
+├ ƒ /api/devices/robot/twin/[...path]
+├ ƒ /api/execution/camera/[cameraId]
+├ ƒ /api/execution/status
+├ ƒ /api/floorplans/calibration
+├ ƒ /api/generated-images/[name]
+├ ○ /contractor
+├ ○ /customer
+├ ○ /floorplan-calibration
+└ ○ /setup
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+ ---> Removed intermediate container 60951a045a27
+ ---> da87be6ca4cd
+Successfully built da87be6ca4cd
+Successfully tagged ideal-home-local:web-corners-20261023
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+

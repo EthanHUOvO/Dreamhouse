@@ -31,7 +31,7 @@ function openingWorld(st:Structure,opening:any) {
  return {center:wall.start.map((v,i)=>v+(wall.end[i]-v)*opening.distance/length) as Point,width:opening.width,doorType:opening.doorType};
 }
 function verifySourceExterior(originalSvg:string,outputSvg:string,before:Structure,after:Structure) {
- const nodes=parseSvg(originalSvg),sourceWalls=nodes.find(n=>n.attrs.id==='walls');
+ const nodes=parseSvg(originalSvg),sourceWalls=nodes.find(n=>n.attrs.id==='walls')??nodes.find(n=>n.tag==='path'&&n.attrs.fill==='#9a9a9a');
  assert.ok(sourceWalls,'source wall group missing');
  assert.ok(outputSvg.includes(originalSvg.slice(sourceWalls.start,sourceWalls.end)),'source wall drawing bytes changed');
  const gridM=before.coordinates.gridUnit*Math.max(before.coordinates.metersPerUnitX,before.coordinates.metersPerUnitY),maxDelta=.12/2+gridM;
@@ -60,7 +60,7 @@ function verifySourceExterior(originalSvg:string,outputSvg:string,before:Structu
 
 /** Independent geometric assertions, reusable on the SVG returned by a real AI call.
  * No expected image, candidate snapshot or model response is used as the oracle. */
-export function verifyBedroomStructure(originalSvg:string,outputSvg:string,targetRoomId?:string) {
+export function verifyBedroomStructure(originalSvg:string,outputSvg:string,targetRoomId?:string,position:'upper'|'lower'|'left'|'right'|'any'='upper') {
  const before=svgToStructure(originalSvg),after=svgToStructure(outputSvg);
  const target=before.rooms.find(r=>r.id===targetRoomId)||before.rooms.find(r=>r.semantic==='living_room');
  assert.ok(target,'source living room missing');
@@ -75,6 +75,8 @@ export function verifyBedroomStructure(originalSvg:string,outputSvg:string,targe
  assert.ok(near(Number(remaining.sourceArea),polygonArea(remaining.polygon),.006),'remaining living printed area must match measured area');
  assert.ok(polygonArea(bedroom.polygon)>=6-.03,'new bedroom area below configured design minimum');
  assert.ok(polygonArea(remaining.polygon)>4,'remaining living room vanished');
+ const xs=bedroom.polygon.map(p=>p[0]),ys=bedroom.polygon.map(p=>p[1]),inset=.12+before.coordinates.gridUnit*Math.max(before.coordinates.metersPerUnitX,before.coordinates.metersPerUnitY);
+ for(let i=0;i<=18;i++)for(let j=0;j<=18;j++)assert.ok(pointInPolygon([Math.min(...xs)+inset+(Math.max(...xs)-Math.min(...xs)-2*inset)*i/18,Math.min(...ys)+inset+(Math.max(...ys)-Math.min(...ys)-2*inset)*j/18],bedroom.polygon),'new bedroom has a concave/nonrectangular usable interior');
  // Verify the whole polygon and edge samples are inside the original concave room.
  for(let i=0;i<bedroom.polygon.length;i++) {
   const a=bedroom.polygon[i],b=bedroom.polygon[(i+1)%bedroom.polygon.length];
@@ -82,7 +84,11 @@ export function verifyBedroomStructure(originalSvg:string,outputSvg:string,targe
  }
  const yMid=(Math.min(...bedroom.polygon.map(p=>p[1]))+Math.max(...bedroom.polygon.map(p=>p[1])))/2;
  const originalMid=(Math.min(...target.polygon.map(p=>p[1]))+Math.max(...target.polygon.map(p=>p[1])))/2;
- assert.ok(yMid<originalMid,'new bedroom must be in the upper living region');
+ const xMid=(Math.min(...bedroom.polygon.map(p=>p[0]))+Math.max(...bedroom.polygon.map(p=>p[0])))/2,originalXMid=(Math.min(...target.polygon.map(p=>p[0]))+Math.max(...target.polygon.map(p=>p[0])))/2;
+ if(position==='upper')assert.ok(yMid<originalMid,'requested upper position');
+ if(position==='lower')assert.ok(yMid>originalMid,'requested lower position');
+ if(position==='left')assert.ok(xMid<originalXMid,'requested left position');
+ if(position==='right')assert.ok(xMid>originalXMid,'requested right position');
  const exterior=verifySourceExterior(originalSvg,outputSvg,before,after);
  const unchanged=[];
  for(const room of before.rooms.filter(r=>r.id!==target.id)) {

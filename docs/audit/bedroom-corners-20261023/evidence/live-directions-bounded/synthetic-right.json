@@ -1,0 +1,80 @@
+{
+  "key": "synthetic-right",
+  "instruction": "请从客餐厅右边的墙角划出一间矩形卧室，卧室的门通向剩余客餐厅，确保人能正常通行。",
+  "httpStatus": 422,
+  "elapsedMs": 6567,
+  "actualInference": true,
+  "error": "SVG_EDIT_FAILED",
+  "message": "改造未通过结构校验（SVG_EDIT_FAILED），原户型未改动。请调整位置或改造要求后重试。",
+  "intent": {
+    "action": "add_bedroom",
+    "targetRoomId": "room_1",
+    "region": "right",
+    "roomCount": 1,
+    "minAreaM2": null,
+    "protectedRoomIds": [],
+    "preserveEntrance": true,
+    "preserveOtherRooms": true,
+    "entryFromRoomId": "room_1",
+    "unhandledRequirements": [],
+    "summary": "在客餐厅右边的墙角划出一间矩形卧室，卧室门通向剩余客餐厅，确保正常通行。",
+    "message": "已识别：在客餐厅右侧靠墙角新增一间矩形卧室，入口朝向剩余客餐厅区域，保留正常通行通道。"
+  },
+  "provenance": {
+    "stage": "svg-edit",
+    "method": "natural-language-geometry/v1",
+    "actualInference": true,
+    "model": "Ours",
+    "inference": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "responseId": "chatcmpl-es0ulhg3194cw9siwh8c",
+        "usage": {
+          "prompt_tokens": 1612,
+          "completion_tokens": 127,
+          "total_tokens": 1739,
+          "prompt_tokens_details": {
+            "cached_tokens": 1605
+          },
+          "cached_tokens": 1605,
+          "prompt_tokens_per_second": 178.3444715825282,
+          "completion_tokens_per_second": 57.240983848348996,
+          "draft_tokens": 63,
+          "draft_tokens_accepted": 39,
+          "gufo": {
+            "cache_hit": true,
+            "cache_restore_bytes": 122292044,
+            "cache_snapshot_bytes": 122525352,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 9.68238,
+            "cache_snapshot_ms": 14.786312,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 7,
+            "prefill_chunks": 1,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 7,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 12.189588,
+            "prefill_ms": 39.249885,
+            "decode_ms": 2218.690027,
+            "ttft_ms": 51.545608,
+            "mean_inter_token_ms": 17.558922007936513,
+            "max_inter_token_ms": 63.420666,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 2296
+      }
+    ]
+  }
+}
