@@ -5,12 +5,7 @@ const typescriptPaths=[process.env.TYPESCRIPT_PATH,'typescript','/app/node_modul
 let ts;
 for(const p of typescriptPaths){try{ts=require(p);break;}catch{}}
 if(!ts)throw new Error('Existing TypeScript runtime not found; set TYPESCRIPT_PATH. See README.md.');
-function load(file,imports={},cache=new Map()){
- const key=path.resolve(repo,file);if(cache.has(key))return cache.get(key);
- const source=fs.readFileSync(key,'utf8'),exports={};cache.set(key,exports);
- const result=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022},reportDiagnostics:true});assert.equal(result.diagnostics.length,0);
- vm.runInNewContext(result.outputText,{exports,require:n=>{if(n in imports)return imports[n];if(n.startsWith('.')){let target=path.resolve(path.dirname(key),n+'.ts');if(!fs.existsSync(target)&&n.startsWith('../floorplans/'))target=path.resolve(repo,'app-src/lib/floorplans',n.slice('../floorplans/'.length)+'.ts');return load(path.relative(repo,target).replace(/\\/g,'/'),{},cache);}assert.fail(n)},console,Date,JSON,Math,Number,Set,Array,Object,Error,AbortSignal});return exports;
-}
+function load(file,imports={}){const source=fs.readFileSync(repo+'/'+file,'utf8');const result=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022},reportDiagnostics:true});assert.equal(result.diagnostics.length,0);const exports={};vm.runInNewContext(result.outputText,{exports,require:n=>{assert.ok(n in imports,n);return imports[n]},console,Date,JSON,Math,Number,Set,Array,Object,Error,AbortSignal});return exports;}
 const intent=load('v2/step2-edit/floorplan-edit-intent.ts');
 const rooms=[{id:'living',name:'客餐厅',semantic:'living_room'},{id:'kitchen',name:'厨房',semantic:'kitchen'},{id:'bath',name:'卫生间',semantic:'bathroom'},{id:'master',name:'主卧',semantic:'master_bedroom'}];
 const base={action:'add_bedroom',targetRoomId:'living',region:'upper',roomCount:1,minAreaM2:null,protectedRoomIds:['kitchen','bath','master'],preserveEntrance:true,preserveOtherRooms:true,entryFromRoomId:'living',unhandledRequirements:[],summary:'客餐厅上侧新增卧室，保留通道厨卫',message:'新增卧室'};
@@ -28,7 +23,6 @@ const route=load('v2/step2-edit/svg-edit-route.ts',{
 '@/lib/ai/svg-edit-geometry':{},
 '@/lib/ai/bedroom-edit-geometry':{bedroomEditContext:()=>({rooms,unit:'meter'}),bedroomPartitionCandidates:(_s,c)=>{seenConstraints=c;return candidateList},applyBedroomPartition:(svg,id,c)=>{assert.equal(svg,'original svg');assert.equal(id,'upper-1');assert.deepEqual(c,seenConstraints);applies++;return{svg:'validated new svg',structure:{rooms:[]},validation:{valid:true}}}},
 '@/lib/ai/floorplan-edit-intent':intent,
-'@/lib/ai/structure-primitives':{structureEditContext:()=>({rooms,unit:'meter'}),generateStructureCandidates:()=>({candidates:[],diagnostics:{}}),applyStructureCandidate:()=>{throw new Error('legacy test must use bedroom engine')}},
 });
 async function run(instruction,parsed,selection={candidateId:'upper-1',unmetRequirements:[],reason:'满足上侧及通道条件'}){aiCalls=[];applies=0;replyQueue=[response('parse_floorplan_intent',parsed),response('select_floorplan_candidate',selection)];return route.POST({json:async()=>({svgText:'original svg',instruction}),signal:new AbortController().signal});}
 (async()=>{
@@ -54,7 +48,6 @@ const actualRoute=load('v2/step2-edit/svg-edit-route.ts',{
   'next/server':{NextResponse:{json:(body,options)=>({body,status:options?.status||200})}},
   '@/lib/ai/qwen-client':{qwenChatCompletion:async(body)=>{realModelCalls++;if(body.tool_choice.function.name==='parse_floorplan_intent')return response('parse_floorplan_intent',actualIntent);const p=JSON.parse(body.messages[1].content);assert.ok(p.candidates.length>0&&p.candidates.length<=6);return response('select_floorplan_candidate',{candidateId:p.candidates[0].id,unmetRequirements:[],reason:'控制桩选中几何程序的首个合法候选'});}},
   '@/lib/ai/svg-edit-geometry':svgEdit,'@/lib/ai/bedroom-edit-geometry':bedroomGeometry,'@/lib/ai/floorplan-edit-intent':intent,
-  '@/lib/ai/structure-primitives':{structureEditContext:bedroomGeometry.bedroomEditContext,generateStructureCandidates:()=>({candidates:[],diagnostics:{}}),applyStructureCandidate:()=>{throw new Error('one01 must preserve bedroom engine')}},
 });
 const realResult=await actualRoute.POST({json:async()=>({svgText:original,instruction:'在客餐厅上侧新增一个卧室，保留入户通道和厨卫位置'}),signal:new AbortController().signal});
 if(realResult.status!==200)console.error('Actual geometry diagnostics',bedroomGeometry.bedroomPartitionAnalysis(original,{targetRoomId:living.id,region:'upper',protectedRoomIds:actualIntent.protectedRoomIds,preserveEntrance:true}).diagnostics);

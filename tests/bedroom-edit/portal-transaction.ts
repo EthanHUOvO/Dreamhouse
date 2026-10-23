@@ -37,7 +37,7 @@ function savedVersionSnapshotRegression(){
  // Exercise the actual selection and confirmation handlers, including a trip
  // through V2, so returning to V1 must use the newly committed snapshot.
  const selection:any={floorplanModelBinding,sameModelBinding,cloneScene:clone,floorplanVersions:state.versions,selectedVariant:{variantId},
-  selectedFloorplanVersionId:'v1',selectedFloorplanVersionIdRef:{current:'v1'},editSourceVersionIdRef:{current:'v1'},setEditSourceVersionId:()=>{},selectionEpoch:{current:{binding}},modelBindingRef:{current:binding},confirmedBindingRef:{current:binding},
+  selectedFloorplanVersionId:'v1',selectedFloorplanVersionIdRef:{current:'v1'},selectionEpoch:{current:{binding}},modelBindingRef:{current:binding},confirmedBindingRef:{current:binding},
   committedSceneRef:{current:clone(edited)},sceneForPersistence:{current:clone(edited)},aiFloorplan:{...v1.result,prompt:v1.submittedRequirement},applied:null,
   invalidateConfirmedSelection:(next:any)=>{selection.selectionEpoch.current.binding=next;selection.modelBindingRef.current=null},
   setSelectedFloorplanVersionId:(id:string)=>{selection.selectedFloorplanVersionId=id},setPrompt:()=>{},setFloorplan:()=>{},setAiFloorplan:(next:any)=>{selection.aiFloorplan=next},
@@ -80,24 +80,12 @@ async function main(){
  prepare.consumeModel3dSse=async(_res:any,fn:any)=>fn('complete',{result:{sourceImageHash:'hash',validation:{valid:true},scene:oldScene}});
  const result=await extract('prepareSvgEditScene',prepare)('<svg/>','/image',new AbortController());assert.equal(JSON.stringify(result),JSON.stringify(oldScene));assert.notStrictEqual(result,oldScene);
  prepare.assertPascalSceneIntegrity=()=>({valid:false});await assert.rejects(extract('prepareSvgEditScene',prepare)('<svg/>','/image',new AbortController()),/完整性/);
- // The new generic transaction branch must reject unsafe candidates before
- // exposing any scene, and must preserve an exact-bound source for the guard.
- prepare.assertPascalSceneIntegrity=()=>({valid:true});
- prepare.svgToStructure=(svg:string)=>({svg});
- prepare.preserveStructureSourceFurniture=()=>{throw new Error('STRUCTURE_SCENE_INVALID：家具与新隔墙碰撞，已保留原方案。')};
- const sourceBefore=JSON.stringify(oldScene),transaction={operations:[{operation:{type:'merge_rooms'}}]};
- await assert.rejects(extract('prepareSvgEditScene',prepare)('<svg/>','/image',new AbortController(),'<source/>',undefined,oldScene,transaction),/家具与新隔墙碰撞/);
- assert.equal(JSON.stringify(oldScene),sourceBefore,'failed generic host guard must preserve committed scene');
- prepare.preserveStructureSourceFurniture=(candidate:any,source:any,before:any,after:any,received:any)=>{assert.strictEqual(source,oldScene);assert.equal(before.svg,'<source/>');assert.equal(after.svg,'<svg/>');assert.strictEqual(received,transaction);return JSON.parse(JSON.stringify(candidate))};
- prepare.assertStructureSceneUsable=()=>({valid:true,checkedFurniture:2});
- const safe=await extract('prepareSvgEditScene',prepare)('<svg/>','/image',new AbortController(),'<source/>',undefined,oldScene,transaction);
- assert.equal(safe.nodes.building_house.metadata.structureSceneValidation.valid,true);assert.equal(JSON.stringify(oldScene),sourceBefore);
  // Structural check on real handler: all network/image/3D validation and stale
  // guards precede any version/state mutation. No success-only replica here.
  let generate:any;function visit(n:any){if(ts.isFunctionDeclaration(n)&&n.name?.text==='generateFloorplan')generate=n;ts.forEachChild(n,visit)}visit(file);
  const code=generate.getText(file);assert.ok(code.indexOf('prepareSvgEditScene(')<code.indexOf('setAiFloorplan('));assert.ok(code.indexOf('assertImageDecodes(')<code.indexOf('setAiFloorplan('));assert.ok(code.indexOf('mismatchReasons.length')<code.indexOf('setAiFloorplan('));
  assert.match(code,/sceneSnapshot: editedScene/);
  assert.match(source,/customRequirement: currentFloorplan\?\.userPrompt \?\? prompt/);assert.match(source,/editDraft: prompt/);
- console.log(JSON.stringify({status:'PASS',kind:'actual-portal-handlers-controlled-network-no-AI',checks:['save-updates-only-bound-version-snapshot','quota-failure-preserves-version-snapshots','switch-V1-V2-V1-restores-saved-furniture','draft-keeps-committed-scene','draft-does-not-unbind-version','failure-does-not-clear-captures-or-model','candidate-stream-never-publishes-partial-scene','mismatched-source-rejected','invalid-Pascal-rejected','success-clones-candidate','version-commit-after-full-validation','draft-persisted-separately','generic-hostguard-failure-preserves-source','generic-hostguard-runs-before-publishing']}));
+ console.log(JSON.stringify({status:'PASS',kind:'actual-portal-handlers-controlled-network-no-AI',checks:['save-updates-only-bound-version-snapshot','quota-failure-preserves-version-snapshots','switch-V1-V2-V1-restores-saved-furniture','draft-keeps-committed-scene','draft-does-not-unbind-version','failure-does-not-clear-captures-or-model','candidate-stream-never-publishes-partial-scene','mismatched-source-rejected','invalid-Pascal-rejected','success-clones-candidate','version-commit-after-full-validation','draft-persisted-separately']}));
 }
 main().catch(e=>{console.error(e);process.exit(1)});

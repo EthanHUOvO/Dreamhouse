@@ -1,5 +1,4 @@
 /** Deterministic SVG geometry. No catalogue coordinates or model inference. */
-import { parseStructureSvg } from './structure-svg';
 export type Point = [number, number];
 type Element = { tag: string; attrs: Record<string, string>; text: string; parent?: Element; children: Element[]; start: number; end: number };
 const decode = (s: string) => s.replace(/&(#x[\da-f]+|#\d+|amp|lt|gt|quot|apos);/gi, (_, t) => t[0] === "#" ? String.fromCodePoint(t[1] === "x" ? parseInt(t.slice(2), 16) : +t.slice(1)) : ({ amp: "&", lt: "<", gt: ">", quot: '"', apos: "'" } as any)[t]);
@@ -69,8 +68,6 @@ type Glyph = { id: string; a: Point; b: Point; kind: "door" | "sliding" | "windo
 type Label = { id: string; name: string; point: Point; sourceArea?: number; start: number; end: number };
 const SEMANTIC: Record<string, string> = { 主卧: "master_bedroom", 主卫: "bathroom", 卫生间: "bathroom", 洗漱区: "bathroom", 次卧: "bedroom", 卧室: "bedroom", 客餐厅: "living_room", 客厅: "living_room", 厨房: "kitchen", 阳台: "balcony", 书房: "study", 餐厅: "dining_room", 冷藏室: "storage", 储藏: "storage" };
 export function svgToStructure(svg: string) {
-  const explicit = parseStructureSvg(svg);
-  if (explicit) return explicit;
   const nodes = parseSvg(svg), root = nodes[0];
   const vb = (root.attrs.viewBox || "").trim().split(/[\s,]+/).map(Number);
   if (vb.length !== 4 || !vb.every(Number.isFinite) || vb[2] <= 0 || vb[3] <= 0) throw new Error("SVG_VIEWBOX_INVALID");

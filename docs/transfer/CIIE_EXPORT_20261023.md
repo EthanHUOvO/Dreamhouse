@@ -1,3 +1,5 @@
+> 当前已回退新增卧室版本，见 [回退记录](../audit/bedroom-rollback-20261023/REPORT.md)。后续文字包含历史实验，不代表当前启用功能。
+
 > 最新结构操作与部署更新见 [2026-10-23 通用结构原语报告](../audit/structure-primitives-20261023/REPORT.md)。以下为首次导出的历史记录，最新镜像及来源以 SOURCE_PROVENANCE.json 为准。
 
 # CIIE 项目代码与实验记录迁移

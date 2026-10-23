@@ -47,7 +47,6 @@ import { selectedSvgSource, svgDataUrl, svgFromDataUrl, acceptsSvgScene } from "
 import { svgToStructure } from "@/lib/ai/svg-geometry";
 import { assertBedroomSceneUsable } from "@/lib/ai/bedroom-scene-validation";
 import { preserveBedroomSourceFurniture } from "@/lib/ai/bedroom-source-furniture";
-import { assertStructureSceneUsable, preserveStructureSourceFurniture, type StructureTransaction } from "@/lib/ai/structure-scene-validation";
 import { consumeModel3dSse } from "@/lib/ai/model3d-stream";
 import { canonicalFloorplanSource, canSelectOriginalFloorplan, originalFloorplanMatches, originalFloorplanSelection, shouldHydrateImportedPreset, type OriginalFloorplanSelection } from "@/lib/ai/model3d-source";
 import { advanceSelectionEpoch, canUseBoundModel, floorplanModelBinding, restoreBoundModelSession, sameModelBinding, selectionJobCurrent, type FloorplanModelBinding, type SelectionEpoch } from "@/lib/ai/model3d-binding";
@@ -299,7 +298,7 @@ function simulatedProgress(kind: ProgressKind, elapsedSeconds: number, estimated
 
 function customerErrorMessage(message: string) {
   if (!message) return "";
-  message = message.replace(/^(?:BEDROOM_(?:SCENE|SOURCE)_[A-Z_]+|STRUCTURE_SCENE_INVALID)[：:]\s*/, "");
+  message = message.replace(/^BEDROOM_(?:SCENE|SOURCE)_[A-Z_]+[：:]\s*/, "");
   if (/最多|请先|请返回|请明确|请说明|暂不支持|未支持|无法满足|不可行|原户型未改动|已保留|重新拍摄|等待超时|不能|已保存|找不到|超出|重叠|锁定|承重墙|无法保存|版本不一致/.test(message) && !/Pascal|Qwen|Blueprint|Node|Scene|Validation/i.test(message)) return message;
   return "这次操作暂时没有完成，请稍后重试。您的当前方案不会丢失。";
 }
@@ -2239,7 +2238,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
     }
   }
 
-  async function prepareSvgEditScene(svg: string, imageUrl: string, controller: AbortController, originalSvg?: string, bedroom?: { targetRoomId: string; newRoomId: string }, furnitureSource?: SceneGraph, transaction?: StructureTransaction): Promise<SceneGraph> {
+  async function prepareSvgEditScene(svg: string, imageUrl: string, controller: AbortController, originalSvg?: string, bedroom?: { targetRoomId: string; newRoomId: string }, furnitureSource?: SceneGraph): Promise<SceneGraph> {
     const sourceImageDataUrl = svgDataUrl(svg);
     const sourceImageHash = await hashDataUrl(sourceImageDataUrl);
     const response = await fetch("/api/ai/model3d/stream", {
@@ -2260,13 +2259,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
     let validatedScene = candidate as SceneGraph | null;
     if (!validatedScene || !assertPascalSceneIntegrity(validatedScene).valid || !validateVariantBlueprint(sceneToFloorplanBlueprint(validatedScene)).valid)
       throw new Error("户型改造未通过三维完整性校验，已保留原方案");
-    if (transaction) {
-      if (!originalSvg || !Array.isArray(transaction.operations) || !transaction.operations.length) throw new Error("户型改造缺少完整事务信息，已保留原方案");
-      const before = svgToStructure(originalSvg), after = svgToStructure(svg);
-      validatedScene = preserveStructureSourceFurniture(validatedScene, furnitureSource ?? null, before, after, transaction);
-      const audit = assertStructureSceneUsable(validatedScene, before, after, transaction, furnitureSource ?? null);
-      Object.assign(validatedScene.nodes.building_house.metadata ||= {}, { structureSceneValidation: audit });
-    } else if (bedroom) {
+    if (bedroom) {
       if (!originalSvg || !bedroom.targetRoomId || !bedroom.newRoomId) throw new Error("卧室改造缺少完整校验信息，已保留原方案");
       validatedScene = preserveBedroomSourceFurniture(validatedScene, furnitureSource ?? null, svgToStructure(originalSvg));
       const circulation = assertBedroomSceneUsable(validatedScene, svgToStructure(originalSvg), bedroom.targetRoomId, bedroom.newRoomId);
@@ -2352,16 +2345,15 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
         const pngBlob = await pngRes.blob();
         const pngDataUrl: string = await new Promise((resolve, reject) => { const r = new FileReader(); r.onload = () => resolve(String(r.result)); r.onerror = reject; r.readAsDataURL(pngBlob); });
         editedScene = await prepareSvgEditScene(editedSvg, pngDataUrl, controller, inputSvg,
-          svgEditData.intent?.action === "add_bedroom" ? { targetRoomId: svgEditData.validation.targetRoomId, newRoomId: svgEditData.validation.newRoomId } : undefined, furnitureSource,
-          svgEditData.intent?.action === "structure_plan" ? svgEditData.validation : undefined);
+          svgEditData.intent?.action === "add_bedroom" ? { targetRoomId: svgEditData.validation.targetRoomId, newRoomId: svgEditData.validation.newRoomId } : undefined, furnitureSource);
         Object.assign(editedScene.nodes.building_house.metadata ||= {}, {
           editInference: svgEditData.provenance, editIntent: svgEditData.intent,
           editValidation: svgEditData.validation,
         });
-        const warnings = typeof svgEditData.candidate?.newAreaM2 === "number" ? [
+        const warnings = svgEditData.candidate ? [
           `新增卧室约 ${svgEditData.candidate.newAreaM2.toFixed(2)}㎡，剩余客餐厅约 ${svgEditData.candidate.remainingAreaM2.toFixed(2)}㎡；通道按 ${svgEditData.candidate.entranceClearanceM}m 检查。`,
           "本次不新增外窗；新增卧室的采光和通风条件尚未验证。家具在 Step3 手动调整。",
-        ] : [svgEditData.intent?.summary || "户型结构改造已完成。", "房间、墙体和门窗以此版本结构为准；家具仍在 Step3 手动调整。", ...(editedScene.nodes.building_house?.metadata?.structureSceneValidation?.warnings || [])];
+        ] : [];
         data = { prompt: requestPrompt, image: { url: pngDataUrl, model: "svg-edit", provider: "qwen", ephemeral: true, fallback: false, geometryVerified: true, warnings } };
       } else {
         const response = await fetch("/api/ai/floorplan-image", {
@@ -2424,8 +2416,6 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
       setFloorplanVersions((current) => [...current, { id: versionId, parentVersionId: requestSourceVersionId || undefined, svgSource: editedSvg, sceneSnapshot: editedScene, sourceVariantId: requestVariantId, sourceImageHash, submittedRequirement: requestPrompt, result: nextFloorplan, requestId: String(requestId), createdAt: new Date().toISOString(), validationStatus: "ready" as const }].slice(-8));
       setSelectedFloorplanVersionId(versionId);
       selectedFloorplanVersionIdRef.current = versionId;
-      setEditSourceVersionId(versionId);
-      editSourceVersionIdRef.current = versionId;
       selectionEpoch.current = advanceSelectionEpoch(selectionEpoch.current, floorplanModelBinding(requestVariantId, nextFloorplan, versionId));
       const assetJob = { ...selectionEpoch.current };
       setAssetSaveError("");
@@ -2734,8 +2724,8 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
     else completeProgressTask(
       progressId,
       floorplanError.current
-        ? `${svgSource ? "户型改造未完成" : "图片预览未能显示"}：${floorplanError.current}`
-        : "本次请求已取消或户型状态已变化，请确认当前户型后重试。",
+        ? `图片预览未能显示：${floorplanError.current}`
+        : "图片预览请求已取消或户型状态已变化，请确认当前户型后重试。",
     );
     adjustmentInFlight.current = false;
   }
@@ -2854,8 +2844,6 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
     if (!sameModelBinding(binding, selectionEpoch.current.binding)) invalidateConfirmedSelection(binding);
     selectedFloorplanVersionIdRef.current = version.id;
     setSelectedFloorplanVersionId(version.id);
-    setEditSourceVersionId(version.id);
-    editSourceVersionIdRef.current = version.id;
     setPrompt(version.submittedRequirement);
     setFloorplan(version.result);
     setAiFloorplan({ sourceVariantId: version.sourceVariantId, sourceImageHash: version.sourceImageHash, prompt: version.submittedRequirement, url: version.result.url, model: version.result.model, provider: version.result.provider, ephemeral: version.result.ephemeral, fallback: version.result.fallback, fallbackReason: version.result.fallbackReason });
@@ -3116,9 +3104,6 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
                 </div>
                 {svgSource ? <div className="floorplan-example-list" aria-label="修改示例">
                   <button type="button" onClick={() => changeModificationDraft("在客餐厅上侧新增一个卧室，保留入户通道和厨房、卫生间的位置")}>客餐厅上侧增加卧室</button>
-                  <button type="button" onClick={() => changeModificationDraft("将主卧相邻的阳台并入主卧，保留外轮廓、厨卫和入户通道")}>阳台并入主卧</button>
-                  <button type="button" onClick={() => changeModificationDraft("从客餐厅隔出一间独立书房，位置选择可行的一侧，保留入户通道和厨卫位置")}>客餐厅分出书房</button>
-                  <button type="button" onClick={() => changeModificationDraft("将主卧与客餐厅之间的隔墙向客餐厅方向移动0.2米，扩大主卧，保留厨卫和入户通道")}>扩大主卧</button>
                   <button type="button" onClick={() => changeModificationDraft("在主卧内新增一个卫生间，需要加两面隔墙和一扇门")}>主卧增加卫生间</button>
                   <button type="button" onClick={() => changeModificationDraft("在客厅和阳台之间加一扇推拉门")}>客厅与阳台增加推拉门</button>
                 </div> : <FloorplanEditExamples onSelect={(text) => {
@@ -3129,7 +3114,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
                   <label htmlFor="step2-modification-request">我的修改要求</label>
                   <textarea id="step2-modification-request" ref={promptEditorRef} value={prompt} onChange={(event) => changeModificationDraft(event.target.value)} placeholder={"例如：\n我希望增加一个卧室，\n同时保留厨房和卫生间的位置。"} />
                   {modifiedFloorPlan && modificationRequest !== (modifiedFloorPlan.userPrompt || "") && <div className="customer-result-note">当前仍保留已保存方案；新的文字需求尚未应用。生成失败不会替换原方案。</div>}
-                  <small>可描述分割房间、合并相邻房间或调整隔墙；系统会计算当前户型的可行方案。家具请在 Step3 手动调整。</small>
+                  <small>户型改造会检查房间、入口和厨卫位置；家具请在 Step3 手动调整。</small>
                   <small className="customer-editor-status">{hasPendingClarification ? "还有待确认问题，请先完成回答。" : modificationRequest.trim() ? "需求已保存为当前草稿，可继续修改。" : "请填写修改要求"}</small>
                   {!svgSource && selectedVariant.variantId === "one-option-01" && <button type="button" className="touch-primary-cta" disabled={structureBusy || floorplanBusy || variantImporting || !selectedVariant.imageHash || !modificationRequest.trim()} onClick={() => void startStructureAdjustment()}>{structureBusy ? "正在理解需求并校验结构…" : "AI结构修改：客餐厅上侧新增书房"}</button>}
                   {!svgSource && selectedVariant.variantId === "one-option-01" && <small>当前仅支持上侧书房；保留全部家具，电视柜可在客厅内移位。校验失败保留原户型。</small>}

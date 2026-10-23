@@ -3,8 +3,8 @@
   "sourceBranch": "CIIE",
   "ciieHead": "bc7c3f19b1e81dbf910a6de94b69e79bf0c13445",
   "verifiedRuntimeBranch": "v2-svg",
-  "verifiedRuntimeHead": "b03b0ca457b959b77134bffbce55a0b809bdd0f0",
-  "runtimeImage": "sha256:9caf10e37e4add01e2683981223081a9536673b39c57392b45ff7cbb4e6efee6",
+  "verifiedRuntimeHead": "4e3620b14e6c7635371c648265bf1064d23b2105",
+  "runtimeImage": "sha256:90f75275e2ffc86d2076deed11768934ebfdf63b86f623a6649cb517e28830c1",
   "destination": "https://github.com/EthanHUOvO/Dreamhouse.git",
   "excluded": [
     "node_modules",
@@ -18,14 +18,14 @@
   "runtimeConfigNote": "The two pre-existing dirty deployment files are exported from the verified migration commit, not from uncommitted machine settings.",
   "targetBranch": "CIIE",
   "targetMainPreserved": "db0a174cededfbc8a8f81168839f25bc5855a3a6",
-  "packaging": "Initial runtime snapshot followed by verified transactional structure-edit update. Source aliases and root application are synchronized; original CIIE checkout and pre-existing dirty migration hunks are preserved.",
+  "packaging": "User-requested rollback to verified bedroom release; later general structural editing withdrawn. Previous audit evidence and Git history retained.",
   "sourceLayout": {
     "app/ components/ lib/ services/ public/": "Authoritative deployed application source",
     "deploy/ai395/": "Committed migration overlays and offline deployment configuration",
     "v2/ TouchCustomerPortal.tsx": "Verified source aliases retained for existing tests",
     "docs/audit/natural-bedroom-20261023/": "Actual test results and limitations"
   },
-  "runtimeMcpImage": "sha256:cf5a2b587ef1907d874bffbb2df341596f74171ba34e754a3de04f5e229c9944",
-  "latestReport": "docs/audit/structure-primitives-20261023/REPORT.md",
-  "verifiedRuntimeCodeCommit": "60001f8cdec9df8a2d5d0fada0baa3f99c365f24"
+  "runtimeMcpImage": "sha256:7a33d9a1e5f3f80502065032ad997c94a73bc828f1a28d20e68c8e570ebb1825",
+  "latestReport": "docs/audit/bedroom-rollback-20261023/REPORT.md",
+  "verifiedRuntimeCodeCommit": "3bcb8aac96a4900af75052f4c2c878882e1ed3c2"
 }

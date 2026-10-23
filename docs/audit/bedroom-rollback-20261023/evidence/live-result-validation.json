@@ -1,0 +1,586 @@
+{
+  "kind": "independent-validation-of-live-AI-output",
+  "aiInferencePerformedByThisScript": false,
+  "timestamp": "2026-10-23T15:01:46.646Z",
+  "status": "PASS",
+  "inputPaths": {
+    "originalPath": "/workspace/public/preset/svg-v2/one/option-01.svg",
+    "svgPath": "/live/one-01.svg",
+    "scenePath": "/live/one-01-scene.json"
+  },
+  "checks": {
+    "structure": {
+      "targetRoomId": "room_3",
+      "newRoomId": "room_7",
+      "newAreaM2": 6.066745705597427,
+      "remainingAreaM2": 11.288205443318006,
+      "unchangedRooms": [
+        "卫生间",
+        "主卧",
+        "厨房",
+        "阳台",
+        "阳台"
+      ],
+      "originalOpeningsPreserved": true,
+      "originalWallCoveragePreserved": true,
+      "exterior": {
+        "sourceWallBytesPreserved": true,
+        "exactDerivedOutline": false,
+        "maxAllowedLocalDeltaM": 0.07714338235294117,
+        "maxObservedDeltaM": 0.03428676470588243,
+        "symmetricDifferenceM2": 0.003174782977941191,
+        "newTJunctions": [
+          [
+            1.2000367647058825,
+            6.203865
+          ],
+          [
+            1.2000367647058825,
+            3.39515
+          ]
+        ]
+      }
+    },
+    "actualReturnedScene": {
+      "status": "PASS",
+      "rooms": 7,
+      "walls": 23,
+      "doors": 7,
+      "windows": 3,
+      "roomPolygonsExact": true,
+      "wallCoordinatesExact": true,
+      "openingHostsOffsetsWidthsExact": true,
+      "doorsAboveFloor": true
+    },
+    "doorGraph": {
+      "newDoorId": "door_bedroom-tph47z-9g12mi-3",
+      "newDoorRooms": [
+        "room_7",
+        "room_3"
+      ],
+      "reachableRooms": [
+        "room_3",
+        "room_1",
+        "room_2",
+        "room_4",
+        "room_7",
+        "room_6",
+        "room_5"
+      ],
+      "sourceReachableRooms": [
+        "room_3",
+        "room_1",
+        "room_2",
+        "room_4",
+        "room_6",
+        "room_5"
+      ],
+      "externalLivingOpeningIds": [
+        "door_hinged-door-01"
+      ]
+    },
+    "independentFurnitureAndWalkthrough": {
+      "newWallCount": 3,
+      "furnitureFootprints": [
+        {
+          "id": "item_room_1_1",
+          "roomId": "room_1",
+          "widthM": 0.72,
+          "depthM": 0.72
+        },
+        {
+          "id": "item_room_2_2",
+          "roomId": "room_2",
+          "widthM": 1.44,
+          "depthM": 1.7999999999999998
+        },
+        {
+          "id": "item_room_3_3",
+          "roomId": "room_3",
+          "widthM": 1.7999999999999998,
+          "depthM": 1.08
+        },
+        {
+          "id": "item_room_4_4",
+          "roomId": "room_4",
+          "widthM": 1.7999999999999998,
+          "depthM": 0.72
+        },
+        {
+          "id": "item_room_7_7",
+          "roomId": "room_7",
+          "widthM": 1.08,
+          "depthM": 1.7999999999999998
+        }
+      ],
+      "noFurnitureNewWallCollision": true,
+      "unrelatedDefaultFurnitureUnchanged": 3,
+      "paths": [
+        {
+          "entryId": "door_hinged-door-01",
+          "pathMeters": [
+            [
+              4.000036764705882,
+              2.1942525
+            ],
+            [
+              3.9200367647058827,
+              2.1942525
+            ],
+            [
+              3.8400367647058826,
+              2.1942525
+            ],
+            [
+              3.7600367647058826,
+              2.1942525
+            ],
+            [
+              3.7600367647058826,
+              2.2742525000000002
+            ],
+            [
+              3.7600367647058826,
+              2.3542525000000003
+            ],
+            [
+              3.7600367647058826,
+              2.4342525
+            ],
+            [
+              3.6800367647058825,
+              2.4342525
+            ],
+            [
+              3.6800367647058825,
+              2.5142525
+            ],
+            [
+              3.6800367647058825,
+              2.5942525
+            ],
+            [
+              3.6800367647058825,
+              2.6742525
+            ],
+            [
+              3.6800367647058825,
+              2.7542525
+            ],
+            [
+              3.6800367647058825,
+              2.8342525
+            ],
+            [
+              3.6800367647058825,
+              2.9142525
+            ],
+            [
+              3.6800367647058825,
+              2.9942525
+            ],
+            [
+              3.6800367647058825,
+              3.0742525
+            ],
+            [
+              3.6800367647058825,
+              3.1542525
+            ],
+            [
+              3.6800367647058825,
+              3.2342525
+            ],
+            [
+              3.6800367647058825,
+              3.3142525000000003
+            ],
+            [
+              3.6800367647058825,
+              3.3942525000000003
+            ],
+            [
+              3.6800367647058825,
+              3.4742525000000004
+            ],
+            [
+              3.6800367647058825,
+              3.5542525
+            ],
+            [
+              3.6800367647058825,
+              3.6342525
+            ],
+            [
+              3.6800367647058825,
+              3.7142525
+            ],
+            [
+              3.6800367647058825,
+              3.7942525
+            ],
+            [
+              3.6800367647058825,
+              3.8742525
+            ],
+            [
+              3.6800367647058825,
+              3.9542525
+            ],
+            [
+              3.6800367647058825,
+              4.0342525
+            ],
+            [
+              3.6800367647058825,
+              4.1142525
+            ],
+            [
+              3.6800367647058825,
+              4.1942525
+            ],
+            [
+              3.6800367647058825,
+              4.2742525
+            ],
+            [
+              3.6800367647058825,
+              4.3542525
+            ],
+            [
+              3.6800367647058825,
+              4.4342524999999995
+            ],
+            [
+              3.6800367647058825,
+              4.5142525
+            ],
+            [
+              3.6800367647058825,
+              4.5942525
+            ],
+            [
+              3.6800367647058825,
+              4.6742525
+            ],
+            [
+              3.6800367647058825,
+              4.7542525
+            ],
+            [
+              3.6800367647058825,
+              4.8342525
+            ],
+            [
+              3.6800367647058825,
+              4.9142525
+            ],
+            [
+              3.6800367647058825,
+              4.9942525
+            ],
+            [
+              3.6800367647058825,
+              5.0742525
+            ],
+            [
+              3.6800367647058825,
+              5.1542525
+            ],
+            [
+              3.6800367647058825,
+              5.2342525
+            ],
+            [
+              3.6000367647058824,
+              5.2342525
+            ],
+            [
+              3.5200367647058823,
+              5.2342525
+            ],
+            [
+              3.4400367647058827,
+              5.2342525
+            ],
+            [
+              3.3600367647058826,
+              5.2342525
+            ],
+            [
+              3.3600367647058826,
+              5.3142525
+            ],
+            [
+              3.3600367647058826,
+              5.3942525
+            ],
+            [
+              3.3600367647058826,
+              5.4742525
+            ]
+          ],
+          "walkRadiusM": 0.22,
+          "gridStepM": 0.08
+        }
+      ]
+    },
+    "productionFinalSceneGuard": {
+      "valid": true,
+      "newDoorId": "door_bedroom-tph47z-9g12mi-3",
+      "newRoomId": "room_7",
+      "targetRoomId": "room_3",
+      "checkedFurniture": 5,
+      "checkedNewWalls": 4,
+      "playerRadiusM": 0.22,
+      "gridStepM": 0.08,
+      "paths": [
+        {
+          "entryDoorId": "door_hinged-door-01",
+          "path": [
+            [
+              4.000036764705882,
+              2.1942525
+            ],
+            [
+              3.9200367647058827,
+              2.1942525
+            ],
+            [
+              3.8400367647058826,
+              2.1942525
+            ],
+            [
+              3.7600367647058826,
+              2.1942525
+            ],
+            [
+              3.7600367647058826,
+              2.2742525000000002
+            ],
+            [
+              3.7600367647058826,
+              2.3542525000000003
+            ],
+            [
+              3.7600367647058826,
+              2.4342525
+            ],
+            [
+              3.6800367647058825,
+              2.4342525
+            ],
+            [
+              3.6800367647058825,
+              2.5142525
+            ],
+            [
+              3.6800367647058825,
+              2.5942525
+            ],
+            [
+              3.6800367647058825,
+              2.6742525
+            ],
+            [
+              3.6800367647058825,
+              2.7542525
+            ],
+            [
+              3.6800367647058825,
+              2.8342525
+            ],
+            [
+              3.6800367647058825,
+              2.9142525
+            ],
+            [
+              3.6800367647058825,
+              2.9942525
+            ],
+            [
+              3.6800367647058825,
+              3.0742525
+            ],
+            [
+              3.6800367647058825,
+              3.1542525
+            ],
+            [
+              3.6800367647058825,
+              3.2342525
+            ],
+            [
+              3.6800367647058825,
+              3.3142525000000003
+            ],
+            [
+              3.6800367647058825,
+              3.3942525000000003
+            ],
+            [
+              3.6800367647058825,
+              3.4742525000000004
+            ],
+            [
+              3.6800367647058825,
+              3.5542525
+            ],
+            [
+              3.6800367647058825,
+              3.6342525
+            ],
+            [
+              3.6800367647058825,
+              3.7142525
+            ],
+            [
+              3.6800367647058825,
+              3.7942525
+            ],
+            [
+              3.6800367647058825,
+              3.8742525
+            ],
+            [
+              3.6800367647058825,
+              3.9542525
+            ],
+            [
+              3.6800367647058825,
+              4.0342525
+            ],
+            [
+              3.6800367647058825,
+              4.1142525
+            ],
+            [
+              3.6800367647058825,
+              4.1942525
+            ],
+            [
+              3.6800367647058825,
+              4.2742525
+            ],
+            [
+              3.6800367647058825,
+              4.3542525
+            ],
+            [
+              3.6800367647058825,
+              4.4342524999999995
+            ],
+            [
+              3.6800367647058825,
+              4.5142525
+            ],
+            [
+              3.6800367647058825,
+              4.5942525
+            ],
+            [
+              3.6800367647058825,
+              4.6742525
+            ],
+            [
+              3.6800367647058825,
+              4.7542525
+            ],
+            [
+              3.6800367647058825,
+              4.8342525
+            ],
+            [
+              3.6800367647058825,
+              4.9142525
+            ],
+            [
+              3.6800367647058825,
+              4.9942525
+            ],
+            [
+              3.6800367647058825,
+              5.0742525
+            ],
+            [
+              3.6800367647058825,
+              5.1542525
+            ],
+            [
+              3.6800367647058825,
+              5.2342525
+            ],
+            [
+              3.6000367647058824,
+              5.2342525
+            ],
+            [
+              3.5200367647058823,
+              5.2342525
+            ],
+            [
+              3.4400367647058827,
+              5.2342525
+            ],
+            [
+              3.3600367647058826,
+              5.2342525
+            ],
+            [
+              3.3600367647058826,
+              5.3142525
+            ],
+            [
+              3.3600367647058826,
+              5.3942525
+            ],
+            [
+              3.3600367647058826,
+              5.4742525
+            ]
+          ]
+        }
+      ],
+      "furnitureMoved": false
+    },
+    "programmaticSaveRestore": {
+      "scope": "actual scene clone bound to fixture V1/V2 using production binding, strict variant storage and session serializers; not a browser refresh claim",
+      "versions": [
+        {
+          "version": "v1",
+          "rooms": 6,
+          "exactSceneRestored": true,
+          "exactSvgRestored": true
+        },
+        {
+          "version": "v2",
+          "rooms": 7,
+          "exactSceneRestored": true,
+          "exactSvgRestored": true
+        }
+      ],
+      "wrongVersionRejected": true,
+      "missingVersionSvgRejected": true,
+      "invalidSavePreservedPrevious": true,
+      "unsubmittedDraftPreservedCommittedScene": true
+    },
+    "inputUnchanged": true
+  },
+  "limitations": [
+    "This script consumes the saved live HTTP output; it does not invoke a model.",
+    "The actual returned SceneGraph is checked directly and is not replaced by a deterministic candidate or newly compiled edited scene.",
+    "Storage roundtrip is a programmatic harness with the same production binding/serializer; the raw model3d HTTP result has no Portal version binding. Browser persistence is a separate test."
+  ],
+  "inputHashes": {
+    "originalSvg": "2f8c78f25af209858e3d39aa3fc48ac8069f70e871583dd7cd97805849a2aaac",
+    "editedSvg": "f7c0acbf40410c30e337e637721822cb134ecab694fb22fa032aeca3b77cc516",
+    "sceneFile": "f028e045d72137734c89dda3f9cc02175b2bc0c73e9d5c53235059bce38b03a1"
+  },
+  "actualSceneMetadata": {
+    "floorplanSource": "svg-deterministic/v1",
+    "sourceImageHash": "d091b1c5916ba8f4535aaa9b95c5b87db82aeee3e2d293e23333e467d2a03ee4",
+    "mcpSessionId": "bedroom-live-one-01-1792767640260440390",
+    "modelBinding": null
+  },
+  "elapsedMs": 769.7941779999999
+}
