@@ -1,0 +1,356 @@
+{
+  "key": "move",
+  "instruction": "将主卧与客餐厅之间的隔墙向客餐厅方向移动0.2米，扩大主卧，保留入户通道、厨房和卫生间的位置。",
+  "httpStatus": 200,
+  "elapsedMs": 7186,
+  "actualInference": true,
+  "responseHasSvg": true,
+  "intent": {
+    "action": "structure_plan",
+    "status": "execute",
+    "operations": [
+      {
+        "id": "op1",
+        "type": "move_boundary",
+        "targetRoomId": "room_2",
+        "adjacentRoomId": "room_3",
+        "mode": "expand",
+        "distanceM": 0.2,
+        "direction": "left"
+      }
+    ],
+    "explicitProtectedRoomIds": [
+      "room_4",
+      "room_1"
+    ],
+    "preserveEntrance": true,
+    "preserveOtherRooms": true,
+    "unhandledRequirements": [],
+    "summary": "将主卧与客餐厅之间的隔墙向客餐厅方向移动0.2米，扩大主卧；保留入户通道、厨房和卫生间的位置。",
+    "message": "",
+    "protectedRoomIds": [
+      "room_1",
+      "room_4",
+      "room_5",
+      "room_6"
+    ]
+  },
+  "selection": {
+    "candidateId": "move-tph47z-edmm8l",
+    "unmetRequirements": [],
+    "reason": "候选ID move-tph47z-edmm8l 满足当前步骤要求：将主卧与客餐厅之间的隔墙向客餐厅方向移动0.2米，扩大主卧；保留入户通道、厨房和卫生间的位置。该操作为move_boundary类型，targetRoomId=room_2（主卧），adjacentRoomId=room_3（客餐厅），mode=expand，distanceM=0.2，direction=left，与用户指令一致。受保护房间包括room_1（入户通道）、room_4（厨房）、room_5（卫生间）等，位置未变动。候选中affectedRoomIds=[\"room_2\",\"room_3\"]，面积变化合理，无额外遗漏。notes提示承重、采光及施工合规未验证，但用户未明确要求验证这些内容，故不构成拒绝理由。"
+  },
+  "candidate": {
+    "id": "move-tph47z-edmm8l",
+    "type": "move_boundary",
+    "summary": "主卧扩大0.20米，联动1个门窗",
+    "affectedRoomIds": [
+      "room_2",
+      "room_3"
+    ],
+    "areas": [
+      {
+        "roomId": "room_2",
+        "name": "主卧",
+        "areaM2": 13.697495003152564
+      },
+      {
+        "roomId": "room_3",
+        "name": "客餐厅",
+        "areaM2": 16.75925636522978
+      }
+    ],
+    "removedOpeningIds": [],
+    "movedOpeningIds": [
+      "door_hinged-door-03"
+    ],
+    "notes": [
+      "概念几何方案；承重、采光及施工合规未验证。",
+      "家具仅在 Step3 手动调整。"
+    ],
+    "moveDirection": "left",
+    "distanceM": 0.2
+  },
+  "candidateCount": 1,
+  "validation": {
+    "valid": true,
+    "unit": "meter",
+    "operationType": "move_boundary",
+    "affectedRoomIds": [
+      "room_2",
+      "room_3"
+    ],
+    "newRoomIds": [],
+    "removedRoomIds": [],
+    "roomIdMap": {
+      "room_1": "room_1",
+      "room_2": "room_2",
+      "room_3": "room_3",
+      "room_4": "room_4",
+      "room_5": "room_5",
+      "room_6": "room_6"
+    },
+    "removedOpeningIds": [],
+    "movedOpeningIds": [
+      "door_hinged-door-03"
+    ],
+    "checks": [
+      "existing-wall-edit-tools",
+      "exact-exterior-preserved",
+      "exact-unaffected-room-polygons",
+      "area-conservation",
+      "entrance-preserved",
+      "room-door-connectivity",
+      "visible-svg-roundtrip",
+      "existing-blueprint-validator"
+    ],
+    "warnings": [
+      "概念几何方案；承重、采光及施工合规未验证。",
+      "家具仅在 Step3 手动调整。"
+    ],
+    "moveDirection": "left",
+    "distanceM": 0.2,
+    "transaction": "all-operations-validated",
+    "openingChanges": [
+      {
+        "operationId": "op1",
+        "removedOpeningIds": [],
+        "movedOpeningIds": [
+          "door_hinged-door-03"
+        ]
+      }
+    ],
+    "operations": [
+      {
+        "operation": {
+          "id": "op1",
+          "type": "move_boundary",
+          "targetRoomId": "room_2",
+          "adjacentRoomId": "room_3",
+          "mode": "expand",
+          "distanceM": 0.2,
+          "direction": "left"
+        },
+        "candidate": {
+          "id": "move-tph47z-edmm8l",
+          "type": "move_boundary",
+          "summary": "主卧扩大0.20米，联动1个门窗",
+          "affectedRoomIds": [
+            "room_2",
+            "room_3"
+          ],
+          "areas": [
+            {
+              "roomId": "room_2",
+              "name": "主卧",
+              "areaM2": 13.697495003152564
+            },
+            {
+              "roomId": "room_3",
+              "name": "客餐厅",
+              "areaM2": 16.75925636522978
+            }
+          ],
+          "distanceM": 0.2,
+          "moveDirection": "left",
+          "removedOpeningIds": [],
+          "movedOpeningIds": [
+            "door_hinged-door-03"
+          ],
+          "notes": [
+            "概念几何方案；承重、采光及施工合规未验证。",
+            "家具仅在 Step3 手动调整。"
+          ]
+        },
+        "candidateCount": 1,
+        "selection": {
+          "candidateId": "move-tph47z-edmm8l",
+          "unmetRequirements": [],
+          "reason": "候选ID move-tph47z-edmm8l 满足当前步骤要求：将主卧与客餐厅之间的隔墙向客餐厅方向移动0.2米，扩大主卧；保留入户通道、厨房和卫生间的位置。该操作为move_boundary类型，targetRoomId=room_2（主卧），adjacentRoomId=room_3（客餐厅），mode=expand，distanceM=0.2，direction=left，与用户指令一致。受保护房间包括room_1（入户通道）、room_4（厨房）、room_5（卫生间）等，位置未变动。候选中affectedRoomIds=[\"room_2\",\"room_3\"]，面积变化合理，无额外遗漏。notes提示承重、采光及施工合规未验证，但用户未明确要求验证这些内容，故不构成拒绝理由。"
+        },
+        "validation": {
+          "valid": true,
+          "unit": "meter",
+          "operationType": "move_boundary",
+          "affectedRoomIds": [
+            "room_2",
+            "room_3"
+          ],
+          "newRoomIds": [],
+          "removedRoomIds": [],
+          "roomIdMap": {
+            "room_1": "room_1",
+            "room_2": "room_2",
+            "room_3": "room_3",
+            "room_4": "room_4",
+            "room_5": "room_5",
+            "room_6": "room_6"
+          },
+          "removedOpeningIds": [],
+          "movedOpeningIds": [
+            "door_hinged-door-03"
+          ],
+          "checks": [
+            "existing-wall-edit-tools",
+            "exact-exterior-preserved",
+            "exact-unaffected-room-polygons",
+            "area-conservation",
+            "entrance-preserved",
+            "room-door-connectivity",
+            "visible-svg-roundtrip",
+            "existing-blueprint-validator"
+          ],
+          "warnings": [
+            "概念几何方案；承重、采光及施工合规未验证。",
+            "家具仅在 Step3 手动调整。"
+          ],
+          "moveDirection": "left",
+          "distanceM": 0.2
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "stage": "svg-edit",
+    "method": "natural-language-geometry/v2",
+    "actualInference": true,
+    "model": "Ours",
+    "inference": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "responseId": "chatcmpl-8wgkuyn5oixi7djhts64",
+        "usage": {
+          "prompt_tokens": 3313,
+          "completion_tokens": 127,
+          "total_tokens": 3440,
+          "prompt_tokens_details": {
+            "cached_tokens": 3306
+          },
+          "cached_tokens": 3306,
+          "prompt_tokens_per_second": 171.38090235521676,
+          "completion_tokens_per_second": 57.60770704100818,
+          "draft_tokens": 77,
+          "draft_tokens_accepted": 51,
+          "gufo": {
+            "cache_hit": true,
+            "cache_restore_bytes": 180976544,
+            "cache_snapshot_bytes": 0,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 9.136424,
+            "cache_snapshot_ms": 0,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 7,
+            "prefill_chunks": 1,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 7,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 11.717901,
+            "prefill_ms": 40.844691,
+            "decode_ms": 2204.566134,
+            "ttft_ms": 52.732316,
+            "mean_inter_token_ms": 17.30903073809524,
+            "max_inter_token_ms": 66.102939,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 2263
+      },
+      {
+        "stage": "floorplan-candidate-selection-op1",
+        "model": "Ours",
+        "responseId": "chatcmpl-zf92dragkaaoqu1lym3n",
+        "usage": {
+          "prompt_tokens": 964,
+          "completion_tokens": 212,
+          "total_tokens": 1176,
+          "prompt_tokens_details": {
+            "cached_tokens": 957
+          },
+          "cached_tokens": 957,
+          "prompt_tokens_per_second": 172.00743190053765,
+          "completion_tokens_per_second": 50.87190973845049,
+          "draft_tokens": 44,
+          "draft_tokens_accepted": 28,
+          "gufo": {
+            "cache_hit": true,
+            "cache_restore_bytes": 99936044,
+            "cache_snapshot_bytes": 0,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 14.506461,
+            "cache_snapshot_ms": 0,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 7,
+            "prefill_chunks": 1,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 7,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 15.832074,
+            "prefill_ms": 40.695916,
+            "decode_ms": 4167.3292999999985,
+            "ttft_ms": 56.634527,
+            "mean_inter_token_ms": 19.59553740758294,
+            "max_inter_token_ms": 56.27717,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 4230
+      }
+    ],
+    "structuralTruth": "validated-svg-geometry",
+    "selectedCandidateId": "move-tph47z-edmm8l",
+    "operationCount": 1
+  },
+  "pngStatus": 200,
+  "png": {
+    "width": 1024,
+    "height": 1263,
+    "bytes": 53284
+  },
+  "mcp": {
+    "httpStatus": 200,
+    "elapsedMs": 200,
+    "sourceImageHash": "e6e0ab3c5b46a464e41faa4c318523dba4fc96c5aa53a9c069b2fb946de539a0",
+    "sessionId": "primitives-live-move-1792765471309226450",
+    "tools": [
+      "begin_floorplan_scene",
+      "set_floor_structure",
+      "set_openings",
+      "populate_basic_furniture",
+      "validate_scene",
+      "commit_scene"
+    ],
+    "complete": true,
+    "validation": {
+      "valid": true,
+      "issues": [],
+      "warnings": []
+    },
+    "error": [],
+    "sceneMetrics": {
+      "wall": 21,
+      "door": 6,
+      "window": 3,
+      "zone": 6,
+      "item": 4
+    }
+  }
+}

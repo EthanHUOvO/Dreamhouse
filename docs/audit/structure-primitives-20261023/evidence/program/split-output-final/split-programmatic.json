@@ -1,0 +1,367 @@
+{
+  "kind": "programmatic-no-ai-inference",
+  "plans": [
+    {
+      "key": "one-option-01",
+      "status": "PASS",
+      "candidates": 8,
+      "candidate": {
+        "id": "split-tph47z-19rxvel",
+        "type": "split_room",
+        "targetRoomId": "room_3",
+        "newRoomId": "room_split_16dl5vl",
+        "direction": "upper",
+        "newRoomName": "书房",
+        "newRoomSemantic": "study",
+        "newAreaM2": 4.202776,
+        "remainingAreaM2": 13.15535,
+        "minClearWidthM": 1.8,
+        "doorWidthM": 0.8,
+        "entranceClearanceM": 0.9,
+        "notes": [
+          "家具不随自然语言结构操作移动；实际家具碰撞须在三维提交前检查。",
+          "采光、通风、承重及施工合规未验证；面积按解析房间中心线多边形计算。"
+        ]
+      },
+      "validation": {
+        "valid": true,
+        "unit": "meter",
+        "targetRoomId": "room_3",
+        "newRoomId": "room_split_16dl5vl",
+        "newDoorId": "door_split_16dl5vl",
+        "checks": [
+          "exact-concave-partition",
+          "area-conservation",
+          "protected-room-polygons",
+          "original-openings",
+          "entrance-circulation",
+          "existing-wall-and-door-tools",
+          "blueprint",
+          "visible-svg-roundtrip"
+        ],
+        "newDoorCreatedApproach": [
+          2.5200367647058823,
+          3.982227
+        ],
+        "newDoorRetainedApproach": [
+          3.7200367647058825,
+          3.982227
+        ],
+        "originalEntryApproaches": [
+          [
+            3.9686930147058828,
+            2.7342525
+          ],
+          [
+            3.791525735294118,
+            2.9244587500000003
+          ],
+          [
+            3.8544227941176477,
+            4.297951250000001
+          ],
+          [
+            3.871566176470589,
+            7.4230325
+          ]
+        ],
+        "passageWidthM": 0.9,
+        "doorSpanM": 2.1889459999999996,
+        "policy": {
+          "minAreaM2": 4,
+          "minClearWidthM": 1.8,
+          "minRemainingAreaM2": 7
+        },
+        "warnings": [
+          "家具不随自然语言结构操作移动；实际家具碰撞须在三维提交前检查。",
+          "采光、通风、承重及施工合规未验证；面积按解析房间中心线多边形计算。"
+        ]
+      },
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "modifiedSaveRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "key": "one-option-02",
+      "status": "SEARCH_BUDGET_EXCEEDED",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 5,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 5,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "sourceUnchanged": true,
+      "partialCandidatesPublished": false
+    },
+    {
+      "key": "one-option-07",
+      "status": "SEARCH_BUDGET_EXCEEDED",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 4,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 4,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "sourceUnchanged": true,
+      "partialCandidatesPublished": false
+    },
+    {
+      "key": "two-option-01",
+      "status": "SEARCH_BUDGET_EXCEEDED",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "sourceUnchanged": true,
+      "partialCandidatesPublished": false
+    },
+    {
+      "key": "two-option-02",
+      "status": "SEARCH_BUDGET_EXCEEDED",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "sourceUnchanged": true,
+      "partialCandidatesPublished": false
+    },
+    {
+      "key": "two-option-07",
+      "status": "SEARCH_BUDGET_EXCEEDED",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "sourceUnchanged": true,
+      "partialCandidatesPublished": false
+    },
+    {
+      "key": "three-option-01",
+      "status": "SEARCH_BUDGET_EXCEEDED",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 8,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 8,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "sourceUnchanged": true,
+      "partialCandidatesPublished": false
+    },
+    {
+      "key": "three-option-03",
+      "status": "SEARCH_BUDGET_EXCEEDED",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 8,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 8,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "sourceUnchanged": true,
+      "partialCandidatesPublished": false
+    },
+    {
+      "key": "three-option-07",
+      "status": "SEARCH_BUDGET_EXCEEDED",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 10,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 10,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "sourceUnchanged": true,
+      "partialCandidatesPublished": false
+    }
+  ],
+  "negative": [
+    {
+      "key": "one-option-01",
+      "forgedCandidate": "PASS",
+      "invalidArea": "PASS",
+      "invalidDirection": "PASS",
+      "impossibleArea": "PASS",
+      "protectedRoom": "PASS"
+    }
+  ],
+  "synthetic": [
+    {
+      "test": "concave-halfplane-exact-area",
+      "status": "PASS"
+    },
+    {
+      "test": "direction-upper",
+      "status": "PASS",
+      "candidates": 8
+    },
+    {
+      "test": "direction-lower",
+      "status": "PASS",
+      "candidates": 8
+    },
+    {
+      "test": "direction-left",
+      "status": "PASS",
+      "candidates": 8
+    },
+    {
+      "test": "direction-right",
+      "status": "PASS",
+      "candidates": 8
+    }
+  ],
+  "failures": []
+}

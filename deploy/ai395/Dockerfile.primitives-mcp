@@ -1,0 +1,3 @@
+FROM ideal-home-local:web-textv43-20261022
+COPY v2/step3-3d/svg-geometry.ts /app/lib/ai/svg-geometry.ts
+COPY v2/step3-3d/structure-svg.ts /app/lib/ai/structure-svg.ts

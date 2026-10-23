@@ -1,0 +1,95 @@
+{
+  "kind": "PROGRAMMATIC_REAL_SHARP_AND_ROUTE_NO_AI",
+  "summary": {
+    "pass": 9,
+    "fail": 0
+  },
+  "tests": [
+    {
+      "name": "canonical-source-explicit-display-pixels",
+      "status": "PASS",
+      "evidence": {
+        "width": 1024,
+        "height": 1263,
+        "viewBox": [
+          0.7500367647058825,
+          0.7074374999999999,
+          7.551632352941177,
+          9.3107125
+        ]
+      }
+    },
+    {
+      "name": "canonical-source-metre-geometry-roundtrip-exact",
+      "status": "PASS",
+      "evidence": {
+        "viewBoxUnchanged": true,
+        "geometryUnits": "metres",
+        "openingFloatRoundtripToleranceM": 1e-12
+      }
+    },
+    {
+      "name": "canonical-source-actual-PNG-route-size",
+      "status": "PASS",
+      "evidence": {
+        "width": 1024,
+        "height": 1263,
+        "format": "png",
+        "bytes": 53517
+      }
+    },
+    {
+      "name": "actual-merge-output-explicit-display-pixels",
+      "status": "PASS",
+      "evidence": {
+        "width": 1024,
+        "height": 1263,
+        "viewBox": [
+          0.7500367647058825,
+          0.7074374999999999,
+          7.551632352941177,
+          9.3107125
+        ]
+      }
+    },
+    {
+      "name": "actual-merge-output-metre-geometry-roundtrip-exact",
+      "status": "PASS",
+      "evidence": {
+        "viewBoxUnchanged": true,
+        "geometryUnits": "metres",
+        "openingFloatRoundtripToleranceM": 1e-12
+      }
+    },
+    {
+      "name": "actual-merge-output-actual-PNG-route-size",
+      "status": "PASS",
+      "evidence": {
+        "width": 1024,
+        "height": 1263,
+        "format": "png",
+        "bytes": 51835
+      }
+    },
+    {
+      "name": "invalid-explicit-display-width-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "invalid-explicit-display-aspect-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "legacy-metre-profile-without-display-size-still-readable",
+      "status": "PASS",
+      "evidence": {
+        "backwardCompatibleParsing": true,
+        "legacyCachedPNGQuality": "NOT_REGENERATED_BY_THIS_TEST"
+      }
+    }
+  ],
+  "limitations": [
+    "Raster dimensions and geometry consistency are verified, not subjective visual quality.",
+    "No model is called. The historical first study SVG_EDIT_FAILED remains UNKNOWN; a later successful replay does not explain that failure."
+  ]
+}

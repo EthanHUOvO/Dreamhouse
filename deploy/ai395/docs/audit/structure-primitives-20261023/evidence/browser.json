@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "kind": "ACTUAL_BROWSER_UI",
+  "url": "http://127.0.0.1:13014/customer",
+  "serverImage": "sha256:9caf10e37e4add01e2683981223081a9536673b39c57392b45ff7cbb4e6efee6",
+  "checks": [
+    "AI merge produced V1",
+    "AI move using V1 produced V2",
+    "V2 save and refresh restored the scene",
+    "0.255m unsupported move failed with two versions retained",
+    "select V1 updated edit base",
+    "latest client created independent V3 after server upgrade",
+    "V3 actual preview natural pixels 1024x1263",
+    "V3 confirm/save/refresh restored real 3D and top view"
+  ],
+  "limitations": [
+    "Intermediate stale b0aa client rejected new width/height profile; refresh loaded matching final client and V3 succeeded. Refresh after deployment.",
+    "Browser checks are visible UI observations. Exact V1/V2 geometry and furniture equality are separately verified in program/live-guard evidence."
+  ],
+  "screenshots": [
+    "browser/versions-v3-clear.png",
+    "browser/restored-scene-top.png",
+    "browser/restored-scene-3d.png"
+  ]
+}

@@ -4,7 +4,6 @@ COPY v2/step3-3d/local-model3d-agent.ts /app/lib/ai/local-model3d-agent.ts
 COPY v2/step4-image/server-image.ts /app/lib/ai/server-image.ts
 COPY v2/step4-image/image-service.ts /app/lib/ai/image-service.ts
 COPY TouchCustomerPortal.tsx /app/components/customer/TouchCustomerPortal.tsx
-COPY app-src/lib/ai/qwen-client.ts /app/lib/ai/qwen-client.ts
 COPY app-src/components/customer/BeforeAfterComparison.tsx /app/components/customer/BeforeAfterComparison.tsx
 COPY app-src/components/shared/PascalViewer.tsx /app/components/shared/PascalViewer.tsx
 COPY app-src/components/shared/PascalWalkthroughController.tsx /app/components/shared/PascalWalkthroughController.tsx
@@ -31,6 +30,10 @@ COPY v2/step3-3d/svg-edit-geometry.ts /app/lib/ai/svg-edit-geometry.ts
 COPY v2/step3-3d/bedroom-edit-geometry.ts /app/lib/ai/bedroom-edit-geometry.ts
 COPY v2/step3-3d/bedroom-scene-validation.ts /app/lib/ai/bedroom-scene-validation.ts
 COPY v2/step3-3d/bedroom-source-furniture.ts /app/lib/ai/bedroom-source-furniture.ts
+COPY v2/step3-3d/structure-svg.ts /app/lib/ai/structure-svg.ts
+COPY v2/step3-3d/structure-primitives.ts /app/lib/ai/structure-primitives.ts
+COPY v2/step3-3d/room-split-primitives.ts /app/lib/ai/room-split-primitives.ts
+COPY v2/step3-3d/structure-scene-validation.ts /app/lib/ai/structure-scene-validation.ts
 COPY v2/step2-edit/floorplan-edit-intent.ts /app/lib/ai/floorplan-edit-intent.ts
 COPY v2/step3-3d/mcp-server.ts /app/services/pascal-mcp/server.ts
 COPY v2/step3-3d/svg-scene.ts /app/lib/ai/svg-scene.ts

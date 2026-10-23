@@ -1,0 +1,33 @@
+{
+  "kind": "programmatic-no-ai-inference",
+  "records": [
+    {
+      "variant": "one-option-01",
+      "direction": "upper",
+      "expected": "PASS",
+      "status": "PASS",
+      "elapsedMs": 1370.6941550000001,
+      "candidates": 8,
+      "sourceUnchanged": true
+    },
+    {
+      "variant": "one-option-01",
+      "direction": "any",
+      "expected": "PASS",
+      "status": "PASS",
+      "elapsedMs": 1293.4349029999998,
+      "candidates": 8,
+      "sourceUnchanged": true
+    },
+    {
+      "variant": "one-option-07",
+      "direction": "any",
+      "expected": "SPLIT_SEARCH_BUDGET_EXCEEDED",
+      "status": "PASS",
+      "elapsedMs": 228.0798359999999,
+      "error": "SPLIT_SEARCH_BUDGET_EXCEEDED",
+      "candidates": 0,
+      "sourceUnchanged": true
+    }
+  ]
+}

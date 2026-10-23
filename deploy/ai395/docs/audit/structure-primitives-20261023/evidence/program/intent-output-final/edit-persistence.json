@@ -1,0 +1,142 @@
+{
+  "kind": "programmatic-no-ai-inference",
+  "plans": [
+    {
+      "variantId": "one-option-01",
+      "status": "PASS",
+      "furniture": "item_room_3_3",
+      "door": "door_hinged-door-03",
+      "wall": "wall_1",
+      "savedId": "one-option-01",
+      "fullSessionExact": true
+    },
+    {
+      "variantId": "one-option-02",
+      "status": "PASS",
+      "furniture": "item_room_2_2",
+      "door": "door_hinged-door-01",
+      "wall": "wall_1",
+      "savedId": "one-option-02",
+      "fullSessionExact": true
+    },
+    {
+      "variantId": "one-option-07",
+      "status": "PASS",
+      "furniture": "item_room_4_4",
+      "door": "door_hinged-door-01",
+      "wall": "wall_1",
+      "savedId": "one-option-07",
+      "fullSessionExact": true
+    },
+    {
+      "variantId": "two-option-01",
+      "status": "PASS",
+      "furniture": "item_room_5_5",
+      "door": "door_hinged-door-01",
+      "wall": "wall_1",
+      "savedId": "two-option-01",
+      "fullSessionExact": true
+    },
+    {
+      "variantId": "two-option-02",
+      "status": "PASS",
+      "furniture": "item_room_1_1",
+      "door": "door_hinged-door-02",
+      "wall": "wall_1",
+      "savedId": "two-option-02",
+      "fullSessionExact": true
+    },
+    {
+      "variantId": "two-option-07",
+      "status": "PASS",
+      "furniture": "item_room_2_2",
+      "door": "door_hinged-door-01",
+      "wall": "wall_2",
+      "savedId": "two-option-07",
+      "fullSessionExact": true
+    },
+    {
+      "variantId": "three-option-01",
+      "status": "PASS",
+      "furniture": "item_room_1_1",
+      "door": "door_hinged-door-01",
+      "wall": "wall_1",
+      "savedId": "three-option-01",
+      "fullSessionExact": true
+    },
+    {
+      "variantId": "three-option-03",
+      "status": "PASS",
+      "furniture": "item_room_5_5",
+      "door": "door_hinged-door-01",
+      "wall": "wall_2",
+      "savedId": "three-option-03",
+      "fullSessionExact": true
+    },
+    {
+      "variantId": "three-option-07",
+      "status": "PASS",
+      "furniture": "item_room_6_6",
+      "door": "door_hinged-door-01",
+      "wall": "wall_1",
+      "savedId": "three-option-07",
+      "fullSessionExact": true
+    }
+  ],
+  "negative": [
+    {
+      "variantId": "one-option-01",
+      "wrongBindingsRejected": 3,
+      "invalidOpeningRejected": true,
+      "unrelatedCorruptionRejected": true
+    },
+    {
+      "variantId": "one-option-02",
+      "wrongBindingsRejected": 3,
+      "invalidOpeningRejected": true,
+      "unrelatedCorruptionRejected": true
+    },
+    {
+      "variantId": "one-option-07",
+      "wrongBindingsRejected": 3,
+      "invalidOpeningRejected": true,
+      "unrelatedCorruptionRejected": true
+    },
+    {
+      "variantId": "two-option-01",
+      "wrongBindingsRejected": 3,
+      "invalidOpeningRejected": true,
+      "unrelatedCorruptionRejected": true
+    },
+    {
+      "variantId": "two-option-02",
+      "wrongBindingsRejected": 3,
+      "invalidOpeningRejected": true,
+      "unrelatedCorruptionRejected": true
+    },
+    {
+      "variantId": "two-option-07",
+      "wrongBindingsRejected": 3,
+      "invalidOpeningRejected": true,
+      "unrelatedCorruptionRejected": true
+    },
+    {
+      "variantId": "three-option-01",
+      "wrongBindingsRejected": 3,
+      "invalidOpeningRejected": true,
+      "unrelatedCorruptionRejected": true
+    },
+    {
+      "variantId": "three-option-03",
+      "wrongBindingsRejected": 3,
+      "invalidOpeningRejected": true,
+      "unrelatedCorruptionRejected": true
+    },
+    {
+      "variantId": "three-option-07",
+      "wrongBindingsRejected": 3,
+      "invalidOpeningRejected": true,
+      "unrelatedCorruptionRejected": true
+    }
+  ]
+}
