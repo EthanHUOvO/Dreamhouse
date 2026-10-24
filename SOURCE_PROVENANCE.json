@@ -1,0 +1,31 @@
+{
+  "exportDate": "2026-10-23",
+  "sourceBranch": "CIIE",
+  "ciieHead": "bc7c3f19b1e81dbf910a6de94b69e79bf0c13445",
+  "verifiedRuntimeBranch": "v2-svg",
+  "verifiedRuntimeHead": "87d3e070ad1a14ae7032b5e4df794c9726af154b",
+  "runtimeImage": "sha256:a492fe1f0981658cfa734f94461c56c8eac7bd444e6f529ac4716f400b666f79",
+  "destination": "https://github.com/EthanHUOvO/Dreamhouse.git",
+  "excluded": [
+    "node_modules",
+    ".next",
+    ".runtime",
+    ".env and machine credentials",
+    "cmake-offline compiler binaries",
+    "historical backup files"
+  ],
+  "uncommittedSourceFilesPreserved": true,
+  "runtimeConfigNote": "The two pre-existing dirty deployment files are exported from the verified migration commit, not from uncommitted machine settings.",
+  "targetBranch": "CIIE",
+  "targetMainPreserved": "db0a174cededfbc8a8f81168839f25bc5855a3a6",
+  "packaging": "Verified bathroom direction support and separate SVG editing / real AI Pascal planning. Original SVGs retained; strict geometry, collision and rollback checks preserved. See latest report for per-catalog results. Pre-existing runtime dirty deployment hunks excluded.",
+  "sourceLayout": {
+    "app/ components/ lib/ services/ public/": "Authoritative deployed application source",
+    "deploy/ai395/": "Committed migration overlays and offline deployment configuration",
+    "v2/ TouchCustomerPortal.tsx": "Verified source aliases retained for existing tests",
+    "docs/audit/natural-bedroom-20261023/": "Actual test results and limitations"
+  },
+  "runtimeMcpImage": "sha256:b8d39f4aa1626253e256c198592b3339dc5303b3411bfe027f48ac4e1eecd5f7",
+  "latestReport": "docs/audit/bedroom-geometry-20261024/REPORT.md",
+  "verifiedRuntimeCodeCommit": "87d3e070ad1a14ae7032b5e4df794c9726af154b"
+}

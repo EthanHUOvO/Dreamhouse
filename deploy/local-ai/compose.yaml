@@ -1,0 +1,238 @@
+name: ideal-home-local
+
+services:
+  web:
+    image: ${WEB_IMAGE:-ideal-home-local:web-live3d-20261013}
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      AI_MODE: local
+      LOCAL_TEXT_BASE_URL: http://ai-gateway:8300/text/v1
+      LOCAL_TEXT_MODEL: Qwen3.8-27B-Q8_0
+      LOCAL_VISION_PROJECTOR: mmproj-Qwen3.8-27B-Q8_0.gguf
+      LOCAL_IMAGE_BASE_URL: http://ai-gateway:8300/image
+      LOCAL_IMAGE_MODEL: Z-Image-Turbo
+      LOCAL_EDIT_IMAGE_BASE_URL: http://ai-gateway-qwen-image21:8301/image
+      LOCAL_EDIT_IMAGE_MODEL: Qwen-Image-2.1-Fun-Acc-4Step
+      PASCAL_MCP_URL: http://pascal-mcp:3100/mcp
+      QWEN_TEXT_TIMEOUT_MS: "600000"
+      QWEN_IMAGE_TIMEOUT_MS: "1800000"
+      QWEN_FLOORPLAN_STEPS: "4"
+      QWEN_INTERIOR_STEPS: "4"
+      QWEN_FLOORPLAN_MAX_DIMENSION: "512"
+      QWEN_INTERIOR_MAX_DIMENSION: "512"
+      MODEL3D_TIMEOUT_MS: "600000"
+      GENERATED_IMAGE_DIR: /data/generated
+      VULKAN_DEVICE_VISIBLE: "true"
+      VULKAN_DEVICE: /dev/dri/renderD128
+    volumes:
+      - ${DATA_ROOT:-/srv/ideal-home/data}/generated:/data/generated
+    devices:
+      - /dev/dri:/dev/dri
+    ports:
+      - "${WEB_PORT:-3001}:3000"
+    depends_on:
+      - ai-gateway
+      - pascal-mcp
+    networks: [local-ai, web-ingress]
+
+  ai-gateway:
+    image: ${WEB_IMAGE:-ideal-home-local:web-audit-20261013}
+    restart: unless-stopped
+    command: ["node", "--experimental-strip-types", "services/local-ai-gateway/server.ts"]
+    environment:
+      LOCAL_AI_GATEWAY_PORT: "8300"
+      TEXT_UPSTREAM: http://qwen-text:8080
+      IMAGE_UPSTREAM: http://qwen-image:8200
+      LOCAL_AI_UPSTREAM_TIMEOUT_MS: "1000000"
+      LOCAL_AI_GPU_LOCK_DIR: /data/gpu-lock
+      LOCAL_AI_MAX_QUEUE: "4"
+      LOCAL_AI_QUEUE_TIMEOUT_MS: "600000"
+    volumes:
+      - ${DATA_ROOT:-/srv/ideal-home/data}/gpu-lock:/data/gpu-lock
+    depends_on:
+      - qwen-text
+      - qwen-image
+    networks: [local-ai]
+
+  qwen-text:
+    image: ${LLAMA_IMAGE:-ghcr.io/ggml-org/llama.cpp:server-vulkan}
+    restart: unless-stopped
+    command:
+      - --model
+      - /models/Qwen3.8-27B-Q8_0.gguf
+      - --mmproj
+      - /models/mmproj-Qwen3.8-27B-Q8_0.gguf
+      - --alias
+      - Qwen3.8-27B-Q8_0
+      - --model-draft
+      - /models/mtp-Qwen3.8-27B-Q8_0.gguf
+      - --spec-type
+      - draft-mtp
+      - --spec-draft-n-max
+      - "8"
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8080"
+      - --ctx-size
+      - "32768"
+      - --parallel
+      - "1"
+      - --n-gpu-layers
+      - "99"
+      - --jinja
+      - --reasoning-format
+      - none
+      - --no-reasoning-preserve
+      - --image-min-tokens
+      - "1024"
+      - --metrics
+      - --no-webui
+    volumes:
+      - ${MODEL_ROOT:-/srv/ideal-home/models}/llm:/models:ro
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      GGML_VK_VISIBLE_DEVICES: "0"
+    shm_size: 2gb
+    networks: [local-ai]
+
+  qwen-image:
+    image: ${QWEN_IMAGE_IMAGE:-ideal-home-local:sd-cpp-audit-20261013}
+    build:
+      context: ../..
+      dockerfile: deploy/local-ai/Dockerfile.qwen-image
+    restart: unless-stopped
+    environment:
+      LOCAL_IMAGE_PORT: "8200"
+      SD_DIFFUSION_MODEL: /models/z_image_turbo-Q8_0.gguf
+      SD_TEXT_ENCODER: /models/Qwen3-4B-Instruct-2507-Q4_K_M.gguf
+      SD_VAE: /models/ae.safetensors
+      SD_CPP_BIN: /opt/sd/sd-cli
+      GENERATED_IMAGE_DIR: /data/generated
+      SD_JOB_TIMEOUT_MS: "1800000"
+      SD_VAE_BACKEND: cpu
+      LOCAL_IMAGE_MAX_DIMENSION: "1024"
+      LOCAL_AI_GPU_LOCK_DIR: /data/gpu-lock
+      LOCAL_AI_MAX_QUEUE: "4"
+      LOCAL_AI_QUEUE_TIMEOUT_MS: "600000"
+      AMD_VULKAN_ICD: RADV
+      LD_LIBRARY_PATH: /opt/sd
+    volumes:
+      - ${MODEL_ROOT:-/srv/ideal-home/models}/z-image:/models:ro
+      - ${DATA_ROOT:-/srv/ideal-home/data}/generated:/data/generated
+      - /srv/ideal-home/src/stable-diffusion.cpp/prebuilt:/opt/sd:ro
+      - ${DATA_ROOT:-/srv/ideal-home/data}/gpu-lock:/data/gpu-lock
+    devices:
+      - /dev/dri:/dev/dri
+    shm_size: 2gb
+    networks: [local-ai]
+
+  qwen-image-21:
+    image: ${QWEN_IMAGE_21_IMAGE:-ideal-home-local:qwen-image-audit-20261013}
+    build:
+      context: ../..
+      dockerfile: deploy/local-ai/Dockerfile.qwen-image-ncnn
+    restart: unless-stopped
+    environment:
+      LOCAL_IMAGE_PORT: "8200"
+      QWEN_IMAGE_BIN: /opt/qwen-image-20261010/qwenimage-ncnn-vulkan
+      QWEN_IMAGE_MODEL_PATH: /models/qwenimage21
+      QWEN_IMAGE_LORA: /models/lora/Qwen-Image-2.1-Fun-Acc-4Step.safetensors
+      QWEN_IMAGE_LORA_STEPS: "4"
+      GENERATED_IMAGE_DIR: /data/generated
+      QWEN_IMAGE_JOB_TIMEOUT_MS: "900000"
+      LOCAL_IMAGE_MAX_DIMENSION: "1024"
+      LOCAL_AI_GPU_LOCK_DIR: /data/gpu-lock
+      LOCAL_AI_MAX_QUEUE: "4"
+      LOCAL_AI_QUEUE_TIMEOUT_MS: "600000"
+      AMD_VULKAN_ICD: RADV
+    volumes:
+      - ${MODEL_ROOT:-/srv/ideal-home/models}/qwen-image:/models:ro
+      - ${DATA_ROOT:-/srv/ideal-home/data}/generated:/data/generated
+      - ${DATA_ROOT:-/srv/ideal-home/data}/gpu-lock:/data/gpu-lock
+      - /srv/ideal-home/src/qwenimage-ncnn-vulkan/20261010/qwenimage-ncnn-vulkan:/opt/qwen-image-20261010/qwenimage-ncnn-vulkan:ro
+    devices:
+      - /dev/dri:/dev/dri
+    shm_size: 2gb
+    networks: [local-ai]
+
+  ai-gateway-qwen-image21:
+    image: ${WEB_IMAGE:-ideal-home-local:web-audit-20261013}
+    restart: unless-stopped
+    command: ["node", "--experimental-strip-types", "services/local-ai-gateway/server.ts"]
+    environment:
+      LOCAL_AI_GATEWAY_PORT: "8301"
+      TEXT_UPSTREAM: http://qwen-text:8080
+      IMAGE_UPSTREAM: http://qwen-image-21:8200
+      LOCAL_AI_UPSTREAM_TIMEOUT_MS: "1000000"
+      LOCAL_AI_GPU_LOCK_DIR: /data/gpu-lock
+      LOCAL_AI_MAX_QUEUE: "4"
+      LOCAL_AI_QUEUE_TIMEOUT_MS: "600000"
+    volumes:
+      - ${DATA_ROOT:-/srv/ideal-home/data}/gpu-lock:/data/gpu-lock
+    depends_on:
+      - qwen-text
+      - qwen-image-21
+    networks: [local-ai]
+
+  web-qwen-image21:
+    image: ${WEB_IMAGE:-ideal-home-local:web-live3d-20261013}
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      AI_MODE: local
+      LOCAL_TEXT_BASE_URL: http://ai-gateway-qwen-image21:8301/text/v1
+      LOCAL_TEXT_MODEL: Qwen3.8-27B-Q8_0
+      LOCAL_VISION_PROJECTOR: mmproj-Qwen3.8-27B-Q8_0.gguf
+      LOCAL_IMAGE_BASE_URL: http://ai-gateway-qwen-image21:8301/image
+      LOCAL_IMAGE_MODEL: Qwen-Image-2.1-Fun-Acc-4Step
+      LOCAL_EDIT_IMAGE_BASE_URL: http://ai-gateway-qwen-image21:8301/image
+      LOCAL_EDIT_IMAGE_MODEL: Qwen-Image-2.1-Fun-Acc-4Step
+      PASCAL_MCP_URL: http://pascal-mcp:3100/mcp
+      QWEN_TEXT_TIMEOUT_MS: "600000"
+      QWEN_IMAGE_TIMEOUT_MS: "1800000"
+      QWEN_IMAGE_STEPS: "4"
+      QWEN_INTERIOR_STEPS: "4"
+      QWEN_FLOORPLAN_STEPS: "4"
+      QWEN_FLOORPLAN_MAX_DIMENSION: "512"
+      MODEL3D_TIMEOUT_MS: "600000"
+      QWEN_INTERIOR_MAX_DIMENSION: "512"
+      GENERATED_IMAGE_DIR: /data/generated
+      VULKAN_DEVICE_VISIBLE: "true"
+      VULKAN_DEVICE: /dev/dri/renderD128
+    volumes:
+      - ${DATA_ROOT:-/srv/ideal-home/data}/generated:/data/generated
+    devices:
+      - /dev/dri:/dev/dri
+    ports:
+      - "3000:3000"
+    depends_on:
+      - ai-gateway-qwen-image21
+      - pascal-mcp
+    networks: [local-ai, web-ingress]
+
+  pascal-mcp:
+    image: ${WEB_IMAGE:-ideal-home-local:web-audit-20261013}
+    restart: unless-stopped
+    command: ["npm", "run", "mcp:start"]
+    environment:
+      NODE_ENV: production
+      PASCAL_MCP_PORT: "3100"
+      PASCAL_SCENE_DIR: /data/scenes
+      LOCAL_TEXT_MODEL: Qwen3.8-27B-Q8_0
+    volumes:
+      - ${DATA_ROOT:-/srv/ideal-home/data}/scenes:/data/scenes
+    networks: [local-ai]
+
+networks:
+  local-ai:
+    internal: true
+  web-ingress:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: "false"

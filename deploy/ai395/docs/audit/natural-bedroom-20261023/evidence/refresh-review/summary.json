@@ -1,0 +1,112 @@
+{
+  "kind": "targeted-programmatic-refresh-regressions-no-AI",
+  "image": "sha256:ede130e80c653e394f801c02d46bb2acae9940e22673516f9147336cc4949dee",
+  "reviewedStagedSourceSha256": {
+    "TouchCustomerPortal.tsx": "5e667b33cecda9299b91dbc64ec8ce261125b9b169779c1a79bacd6fe71770b8",
+    "tests/bedroom-edit/portal-transaction.ts": "746bcfbfe77f6048bf52e547e2ef0c5f86358b939ebb6cdaaa12c51fe3e933e0"
+  },
+  "network": "none",
+  "suites": [
+    {
+      "suite": "portal-transaction",
+      "exitCode": 0,
+      "status": "PASS",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "none",
+        "-v",
+        "/tmp/natural-bedroom-20261023/workspace:/workspace:ro",
+        "-w",
+        "/app",
+        "-e",
+        "NODE_PATH=/app/node_modules",
+        "sha256:ede130e80c653e394f801c02d46bb2acae9940e22673516f9147336cc4949dee",
+        "node",
+        "--import",
+        "tsx",
+        "/workspace/tests/bedroom-edit/portal-transaction.ts"
+      ],
+      "log": "C:\\Users\\12191\\Documents\\Codex\\2026-10-13\\ban\\work\\natural-bedroom-20261023\\programmatic-output\\refresh-review\\portal-transaction.log"
+    },
+    {
+      "suite": "edit-persistence-handlers",
+      "exitCode": 0,
+      "status": "PASS",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "none",
+        "-v",
+        "/tmp/natural-bedroom-20261023/workspace:/workspace:ro",
+        "-w",
+        "/app",
+        "-e",
+        "NODE_PATH=/app/node_modules",
+        "sha256:ede130e80c653e394f801c02d46bb2acae9940e22673516f9147336cc4949dee",
+        "node",
+        "--import",
+        "tsx",
+        "/workspace/tests/edit-persistence/portal-handlers.ts"
+      ],
+      "log": "C:\\Users\\12191\\Documents\\Codex\\2026-10-13\\ban\\work\\natural-bedroom-20261023\\programmatic-output\\refresh-review\\edit-persistence-handlers.log",
+      "initialAttempt": "Missing staged PascalViewer.tsx fixture; preserved initial log. Copied unchanged existing Viewer into isolated /tmp workspace and reran this suite only.",
+      "rerunEvidence": "exec_command chunk 2e6cda, exit_code 0, 1.2999733 seconds; stdout/stderr transcribed exactly from tool output."
+    },
+    {
+      "suite": "model3d-binding",
+      "exitCode": 0,
+      "status": "PASS",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "none",
+        "-v",
+        "/tmp/natural-bedroom-20261023/workspace:/workspace:ro",
+        "-w",
+        "/app",
+        "-e",
+        "NODE_PATH=/app/node_modules",
+        "sha256:ede130e80c653e394f801c02d46bb2acae9940e22673516f9147336cc4949dee",
+        "node",
+        "--import",
+        "tsx",
+        "--test",
+        "scripts/test-model3d-binding.ts"
+      ],
+      "log": "C:\\Users\\12191\\Documents\\Codex\\2026-10-13\\ban\\work\\natural-bedroom-20261023\\programmatic-output\\refresh-review\\model3d-binding.log"
+    },
+    {
+      "suite": "inline-image-persistence",
+      "exitCode": 0,
+      "status": "PASS",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "none",
+        "-v",
+        "/tmp/natural-bedroom-20261023/workspace:/workspace:ro",
+        "-w",
+        "/app",
+        "-e",
+        "NODE_PATH=/app/node_modules",
+        "sha256:ede130e80c653e394f801c02d46bb2acae9940e22673516f9147336cc4949dee",
+        "node",
+        "--import",
+        "tsx",
+        "--test",
+        "scripts/test-inline-image-persistence.ts"
+      ],
+      "log": "C:\\Users\\12191\\Documents\\Codex\\2026-10-13\\ban\\work\\natural-bedroom-20261023\\programmatic-output\\refresh-review\\inline-image-persistence.log"
+    }
+  ],
+  "reviewConclusion": "No actionable issue found in the blob canonicalization fix. Variant/hash/prompt and selected-version canonical URL guards remain; real production refresh still requires browser verification."
+}

@@ -1,0 +1,6 @@
+FROM ideal-home-local:qwen-image
+WORKDIR /app
+COPY services/local-ai-runtime.ts /app/services/local-ai-runtime.ts
+COPY services/qwen-image-ncnn/server.ts /app/services/qwen-image-ncnn/server.ts
+EXPOSE 8200
+CMD ["node", "--experimental-strip-types", "/app/services/qwen-image-ncnn/server.ts"]

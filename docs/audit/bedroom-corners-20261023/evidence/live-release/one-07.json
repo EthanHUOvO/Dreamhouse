@@ -1,0 +1,131 @@
+{
+  "key": "one-07",
+  "instruction": "在客餐厅合适的墙角新增一个矩形卧室，方向不限，保留入户通道和厨房、卫生间的位置",
+  "httpStatus": 422,
+  "elapsedMs": 8960,
+  "actualInference": true,
+  "error": "EDIT_NO_FEASIBLE_BEDROOM",
+  "message": "当前未找到在指定方向的客餐厅墙角保留入户通道、厨卫及其他房间，同时满足矩形卧室尺寸和通行检查的分隔方案。未指定方向时会搜索上、下、左、右；原户型未改动。",
+  "intent": {
+    "action": "add_bedroom",
+    "targetRoomId": "room_4",
+    "region": "any",
+    "roomCount": 1,
+    "minAreaM2": null,
+    "protectedRoomIds": [
+      "room_1",
+      "room_2",
+      "room_3"
+    ],
+    "preserveEntrance": true,
+    "preserveOtherRooms": true,
+    "entryFromRoomId": "room_4",
+    "unhandledRequirements": [],
+    "summary": "在客餐厅合适的墙角新增一个矩形卧室，方向不限，保留入户通道和厨房、卫生间的位置",
+    "message": "已理解：在客餐厅靠墙角新增一间独立卧室，不限制具体方位，保留入户通道及厨卫位置。"
+  },
+  "provenance": {
+    "stage": "svg-edit",
+    "method": "natural-language-geometry/v1",
+    "actualInference": true,
+    "model": "Ours",
+    "inference": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "responseId": "chatcmpl-qaoyridfa6eq0qja83i4",
+        "usage": {
+          "prompt_tokens": 1690,
+          "completion_tokens": 136,
+          "total_tokens": 1826,
+          "prompt_tokens_details": {
+            "cached_tokens": 1683
+          },
+          "cached_tokens": 1683,
+          "prompt_tokens_per_second": 67.15859055033539,
+          "completion_tokens_per_second": 52.22172083354484,
+          "draft_tokens": 69,
+          "draft_tokens_accepted": 48,
+          "gufo": {
+            "cache_hit": true,
+            "cache_restore_bytes": 124983044,
+            "cache_snapshot_bytes": 125216352,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 18.426009,
+            "cache_snapshot_ms": 23.308932,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 7,
+            "prefill_chunks": 1,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 7,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 20.824571,
+            "prefill_ms": 104.230895,
+            "decode_ms": 2604.2803230000004,
+            "ttft_ms": 125.201371,
+            "mean_inter_token_ms": 19.265800488888896,
+            "max_inter_token_ms": 96.736394,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 2764
+      }
+    ]
+  },
+  "feasibility": {
+    "candidateCount": 0,
+    "constraints": {
+      "targetRoomId": "room_4",
+      "region": "any",
+      "protectedRoomIds": [
+        "room_1",
+        "room_2",
+        "room_3"
+      ],
+      "preserveEntrance": true
+    },
+    "diagnostics": {
+      "targetRoomId": "room_4",
+      "attempted": 56,
+      "considered": 56,
+      "searchLimited": false,
+      "rejected": {
+        "SVG_UNLABELLED_SPACE:[{\"component\":3,\"area\":5.056307980945007}]": 2,
+        "SVG_UNLABELLED_SPACE:[{\"component\":3,\"area\":1.9477375043298053}]": 4,
+        "BEDROOM_OUTER_BOUNDARY_CHANGED_OUTSIDE_PARTITION_JOINT": 6,
+        "BEDROOM_RECTANGLE_HAS_EXTRA_BRANCH": 2,
+        "SVG_UNLABELLED_SPACE:[{\"component\":3,\"area\":2.9599281152771697}]": 2,
+        "SVG_UNLABELLED_SPACE:[{\"component\":3,\"area\":1.9477375043298053},{\"component\":4,\"area\":0.23617297060251852}]": 2,
+        "SVG_UNLABELLED_SPACE:[{\"component\":3,\"area\":3.499627626463503}]": 2,
+        "SVG_UNLABELLED_SPACE:[{\"component\":3,\"area\":3.49745024812359}]": 6,
+        "SVG_UNLABELLED_SPACE:[{\"component\":3,\"area\":2.9573152612692746}]": 6,
+        "BEDROOM_DOOR_APPROACH_BLOCKED": 2,
+        "EDIT_SEGMENT_MUST_BE_ORTHOGONAL_AND_NONZERO": 8,
+        "SVG_UNLABELLED_SPACE:[{\"component\":3,\"area\":1.9477375043298053},{\"component\":4,\"area\":0.23399559226260594}]": 8,
+        "SVG_UNLABELLED_SPACE:[{\"component\":3,\"area\":4.532721069474028}]": 2,
+        "SVG_UNLABELLED_SPACE:[{\"component\":3,\"area\":3.49745024812359},{\"component\":4,\"area\":0.38742818594844614}]": 2,
+        "SVG_UNLABELLED_SPACE:[{\"component\":3,\"area\":2.9573152612692746},{\"component\":4,\"area\":0.25155977753790076}]": 2
+      },
+      "noSolutionReason": "BEDROOM_NO_FEASIBLE_PARTITION",
+      "policy": {
+        "minAreaM2": 6,
+        "minClearWidthM": 2,
+        "minRemainingAreaM2": 7,
+        "minPassageWidthM": 0.9,
+        "doorWidthM": 0.8,
+        "wallThicknessM": 0.12,
+        "areaBasis": "parsed-room-centreline-polygon",
+        "scope": "concept-layout-not-construction-compliance"
+      }
+    }
+  }
+}

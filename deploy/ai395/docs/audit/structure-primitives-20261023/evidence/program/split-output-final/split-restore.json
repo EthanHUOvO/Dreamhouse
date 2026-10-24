@@ -1,0 +1,249 @@
+{
+  "kind": "programmatic-no-ai-inference",
+  "plans": [
+    {
+      "key": "one-option-01",
+      "status": "ORIGINAL_LOAD_AND_RESTORE_PASS",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "key": "one-option-02",
+      "status": "ORIGINAL_LOAD_AND_RESTORE_PASS",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 5,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 5,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "key": "one-option-07",
+      "status": "ORIGINAL_LOAD_AND_RESTORE_PASS",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 4,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 4,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "key": "two-option-01",
+      "status": "ORIGINAL_LOAD_AND_RESTORE_PASS",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "key": "two-option-02",
+      "status": "ORIGINAL_LOAD_AND_RESTORE_PASS",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "key": "two-option-07",
+      "status": "ORIGINAL_LOAD_AND_RESTORE_PASS",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "key": "three-option-01",
+      "status": "ORIGINAL_LOAD_AND_RESTORE_PASS",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 8,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 8,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "key": "three-option-03",
+      "status": "ORIGINAL_LOAD_AND_RESTORE_PASS",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 8,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 8,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "key": "three-option-07",
+      "status": "ORIGINAL_LOAD_AND_RESTORE_PASS",
+      "originalLoadAndRestore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 10,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 10,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    }
+  ],
+  "negative": [],
+  "synthetic": [
+    {
+      "test": "concave-halfplane-exact-area",
+      "status": "PASS"
+    },
+    {
+      "test": "direction-upper",
+      "status": "PASS",
+      "candidates": 8
+    },
+    {
+      "test": "direction-lower",
+      "status": "PASS",
+      "candidates": 8
+    },
+    {
+      "test": "direction-left",
+      "status": "PASS",
+      "candidates": 8
+    },
+    {
+      "test": "direction-right",
+      "status": "PASS",
+      "candidates": 8
+    }
+  ],
+  "failures": []
+}

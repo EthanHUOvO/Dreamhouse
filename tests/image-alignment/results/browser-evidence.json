@@ -1,0 +1,91 @@
+{
+  "kind": "browser-display-no-model-inference",
+  "wide": {
+    "divider": "50%",
+    "frame": {
+      "height": 560,
+      "width": 1194.5521240234375,
+      "x": 35.05729293823242,
+      "y": 197.83334350585935
+    },
+    "images": [
+      {
+        "height": 560,
+        "naturalHeight": 192,
+        "naturalWidth": 384,
+        "objectFit": "fill",
+        "width": 1194.5521240234375
+      },
+      {
+        "height": 560,
+        "naturalHeight": 691,
+        "naturalWidth": 1474,
+        "objectFit": "fill",
+        "width": 1194.5521240234375
+      }
+    ]
+  },
+  "portrait": {
+    "frame": {
+      "height": 640,
+      "width": 360,
+      "x": 84,
+      "y": 197.83334350585935
+    },
+    "images": [
+      {
+        "height": 640,
+        "naturalHeight": 384,
+        "naturalWidth": 192,
+        "objectFit": "fill",
+        "width": 360
+      },
+      {
+        "height": 640,
+        "naturalHeight": 1600,
+        "naturalWidth": 900,
+        "objectFit": "fill",
+        "width": 360
+      }
+    ]
+  },
+  "zoom": {
+    "divider": "25%",
+    "frame": {
+      "height": 800,
+      "width": 450,
+      "x": 39,
+      "y": 117.83333587646484
+    },
+    "images": [
+      {
+        "height": 800,
+        "width": 450
+      },
+      {
+        "height": 800,
+        "width": 450
+      }
+    ]
+  },
+  "quarterSlider": "left: 25%;",
+  "actualManualCapture": {
+    "height": 1080,
+    "width": 1920
+  },
+  "actualCanvas": [
+    {
+      "cameraPose": "{\"position\":[1.7057665441176473,1.65,2.83958],\"rotation\":[0,0,0],\"target\":[1.7057665441176473,1.65,1.8395800000000002],\"fov\":72}",
+      "clientHeight": 720,
+      "clientWidth": 1280,
+      "height": 1080,
+      "rect": {
+        "height": 720,
+        "width": 1280,
+        "x": 0,
+        "y": 0
+      },
+      "width": 1920
+    }
+  ]
+}

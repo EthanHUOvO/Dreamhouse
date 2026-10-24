@@ -1,0 +1,70 @@
+TAP version 13
+# Subtest: V1 and V2 with identical input hashes/prompts remain different model sources
+ok 1 - V1 and V2 with identical input hashes/prompts remain different model sources
+  ---
+  duration_ms: 0.660065
+  type: 'test'
+  ...
+# Subtest: a real SSE parser cannot commit a delayed V1 completion after switching to V2
+ok 2 - a real SSE parser cannot commit a delayed V1 completion after switching to V2
+  ---
+  duration_ms: 14.846247
+  type: 'test'
+  ...
+# Subtest: draft/version changes also invalidate pending image/blob/render/BOM jobs
+ok 3 - draft/version changes also invalidate pending image/blob/render/BOM jobs
+  ---
+  duration_ms: 0.171926
+  type: 'test'
+  ...
+# Subtest: preview/fallback/error states cannot enable STEP4 even with loaded/viewer flags
+ok 4 - preview/fallback/error states cannot enable STEP4 even with loaded/viewer flags
+  ---
+  duration_ms: 0.077848
+  type: 'test'
+  ...
+# Subtest: same-source confirmation/reload preserves a saved manual partition exactly
+ok 5 - same-source confirmation/reload preserves a saved manual partition exactly
+  ---
+  duration_ms: 86.313783
+  type: 'test'
+  ...
+# Subtest: reload rejects V2 with a V1 model and rejects scene/session binding conflicts
+ok 6 - reload rejects V2 with a V1 model and rejects scene/session binding conflicts
+  ---
+  duration_ms: 8.492617
+  type: 'test'
+  ...
+# Subtest: reload refuses interrupted, fallback, undefined-phase and changed-draft snapshots
+ok 7 - reload refuses interrupted, fallback, undefined-phase and changed-draft snapshots
+  ---
+  duration_ms: 8.694552
+  type: 'test'
+  ...
+# Subtest: repeated blob aliases retain canonical V1 identity and cannot authorize V2
+ok 8 - repeated blob aliases retain canonical V1 identity and cannot authorize V2
+  ---
+  duration_ms: 32.954704
+  type: 'test'
+  ...
+# Subtest: legacy committed source aliases migrate only when their exact image matches
+ok 9 - legacy committed source aliases migrate only when their exact image matches
+  ---
+  duration_ms: 18.898639
+  type: 'test'
+  ...
+# Subtest: a source-less legacy Blueprint cannot manufacture completion for a new version
+ok 10 - a source-less legacy Blueprint cannot manufacture completion for a new version
+  ---
+  duration_ms: 11.086096
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 908.054774

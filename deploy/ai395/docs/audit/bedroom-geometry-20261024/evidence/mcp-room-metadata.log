@@ -1,0 +1,3 @@
+PASS schema-stripped
+PASS forged-client-label
+PROGRAMMATIC_MCP_SCHEMA_REGRESSION_NO_AI

@@ -1,0 +1,4 @@
+FROM ideal-home-local:mcp-corners-20261023
+COPY v2/step3-3d/svg-geometry.ts /app/lib/ai/svg-geometry.ts
+COPY v2/step3-3d/blueprint.ts /app/lib/floorplans/blueprint.ts
+COPY v2/step3-3d/session-store.ts /app/services/pascal-mcp/session-store.ts

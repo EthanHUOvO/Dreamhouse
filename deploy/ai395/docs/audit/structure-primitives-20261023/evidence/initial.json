@@ -1,0 +1,5 @@
+{
+  "root": "/srv/ideal-home/rocm-migration",
+  "head": "3bcb8aac96a4900af75052f4c2c878882e1ed3c2",
+  "status": " M Dockerfile.web.rocm\n M compose.migration.yaml\n"
+}

@@ -1,0 +1,2 @@
+FROM ideal-home-local:web-textv43-20261022
+COPY v2/step3-3d/blueprint.ts /app/lib/floorplans/blueprint.ts

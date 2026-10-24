@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-100 -100 6830 8578" width="6830" height="8578">
+<rect x="-100" y="-100" width="6830" height="8578" fill="white"/>
+<rect x="0.0" y="0" width="200" height="8378" fill="#9a9a9a"/>
+
+<rect x="6430.0" y="100" width="200" height="6882" fill="#9a9a9a"/>
+<rect x="100" y="0.0" width="1967" height="200" fill="#9a9a9a"/>
+<rect x="3181" y="0.0" width="3449" height="200" fill="#9a9a9a"/>
+<rect x="100" y="8178.0" width="656" height="200" fill="#9a9a9a"/>
+<rect x="2624" y="8178.0" width="757" height="200" fill="#9a9a9a"/>
+<rect x="1867.0" y="100" width="200" height="1260" fill="#9a9a9a"/>
+<rect x="100" y="2110.0" width="1967" height="200" fill="#9a9a9a"/>
+<rect x="1867.0" y="900" width="530" height="200" fill="#9a9a9a"/>
+<rect x="3181.0" y="100" width="200" height="2673" fill="#9a9a9a"/>
+<rect x="3181.0" y="3523" width="200" height="2278" fill="#9a9a9a"/>
+<rect x="3181.0" y="6551" width="200" height="1727" fill="#9a9a9a"/>
+<rect x="3281" y="3773.0" width="1832" height="200" fill="#9a9a9a"/>
+<rect x="4913.0" y="3873" width="200" height="3109" fill="#9a9a9a"/>
+<rect x="3281" y="6882.0" width="478" height="200" fill="#9a9a9a"/>
+<rect x="4535" y="6882.0" width="851" height="200" fill="#9a9a9a"/>
+<rect x="6156" y="6882.0" width="474" height="200" fill="#9a9a9a"/>
+<rect x="100" y="6882.0" width="1239" height="200" fill="#9a9a9a"/>
+<rect x="2794" y="6882.0" width="487" height="200" fill="#9a9a9a"/>
+
+<rect x="756" y="8238" width="1868" height="80" fill="white" stroke="#e8862a" stroke-width="10"/>
+<line x1="756" y1="8278" x2="2624" y2="8278" stroke="#e8862a" stroke-width="4"/>
+
+<rect x="3759" y="6942" width="776" height="80" fill="white" stroke="#e8862a" stroke-width="10"/>
+<line x1="3759" y1="6982" x2="4535" y2="6982" stroke="#e8862a" stroke-width="4"/>
+
+<rect x="5386" y="6942" width="770" height="80" fill="white" stroke="#e8862a" stroke-width="10"/>
+<line x1="5386" y1="6982" x2="6156" y2="6982" stroke="#e8862a" stroke-width="4"/>
+
+<line x1="1339" y1="6962" x2="2794" y2="6962" stroke="#d64545" stroke-width="10"/>
+<line x1="1339" y1="7002" x2="2794" y2="7002" stroke="#d64545" stroke-width="10"/>
+<line x1="5113" y1="3853" x2="6430" y2="3853" stroke="#d64545" stroke-width="10"/>
+<line x1="5113" y1="3893" x2="6430" y2="3893" stroke="#d64545" stroke-width="10"/>
+<path d="M 3180,1000 L 3180,1770 A 750,750 0 0 1 2400,1000 Z" fill="none" stroke="#2e9e4f" stroke-width="3"/>
+<path d="M 1967,2110 L 1217,2110 A 750,750 0 0 1 1967,1360 Z" fill="none" stroke="#2e9e4f" stroke-width="3"/>
+<path d="M 3281,3523 L 4031,3523 A 750,750 0 0 0 3281,2773 Z" fill="none" stroke="#2e9e4f" stroke-width="3"/>
+<path d="M 3281,6551 L 4031,6551 A 750,750 0 0 0 3281,5801 Z" fill="none" stroke="#2e9e4f" stroke-width="3"/>
+<text x="1034" y="1200" font-size="110" text-anchor="middle" fill="#444" font-family="sans-serif">卫生间</text>
+<text x="1034" y="1350" font-size="100" text-anchor="middle" fill="#666" font-family="sans-serif">3.58㎡</text>
+<text x="4900" y="2000" font-size="110" text-anchor="middle" fill="#444" font-family="sans-serif">主卧</text>
+<text x="4900" y="2150" font-size="100" text-anchor="middle" fill="#666" font-family="sans-serif">11.65㎡</text>
+<text x="1700" y="4500" font-size="110" text-anchor="middle" fill="#444" font-family="sans-serif">客厅</text>
+<text x="1700" y="4650" font-size="100" text-anchor="middle" fill="#666" font-family="sans-serif">15.84㎡</text>
+<text x="4100" y="5500" font-size="110" text-anchor="middle" fill="#444" font-family="sans-serif">厨房</text>
+<text x="4100" y="5650" font-size="100" text-anchor="middle" fill="#666" font-family="sans-serif">4.72㎡</text>
+<text x="5770" y="5500" font-size="110" text-anchor="middle" fill="#444" font-family="sans-serif">阳台</text>
+<text x="5770" y="5650" font-size="100" text-anchor="middle" fill="#666" font-family="sans-serif">4.21㎡</text>
+<text x="1700" y="7700" font-size="110" text-anchor="middle" fill="#444" font-family="sans-serif">阳台</text>
+<text x="1700" y="7850" font-size="100" text-anchor="middle" fill="#666" font-family="sans-serif">3.7㎡</text>
+</svg>

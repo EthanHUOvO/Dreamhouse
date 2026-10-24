@@ -1,0 +1,149 @@
+{
+  "kind": "final-targeted-programmatic-regressions-no-AI",
+  "image": "sha256:90f75275e2ffc86d2076deed11768934ebfdf63b86f623a6649cb517e28830c1",
+  "realAiValidationImage": "sha256:a432965c6c1de03827f9fc8e3b43f8ca957f0cb136ef1cf70c7ac8831a3f5b16",
+  "inputSha256": {
+    "TouchCustomerPortal.tsx": "cd7b3a259cedb5bd623618a04e8efece233d689fb7633136e0f21c8aefc106dc",
+    "tests/bedroom-edit/source-furniture.ts": "d7e3a6343dfb3cc455d5cc3e4dbbfa190b3c554a2c8f19f513a6172c51918ad9",
+    "tests/bedroom-edit/portal-transaction.ts": "7d5e62bcb0872c81aef3a57cceb7e4d3c48ee6d41bd1f13168f260eeec63884e",
+    "tests/bedroom-edit/assertions.ts": "09b53f3e7de3ac49e289ed4878bd1a4a497ccb7e93d14ae7574c56b3a38cea5a",
+    "tests/edit-persistence/portal-handlers.ts": "c2c7c9256f576f076ca0984880a5611e4f2e437781a7560fc7b1e0f818428ed1",
+    "app-src/components/shared/PascalViewer.tsx": "f539ff2dd9ffe5af8c940854595e21f96d367d42d161580a8257a9969b968f88",
+    "public/preset/svg-v2/one/option-01.svg": "2f8c78f25af209858e3d39aa3fc48ac8069f70e871583dd7cd97805849a2aaac"
+  },
+  "network": "none",
+  "results": [
+    {
+      "name": "source-furniture",
+      "exitCode": 0,
+      "status": "PASS",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "none",
+        "-v",
+        "/tmp/bedroom-final-regression-20261023/workspace:/workspace:ro",
+        "-v",
+        "/tmp/bedroom-final-regression-20261023/evidence:/evidence",
+        "-w",
+        "/app",
+        "-e",
+        "NODE_PATH=/app/node_modules",
+        "-e",
+        "PASCAL_SCENE_DIR=/tmp/final-regression-scenes",
+        "sha256:90f75275e2ffc86d2076deed11768934ebfdf63b86f623a6649cb517e28830c1",
+        "node",
+        "--import",
+        "tsx",
+        "/workspace/tests/bedroom-edit/source-furniture.ts"
+      ]
+    },
+    {
+      "name": "portal-transaction",
+      "exitCode": 0,
+      "status": "PASS",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "none",
+        "-v",
+        "/tmp/bedroom-final-regression-20261023/workspace:/workspace:ro",
+        "-v",
+        "/tmp/bedroom-final-regression-20261023/evidence:/evidence",
+        "-w",
+        "/app",
+        "-e",
+        "NODE_PATH=/app/node_modules",
+        "-e",
+        "PASCAL_SCENE_DIR=/tmp/final-regression-scenes",
+        "sha256:90f75275e2ffc86d2076deed11768934ebfdf63b86f623a6649cb517e28830c1",
+        "node",
+        "--import",
+        "tsx",
+        "/workspace/tests/bedroom-edit/portal-transaction.ts"
+      ]
+    },
+    {
+      "name": "edit-persistence-handlers",
+      "exitCode": 0,
+      "status": "PASS",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "none",
+        "-v",
+        "/tmp/bedroom-final-regression-20261023/workspace:/workspace:ro",
+        "-v",
+        "/tmp/bedroom-final-regression-20261023/evidence:/evidence",
+        "-w",
+        "/app",
+        "-e",
+        "NODE_PATH=/app/node_modules",
+        "-e",
+        "PASCAL_SCENE_DIR=/tmp/final-regression-scenes",
+        "sha256:90f75275e2ffc86d2076deed11768934ebfdf63b86f623a6649cb517e28830c1",
+        "node",
+        "--import",
+        "tsx",
+        "/workspace/tests/edit-persistence/portal-handlers.ts"
+      ]
+    }
+  ],
+  "moduleComparison": [
+    {
+      "path": "/app/lib/ai/floorplan-edit-intent.ts",
+      "realAiImageSha256": "62345b63f5bbbd4c9723c46522bf7c963cec82db7d68aa8c170db97d920916f8",
+      "finalImageSha256": "62345b63f5bbbd4c9723c46522bf7c963cec82db7d68aa8c170db97d920916f8",
+      "status": "IDENTICAL"
+    },
+    {
+      "path": "/app/app/api/ai/svg-edit/route.ts",
+      "realAiImageSha256": "8f22055d4a64fddf2fb8444bad29cc8ca2b32738fdcbb6365e4bb62cd58de19a",
+      "finalImageSha256": "8f22055d4a64fddf2fb8444bad29cc8ca2b32738fdcbb6365e4bb62cd58de19a",
+      "status": "IDENTICAL"
+    },
+    {
+      "path": "/app/lib/ai/bedroom-edit-geometry.ts",
+      "realAiImageSha256": "3f730812d9682797eebe9dc6f9ab29b34a3aededf3cb1274acf7946b9e011b00",
+      "finalImageSha256": "3f730812d9682797eebe9dc6f9ab29b34a3aededf3cb1274acf7946b9e011b00",
+      "status": "IDENTICAL"
+    },
+    {
+      "path": "/app/lib/ai/svg-edit-geometry.ts",
+      "realAiImageSha256": "f5a4364535a6efbf3ca3e5e9cde2a2978573814472ec1a67773f0010989801fa",
+      "finalImageSha256": "f5a4364535a6efbf3ca3e5e9cde2a2978573814472ec1a67773f0010989801fa",
+      "status": "IDENTICAL"
+    },
+    {
+      "path": "/app/lib/ai/svg-geometry.ts",
+      "realAiImageSha256": "6fab76e2687a3d3af1bf34adf1b9ecf7ae0d117b9040d5921b8a159d85ada96f",
+      "finalImageSha256": "6fab76e2687a3d3af1bf34adf1b9ecf7ae0d117b9040d5921b8a159d85ada96f",
+      "status": "IDENTICAL"
+    },
+    {
+      "path": "/app/lib/ai/bedroom-scene-validation.ts",
+      "realAiImageSha256": "cfa2e93309efc7ce9f9c204a80c63dc68dd88752875fc4e9976e1683908657ec",
+      "finalImageSha256": "cfa2e93309efc7ce9f9c204a80c63dc68dd88752875fc4e9976e1683908657ec",
+      "status": "IDENTICAL"
+    },
+    {
+      "path": "/app/lib/ai/bedroom-source-furniture.ts",
+      "realAiImageSha256": null,
+      "finalImageSha256": "bdd4d7d0ba9c04c11af2a28da2185eecaa96c05074854b5ea95c160f3e7420c6",
+      "status": "ADDED"
+    },
+    {
+      "path": "/app/components/customer/TouchCustomerPortal.tsx",
+      "realAiImageSha256": "d700ccf78000ee5d39c2f303ff9b73a3e9c77bfca1fdf656e2461049d86c2eb2",
+      "finalImageSha256": "cd7b3a259cedb5bd623618a04e8efece233d689fb7633136e0f21c8aefc106dc",
+      "status": "CHANGED"
+    }
+  ],
+  "productionPortalMatchesReviewedSource": true
+}

@@ -1,0 +1,59 @@
+{
+  "kind": "actual-handlers-controlled-storage-and-state-no-AI",
+  "image": "sha256:ede130e80c653e394f801c02d46bb2acae9940e22673516f9147336cc4949dee",
+  "inputSha256": {
+    "TouchCustomerPortal.tsx": "a7eaf23e0b229c34693a86f6603549caeed88904cf1d401e85b22ea3c750b1d0",
+    "tests/bedroom-edit/portal-transaction.ts": "7d5e62bcb0872c81aef3a57cceb7e4d3c48ee6d41bd1f13168f260eeec63884e",
+    "tests/edit-persistence/portal-handlers.ts": "c2c7c9256f576f076ca0984880a5611e4f2e437781a7560fc7b1e0f818428ed1",
+    "app-src/components/shared/PascalViewer.tsx": "f539ff2dd9ffe5af8c940854595e21f96d367d42d161580a8257a9969b968f88"
+  },
+  "network": "none",
+  "results": [
+    {
+      "name": "portal-transaction",
+      "exitCode": 0,
+      "status": "PASS",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "none",
+        "-v",
+        "/tmp/bedroom-snapshot-save-20261023/workspace:/workspace:ro",
+        "-w",
+        "/app",
+        "-e",
+        "NODE_PATH=/app/node_modules",
+        "sha256:ede130e80c653e394f801c02d46bb2acae9940e22673516f9147336cc4949dee",
+        "node",
+        "--import",
+        "tsx",
+        "/workspace/tests/bedroom-edit/portal-transaction.ts"
+      ]
+    },
+    {
+      "name": "edit-persistence-handlers",
+      "exitCode": 0,
+      "status": "PASS",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "none",
+        "-v",
+        "/tmp/bedroom-snapshot-save-20261023/workspace:/workspace:ro",
+        "-w",
+        "/app",
+        "-e",
+        "NODE_PATH=/app/node_modules",
+        "sha256:ede130e80c653e394f801c02d46bb2acae9940e22673516f9147336cc4949dee",
+        "node",
+        "--import",
+        "tsx",
+        "/workspace/tests/edit-persistence/portal-handlers.ts"
+      ]
+    }
+  ]
+}

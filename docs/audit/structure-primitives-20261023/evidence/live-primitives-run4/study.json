@@ -1,0 +1,374 @@
+{
+  "key": "study",
+  "instruction": "在客餐厅上侧新增一个独立书房，保留入户通道、厨房、卫生间及其余房间的位置。",
+  "httpStatus": 200,
+  "elapsedMs": 6449,
+  "actualInference": true,
+  "responseHasSvg": true,
+  "intent": {
+    "action": "structure_plan",
+    "status": "execute",
+    "operations": [
+      {
+        "id": "op1",
+        "type": "split_room",
+        "targetRoomId": "room_3",
+        "direction": "upper",
+        "newRoomName": "书房",
+        "newRoomSemantic": "study",
+        "minAreaM2": null,
+        "entryFromRoomId": "room_3"
+      }
+    ],
+    "explicitProtectedRoomIds": [
+      "room_1",
+      "room_4"
+    ],
+    "preserveEntrance": true,
+    "preserveOtherRooms": true,
+    "unhandledRequirements": [],
+    "summary": "在客餐厅上侧新增一个独立书房，保留入户通道、厨房、卫生间及其余房间的位置。",
+    "message": "",
+    "protectedRoomIds": [
+      "room_1",
+      "room_2",
+      "room_4",
+      "room_5",
+      "room_6"
+    ]
+  },
+  "selection": {
+    "candidateId": "split-tph47z-19rxvel",
+    "unmetRequirements": [],
+    "reason": "候选满足当前步骤要求：在room_3（客餐厅）上侧新增独立书房，方向为upper；保留入户通道、厨房、卫生间及其余房间位置不变。新书房面积4.20m²，剩余区域13.16m²，门宽0.8m，入口净距0.9m，最小净宽1.8m，结构合理。未验证的采光/通风/承重/施工合规属notes提示，非用户明确要求，不构成本步拒绝理由。"
+  },
+  "candidate": {
+    "id": "split-tph47z-19rxvel",
+    "type": "split_room",
+    "targetRoomId": "room_3",
+    "newRoomId": "room_split_16dl5vl",
+    "direction": "upper",
+    "newRoomName": "书房",
+    "newRoomSemantic": "study",
+    "newAreaM2": 4.202776,
+    "remainingAreaM2": 13.15535,
+    "minClearWidthM": 1.8,
+    "doorWidthM": 0.8,
+    "entranceClearanceM": 0.9,
+    "notes": [
+      "家具不随自然语言结构操作移动；实际家具碰撞须在三维提交前检查。",
+      "采光、通风、承重及施工合规未验证；面积按解析房间中心线多边形计算。"
+    ]
+  },
+  "candidateCount": 6,
+  "validation": {
+    "valid": true,
+    "unit": "meter",
+    "targetRoomId": "room_3",
+    "newRoomId": "room_split_16dl5vl",
+    "newDoorId": "door_split_16dl5vl",
+    "checks": [
+      "exact-concave-partition",
+      "area-conservation",
+      "protected-room-polygons",
+      "original-openings",
+      "entrance-circulation",
+      "existing-wall-and-door-tools",
+      "blueprint",
+      "visible-svg-roundtrip"
+    ],
+    "newDoorCreatedApproach": [
+      2.5200367647058823,
+      3.982227
+    ],
+    "newDoorRetainedApproach": [
+      3.7200367647058825,
+      3.982227
+    ],
+    "originalEntryApproaches": [
+      [
+        3.9686930147058828,
+        2.7342525
+      ],
+      [
+        3.791525735294118,
+        2.9244587500000003
+      ],
+      [
+        3.8544227941176477,
+        4.297951250000001
+      ],
+      [
+        3.871566176470589,
+        7.4230325
+      ]
+    ],
+    "passageWidthM": 0.9,
+    "doorSpanM": 2.1889459999999996,
+    "policy": {
+      "minAreaM2": 4,
+      "minClearWidthM": 1.8,
+      "minRemainingAreaM2": 7
+    },
+    "warnings": [
+      "家具不随自然语言结构操作移动；实际家具碰撞须在三维提交前检查。",
+      "采光、通风、承重及施工合规未验证；面积按解析房间中心线多边形计算。"
+    ],
+    "transaction": "all-operations-validated",
+    "affectedRoomIds": [
+      "room_3"
+    ],
+    "newRoomIds": [
+      "room_split_16dl5vl"
+    ],
+    "removedRoomIds": [],
+    "roomIdMap": {
+      "room_1": "room_1",
+      "room_2": "room_2",
+      "room_3": "room_3",
+      "room_4": "room_4",
+      "room_5": "room_5",
+      "room_6": "room_6"
+    },
+    "openingChanges": [
+      {
+        "operationId": "op1",
+        "removedOpeningIds": [],
+        "movedOpeningIds": []
+      }
+    ],
+    "operations": [
+      {
+        "operation": {
+          "id": "op1",
+          "type": "split_room",
+          "targetRoomId": "room_3",
+          "direction": "upper",
+          "newRoomName": "书房",
+          "newRoomSemantic": "study",
+          "minAreaM2": null,
+          "entryFromRoomId": "room_3"
+        },
+        "candidate": {
+          "id": "split-tph47z-19rxvel",
+          "type": "split_room",
+          "targetRoomId": "room_3",
+          "newRoomId": "room_split_16dl5vl",
+          "direction": "upper",
+          "newAreaM2": 4.202776,
+          "remainingAreaM2": 13.15535,
+          "minClearWidthM": 1.8,
+          "entranceClearanceM": 0.9,
+          "doorWidthM": 0.8,
+          "notes": [
+            "家具不随自然语言结构操作移动；实际家具碰撞须在三维提交前检查。",
+            "采光、通风、承重及施工合规未验证；面积按解析房间中心线多边形计算。"
+          ]
+        },
+        "candidateCount": 6,
+        "selection": {
+          "candidateId": "split-tph47z-19rxvel",
+          "unmetRequirements": [],
+          "reason": "候选满足当前步骤要求：在room_3（客餐厅）上侧新增独立书房，方向为upper；保留入户通道、厨房、卫生间及其余房间位置不变。新书房面积4.20m²，剩余区域13.16m²，门宽0.8m，入口净距0.9m，最小净宽1.8m，结构合理。未验证的采光/通风/承重/施工合规属notes提示，非用户明确要求，不构成本步拒绝理由。"
+        },
+        "validation": {
+          "valid": true,
+          "unit": "meter",
+          "targetRoomId": "room_3",
+          "newRoomId": "room_split_16dl5vl",
+          "newDoorId": "door_split_16dl5vl",
+          "checks": [
+            "exact-concave-partition",
+            "area-conservation",
+            "protected-room-polygons",
+            "original-openings",
+            "entrance-circulation",
+            "existing-wall-and-door-tools",
+            "blueprint",
+            "visible-svg-roundtrip"
+          ],
+          "newDoorCreatedApproach": [
+            2.5200367647058823,
+            3.982227
+          ],
+          "newDoorRetainedApproach": [
+            3.7200367647058825,
+            3.982227
+          ],
+          "originalEntryApproaches": [
+            [
+              3.9686930147058828,
+              2.7342525
+            ],
+            [
+              3.791525735294118,
+              2.9244587500000003
+            ],
+            [
+              3.8544227941176477,
+              4.297951250000001
+            ],
+            [
+              3.871566176470589,
+              7.4230325
+            ]
+          ],
+          "passageWidthM": 0.9,
+          "doorSpanM": 2.1889459999999996,
+          "policy": {
+            "minAreaM2": 4,
+            "minClearWidthM": 1.8,
+            "minRemainingAreaM2": 7
+          },
+          "warnings": [
+            "家具不随自然语言结构操作移动；实际家具碰撞须在三维提交前检查。",
+            "采光、通风、承重及施工合规未验证；面积按解析房间中心线多边形计算。"
+          ]
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "stage": "svg-edit",
+    "method": "natural-language-geometry/v2",
+    "actualInference": true,
+    "model": "Ours",
+    "inference": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "responseId": "chatcmpl-ypl17l6adn2drsrunjdd",
+        "usage": {
+          "prompt_tokens": 3305,
+          "completion_tokens": 127,
+          "total_tokens": 3432,
+          "prompt_tokens_details": {
+            "cached_tokens": 3298
+          },
+          "cached_tokens": 3298,
+          "prompt_tokens_per_second": 179.1120316332318,
+          "completion_tokens_per_second": 77.1486566980988,
+          "draft_tokens": 80,
+          "draft_tokens_accepted": 61,
+          "gufo": {
+            "cache_hit": true,
+            "cache_restore_bytes": 180700544,
+            "cache_snapshot_bytes": 0,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 7.467164,
+            "cache_snapshot_ms": 0,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 7,
+            "prefill_chunks": 1,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 7,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 9.987444,
+            "prefill_ms": 39.081685,
+            "decode_ms": 1646.1725379999998,
+            "ttft_ms": 49.175815,
+            "mean_inter_token_ms": 12.942568484126994,
+            "max_inter_token_ms": 47.832303,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 1713
+      },
+      {
+        "stage": "floorplan-candidate-selection-op1",
+        "model": "Ours",
+        "responseId": "chatcmpl-nci7w6e4m6nm8l5jmlxc",
+        "usage": {
+          "prompt_tokens": 1746,
+          "completion_tokens": 144,
+          "total_tokens": 1890,
+          "prompt_tokens_details": {
+            "cached_tokens": 1739
+          },
+          "cached_tokens": 1739,
+          "prompt_tokens_per_second": 190.6867501584062,
+          "completion_tokens_per_second": 54.920220037480206,
+          "draft_tokens": 29,
+          "draft_tokens_accepted": 14,
+          "gufo": {
+            "cache_hit": true,
+            "cache_restore_bytes": 126915044,
+            "cache_snapshot_bytes": 0,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 14.498623,
+            "cache_snapshot_ms": 0,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 7,
+            "prefill_chunks": 1,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 7,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 15.862044,
+            "prefill_ms": 36.70942,
+            "decode_ms": 2621.9851249999992,
+            "ttft_ms": 52.68413,
+            "mean_inter_token_ms": 18.13777380419581,
+            "max_inter_token_ms": 72.143375,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 2682
+      }
+    ],
+    "structuralTruth": "validated-svg-geometry",
+    "selectedCandidateId": "split-tph47z-19rxvel",
+    "operationCount": 1
+  },
+  "pngStatus": 200,
+  "png": {
+    "width": 1024,
+    "height": 1263,
+    "bytes": 56557
+  },
+  "mcp": {
+    "httpStatus": 200,
+    "elapsedMs": 301,
+    "sourceImageHash": "f5bcee126e9da11fa3d4c2d4d5e11c314b0cda6f1a21298b6d17ec70abf1474e",
+    "sessionId": "primitives-live-study-1792765456666073375",
+    "tools": [
+      "begin_floorplan_scene",
+      "set_floor_structure",
+      "set_openings",
+      "populate_basic_furniture",
+      "validate_scene",
+      "commit_scene"
+    ],
+    "complete": true,
+    "validation": {
+      "valid": true,
+      "issues": [],
+      "warnings": []
+    },
+    "error": [],
+    "sceneMetrics": {
+      "wall": 23,
+      "door": 7,
+      "window": 3,
+      "zone": 7,
+      "item": 5
+    }
+  }
+}

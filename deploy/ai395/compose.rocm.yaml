@@ -1,0 +1,69 @@
+services:
+  web:
+    build:
+      dockerfile: /srv/ideal-home/rocm-image/Dockerfile.web.offline
+      network: host
+      args:
+        HTTP_PROXY: http://127.0.0.1:17897
+        HTTPS_PROXY: http://127.0.0.1:17897
+    environment:
+      QWEN_FLOORPLAN_MAX_DIMENSION: "512"
+      QWEN_INTERIOR_MAX_DIMENSION: "512"
+      ROCR_VISIBLE_DEVICES: "0"
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    group_add:
+      - "992"
+
+  qwen-text:
+    image: ideal-home-llama-rocm:7.2.1
+    build:
+      context: /srv/ideal-home/rocm-image
+      dockerfile: Dockerfile.llama
+      network: host
+      args:
+        HTTP_PROXY: http://127.0.0.1:17897
+        HTTPS_PROXY: http://127.0.0.1:17897
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    group_add:
+      - "992"
+    environment:
+      GGML_HIP_VISIBLE_DEVICES: "0"
+      LD_LIBRARY_PATH: /opt/llama/lib:/opt/rocm/lib
+      GGML_VK_VISIBLE_DEVICES: null
+      HIP_VISIBLE_DEVICES: "0"
+
+  qwen-image:
+    image: ideal-home-qwen-image-rocm:7.2.1
+    build:
+      context: /srv/ideal-home/rocm-image
+      dockerfile: Dockerfile
+      network: host
+      args:
+        HTTP_PROXY: http://127.0.0.1:17897
+        HTTPS_PROXY: http://127.0.0.1:17897
+    environment:
+      QWEN_IMAGE_MODEL_PATH: /models/Qwen-Image-2.1
+      QWEN_IMAGE_LORA_PATH: /models/viggle-turbo
+      QWEN_IMAGE_SCHEDULER_PATH: /models/viggle-scheduler
+      QWEN_IMAGE_MAX_DIMENSION: "512"
+      GENERATED_IMAGE_DIR: /data/generated
+      PYTORCH_CUDA_ALLOC_CONF: expandable_segments:True
+      TORCH_ROCM_AOTRITON_ENABLE_EXPERIMENTAL: "1"
+      HF_HUB_OFFLINE: "1"
+      TRANSFORMERS_OFFLINE: "1"
+    volumes:
+      - /srv/ideal-home/models/qwen-image-diffusers:/models:ro
+      - /srv/ideal-home/data/generated:/data/generated
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    group_add:
+      - "992"
+    ipc: host
+    shm_size: 16gb
+    restart: unless-stopped
+

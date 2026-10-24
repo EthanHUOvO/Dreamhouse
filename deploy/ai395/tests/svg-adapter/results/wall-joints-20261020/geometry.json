@@ -1,0 +1,862 @@
+{
+  "kind": "programmatic-no-model-inference",
+  "baselineCommit": "443e38ccb1f1c1d8d37903534044485d4a782e20",
+  "plans": [
+    {
+      "key": "one-01",
+      "status": "PASS",
+      "rooms": 6,
+      "walls": 20,
+      "doors": 6,
+      "windows": 3,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 20,
+      "apertureTerminals": [],
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        }
+      ]
+    },
+    {
+      "key": "one-02",
+      "status": "PASS",
+      "rooms": 5,
+      "walls": 15,
+      "doors": 5,
+      "windows": 2,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 17,
+      "apertureTerminals": [],
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        }
+      ]
+    },
+    {
+      "key": "one-07",
+      "status": "PASS",
+      "rooms": 4,
+      "walls": 19,
+      "doors": 4,
+      "windows": 5,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 20,
+      "apertureTerminals": [],
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-05",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        }
+      ]
+    },
+    {
+      "key": "two-01",
+      "status": "PASS",
+      "rooms": 7,
+      "walls": 24,
+      "doors": 8,
+      "windows": 7,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 22,
+      "apertureTerminals": [],
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-05",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-06",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-01",
+          "beforeBlocked": 19,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-05",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-06",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-07",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        }
+      ]
+    },
+    {
+      "key": "two-02",
+      "status": "PASS",
+      "rooms": 6,
+      "walls": 24,
+      "doors": 6,
+      "windows": 5,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 22,
+      "apertureTerminals": [],
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "beforeBlocked": 19,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-05",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        }
+      ]
+    },
+    {
+      "key": "two-07",
+      "status": "PASS",
+      "rooms": 7,
+      "walls": 16,
+      "doors": 8,
+      "windows": 5,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 20,
+      "apertureTerminals": [],
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-05",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 8.881784197001252e-16
+        }
+      ]
+    },
+    {
+      "key": "three-01",
+      "status": "PASS",
+      "rooms": 8,
+      "walls": 29,
+      "doors": 7,
+      "windows": 11,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 27,
+      "apertureTerminals": [
+        {
+          "wall": "wall_9",
+          "point": [
+            15.379386018237081,
+            1.4787985865724382
+          ],
+          "gapM": 0.11551367781155086
+        },
+        {
+          "wall": "wall_14",
+          "point": [
+            15.31356838905775,
+            10.883957597173145
+          ],
+          "gapM": 0.0496960486322191
+        }
+      ],
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-03",
+          "beforeBlocked": 19,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-05",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-06",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-07",
+          "beforeBlocked": 19,
+          "afterBlocked": 19,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-03",
+          "beforeBlocked": 16,
+          "afterBlocked": 1,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-05",
+          "beforeBlocked": 19,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-06",
+          "beforeBlocked": 18,
+          "afterBlocked": 1,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-07",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-08",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-09",
+          "beforeBlocked": 18,
+          "afterBlocked": 11,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-10",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-11",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        }
+      ]
+    },
+    {
+      "key": "three-03",
+      "status": "PASS",
+      "rooms": 8,
+      "walls": 36,
+      "doors": 8,
+      "windows": 8,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 33,
+      "apertureTerminals": [],
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-05",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-06",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-05",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-06",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-07",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "window_window-08",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        }
+      ]
+    },
+    {
+      "key": "three-07",
+      "status": "PASS",
+      "rooms": 10,
+      "walls": 32,
+      "doors": 10,
+      "windows": 0,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 37,
+      "apertureTerminals": [],
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_hinged-door-05",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 1.7763568394002505e-15
+        },
+        {
+          "id": "door_parallel-opening-03",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-04",
+          "beforeBlocked": 0,
+          "afterBlocked": 0,
+          "movementM": 0
+        },
+        {
+          "id": "door_parallel-opening-main-bath",
+          "beforeBlocked": 16,
+          "afterBlocked": 0,
+          "movementM": 0
+        }
+      ]
+    }
+  ],
+  "savedAiEdits": [
+    {
+      "key": "one-01-partition",
+      "status": "PASS",
+      "rooms": 7,
+      "walls": 23,
+      "doors": 7,
+      "windows": 3,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 24,
+      "apertureTerminals": [],
+      "openings": []
+    },
+    {
+      "key": "two-02-partition",
+      "status": "PASS",
+      "rooms": 7,
+      "walls": 27,
+      "doors": 7,
+      "windows": 5,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 25,
+      "apertureTerminals": [],
+      "openings": []
+    },
+    {
+      "key": "three-03-partition",
+      "status": "PASS",
+      "rooms": 9,
+      "walls": 38,
+      "doors": 9,
+      "windows": 8,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 36,
+      "apertureTerminals": [],
+      "openings": []
+    },
+    {
+      "key": "one-01-sliding",
+      "status": "PASS",
+      "rooms": 6,
+      "walls": 20,
+      "doors": 7,
+      "windows": 3,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 20,
+      "apertureTerminals": [],
+      "openings": []
+    },
+    {
+      "key": "two-01-sliding",
+      "status": "PASS",
+      "rooms": 7,
+      "walls": 24,
+      "doors": 9,
+      "windows": 7,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 22,
+      "apertureTerminals": [],
+      "openings": []
+    },
+    {
+      "key": "three-03-sliding",
+      "status": "PASS",
+      "rooms": 8,
+      "walls": 36,
+      "doors": 9,
+      "windows": 8,
+      "unjoinedStructuralEnds": 0,
+      "nativeJunctions": 33,
+      "apertureTerminals": [],
+      "openings": []
+    }
+  ]
+}

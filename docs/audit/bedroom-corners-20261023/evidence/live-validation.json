@@ -1,0 +1,12 @@
+[
+  {
+    "key": "one-01",
+    "exitCode": 0,
+    "output": "{\n  \"kind\": \"independent-validation-of-live-AI-output\",\n  \"status\": \"PASS\",\n  \"elapsedMs\": 845.1642809999998,\n  \"outputPath\": \"/evidence/live-release/one-01-validation.json\"\n}\n"
+  },
+  {
+    "key": "three-01",
+    "exitCode": 0,
+    "output": "{\n  \"kind\": \"independent-validation-of-live-AI-output\",\n  \"status\": \"PASS\",\n  \"elapsedMs\": 1166.842314,\n  \"outputPath\": \"/evidence/live-release/three-01-validation.json\"\n}\n"
+  }
+]

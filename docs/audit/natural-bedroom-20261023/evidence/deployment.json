@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "webUrl": "http://172.21.16.36:3002/customer",
+  "image": "sha256:90f75275e2ffc86d2076deed11768934ebfdf63b86f623a6649cb517e28830c1",
+  "previousImage": "sha256:4f43dce805550ca8cab788372f5976b06988c3d2c8026c119f42e3d637cd6d90",
+  "httpStatus": 200,
+  "onlyWebRecreated": true,
+  "otherServiceContainersUnchanged": {
+    "ideal-home-rocm-migration-pascal-mcp-1": "8719c1358abe",
+    "ideal-home-rocm-migration-ai-gateway-1": "96237fbdd646",
+    "ideal-home-rocm-migration-qwen-image-1": "f24df5998a62"
+  },
+  "environmentUnchanged": true,
+  "runtimeSourceCommitBase": "f965f3037be544b68c3229ec33154e5c4f95b7c9"
+}

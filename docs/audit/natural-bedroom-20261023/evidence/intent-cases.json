@@ -1,0 +1,1273 @@
+{
+  "kind": "REAL_AI_INFERENCE",
+  "sourceKey": "one-option-01",
+  "sourceSha256": "2f8c78f25af209858e3d39aa3fc48ac8069f70e871583dd7cd97805849a2aaac",
+  "cases": [
+    {
+      "case": "negation",
+      "instruction": "不要在客餐厅上侧新增卧室，请保留原户型。",
+      "expected": "safe_rejection",
+      "httpStatus": 422,
+      "elapsedMs": 2820,
+      "error": "EDIT_NO_CHANGE_REQUESTED",
+      "message": "已理解：不在客餐厅上侧新增卧室，保持原户型不变。",
+      "rolledBack": true,
+      "intent": {
+        "action": "no_change",
+        "targetRoomId": null,
+        "region": "unspecified",
+        "roomCount": 0,
+        "minAreaM2": null,
+        "protectedRoomIds": [
+          "room_1",
+          "room_2",
+          "room_3",
+          "room_4",
+          "room_5",
+          "room_6"
+        ],
+        "preserveEntrance": true,
+        "preserveOtherRooms": true,
+        "entryFromRoomId": null,
+        "unhandledRequirements": [],
+        "summary": "用户明确要求不要在客餐厅上侧新增卧室，要求保留原户型不变。",
+        "message": "已理解：不在客餐厅上侧新增卧室，保持原户型不变。"
+      },
+      "provenance": {
+        "stage": "svg-edit",
+        "method": "natural-language-geometry/v1",
+        "actualInference": true,
+        "model": "Ours",
+        "inference": [
+          {
+            "stage": "floorplan-intent",
+            "model": "Ours",
+            "responseId": "chatcmpl-vg1m4fksuleld969szsg",
+            "usage": {
+              "prompt_tokens": 1585,
+              "completion_tokens": 130,
+              "total_tokens": 1715,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "cached_tokens": 0,
+              "prompt_tokens_per_second": 2856.2612390951417,
+              "completion_tokens_per_second": 70.07795397749075,
+              "draft_tokens": 57,
+              "draft_tokens_accepted": 44,
+              "gufo": {
+                "cache_hit": false,
+                "cache_miss_reason": "prefix_changed",
+                "cache_common_prefix_tokens": 1278,
+                "cache_checkpoint_tokens": 1801,
+                "cache_restore_bytes": 0,
+                "cache_snapshot_bytes": 242954396,
+                "cache_disk_queued_bytes": 0,
+                "cache_shared_bytes": 0,
+                "cache_restore_ms": 0,
+                "cache_snapshot_ms": 341.26242,
+                "cache_disk_enqueue_ms": 0,
+                "cache_disk_hit": false,
+                "cache_shared_prefix_snapshots": 0,
+                "cache_shared_prefix_bytes": 0,
+                "cache_shared_prefix_ms": 0,
+                "prefill_tokens": 1585,
+                "prefill_chunks": 2,
+                "active_decode_prefill_chunks": 0,
+                "max_prefill_chunk_tokens": 1578,
+                "queue_depth_at_submit": 1,
+                "client_queue_depth_at_submit": 1,
+                "resident_requests_at_admission": 1,
+                "requested_logical_concurrency": 8,
+                "physical_execution_width": 1,
+                "queue_ms": 6.248424,
+                "prefill_ms": 554.9212299999999,
+                "decode_ms": 1855.0769909999997,
+                "ttft_ms": 708.461263,
+                "mean_inter_token_ms": 15.821964558139534,
+                "max_inter_token_ms": 237.230193,
+                "execution_plan": "serial-fallback"
+              }
+            },
+            "elapsedMs": 2764
+          }
+        ]
+      },
+      "sourceUnchanged": true,
+      "expectationMet": true
+    },
+    {
+      "case": "compound_furniture",
+      "instruction": "在客餐厅上侧新增一个卧室，保留入户通道和厨房、卫生间的位置，同时把沙发向右移动50厘米。",
+      "expected": "safe_rejection",
+      "httpStatus": 422,
+      "elapsedMs": 4072,
+      "error": "EDIT_REQUIREMENTS_UNSUPPORTED",
+      "message": "当前不能完整满足：把沙发向右移动50厘米（家具调整，Step3手动处理）。原户型未改动，请调整这些要求后重试。",
+      "rolledBack": true,
+      "provenance": {
+        "stage": "svg-edit",
+        "method": "natural-language-geometry/v1",
+        "actualInference": true,
+        "model": "Ours",
+        "inference": [
+          {
+            "stage": "floorplan-intent",
+            "model": "Ours",
+            "responseId": "chatcmpl-rzrx9f7umaerjr6yv2z1",
+            "usage": {
+              "prompt_tokens": 1599,
+              "completion_tokens": 179,
+              "total_tokens": 1778,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "cached_tokens": 0,
+              "prompt_tokens_per_second": 2873.5145942266013,
+              "completion_tokens_per_second": 58.73185356260563,
+              "draft_tokens": 80,
+              "draft_tokens_accepted": 58,
+              "gufo": {
+                "cache_hit": false,
+                "cache_miss_reason": "prefix_changed",
+                "cache_common_prefix_tokens": 1295,
+                "cache_checkpoint_tokens": 1801,
+                "cache_restore_bytes": 0,
+                "cache_snapshot_bytes": 243920396,
+                "cache_disk_queued_bytes": 0,
+                "cache_shared_bytes": 0,
+                "cache_restore_ms": 0,
+                "cache_snapshot_ms": 416.48283399999997,
+                "cache_disk_enqueue_ms": 0,
+                "cache_disk_hit": false,
+                "cache_shared_prefix_snapshots": 0,
+                "cache_shared_prefix_bytes": 0,
+                "cache_shared_prefix_ms": 0,
+                "prefill_tokens": 1599,
+                "prefill_chunks": 2,
+                "active_decode_prefill_chunks": 0,
+                "max_prefill_chunk_tokens": 1592,
+                "queue_depth_at_submit": 1,
+                "client_queue_depth_at_submit": 1,
+                "resident_requests_at_admission": 1,
+                "requested_logical_concurrency": 8,
+                "physical_execution_width": 1,
+                "queue_ms": 12.192034,
+                "prefill_ms": 556.461416,
+                "decode_ms": 3047.749886,
+                "ttft_ms": 682.574222,
+                "mean_inter_token_ms": 18.6518150730337,
+                "max_inter_token_ms": 345.396305,
+                "execution_plan": "serial-fallback"
+              }
+            },
+            "elapsedMs": 4038
+          }
+        ]
+      },
+      "sourceUnchanged": true,
+      "expectationMet": true
+    },
+    {
+      "case": "minimum_area_1000",
+      "instruction": "在客餐厅上侧新增一个至少1000平方米的卧室，保留入户通道和厨房、卫生间的位置。",
+      "expected": "safe_rejection",
+      "httpStatus": 422,
+      "elapsedMs": 4554,
+      "error": "EDIT_REQUIREMENTS_UNSUPPORTED",
+      "message": "当前不能完整满足：用户要求卧室至少1000平方米，远超户型可用面积，无法实现；该约束必须保留展示，不能忽略或当作软建议丢弃。。原户型未改动，请调整这些要求后重试。",
+      "rolledBack": true,
+      "provenance": {
+        "stage": "svg-edit",
+        "method": "natural-language-geometry/v1",
+        "actualInference": true,
+        "model": "Ours",
+        "inference": [
+          {
+            "stage": "floorplan-intent",
+            "model": "Ours",
+            "responseId": "chatcmpl-wla9l73wy6bpu6en3dts",
+            "usage": {
+              "prompt_tokens": 1596,
+              "completion_tokens": 191,
+              "total_tokens": 1787,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "cached_tokens": 0,
+              "prompt_tokens_per_second": 2095.448011412944,
+              "completion_tokens_per_second": 54.53019982976295,
+              "draft_tokens": 80,
+              "draft_tokens_accepted": 53,
+              "gufo": {
+                "cache_hit": false,
+                "cache_miss_reason": "prefix_changed",
+                "cache_common_prefix_tokens": 1285,
+                "cache_checkpoint_tokens": 1801,
+                "cache_restore_bytes": 0,
+                "cache_snapshot_bytes": 243713396,
+                "cache_disk_queued_bytes": 0,
+                "cache_shared_bytes": 0,
+                "cache_restore_ms": 0,
+                "cache_snapshot_ms": 231.546723,
+                "cache_disk_enqueue_ms": 0,
+                "cache_disk_hit": false,
+                "cache_shared_prefix_snapshots": 0,
+                "cache_shared_prefix_bytes": 0,
+                "cache_shared_prefix_ms": 0,
+                "prefill_tokens": 1596,
+                "prefill_chunks": 2,
+                "active_decode_prefill_chunks": 0,
+                "max_prefill_chunk_tokens": 1589,
+                "queue_depth_at_submit": 1,
+                "client_queue_depth_at_submit": 1,
+                "resident_requests_at_admission": 1,
+                "requested_logical_concurrency": 8,
+                "physical_execution_width": 1,
+                "queue_ms": 9.712514,
+                "prefill_ms": 761.650965,
+                "decode_ms": 3502.646250999999,
+                "ttft_ms": 871.563376,
+                "mean_inter_token_ms": 18.964774752631577,
+                "max_inter_token_ms": 177.563116,
+                "execution_plan": "serial-fallback"
+              }
+            },
+            "elapsedMs": 4512
+          }
+        ]
+      },
+      "sourceUnchanged": true,
+      "expectationMet": true
+    },
+    {
+      "case": "paraphrase",
+      "instruction": "请把客餐厅图上方的一部分隔成一间独立卧室，从剩余客餐厅开门进入；原入户通道、厨房和卫生间保持原位。",
+      "expected": "edit_success",
+      "httpStatus": 200,
+      "elapsedMs": 8063,
+      "intent": {
+        "action": "add_bedroom",
+        "targetRoomId": "room_3",
+        "region": "upper",
+        "roomCount": 1,
+        "minAreaM2": null,
+        "protectedRoomIds": [
+          "room_1",
+          "room_2",
+          "room_4",
+          "room_5",
+          "room_6"
+        ],
+        "preserveEntrance": true,
+        "preserveOtherRooms": true,
+        "entryFromRoomId": "room_3",
+        "unhandledRequirements": [],
+        "summary": "在客餐厅图上方隔出一间独立卧室，从剩余客餐厅开门进入；原入户通道、厨房和卫生间保持原位。",
+        "message": "已识别：在客餐厅上方新增一间独立卧室，入口从剩余客餐厅进入，保留入户通道、厨房和卫生间位置不变。"
+      },
+      "selection": {
+        "candidateId": "bedroom-tph47z-9g12mi",
+        "unmetRequirements": [],
+        "reason": "三个候选均在客餐厅上方隔出独立卧室、入口从剩余客餐厅进入，且保留入户通道、厨房和卫生间位置不变；用户未要求采光窗或通风窗，故无未满足项。"
+      },
+      "candidate": {
+        "id": "bedroom-tph47z-9g12mi",
+        "targetRoomId": "room_3",
+        "position": "upper",
+        "newAreaM2": 6.0667,
+        "remainingAreaM2": 11.2882,
+        "minClearWidthM": 2.0401,
+        "entranceClearanceM": 0.9,
+        "notes": [
+          "保留全部原门窗及其相邻房间；保留厨卫和其他房间原始几何。",
+          "新增卧室无新开外窗；采光、通风及施工合规未验证。",
+          "家具不属于此次 SVG 结构编辑。"
+        ]
+      },
+      "candidateCount": 3,
+      "validation": {
+        "valid": true,
+        "unit": "meter",
+        "targetRoomId": "room_3",
+        "newRoomId": "room_7",
+        "newDoorId": "door_bedroom-tph47z-9g12mi-3",
+        "outerRasterDelta": {
+          "sourceExteriorWallBytesUnchanged": true,
+          "gridM": 0.01714338235294118,
+          "allowedJointRadiusM": 0.07714338235294117,
+          "joints": [
+            [
+              1.2000367647058825,
+              6.19515
+            ]
+          ],
+          "maxDisplacementM": 0.03428676470588243,
+          "areaDeltaM2": -0.0031747829779362746,
+          "changedVertices": 6
+        },
+        "checks": [
+          "target-polygon",
+          "upper-position",
+          "room-area",
+          "minimum-clear-width",
+          "preserved-room-polygons",
+          "original-opening-position-and-adjacency",
+          "new-door-reachable",
+          "entrance-circulation",
+          "source-label-measured-area"
+        ],
+        "minPassageWidthM": 0.9,
+        "entranceDoorIds": [
+          "door_hinged-door-01"
+        ],
+        "doorRoutes": [
+          {
+            "doorId": "door_hinged-door-01",
+            "approach": [
+              3.9686930147058828,
+              2.7642525
+            ],
+            "path": [
+              [
+                3.9200367647058827,
+                2.7542525
+              ]
+            ]
+          },
+          {
+            "doorId": "door_hinged-door-02",
+            "approach": [
+              3.821525735294118,
+              2.9244587500000003
+            ],
+            "path": [
+              [
+                3.9200367647058827,
+                2.7542525
+              ],
+              [
+                3.9200367647058827,
+                2.8342525
+              ],
+              [
+                3.9200367647058827,
+                2.9142525
+              ],
+              [
+                3.8400367647058826,
+                2.9142525
+              ]
+            ]
+          },
+          {
+            "doorId": "door_hinged-door-03",
+            "approach": [
+              3.824422794117648,
+              4.297951250000001
+            ],
+            "path": [
+              [
+                3.9200367647058827,
+                2.7542525
+              ],
+              [
+                3.9200367647058827,
+                2.8342525
+              ],
+              [
+                3.9200367647058827,
+                2.9142525
+              ],
+              [
+                3.9200367647058827,
+                2.9942525
+              ],
+              [
+                3.9200367647058827,
+                3.0742525
+              ],
+              [
+                3.9200367647058827,
+                3.1542525
+              ],
+              [
+                3.9200367647058827,
+                3.2342525
+              ],
+              [
+                3.9200367647058827,
+                3.3142525000000003
+              ],
+              [
+                3.9200367647058827,
+                3.3942525000000003
+              ],
+              [
+                3.9200367647058827,
+                3.4742525000000004
+              ],
+              [
+                3.9200367647058827,
+                3.5542525
+              ],
+              [
+                3.9200367647058827,
+                3.6342525
+              ],
+              [
+                3.9200367647058827,
+                3.7142525
+              ],
+              [
+                3.9200367647058827,
+                3.7942525
+              ],
+              [
+                3.9200367647058827,
+                3.8742525
+              ],
+              [
+                3.9200367647058827,
+                3.9542525
+              ],
+              [
+                3.9200367647058827,
+                4.0342525
+              ],
+              [
+                3.9200367647058827,
+                4.1142525
+              ],
+              [
+                3.9200367647058827,
+                4.1942525
+              ],
+              [
+                3.9200367647058827,
+                4.2742525
+              ]
+            ]
+          },
+          {
+            "doorId": "door_hinged-door-04",
+            "approach": [
+              3.841566176470589,
+              7.4230325
+            ],
+            "path": [
+              [
+                3.9200367647058827,
+                2.7542525
+              ],
+              [
+                3.9200367647058827,
+                2.8342525
+              ],
+              [
+                3.9200367647058827,
+                2.9142525
+              ],
+              [
+                3.9200367647058827,
+                2.9942525
+              ],
+              [
+                3.9200367647058827,
+                3.0742525
+              ],
+              [
+                3.9200367647058827,
+                3.1542525
+              ],
+              [
+                3.9200367647058827,
+                3.2342525
+              ],
+              [
+                3.9200367647058827,
+                3.3142525000000003
+              ],
+              [
+                3.9200367647058827,
+                3.3942525000000003
+              ],
+              [
+                3.9200367647058827,
+                3.4742525000000004
+              ],
+              [
+                3.9200367647058827,
+                3.5542525
+              ],
+              [
+                3.9200367647058827,
+                3.6342525
+              ],
+              [
+                3.9200367647058827,
+                3.7142525
+              ],
+              [
+                3.9200367647058827,
+                3.7942525
+              ],
+              [
+                3.9200367647058827,
+                3.8742525
+              ],
+              [
+                3.9200367647058827,
+                3.9542525
+              ],
+              [
+                3.9200367647058827,
+                4.0342525
+              ],
+              [
+                3.9200367647058827,
+                4.1142525
+              ],
+              [
+                3.9200367647058827,
+                4.1942525
+              ],
+              [
+                3.9200367647058827,
+                4.2742525
+              ],
+              [
+                3.9200367647058827,
+                4.3542525
+              ],
+              [
+                3.9200367647058827,
+                4.4342524999999995
+              ],
+              [
+                3.9200367647058827,
+                4.5142525
+              ],
+              [
+                3.9200367647058827,
+                4.5942525
+              ],
+              [
+                3.9200367647058827,
+                4.6742525
+              ],
+              [
+                3.9200367647058827,
+                4.7542525
+              ],
+              [
+                3.9200367647058827,
+                4.8342525
+              ],
+              [
+                3.9200367647058827,
+                4.9142525
+              ],
+              [
+                3.9200367647058827,
+                4.9942525
+              ],
+              [
+                3.9200367647058827,
+                5.0742525
+              ],
+              [
+                3.9200367647058827,
+                5.1542525
+              ],
+              [
+                3.9200367647058827,
+                5.2342525
+              ],
+              [
+                3.9200367647058827,
+                5.3142525
+              ],
+              [
+                3.9200367647058827,
+                5.3942525
+              ],
+              [
+                3.9200367647058827,
+                5.4742525
+              ],
+              [
+                3.9200367647058827,
+                5.5542525000000005
+              ],
+              [
+                3.9200367647058827,
+                5.6342525000000006
+              ],
+              [
+                3.9200367647058827,
+                5.714252500000001
+              ],
+              [
+                3.9200367647058827,
+                5.794252500000001
+              ],
+              [
+                3.9200367647058827,
+                5.874252500000001
+              ],
+              [
+                3.9200367647058827,
+                5.9542525
+              ],
+              [
+                3.9200367647058827,
+                6.0342525
+              ],
+              [
+                3.9200367647058827,
+                6.1142525
+              ],
+              [
+                3.9200367647058827,
+                6.1942525
+              ],
+              [
+                3.9200367647058827,
+                6.2742525
+              ],
+              [
+                3.9200367647058827,
+                6.3542525
+              ],
+              [
+                3.9200367647058827,
+                6.4342525
+              ],
+              [
+                3.9200367647058827,
+                6.5142525000000004
+              ],
+              [
+                3.9200367647058827,
+                6.5942525000000005
+              ],
+              [
+                3.9200367647058827,
+                6.674252500000001
+              ],
+              [
+                3.9200367647058827,
+                6.7542525
+              ],
+              [
+                3.9200367647058827,
+                6.8342525
+              ],
+              [
+                3.9200367647058827,
+                6.9142525
+              ],
+              [
+                3.9200367647058827,
+                6.9942525
+              ],
+              [
+                3.9200367647058827,
+                7.0742525
+              ],
+              [
+                3.9200367647058827,
+                7.1542525
+              ],
+              [
+                3.9200367647058827,
+                7.2342525
+              ],
+              [
+                3.9200367647058827,
+                7.3142525
+              ],
+              [
+                3.9200367647058827,
+                7.3942525
+              ],
+              [
+                3.8400367647058826,
+                7.3942525
+              ]
+            ]
+          },
+          {
+            "doorId": "door_bedroom-tph47z-9g12mi-3",
+            "approach": [
+              4.010102941176471,
+              5.44514928625
+            ],
+            "path": [
+              [
+                3.9200367647058827,
+                2.7542525
+              ],
+              [
+                3.9200367647058827,
+                2.8342525
+              ],
+              [
+                3.9200367647058827,
+                2.9142525
+              ],
+              [
+                3.9200367647058827,
+                2.9942525
+              ],
+              [
+                3.9200367647058827,
+                3.0742525
+              ],
+              [
+                3.9200367647058827,
+                3.1542525
+              ],
+              [
+                3.9200367647058827,
+                3.2342525
+              ],
+              [
+                3.9200367647058827,
+                3.3142525000000003
+              ],
+              [
+                3.9200367647058827,
+                3.3942525000000003
+              ],
+              [
+                3.9200367647058827,
+                3.4742525000000004
+              ],
+              [
+                3.9200367647058827,
+                3.5542525
+              ],
+              [
+                3.9200367647058827,
+                3.6342525
+              ],
+              [
+                3.9200367647058827,
+                3.7142525
+              ],
+              [
+                3.9200367647058827,
+                3.7942525
+              ],
+              [
+                3.9200367647058827,
+                3.8742525
+              ],
+              [
+                3.9200367647058827,
+                3.9542525
+              ],
+              [
+                3.9200367647058827,
+                4.0342525
+              ],
+              [
+                3.9200367647058827,
+                4.1142525
+              ],
+              [
+                3.9200367647058827,
+                4.1942525
+              ],
+              [
+                3.9200367647058827,
+                4.2742525
+              ],
+              [
+                3.9200367647058827,
+                4.3542525
+              ],
+              [
+                3.9200367647058827,
+                4.4342524999999995
+              ],
+              [
+                3.9200367647058827,
+                4.5142525
+              ],
+              [
+                3.9200367647058827,
+                4.5942525
+              ],
+              [
+                3.9200367647058827,
+                4.6742525
+              ],
+              [
+                3.9200367647058827,
+                4.7542525
+              ],
+              [
+                3.9200367647058827,
+                4.8342525
+              ],
+              [
+                3.9200367647058827,
+                4.9142525
+              ],
+              [
+                3.9200367647058827,
+                4.9942525
+              ],
+              [
+                3.9200367647058827,
+                5.0742525
+              ],
+              [
+                3.9200367647058827,
+                5.1542525
+              ],
+              [
+                3.9200367647058827,
+                5.2342525
+              ],
+              [
+                3.9200367647058827,
+                5.3142525
+              ],
+              [
+                3.9200367647058827,
+                5.3942525
+              ],
+              [
+                3.9200367647058827,
+                5.4742525
+              ]
+            ]
+          },
+          {
+            "doorId": "door_parallel-opening-01",
+            "approach": [
+              3.2315275735294122,
+              7.5446575
+            ],
+            "path": [
+              [
+                3.9200367647058827,
+                2.7542525
+              ],
+              [
+                3.9200367647058827,
+                2.8342525
+              ],
+              [
+                3.9200367647058827,
+                2.9142525
+              ],
+              [
+                3.9200367647058827,
+                2.9942525
+              ],
+              [
+                3.9200367647058827,
+                3.0742525
+              ],
+              [
+                3.9200367647058827,
+                3.1542525
+              ],
+              [
+                3.9200367647058827,
+                3.2342525
+              ],
+              [
+                3.9200367647058827,
+                3.3142525000000003
+              ],
+              [
+                3.9200367647058827,
+                3.3942525000000003
+              ],
+              [
+                3.9200367647058827,
+                3.4742525000000004
+              ],
+              [
+                3.9200367647058827,
+                3.5542525
+              ],
+              [
+                3.9200367647058827,
+                3.6342525
+              ],
+              [
+                3.9200367647058827,
+                3.7142525
+              ],
+              [
+                3.9200367647058827,
+                3.7942525
+              ],
+              [
+                3.9200367647058827,
+                3.8742525
+              ],
+              [
+                3.9200367647058827,
+                3.9542525
+              ],
+              [
+                3.9200367647058827,
+                4.0342525
+              ],
+              [
+                3.9200367647058827,
+                4.1142525
+              ],
+              [
+                3.9200367647058827,
+                4.1942525
+              ],
+              [
+                3.9200367647058827,
+                4.2742525
+              ],
+              [
+                3.9200367647058827,
+                4.3542525
+              ],
+              [
+                3.9200367647058827,
+                4.4342524999999995
+              ],
+              [
+                3.9200367647058827,
+                4.5142525
+              ],
+              [
+                3.9200367647058827,
+                4.5942525
+              ],
+              [
+                3.9200367647058827,
+                4.6742525
+              ],
+              [
+                3.9200367647058827,
+                4.7542525
+              ],
+              [
+                3.9200367647058827,
+                4.8342525
+              ],
+              [
+                3.9200367647058827,
+                4.9142525
+              ],
+              [
+                3.9200367647058827,
+                4.9942525
+              ],
+              [
+                3.9200367647058827,
+                5.0742525
+              ],
+              [
+                3.9200367647058827,
+                5.1542525
+              ],
+              [
+                3.9200367647058827,
+                5.2342525
+              ],
+              [
+                3.9200367647058827,
+                5.3142525
+              ],
+              [
+                3.9200367647058827,
+                5.3942525
+              ],
+              [
+                3.9200367647058827,
+                5.4742525
+              ],
+              [
+                3.9200367647058827,
+                5.5542525000000005
+              ],
+              [
+                3.9200367647058827,
+                5.6342525000000006
+              ],
+              [
+                3.9200367647058827,
+                5.714252500000001
+              ],
+              [
+                3.9200367647058827,
+                5.794252500000001
+              ],
+              [
+                3.9200367647058827,
+                5.874252500000001
+              ],
+              [
+                3.9200367647058827,
+                5.9542525
+              ],
+              [
+                3.9200367647058827,
+                6.0342525
+              ],
+              [
+                3.9200367647058827,
+                6.1142525
+              ],
+              [
+                3.9200367647058827,
+                6.1942525
+              ],
+              [
+                3.9200367647058827,
+                6.2742525
+              ],
+              [
+                3.9200367647058827,
+                6.3542525
+              ],
+              [
+                3.9200367647058827,
+                6.4342525
+              ],
+              [
+                3.9200367647058827,
+                6.5142525000000004
+              ],
+              [
+                3.9200367647058827,
+                6.5942525000000005
+              ],
+              [
+                3.9200367647058827,
+                6.674252500000001
+              ],
+              [
+                3.9200367647058827,
+                6.7542525
+              ],
+              [
+                3.9200367647058827,
+                6.8342525
+              ],
+              [
+                3.9200367647058827,
+                6.9142525
+              ],
+              [
+                3.9200367647058827,
+                6.9942525
+              ],
+              [
+                3.9200367647058827,
+                7.0742525
+              ],
+              [
+                3.9200367647058827,
+                7.1542525
+              ],
+              [
+                3.9200367647058827,
+                7.2342525
+              ],
+              [
+                3.9200367647058827,
+                7.3142525
+              ],
+              [
+                3.9200367647058827,
+                7.3942525
+              ],
+              [
+                3.9200367647058827,
+                7.4742525
+              ],
+              [
+                3.9200367647058827,
+                7.5542525000000005
+              ],
+              [
+                3.8400367647058826,
+                7.5542525000000005
+              ],
+              [
+                3.7600367647058826,
+                7.5542525000000005
+              ],
+              [
+                3.6800367647058825,
+                7.5542525000000005
+              ],
+              [
+                3.6000367647058824,
+                7.5542525000000005
+              ],
+              [
+                3.5200367647058823,
+                7.5542525000000005
+              ],
+              [
+                3.4400367647058827,
+                7.5542525000000005
+              ],
+              [
+                3.3600367647058826,
+                7.5542525000000005
+              ],
+              [
+                3.2800367647058826,
+                7.5542525000000005
+              ],
+              [
+                3.2000367647058825,
+                7.5542525000000005
+              ]
+            ]
+          }
+        ],
+        "furniture": {
+          "sourceCount": 0,
+          "editedCount": 0,
+          "status": "SOURCE_SVG_HAS_NO_FURNITURE"
+        },
+        "warnings": [
+          "尺寸链与印刷面积可能不一致；sourceArea 保留原标注，expectedArea 为解析多边形面积。",
+          "红色平行开口按交接任务约定解释为推拉门；除 one-01 外其通行语义尚未由用户确认。",
+          "灰墙不证明承重属性，解析为 partition；墙厚为现有展示默认值，非施工尺寸。",
+          "保留全部原门窗及其相邻房间；保留厨卫和其他房间原始几何。",
+          "新增卧室无新开外窗；采光、通风及施工合规未验证。",
+          "家具不属于此次 SVG 结构编辑。"
+        ]
+      },
+      "provenance": {
+        "stage": "svg-edit",
+        "method": "natural-language-geometry/v1",
+        "actualInference": true,
+        "model": "Ours",
+        "inference": [
+          {
+            "stage": "floorplan-intent",
+            "model": "Ours",
+            "responseId": "chatcmpl-dxp6fcz84wpdswyvm562",
+            "usage": {
+              "prompt_tokens": 1601,
+              "completion_tokens": 155,
+              "total_tokens": 1756,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "cached_tokens": 0,
+              "prompt_tokens_per_second": 2272.688567593059,
+              "completion_tokens_per_second": 60.32047883576045,
+              "draft_tokens": 79,
+              "draft_tokens_accepted": 57,
+              "gufo": {
+                "cache_hit": false,
+                "cache_miss_reason": "prefix_changed",
+                "cache_common_prefix_tokens": 1278,
+                "cache_checkpoint_tokens": 1801,
+                "cache_restore_bytes": 0,
+                "cache_snapshot_bytes": 244058396,
+                "cache_disk_queued_bytes": 0,
+                "cache_shared_bytes": 0,
+                "cache_restore_ms": 0,
+                "cache_snapshot_ms": 522.634402,
+                "cache_disk_enqueue_ms": 0,
+                "cache_disk_hit": false,
+                "cache_shared_prefix_snapshots": 0,
+                "cache_shared_prefix_bytes": 0,
+                "cache_shared_prefix_ms": 0,
+                "prefill_tokens": 1601,
+                "prefill_chunks": 2,
+                "active_decode_prefill_chunks": 0,
+                "max_prefill_chunk_tokens": 1594,
+                "queue_depth_at_submit": 1,
+                "client_queue_depth_at_submit": 1,
+                "resident_requests_at_admission": 1,
+                "requested_logical_concurrency": 8,
+                "physical_execution_width": 1,
+                "queue_ms": 8.315677,
+                "prefill_ms": 704.451997,
+                "decode_ms": 2569.608249000001,
+                "ttft_ms": 1025.913,
+                "mean_inter_token_ms": 17.882457084415584,
+                "max_inter_token_ms": 252.434374,
+                "execution_plan": "serial-fallback"
+              }
+            },
+            "elapsedMs": 3811
+          },
+          {
+            "stage": "floorplan-candidate-selection",
+            "model": "Ours",
+            "responseId": "chatcmpl-7iss188gwnf1itqujv6d",
+            "usage": {
+              "prompt_tokens": 1174,
+              "completion_tokens": 82,
+              "total_tokens": 1256,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "cached_tokens": 0,
+              "prompt_tokens_per_second": 2738.1598939980404,
+              "completion_tokens_per_second": 48.49769055860581,
+              "draft_tokens": 6,
+              "draft_tokens_accepted": 1,
+              "gufo": {
+                "cache_hit": false,
+                "cache_miss_reason": "prefix_changed",
+                "cache_common_prefix_tokens": 623,
+                "cache_checkpoint_tokens": 1155,
+                "cache_restore_bytes": 0,
+                "cache_snapshot_bytes": 214595396,
+                "cache_disk_queued_bytes": 0,
+                "cache_shared_bytes": 0,
+                "cache_restore_ms": 0,
+                "cache_snapshot_ms": 262.287194,
+                "cache_disk_enqueue_ms": 0,
+                "cache_disk_hit": false,
+                "cache_shared_prefix_snapshots": 0,
+                "cache_shared_prefix_bytes": 0,
+                "cache_shared_prefix_ms": 0,
+                "prefill_tokens": 1174,
+                "prefill_chunks": 2,
+                "active_decode_prefill_chunks": 0,
+                "max_prefill_chunk_tokens": 1167,
+                "queue_depth_at_submit": 1,
+                "client_queue_depth_at_submit": 1,
+                "resident_requests_at_admission": 1,
+                "requested_logical_concurrency": 8,
+                "physical_execution_width": 1,
+                "queue_ms": 10.584446,
+                "prefill_ms": 428.755093,
+                "decode_ms": 1690.8021609999998,
+                "ttft_ms": 602.670878,
+                "mean_inter_token_ms": 21.781792592592588,
+                "max_inter_token_ms": 142.227671,
+                "execution_plan": "serial-fallback"
+              }
+            },
+            "elapsedMs": 2401
+          }
+        ],
+        "structuralTruth": "validated-svg-geometry",
+        "selectedCandidateId": "bedroom-tph47z-9g12mi"
+      },
+      "sourceUnchanged": true,
+      "svgSha256": "f7c0acbf40410c30e337e637721822cb134ecab694fb22fa032aeca3b77cc516",
+      "expectationMet": true
+    }
+  ]
+}

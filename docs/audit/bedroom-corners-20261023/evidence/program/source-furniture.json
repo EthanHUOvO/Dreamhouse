@@ -1,0 +1,79 @@
+{
+  "kind": "programmatic-no-ai-inference",
+  "tests": [
+    {
+      "name": "first-generation-defaults-are-cloned",
+      "status": "PASS"
+    },
+    {
+      "name": "first-generation-legacy-block-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "saved-manual-furniture-and-assets-retained-exactly",
+      "status": "PASS"
+    },
+    {
+      "name": "preserved-real-furniture-collision-and-entry-route",
+      "status": "PASS"
+    },
+    {
+      "name": "preserved-furniture-save-and-refresh-roundtrip",
+      "status": "PASS"
+    },
+    {
+      "name": "saved-wall-change-is-not-overwritten",
+      "status": "PASS"
+    },
+    {
+      "name": "saved-door-change-is-not-overwritten",
+      "status": "PASS"
+    },
+    {
+      "name": "saved-window-change-is-not-overwritten",
+      "status": "PASS"
+    },
+    {
+      "name": "saved-room-change-is-not-overwritten",
+      "status": "PASS"
+    },
+    {
+      "name": "legacy-block-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "item-with-unknown-room-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "item-in-new-room-does-not-silently-change-ownership",
+      "status": "PASS"
+    },
+    {
+      "name": "item-with-unknown-dimensions-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "item-with-unrepresented-child-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "candidate-and-source-never-mutated",
+      "status": "PASS"
+    }
+  ],
+  "preservedFurniture": {
+    "source": "bound-saved-scene",
+    "sourceCount": 4,
+    "retainedItemIds": [
+      "item_room_1_1",
+      "item_room_2_2",
+      "item_room_3_3",
+      "item_room_4_4"
+    ],
+    "newRoomItemIds": [
+      "item_room_7_7"
+    ],
+    "moved": false
+  }
+}

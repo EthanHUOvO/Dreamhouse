@@ -1,0 +1,177 @@
+{
+  "kind": "programmatic-no-model-inference",
+  "frames": [
+    {
+      "width": 1474,
+      "height": 691,
+      "max": 256,
+      "inputWidth": 384,
+      "inputHeight": 160,
+      "contentBounds": {
+        "left": 21,
+        "top": 0,
+        "width": 341,
+        "height": 160
+      },
+      "outputWidth": 1474,
+      "outputHeight": 691,
+      "landmarkErrorPx": [
+        0.49710329929303043,
+        0.4978268090076199
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 1600,
+      "height": 900,
+      "max": 256,
+      "inputWidth": 352,
+      "inputHeight": 192,
+      "contentBounds": {
+        "left": 5,
+        "top": 0,
+        "width": 341,
+        "height": 192
+      },
+      "outputWidth": 1600,
+      "outputHeight": 900,
+      "landmarkErrorPx": [
+        0.5,
+        0.5
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 900,
+      "height": 1600,
+      "max": 256,
+      "inputWidth": 192,
+      "inputHeight": 352,
+      "contentBounds": {
+        "left": 0,
+        "top": 5,
+        "width": 192,
+        "height": 341
+      },
+      "outputWidth": 900,
+      "outputHeight": 1600,
+      "landmarkErrorPx": [
+        0.4975960712936569,
+        0.5025796018942401
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 1013,
+      "height": 777,
+      "max": 256,
+      "inputWidth": 288,
+      "inputHeight": 224,
+      "contentBounds": {
+        "left": 0,
+        "top": 1,
+        "width": 288,
+        "height": 221
+      },
+      "outputWidth": 1013,
+      "outputHeight": 777,
+      "landmarkErrorPx": [
+        0.5030613221084934,
+        1.0012728773909885
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 1474,
+      "height": 691,
+      "max": 512,
+      "inputWidth": 512,
+      "inputHeight": 256,
+      "contentBounds": {
+        "left": 0,
+        "top": 8,
+        "width": 512,
+        "height": 240
+      },
+      "outputWidth": 1474,
+      "outputHeight": 691,
+      "landmarkErrorPx": [
+        0.49565473560170403,
+        0.5014436120168284
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 1600,
+      "height": 900,
+      "max": 512,
+      "inputWidth": 512,
+      "inputHeight": 288,
+      "contentBounds": {
+        "left": 0,
+        "top": 0,
+        "width": 512,
+        "height": 288
+      },
+      "outputWidth": 1600,
+      "outputHeight": 900,
+      "landmarkErrorPx": [
+        0.5,
+        0.5022219832992505
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 900,
+      "height": 1600,
+      "max": 512,
+      "inputWidth": 288,
+      "inputHeight": 512,
+      "contentBounds": {
+        "left": 0,
+        "top": 0,
+        "width": 288,
+        "height": 512
+      },
+      "outputWidth": 900,
+      "outputHeight": 1600,
+      "landmarkErrorPx": [
+        0.5,
+        0.9954971787302611
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 1013,
+      "height": 777,
+      "max": 512,
+      "inputWidth": 512,
+      "inputHeight": 384,
+      "contentBounds": {
+        "left": 5,
+        "top": 0,
+        "width": 501,
+        "height": 384
+      },
+      "outputWidth": 1013,
+      "outputHeight": 777,
+      "landmarkErrorPx": [
+        0.4974490609355655,
+        0.9974506471434097
+      ],
+      "status": "PASS"
+    }
+  ],
+  "integration": {
+    "status": "PASS",
+    "stubCalls": 4,
+    "realAiInference": false,
+    "outputWidth": 1474,
+    "outputHeight": 691,
+    "renderViewHandler": "PASS",
+    "captureIdentityPreserved": true,
+    "legacyCacheRejected": true,
+    "newCacheReused": true,
+    "invalidOutputRejected": true
+  }
+}

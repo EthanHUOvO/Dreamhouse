@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9000 11000"><path fill="#9a9a9a" fill-rule="evenodd" d="M500 500 H8500 V10500 H4900 V10300 H8300 V700 H700 V10300 H4100 V10500 H500 Z"/><rect x="4100" y="10300" width="800" height="200" fill="white"/><path id="entry" d="M4100,10400 L4100,9600 A800,800 0 0 0 4900,10400 Z" stroke="#2e9e4f" fill="none"/><text x="4880" y="4160">客餐厅</text><text x="4880" y="4176">68.17 m²</text><g id="bedroom-iu4ljb-left-npipe6"><rect id="bedroom-iu4ljb-left-npipe6-0" x="600" y="7040" width="2500" height="120" fill="#9a9a9a"/>
+<rect id="bedroom-iu4ljb-left-npipe6-1" x="3040" y="7100" width="120" height="3180" fill="#9a9a9a"/>
+<rect id="bedroom-iu4ljb-left-npipe6-2-clear" x="1950" y="6980" width="800" height="240" fill="white"/>
+<path id="bedroom-iu4ljb-left-npipe6-2" d="M1950,7100 L1950,7900 A800,800 0 0 0 2750,7100 Z" stroke="#2e9e4f" fill="none" stroke-width="15"/>
+<g id="bedroom-iu4ljb-left-npipe6-label" data-kind="room-labels"><g id="bedroom-iu4ljb-left-npipe6-new-room"><text x="1850" y="8750" font-size="180" text-anchor="middle">卧室</text><text x="1850" y="8766" font-size="11.5" fill="#666" text-anchor="middle">8.24 m²</text></g></g></g>
+</svg>

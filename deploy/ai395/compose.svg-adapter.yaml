@@ -1,0 +1,14 @@
+# Keep compose.migration.yaml and its existing local changes intact.
+# docker compose -f compose.migration.yaml -f compose.svg-adapter.yaml up -d --no-deps web pascal-mcp
+services:
+  web:
+    image: ideal-home-local:web-local-assets-20261020
+    restart: unless-stopped
+    environment:
+      FONTCONFIG_FILE: /app/config/fontconfig-svg.conf
+    volumes:
+      - /usr/share/fonts/opentype/noto:/usr/share/fonts/opentype/noto:ro
+      - ./v2/step1-render/fonts.conf:/app/config/fontconfig-svg.conf:ro
+  pascal-mcp:
+    image: ideal-home-local:web-local-assets-20261020
+    restart: unless-stopped

@@ -1,0 +1,23 @@
+{
+  "images": {
+    "web": "sha256:9caf10e37e4add01e2683981223081a9536673b39c57392b45ff7cbb4e6efee6",
+    "pascal-mcp": "sha256:cf5a2b587ef1907d874bffbb2df341596f74171ba34e754a3de04f5e229c9944"
+  },
+  "sourceSha256": {
+    "web": {
+      "TouchCustomerPortal.tsx": "85cac60c2ff8982dd3ca3afaba7ae45015b250947af65db591481795c03a1dbd",
+      "v2/step3-3d/svg-geometry.ts": "53a2c620ee3edc6e8464e1a64a26b6091b134b2317fee0a7acc99c14c693576f",
+      "v2/step3-3d/structure-svg.ts": "ef82365081178299359f1601c3e6ca307e0d9290f5a90025ceac529ca6299c17",
+      "v2/step3-3d/structure-primitives.ts": "0e7768397b762e675592aef672ea5bd77cc2eabc6565a6834f21993aab161a41",
+      "v2/step3-3d/room-split-primitives.ts": "9e6ce28a9b3fc9d42fad52fb14bd3ba48cfbe664507734dbd01f5951284265fb",
+      "v2/step3-3d/structure-scene-validation.ts": "3296a5020fe07ea735ef20a0d38030ae684b7b3a578a3ac48d438f9877f9d5df",
+      "v2/step2-edit/floorplan-edit-intent.ts": "2aeaa9acca7d63028a35c7dfcd888c88c4d5f73223b9e4fbe6b6c5f33486fd92",
+      "v2/step2-edit/svg-edit-route.ts": "77cfc8b091ff8f714b772c2b46639d26c31ddad5d688a186056a33497f65a04f"
+    },
+    "pascal-mcp": {
+      "v2/step3-3d/svg-geometry.ts": "53a2c620ee3edc6e8464e1a64a26b6091b134b2317fee0a7acc99c14c693576f",
+      "v2/step3-3d/structure-svg.ts": "ef82365081178299359f1601c3e6ca307e0d9290f5a90025ceac529ca6299c17"
+    }
+  },
+  "status": "PASS"
+}

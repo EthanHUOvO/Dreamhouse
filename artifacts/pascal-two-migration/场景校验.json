@@ -1,0 +1,82 @@
+[
+  {
+    "variantId": "two-option-01",
+    "json": "通过",
+    "glb": "已归档",
+    "nodes": 110,
+    "walls": 22,
+    "doors": 8,
+    "windows": 7,
+    "rooms": 7
+  },
+  {
+    "variantId": "two-option-02",
+    "json": "通过",
+    "glb": "已归档",
+    "nodes": 93,
+    "walls": 17,
+    "doors": 6,
+    "windows": 5,
+    "rooms": 6
+  },
+  {
+    "variantId": "two-option-03",
+    "json": "通过",
+    "glb": "已归档",
+    "nodes": 99,
+    "walls": 16,
+    "doors": 7,
+    "windows": 6,
+    "rooms": 7
+  },
+  {
+    "variantId": "two-option-04",
+    "json": "通过",
+    "glb": "已归档",
+    "nodes": 97,
+    "walls": 22,
+    "doors": 6,
+    "windows": 4,
+    "rooms": 6
+  },
+  {
+    "variantId": "two-option-05",
+    "json": "通过",
+    "glb": "已归档",
+    "nodes": 97,
+    "walls": 18,
+    "doors": 7,
+    "windows": 4,
+    "rooms": 7
+  },
+  {
+    "variantId": "two-option-06",
+    "json": "通过",
+    "glb": "已归档",
+    "nodes": 102,
+    "walls": 27,
+    "doors": 6,
+    "windows": 4,
+    "rooms": 6
+  },
+  {
+    "variantId": "two-option-07",
+    "json": "通过",
+    "glb": "已归档",
+    "nodes": 101,
+    "walls": 16,
+    "doors": 7,
+    "windows": 5,
+    "rooms": 7
+  },
+  {
+    "variantId": "two-option-08",
+    "json": "通过",
+    "glb": "已归档",
+    "nodes": 99,
+    "walls": 18,
+    "doors": 6,
+    "windows": 4,
+    "rooms": 7
+  }
+]

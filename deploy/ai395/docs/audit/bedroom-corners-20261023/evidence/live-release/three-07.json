@@ -1,0 +1,131 @@
+{
+  "key": "three-07",
+  "instruction": "在客餐厅合适的墙角新增一个矩形卧室，方向不限，保留入户通道和厨房、卫生间的位置",
+  "httpStatus": 422,
+  "elapsedMs": 15025,
+  "actualInference": true,
+  "error": "EDIT_BEDROOM_SEARCH_LIMIT",
+  "message": "本次墙角方案搜索达到计算上限，尚未找到可验证方案。可指定上、下、左或右缩小搜索；原户型未改动。",
+  "intent": {
+    "action": "add_bedroom",
+    "targetRoomId": "room_6",
+    "region": "any",
+    "roomCount": 1,
+    "minAreaM2": null,
+    "protectedRoomIds": [
+      "room_1",
+      "room_2",
+      "room_3",
+      "room_4",
+      "room_5",
+      "room_7",
+      "room_8",
+      "room_9",
+      "room_10"
+    ],
+    "preserveEntrance": true,
+    "preserveOtherRooms": true,
+    "entryFromRoomId": "room_6",
+    "unhandledRequirements": [],
+    "summary": "在客餐厅合适的墙角新增一个矩形卧室，方向不限，保留入户通道和厨房、卫生间的位置",
+    "message": "已识别：在客餐厅靠墙角新增一间独立卧室，不限制具体方位，保留入户通道及厨卫位置。"
+  },
+  "provenance": {
+    "stage": "svg-edit",
+    "method": "natural-language-geometry/v1",
+    "actualInference": true,
+    "model": "Ours",
+    "inference": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "responseId": "chatcmpl-rv2zyczsoz3elepr8qy2",
+        "usage": {
+          "prompt_tokens": 1850,
+          "completion_tokens": 161,
+          "total_tokens": 2011,
+          "prompt_tokens_details": {
+            "cached_tokens": 1843
+          },
+          "cached_tokens": 1843,
+          "prompt_tokens_per_second": 181.0913048389097,
+          "completion_tokens_per_second": 64.22936354552382,
+          "draft_tokens": 94,
+          "draft_tokens_accepted": 67,
+          "gufo": {
+            "cache_hit": true,
+            "cache_restore_bytes": 130503044,
+            "cache_snapshot_bytes": 130736352,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 14.122465,
+            "cache_snapshot_ms": 14.775384,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 7,
+            "prefill_chunks": 1,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 7,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 16.600825,
+            "prefill_ms": 38.654534,
+            "decode_ms": 2506.6416839999993,
+            "ttft_ms": 55.384375,
+            "mean_inter_token_ms": 15.60034503125,
+            "max_inter_token_ms": 65.945134,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 2589
+      }
+    ]
+  },
+  "feasibility": {
+    "candidateCount": 0,
+    "constraints": {
+      "targetRoomId": "room_6",
+      "region": "any",
+      "protectedRoomIds": [
+        "room_1",
+        "room_2",
+        "room_3",
+        "room_4",
+        "room_5",
+        "room_7",
+        "room_8",
+        "room_9",
+        "room_10"
+      ],
+      "preserveEntrance": true
+    },
+    "diagnostics": {
+      "targetRoomId": "room_6",
+      "attempted": 49,
+      "considered": 102,
+      "searchLimited": true,
+      "rejected": {
+        "BEDROOM_TARGET_AREA_NOT_CONSERVED": 46,
+        "SVG_UNLABELLED_SPACE:[{\"component\":6,\"area\":2.097441637630662}]": 2,
+        "BEDROOM_INSUFFICIENT_ROOM_DIMENSIONS": 1
+      },
+      "noSolutionReason": "BEDROOM_SEARCH_LIMIT_REACHED",
+      "policy": {
+        "minAreaM2": 6,
+        "minClearWidthM": 2,
+        "minRemainingAreaM2": 7,
+        "minPassageWidthM": 0.9,
+        "doorWidthM": 0.8,
+        "wallThicknessM": 0.12,
+        "areaBasis": "parsed-room-centreline-polygon",
+        "scope": "concept-layout-not-construction-compliance"
+      }
+    }
+  }
+}

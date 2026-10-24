@@ -1,0 +1,2 @@
+FROM ideal-home-qwen-image-rocm:before-timing
+COPY server.py /app/server.py

@@ -1,0 +1,16 @@
+{
+  "images": {
+    "baseline": "ideal-home-local:web-bedroom-20261023",
+    "current": "ideal-home-local:web-corners-20261023"
+  },
+  "baseline": {
+    "exitCode": 2,
+    "count": 141
+  },
+  "current": {
+    "exitCode": 2,
+    "count": 141
+  },
+  "added": [],
+  "removed": []
+}

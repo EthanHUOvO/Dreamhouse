@@ -1,0 +1,33 @@
+{
+  "key": "source",
+  "actualInference": false,
+  "kind": "original-svg-through-real-mcp",
+  "mcp": {
+    "httpStatus": 200,
+    "elapsedMs": 498,
+    "sourceImageHash": "7d4cc7c52e181c03588eef1790c0b3e4c4d8dd2fed44e93fc8b55493e88bb8e8",
+    "sessionId": "primitives-live-source-1792763193829026256",
+    "tools": [
+      "begin_floorplan_scene",
+      "set_floor_structure",
+      "set_openings",
+      "populate_basic_furniture",
+      "validate_scene",
+      "commit_scene"
+    ],
+    "complete": true,
+    "validation": {
+      "valid": true,
+      "issues": [],
+      "warnings": []
+    },
+    "error": [],
+    "sceneMetrics": {
+      "wall": 20,
+      "door": 6,
+      "window": 3,
+      "zone": 6,
+      "item": 4
+    }
+  }
+}

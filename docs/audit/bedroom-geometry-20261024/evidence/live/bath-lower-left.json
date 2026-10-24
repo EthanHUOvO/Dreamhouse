@@ -1,0 +1,548 @@
+{
+  "key": "bath-lower-left",
+  "sourceKey": "one-07",
+  "instruction": "在主卧的左下角新增一个卫生间，保留主卧入口和其他房间",
+  "httpStatus": 200,
+  "elapsedMs": 6411,
+  "actualInference": true,
+  "intent": {
+    "action": "add_bathroom",
+    "targetRoomId": "room_1",
+    "region": "lower-left",
+    "roomCount": 1,
+    "minAreaM2": null,
+    "protectedRoomIds": [
+      "room_2",
+      "room_3",
+      "room_4"
+    ],
+    "preserveEntrance": true,
+    "preserveOtherRooms": true,
+    "entryFromRoomId": "room_1",
+    "unhandledRequirements": [],
+    "summary": "在主卧（room_1）的左下角新增一个卫生间，保留主卧入口和其他房间。",
+    "message": "已识别：在主卧左下角新增一间卫生间，保留主卧入口及其他房间。"
+  },
+  "selection": {
+    "candidateId": "corner-west-south",
+    "unmetRequirements": [],
+    "reason": "候选 corner-west-south 位于主卧（room_1）的 lower-left（左下角），满足用户在主卧左下角新增卫生间的要求；未要求保留主卧入口和其他房间，且该候选不改变其他房间布局，符合 preserveEntrance/preserveOtherRooms 约束。"
+  },
+  "candidate": {
+    "id": "corner-west-south",
+    "additions": [
+      {
+        "type": "wall",
+        "x1": 3.557812133072407,
+        "y1": 4.342457002457002,
+        "x2": 3.557812133072407,
+        "y2": 2.8767395577395574
+      },
+      {
+        "type": "wall",
+        "x1": 3.557812133072407,
+        "y1": 2.8767395577395574,
+        "x2": 2.134027397260274,
+        "y2": 2.8767395577395574
+      },
+      {
+        "type": "door",
+        "x1": 3.557812133072407,
+        "y1": 3.2345982800982798,
+        "x2": 3.557812133072407,
+        "y2": 3.9845982800982798
+      },
+      {
+        "type": "label",
+        "x": 2.8459197651663404,
+        "y": 3.6095982800982798,
+        "text": "卫生间"
+      }
+    ],
+    "newArea": 2.0854929739682753,
+    "remainingArea": 15.181988212874495,
+    "position": "lower-left",
+    "targetRoomId": "room_1",
+    "newAreaM2": 2.0854929739682753,
+    "remainingAreaM2": 15.181988212874495
+  },
+  "candidateCount": 1,
+  "validation": {
+    "valid": true,
+    "unit": "meter",
+    "targetRoomId": "room_1",
+    "checks": [
+      "target-polygon",
+      "room-count",
+      "door-host",
+      "door-reachability",
+      "existing-entry",
+      "unrelated-rooms",
+      "preserved-room-polygons",
+      "area-conservation",
+      "original-opening-position-and-adjacency",
+      "entrance-circulation",
+      "corner-rectangle"
+    ],
+    "warnings": [
+      "尺寸链与印刷面积可能不一致；sourceArea 保留原标注，expectedArea 为解析多边形面积。",
+      "红色平行开口按交接任务约定解释为推拉门；除 one-01 外其通行语义尚未由用户确认。",
+      "灰墙不证明承重属性，解析为 partition；墙厚为现有展示默认值，非施工尺寸。"
+    ],
+    "newRoomId": "room_5",
+    "newDoorId": "door_bathroom-1792829907063-5eixx-2",
+    "minPassageWidthM": 0.9,
+    "entranceDoorIds": [],
+    "doorRoutes": [
+      {
+        "doorId": "door_hinged-door-02",
+        "approach": [
+          4.172785714285714,
+          3.6924570024570023
+        ],
+        "path": [
+          [
+            4.134027397260274,
+            3.725621621621622
+          ]
+        ]
+      },
+      {
+        "doorId": "door_bathroom-1792829907063-5eixx-2",
+        "approach": [
+          4.206712328767123,
+          3.609593104422604
+        ],
+        "path": [
+          [
+            4.134027397260274,
+            3.725621621621622
+          ],
+          [
+            4.134027397260274,
+            3.645621621621622
+          ],
+          [
+            4.214027397260274,
+            3.645621621621622
+          ]
+        ]
+      },
+      {
+        "doorId": "door_parallel-opening-01",
+        "approach": [
+          6.666665362035225,
+          3.0168648648648646
+        ],
+        "path": [
+          [
+            4.134027397260274,
+            3.725621621621622
+          ],
+          [
+            4.134027397260274,
+            3.645621621621622
+          ],
+          [
+            4.134027397260274,
+            3.565621621621622
+          ],
+          [
+            4.134027397260274,
+            3.485621621621622
+          ],
+          [
+            4.134027397260274,
+            3.4056216216216217
+          ],
+          [
+            4.134027397260274,
+            3.3256216216216217
+          ],
+          [
+            4.134027397260274,
+            3.2456216216216216
+          ],
+          [
+            4.134027397260274,
+            3.1656216216216215
+          ],
+          [
+            4.134027397260274,
+            3.0856216216216215
+          ],
+          [
+            4.134027397260274,
+            3.0056216216216214
+          ],
+          [
+            4.214027397260274,
+            3.0056216216216214
+          ],
+          [
+            4.294027397260274,
+            3.0056216216216214
+          ],
+          [
+            4.374027397260274,
+            3.0056216216216214
+          ],
+          [
+            4.454027397260274,
+            3.0056216216216214
+          ],
+          [
+            4.5340273972602745,
+            3.0056216216216214
+          ],
+          [
+            4.6140273972602746,
+            3.0056216216216214
+          ],
+          [
+            4.694027397260275,
+            3.0056216216216214
+          ],
+          [
+            4.774027397260275,
+            3.0056216216216214
+          ],
+          [
+            4.854027397260275,
+            3.0056216216216214
+          ],
+          [
+            4.934027397260275,
+            3.0056216216216214
+          ],
+          [
+            5.014027397260274,
+            3.0056216216216214
+          ],
+          [
+            5.094027397260274,
+            3.0056216216216214
+          ],
+          [
+            5.174027397260274,
+            3.0056216216216214
+          ],
+          [
+            5.254027397260274,
+            3.0056216216216214
+          ],
+          [
+            5.334027397260274,
+            3.0056216216216214
+          ],
+          [
+            5.414027397260274,
+            3.0056216216216214
+          ],
+          [
+            5.494027397260274,
+            3.0056216216216214
+          ],
+          [
+            5.574027397260274,
+            3.0056216216216214
+          ],
+          [
+            5.654027397260274,
+            3.0056216216216214
+          ],
+          [
+            5.734027397260274,
+            3.0056216216216214
+          ],
+          [
+            5.814027397260274,
+            3.0056216216216214
+          ],
+          [
+            5.894027397260274,
+            3.0056216216216214
+          ],
+          [
+            5.974027397260274,
+            3.0056216216216214
+          ],
+          [
+            6.054027397260274,
+            3.0056216216216214
+          ],
+          [
+            6.134027397260274,
+            3.0056216216216214
+          ],
+          [
+            6.214027397260274,
+            3.0056216216216214
+          ],
+          [
+            6.294027397260274,
+            3.0056216216216214
+          ],
+          [
+            6.374027397260274,
+            3.0056216216216214
+          ],
+          [
+            6.454027397260274,
+            3.0056216216216214
+          ],
+          [
+            6.5340273972602745,
+            3.0056216216216214
+          ],
+          [
+            6.6140273972602746,
+            3.0056216216216214
+          ],
+          [
+            6.694027397260275,
+            3.0056216216216214
+          ]
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "stage": "svg-edit",
+    "method": "natural-language-geometry/v1",
+    "actualInference": true,
+    "model": "Ours",
+    "inference": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "responseId": "chatcmpl-zoestk8m4hntf89ca6lf",
+        "usage": {
+          "prompt_tokens": 1752,
+          "completion_tokens": 126,
+          "total_tokens": 1878,
+          "prompt_tokens_details": {
+            "cached_tokens": 1745
+          },
+          "cached_tokens": 1745,
+          "prompt_tokens_per_second": 166.4506691816253,
+          "completion_tokens_per_second": 61.844202420986704,
+          "draft_tokens": 73,
+          "draft_tokens_accepted": 52,
+          "gufo": {
+            "cache_hit": true,
+            "cache_restore_bytes": 127122044,
+            "cache_snapshot_bytes": 127355352,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 7.681417,
+            "cache_snapshot_ms": 16.967658,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 7,
+            "prefill_chunks": 1,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 7,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 10.091902,
+            "prefill_ms": 42.054502,
+            "decode_ms": 2037.3777180000004,
+            "ttft_ms": 52.267898,
+            "mean_inter_token_ms": 16.234813064000004,
+            "max_inter_token_ms": 65.899646,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 2113
+      },
+      {
+        "stage": "floorplan-candidate-selection",
+        "model": "Ours",
+        "responseId": "chatcmpl-f8duik0172rwh61jq077",
+        "usage": {
+          "prompt_tokens": 831,
+          "completion_tokens": 85,
+          "total_tokens": 916,
+          "prompt_tokens_details": {
+            "cached_tokens": 824
+          },
+          "cached_tokens": 824,
+          "prompt_tokens_per_second": 194.10192463981684,
+          "completion_tokens_per_second": 50.768435004105584,
+          "draft_tokens": 15,
+          "draft_tokens_accepted": 7,
+          "gufo": {
+            "cache_hit": true,
+            "cache_restore_bytes": 95347544,
+            "cache_snapshot_bytes": 95580852,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 12.790979,
+            "cache_snapshot_ms": 12.661504,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 7,
+            "prefill_chunks": 1,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 7,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 14.50573,
+            "prefill_ms": 36.063527,
+            "decode_ms": 1674.2686670000003,
+            "ttft_ms": 50.687173,
+            "mean_inter_token_ms": 19.74749060714287,
+            "max_inter_token_ms": 51.279411,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 1744
+      }
+    ],
+    "structuralTruth": "validated-svg-geometry",
+    "selectedCandidateId": "corner-west-south"
+  },
+  "pngStatus": 200,
+  "mcp": {
+    "httpStatus": 200,
+    "tools": [
+      "begin_floorplan_scene",
+      "set_floor_structure",
+      "set_openings",
+      "populate_basic_furniture",
+      "validate_scene",
+      "commit_scene"
+    ],
+    "complete": true,
+    "validation": {
+      "valid": true,
+      "issues": [],
+      "warnings": []
+    },
+    "aiPlan": {
+      "plan": {
+        "steps": [
+          "set_floor_structure",
+          "set_openings",
+          "populate_basic_furniture",
+          "validate_scene",
+          "commit_scene"
+        ],
+        "rooms": [
+          "room_1",
+          "room_2",
+          "room_3",
+          "room_4",
+          "room_5"
+        ],
+        "walls": [
+          "wall_1",
+          "wall_2",
+          "wall_3",
+          "wall_4",
+          "wall_5",
+          "wall_6",
+          "wall_7",
+          "wall_8",
+          "wall_9",
+          "wall_10",
+          "wall_11",
+          "wall_12",
+          "wall_13",
+          "wall_14",
+          "wall_15",
+          "wall_16",
+          "wall_17",
+          "wall_18",
+          "wall_19",
+          "wall_20",
+          "wall_21"
+        ],
+        "doors": [
+          "door_hinged-door-01",
+          "door_hinged-door-02",
+          "door_bathroom-1792829907063-5eixx-2",
+          "door_parallel-opening-01",
+          "door_parallel-opening-02"
+        ],
+        "windows": [
+          "window_window-01",
+          "window_window-02",
+          "window_window-03",
+          "window_window-04",
+          "window_window-05"
+        ]
+      },
+      "provenance": {
+        "stage": "svg-model3d-plan",
+        "actualInference": true,
+        "sourceImageHash": "c92b11e4d86d0c7d31616287bd82bce9c11b6976fe64647f5f572dd9b93cf241",
+        "model": "Ours",
+        "responseId": "chatcmpl-j1iemb4xofj1av0pauz7",
+        "usage": {
+          "prompt_tokens": 3551,
+          "completion_tokens": 330,
+          "total_tokens": 3881,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "cached_tokens": 0,
+          "prompt_tokens_per_second": 2704.559152516831,
+          "completion_tokens_per_second": 100.03159922437985,
+          "draft_tokens": 265,
+          "draft_tokens_accepted": 250,
+          "gufo": {
+            "cache_hit": false,
+            "cache_miss_reason": "prefix_changed",
+            "cache_common_prefix_tokens": 541,
+            "cache_checkpoint_tokens": 4533,
+            "cache_restore_bytes": 0,
+            "cache_snapshot_bytes": 326763088,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 0,
+            "cache_snapshot_ms": 63.09683,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 3551,
+            "prefill_chunks": 3,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 2048,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 9.325685,
+            "prefill_ms": 1312.96814,
+            "decode_ms": 3298.957555,
+            "ttft_ms": 1386.337691,
+            "mean_inter_token_ms": 10.037227729483284,
+            "max_inter_token_ms": 69.449724,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 4697,
+        "geometrySource": "confirmed-svg",
+        "role": "pascal-build-plan"
+      }
+    },
+    "error": []
+  }
+}

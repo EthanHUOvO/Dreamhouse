@@ -1,0 +1,112 @@
+{
+  "key": "three-07",
+  "instruction": "在客餐厅上侧新增一个卧室，保留入户通道和厨房、卫生间的位置",
+  "httpStatus": 422,
+  "elapsedMs": 10032,
+  "actualInference": true,
+  "error": "EDIT_NO_FEASIBLE_BEDROOM",
+  "message": "当前未找到在该户型客餐厅上侧保留入户通道、厨卫及其他房间，同时满足卧室最小尺寸的分隔方案。原户型未改动。",
+  "intent": {
+    "action": "add_bedroom",
+    "targetRoomId": "room_6",
+    "region": "upper",
+    "roomCount": 1,
+    "minAreaM2": null,
+    "protectedRoomIds": [
+      "room_1",
+      "room_2",
+      "room_3",
+      "room_4",
+      "room_5",
+      "room_7",
+      "room_8",
+      "room_9",
+      "room_10"
+    ],
+    "preserveEntrance": true,
+    "preserveOtherRooms": true,
+    "entryFromRoomId": "room_6",
+    "unhandledRequirements": [],
+    "summary": "在客餐厅上侧新增一个卧室，保留入户通道和厨房、卫生间的位置。",
+    "message": "已识别：在客餐厅（room_6）上侧新增一间卧室，入口从客餐厅进入，保留入户通道、厨房和卫生间位置不变。"
+  },
+  "provenance": {
+    "stage": "svg-edit",
+    "method": "natural-language-geometry/v1",
+    "actualInference": true,
+    "model": "Ours",
+    "inference": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "responseId": "chatcmpl-zd3h2szn0ypg9nujq9tq",
+        "usage": {
+          "prompt_tokens": 1697,
+          "completion_tokens": 166,
+          "total_tokens": 1863,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "cached_tokens": 0,
+          "prompt_tokens_per_second": 2421.293821820834,
+          "completion_tokens_per_second": 65.95299584099654,
+          "draft_tokens": 97,
+          "draft_tokens_accepted": 76,
+          "gufo": {
+            "cache_hit": false,
+            "cache_miss_reason": "prefix_changed",
+            "cache_common_prefix_tokens": 1411,
+            "cache_checkpoint_tokens": 1676,
+            "cache_restore_bytes": 0,
+            "cache_snapshot_bytes": 250682396,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 0,
+            "cache_snapshot_ms": 224.501583,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 1697,
+            "prefill_chunks": 2,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 1690,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 8.71685,
+            "prefill_ms": 700.864961,
+            "decode_ms": 2516.9440429999995,
+            "ttft_ms": 781.762812,
+            "mean_inter_token_ms": 15.986059775757575,
+            "max_inter_token_ms": 195.513008,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 3456
+      }
+    ]
+  },
+  "feasibility": {
+    "candidateCount": 0,
+    "constraints": {
+      "targetRoomId": "room_6",
+      "region": "upper",
+      "protectedRoomIds": [
+        "room_1",
+        "room_2",
+        "room_3",
+        "room_4",
+        "room_5",
+        "room_7",
+        "room_8",
+        "room_9",
+        "room_10"
+      ],
+      "preserveEntrance": true
+    }
+  }
+}

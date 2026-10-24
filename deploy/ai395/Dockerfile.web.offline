@@ -1,0 +1,6 @@
+FROM ideal-home-local:web-before-rocm AS builder
+WORKDIR /app
+COPY . .
+RUN npm run verify && npm run build
+EXPOSE 3000
+CMD ["npm","start"]

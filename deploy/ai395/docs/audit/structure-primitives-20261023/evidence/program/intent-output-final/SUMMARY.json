@@ -1,0 +1,125 @@
+{
+  "kind": "PROGRAMMATIC_FINAL_IMAGE_NO_AI_INFERENCE",
+  "image": "sha256:9caf10e37e4add01e2683981223081a9536673b39c57392b45ff7cbb4e6efee6",
+  "suites": {
+    "catalog-restore": {
+      "image": "9caf10e37e4a",
+      "exitCode": 0,
+      "network": "none",
+      "remote": "/tmp/structure-intent-tests-final-20261023",
+      "overlays": []
+    },
+    "edit-persistence": {
+      "image": "9caf10e37e4a",
+      "exitCode": 0,
+      "network": "none",
+      "remote": "/tmp/structure-intent-tests-final-20261023",
+      "overlays": []
+    },
+    "intent-plan-unit": {
+      "image": "9caf10e37e4a",
+      "exitCode": 0,
+      "network": "none",
+      "remote": "/tmp/structure-intent-tests-final-20261023",
+      "overlays": []
+    },
+    "portal-handlers": {
+      "image": "9caf10e37e4a",
+      "exitCode": 0,
+      "network": "none",
+      "remote": "/tmp/structure-intent-tests-final-20261023",
+      "overlays": []
+    },
+    "portal-transaction": {
+      "image": "9caf10e37e4a",
+      "exitCode": 0,
+      "network": "none",
+      "remote": "/tmp/structure-intent-tests-final-20261023",
+      "overlays": []
+    },
+    "route-geometry": {
+      "image": "9caf10e37e4a",
+      "exitCode": 0,
+      "network": "none",
+      "remote": "/tmp/structure-intent-tests-final-20261023",
+      "overlays": []
+    },
+    "scene-validation": {
+      "image": "9caf10e37e4a",
+      "exitCode": 0,
+      "network": "none",
+      "remote": "/tmp/structure-intent-tests-final-20261023",
+      "overlays": []
+    },
+    "svg-adapter": {
+      "image": "9caf10e37e4a",
+      "exitCode": 0,
+      "network": "none",
+      "remote": "/tmp/structure-intent-tests-final-20261023",
+      "overlays": []
+    },
+    "svg-raster": {
+      "image": "9caf10e37e4a",
+      "exitCode": 0,
+      "network": "none",
+      "remote": "/tmp/structure-intent-tests-final-20261023",
+      "overlays": []
+    }
+  },
+  "assertionCounts": {
+    "intentControlledStub": 63,
+    "routeRealGeometryControlledModel": 7,
+    "sceneActualMcpFunctionsIncludingExpectedSafeRejections": {
+      "pass": 66,
+      "fail": 0
+    },
+    "svgRasterActualSharpRoute": {
+      "pass": 9,
+      "fail": 0
+    },
+    "catalogOriginalLoadRestore": {
+      "pass": 9,
+      "fail": 0
+    },
+    "portalTransaction": 14,
+    "portalHandlers": 7
+  },
+  "furnitureAndSearchOutcomes": {
+    "prepare-living-upper-study": "CANDIDATE_GEOMETRY_VERIFIED",
+    "prepare-master-upper-study": "SAFE_REJECTION_SEARCH_BUDGET_EXCEEDED",
+    "merge-first-generation-default-furniture-guard": "ACCEPTED",
+    "merge-retained-furniture-guard-pass-or-safe-reject": "ACCEPTED",
+    "move-first-generation-default-furniture-guard": "ACCEPTED",
+    "move-retained-furniture-guard-pass-or-safe-reject": "ACCEPTED",
+    "classic-bedroom-first-generation-default-furniture-guard": "ACCEPTED",
+    "classic-bedroom-retained-furniture-guard-pass-or-safe-reject": "SAFE_REJECTION_REQUIRES_MANUAL_FURNITURE_ADJUSTMENT",
+    "classic-bedroom-1-first-generation-default-furniture-guard": "ACCEPTED",
+    "classic-bedroom-1-retained-furniture-guard-pass-or-safe-reject": "SAFE_REJECTION_REQUIRES_MANUAL_FURNITURE_ADJUSTMENT",
+    "classic-bedroom-2-first-generation-default-furniture-guard": "ACCEPTED",
+    "classic-bedroom-2-retained-furniture-guard-pass-or-safe-reject": "SAFE_REJECTION_REQUIRES_MANUAL_FURNITURE_ADJUSTMENT",
+    "living-upper-study-first-generation-default-furniture-guard": "ACCEPTED",
+    "living-upper-study-retained-furniture-guard-pass-or-safe-reject": "SAFE_REJECTION_REQUIRES_MANUAL_FURNITURE_ADJUSTMENT"
+  },
+  "typecheck": {
+    "images": {
+      "baseline": "90f75275e2ff",
+      "current": "9caf10e37e4a"
+    },
+    "baseline": {
+      "exitCode": 2,
+      "count": 141
+    },
+    "current": {
+      "exitCode": 2,
+      "count": 141
+    },
+    "added": [],
+    "removed": []
+  },
+  "limitations": [
+    "No real AI inference was executed by this final programmatic suite.",
+    "SAFE_REJECTION is a successful rejection test, not a successful floorplan edit.",
+    "Historical first study SVG_EDIT_FAILED root cause remains UNKNOWN; a later replay success does not explain it.",
+    "SVG raster tests establish pixel dimensions and metre geometry consistency, not subjective image quality; Fontconfig default-config warning remains in raster log."
+  ]
+}
