@@ -1,0 +1,526 @@
+{
+  "kind": "independent-validation-of-live-AI-output",
+  "aiInferencePerformedByThisScript": false,
+  "timestamp": "2026-10-23T16:31:34.680Z",
+  "status": "PASS",
+  "inputPaths": {
+    "originalPath": "/workspace/public/preset/svg-v2/three/option-01.svg",
+    "svgPath": "/live/three-01.svg",
+    "scenePath": "/live/three-01-scene.json"
+  },
+  "checks": {
+    "structure": {
+      "targetRoomId": "room_1",
+      "newRoomId": "room_9",
+      "newAreaM2": 6.440285249444184,
+      "remainingAreaM2": 44.28604531818236,
+      "unchangedRooms": [
+        "卧室",
+        "卧室",
+        "主卧",
+        "卫生间",
+        "卫生间",
+        "厨房",
+        "阳台"
+      ],
+      "originalOpeningsPreserved": true,
+      "originalWallCoveragePreserved": true,
+      "exterior": {
+        "sourceWallBytesPreserved": true,
+        "exactDerivedOutline": false,
+        "maxAllowedLocalDeltaM": 0.08193920972644377,
+        "maxObservedDeltaM": 0.039434628975266506,
+        "symmetricDifferenceM2": 0.003460658382291557,
+        "newTJunctions": [
+          [
+            8.051689969604862,
+            10.943109540636044
+          ],
+          [
+            5.748072948328267,
+            10.943109540636044
+          ]
+        ]
+      }
+    },
+    "actualReturnedScene": {
+      "status": "PASS",
+      "rooms": 9,
+      "walls": 31,
+      "doors": 8,
+      "windows": 11,
+      "roomPolygonsExact": true,
+      "wallCoordinatesExact": true,
+      "openingHostsOffsetsWidthsExact": true,
+      "doorsAboveFloor": true
+    },
+    "doorGraph": {
+      "newDoorId": "door_bedroom-1ax4u7z-lower-1j8aoee-2",
+      "newDoorRooms": [
+        "room_1",
+        "room_9"
+      ],
+      "reachableRooms": [
+        "room_1",
+        "room_2",
+        "room_3",
+        "room_4",
+        "room_6",
+        "room_9",
+        "room_5"
+      ],
+      "sourceReachableRooms": [
+        "room_1",
+        "room_2",
+        "room_3",
+        "room_4",
+        "room_6",
+        "room_5"
+      ],
+      "externalLivingOpeningIds": [
+        "door_hinged-door-01"
+      ]
+    },
+    "independentFurnitureAndWalkthrough": {
+      "newWallCount": 2,
+      "furnitureFootprints": [
+        {
+          "id": "item_room_1_1",
+          "roomId": "room_1",
+          "widthM": 1.7999999999999998,
+          "depthM": 1.08
+        },
+        {
+          "id": "item_room_2_2",
+          "roomId": "room_2",
+          "widthM": 1.08,
+          "depthM": 1.7999999999999998
+        },
+        {
+          "id": "item_room_3_3",
+          "roomId": "room_3",
+          "widthM": 1.08,
+          "depthM": 1.7999999999999998
+        },
+        {
+          "id": "item_room_4_4",
+          "roomId": "room_4",
+          "widthM": 1.44,
+          "depthM": 1.7999999999999998
+        },
+        {
+          "id": "item_room_5_5",
+          "roomId": "room_5",
+          "widthM": 0.72,
+          "depthM": 0.72
+        },
+        {
+          "id": "item_room_6_6",
+          "roomId": "room_6",
+          "widthM": 0.72,
+          "depthM": 0.72
+        },
+        {
+          "id": "item_room_7_7",
+          "roomId": "room_7",
+          "widthM": 1.7999999999999998,
+          "depthM": 0.72
+        },
+        {
+          "id": "item_room_9_9",
+          "roomId": "room_9",
+          "widthM": 1.08,
+          "depthM": 1.7999999999999998
+        }
+      ],
+      "noFurnitureNewWallCollision": true,
+      "unrelatedDefaultFurnitureUnchanged": 6,
+      "paths": [
+        {
+          "entryId": "door_hinged-door-01",
+          "pathMeters": [
+            [
+              4.825063829787234,
+              10.93964664310954
+            ],
+            [
+              4.905063829787234,
+              10.93964664310954
+            ],
+            [
+              4.985063829787234,
+              10.93964664310954
+            ],
+            [
+              5.065063829787234,
+              10.93964664310954
+            ],
+            [
+              5.065063829787234,
+              10.85964664310954
+            ],
+            [
+              5.065063829787234,
+              10.77964664310954
+            ],
+            [
+              5.065063829787234,
+              10.69964664310954
+            ],
+            [
+              5.065063829787234,
+              10.619646643109542
+            ],
+            [
+              5.145063829787233,
+              10.619646643109542
+            ],
+            [
+              5.225063829787233,
+              10.619646643109542
+            ],
+            [
+              5.305063829787233,
+              10.619646643109542
+            ],
+            [
+              5.385063829787233,
+              10.619646643109542
+            ],
+            [
+              5.465063829787233,
+              10.619646643109542
+            ],
+            [
+              5.465063829787233,
+              10.539646643109542
+            ],
+            [
+              5.465063829787233,
+              10.459646643109542
+            ],
+            [
+              5.465063829787233,
+              10.379646643109542
+            ],
+            [
+              5.465063829787233,
+              10.299646643109542
+            ],
+            [
+              5.465063829787233,
+              10.219646643109542
+            ],
+            [
+              5.465063829787233,
+              10.139646643109542
+            ],
+            [
+              5.465063829787233,
+              10.059646643109541
+            ],
+            [
+              5.465063829787233,
+              9.979646643109541
+            ],
+            [
+              5.465063829787233,
+              9.899646643109541
+            ],
+            [
+              5.465063829787233,
+              9.819646643109541
+            ],
+            [
+              5.465063829787233,
+              9.739646643109541
+            ],
+            [
+              5.465063829787233,
+              9.659646643109541
+            ],
+            [
+              5.465063829787233,
+              9.579646643109541
+            ],
+            [
+              5.465063829787233,
+              9.499646643109541
+            ],
+            [
+              5.465063829787233,
+              9.419646643109541
+            ],
+            [
+              5.465063829787233,
+              9.33964664310954
+            ],
+            [
+              5.465063829787233,
+              9.25964664310954
+            ],
+            [
+              5.465063829787233,
+              9.17964664310954
+            ],
+            [
+              5.465063829787233,
+              9.09964664310954
+            ],
+            [
+              5.5450638297872334,
+              9.09964664310954
+            ],
+            [
+              5.6250638297872335,
+              9.09964664310954
+            ],
+            [
+              5.705063829787234,
+              9.09964664310954
+            ],
+            [
+              5.785063829787234,
+              9.09964664310954
+            ],
+            [
+              5.785063829787234,
+              9.01964664310954
+            ],
+            [
+              5.785063829787234,
+              8.93964664310954
+            ],
+            [
+              5.785063829787234,
+              8.85964664310954
+            ]
+          ],
+          "walkRadiusM": 0.22,
+          "gridStepM": 0.08
+        }
+      ]
+    },
+    "productionFinalSceneGuard": {
+      "valid": true,
+      "newDoorId": "door_bedroom-1ax4u7z-lower-1j8aoee-2",
+      "newRoomId": "room_9",
+      "targetRoomId": "room_1",
+      "checkedFurniture": 8,
+      "checkedNewWalls": 3,
+      "playerRadiusM": 0.22,
+      "gridStepM": 0.08,
+      "paths": [
+        {
+          "entryDoorId": "door_hinged-door-01",
+          "path": [
+            [
+              4.825063829787234,
+              10.93964664310954
+            ],
+            [
+              4.905063829787234,
+              10.93964664310954
+            ],
+            [
+              4.985063829787234,
+              10.93964664310954
+            ],
+            [
+              5.065063829787234,
+              10.93964664310954
+            ],
+            [
+              5.065063829787234,
+              10.85964664310954
+            ],
+            [
+              5.065063829787234,
+              10.77964664310954
+            ],
+            [
+              5.065063829787234,
+              10.69964664310954
+            ],
+            [
+              5.065063829787234,
+              10.619646643109542
+            ],
+            [
+              5.145063829787233,
+              10.619646643109542
+            ],
+            [
+              5.225063829787233,
+              10.619646643109542
+            ],
+            [
+              5.305063829787233,
+              10.619646643109542
+            ],
+            [
+              5.385063829787233,
+              10.619646643109542
+            ],
+            [
+              5.465063829787233,
+              10.619646643109542
+            ],
+            [
+              5.465063829787233,
+              10.539646643109542
+            ],
+            [
+              5.465063829787233,
+              10.459646643109542
+            ],
+            [
+              5.465063829787233,
+              10.379646643109542
+            ],
+            [
+              5.465063829787233,
+              10.299646643109542
+            ],
+            [
+              5.465063829787233,
+              10.219646643109542
+            ],
+            [
+              5.465063829787233,
+              10.139646643109542
+            ],
+            [
+              5.465063829787233,
+              10.059646643109541
+            ],
+            [
+              5.465063829787233,
+              9.979646643109541
+            ],
+            [
+              5.465063829787233,
+              9.899646643109541
+            ],
+            [
+              5.465063829787233,
+              9.819646643109541
+            ],
+            [
+              5.465063829787233,
+              9.739646643109541
+            ],
+            [
+              5.465063829787233,
+              9.659646643109541
+            ],
+            [
+              5.465063829787233,
+              9.579646643109541
+            ],
+            [
+              5.465063829787233,
+              9.499646643109541
+            ],
+            [
+              5.465063829787233,
+              9.419646643109541
+            ],
+            [
+              5.465063829787233,
+              9.33964664310954
+            ],
+            [
+              5.465063829787233,
+              9.25964664310954
+            ],
+            [
+              5.465063829787233,
+              9.17964664310954
+            ],
+            [
+              5.465063829787233,
+              9.09964664310954
+            ],
+            [
+              5.5450638297872334,
+              9.09964664310954
+            ],
+            [
+              5.6250638297872335,
+              9.09964664310954
+            ],
+            [
+              5.705063829787234,
+              9.09964664310954
+            ],
+            [
+              5.785063829787234,
+              9.09964664310954
+            ],
+            [
+              5.785063829787234,
+              9.01964664310954
+            ],
+            [
+              5.785063829787234,
+              8.93964664310954
+            ],
+            [
+              5.785063829787234,
+              8.85964664310954
+            ]
+          ]
+        }
+      ],
+      "originalRoutesChecked": [
+        "door_hinged-door-01",
+        "door_hinged-door-02",
+        "door_hinged-door-03",
+        "door_hinged-door-05",
+        "door_hinged-door-06"
+      ],
+      "warnings": [],
+      "furnitureMoved": false
+    },
+    "programmaticSaveRestore": {
+      "scope": "actual scene clone bound to fixture V1/V2 using production binding, strict variant storage and session serializers; not a browser refresh claim",
+      "versions": [
+        {
+          "version": "v1",
+          "rooms": 8,
+          "exactSceneRestored": true,
+          "exactSvgRestored": true
+        },
+        {
+          "version": "v2",
+          "rooms": 9,
+          "exactSceneRestored": true,
+          "exactSvgRestored": true
+        }
+      ],
+      "wrongVersionRejected": true,
+      "missingVersionSvgRejected": true,
+      "invalidSavePreservedPrevious": true,
+      "unsubmittedDraftPreservedCommittedScene": true
+    },
+    "inputUnchanged": true
+  },
+  "limitations": [
+    "This script consumes the saved live HTTP output; it does not invoke a model.",
+    "The actual returned SceneGraph is checked directly and is not replaced by a deterministic candidate or newly compiled edited scene.",
+    "Storage roundtrip is a programmatic harness with the same production binding/serializer; the raw model3d HTTP result has no Portal version binding. Browser persistence is a separate test."
+  ],
+  "inputHashes": {
+    "originalSvg": "21b876f2142b5c03055c8738699fcf9a2d8af9d941d29ab434de9bca3b8380ee",
+    "editedSvg": "5ab75a7ffd0cfd018eff24d521cb7470224f6adbe1cc31c070d0a6939c6c090e",
+    "sceneFile": "5728a84d0fdb64fc6b07fb7036f2df473300b9d18b54070b4ec38d9ef296d649"
+  },
+  "actualSceneMetadata": {
+    "floorplanSource": "svg-deterministic/v1",
+    "sourceImageHash": "5f514d7d85ed2c946433e631353ff714284aa887e1dffea72df464eeba77f622",
+    "mcpSessionId": "bedroom-live-three-01-1792773070995693454",
+    "modelBinding": null
+  },
+  "elapsedMs": 1166.842314
+}

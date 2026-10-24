@@ -1,0 +1,295 @@
+lib/ai/floorplan-image.test.ts(80,15): error TS2540: Cannot assign to 'NODE_ENV' because it is a read-only property.
+lib/ai/floorplan-image.test.ts(92,98): error TS2540: Cannot assign to 'NODE_ENV' because it is a read-only property.
+lib/execution/BambuPrinterAdapter.ts(51,5): error TS2322: Type '{ printStatus: string; currentTask: string; progress: number; mode: ExecutionMode; connectionStatus: ExecutionConnection; remainingMinutes?: number; currentLayer?: number; ... 10 more ...; printerModel?: string; }' is not assignable to type 'PrinterStatus'.
+  Types of property 'printStatus' are incompatible.
+    Type 'string' is not assignable to type '"已完成" | "待机" | "异常" | "暂停" | "打印中"'.
+lib/floorplans/pascal-v2/one/option-01.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/one/option-02.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/one/option-03.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/one/option-04.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/one/option-05.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/one/option-06.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/one/option-07.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/one/option-08.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/three/option-01.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/three/option-02.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/three/option-03.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/three/option-04.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/three/option-05.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/three/option-06.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/three/option-07.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/three/option-08.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/two/option-01.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/two/option-02.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/two/option-03.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/two/option-04.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/two/option-05.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/two/option-06.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/two/option-07.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+lib/floorplans/pascal-v2/two/option-08.ts(1,15): error TS2305: Module '"../../types"' has no exported member 'PascalV2Spec'.
+node_modules/@pascal-app/editor/src/components/editor-2d/floorplan-measurement-tool-layer.tsx(140,5): error TS2322: Type '[number?, number?, number?, ...unknown[]]' is not assignable to type 'MeasurementPoint'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor-2d/floorplan-measurement-tool-layer.tsx(1238,9): error TS2322: Type '[number?, number?, number?, ...unknown[]]' is not assignable to type 'MeasurementPoint'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor-2d/floorplan-measurement-tool-layer.tsx(1247,11): error TS2322: Type '[number?, number?, number?, ...unknown[]]' is not assignable to type 'MeasurementPoint'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor-2d/floorplan-measurement-tool-layer.tsx(1264,11): error TS2322: Type '[number?, number?, number?, ...unknown[]]' is not assignable to type 'MeasurementPoint'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor-2d/floorplan-measurement-tool-layer.tsx(1663,11): error TS2322: Type '[number?, number?, number?, ...unknown[]]' is not assignable to type 'MeasurementPoint'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor-2d/renderers/floorplan-registry-layer.tsx(2153,23): error TS2352: Conversion of type '{ object: "node"; parentId: string; visible: boolean; id: `zone_${string}`; type: "zone"; name: string; polygon: [number?, number?, ...unknown[]][]; autoFromWalls: boolean; boundaryWallIds: `wall_${string}`[]; spaceRole: "room" | "generic"; ... 10 more ...; camera?: { ...; }; } | { ...; } | { ...; }' to type '{ polygon: [number, number][]; holes?: [number, number][][]; }' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type '{ object: "node"; parentId: string; visible: boolean; metadata: JSONType; id: `ceiling_${string}`; type: "ceiling"; children: `item_${string}`[]; polygon: [number?, number?, ...unknown[]][]; holes: [number?, number?, ...unknown[]][][]; ... 7 more ...; height?: number; }' is not comparable to type '{ polygon: [number, number][]; holes?: [number, number][][]; }'.
+    Types of property 'polygon' are incompatible.
+      Type '[number?, number?, ...unknown[]][]' is not comparable to type '[number, number][]'.
+        Type '[number?, number?, ...unknown[]]' is not comparable to type '[number, number]'.
+          Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/fence-tangent-lines-3d.tsx(62,44): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type 'readonly (readonly [number, number])[]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type 'readonly [number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/first-person-controls.tsx(259,33): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type 'Point2D[]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type 'Point2D'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/first-person-controls.tsx(260,60): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type 'Point2D[]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type 'Point2D'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/first-person-controls.tsx(265,54): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type 'Point2D[]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type 'Point2D'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/first-person-controls.tsx(319,85): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type 'Point2D[]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type 'Point2D'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floating-action-menu.tsx(658,26): error TS2352: Conversion of type '{ object: "node"; parentId: string; visible: boolean; metadata: JSONType; id: `building_${string}`; type: "building"; children: (`level_${string}` | `elevator_${string}`)[]; position: [number?, number?, number?, ...unknown[]]; rotation: [...?]; name?: string; camera?: { ...; }; } | ... 20 more ... | { ...; }' to type '{ position: [number, number, number]; }' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type '{ object: "node"; parentId: string; visible: boolean; metadata: JSONType; id: `pipe-trap_${string}`; type: "pipe-trap"; position: [number?, number?, number?, ...unknown[]]; rotation: number; diameter: number; pipeMaterial: "pvc" | ... 1 more ... | "cast-iron"; armLengthM: number; name?: string; camera?: { ...; }; }' is not comparable to type '{ position: [number, number, number]; }'.
+    Types of property 'position' are incompatible.
+      Type '[number?, number?, number?, ...unknown[]]' is not comparable to type '[number, number, number]'.
+        Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floating-action-menu.tsx(659,15): error TS2352: Conversion of type '{ object: "node"; parentId: string; visible: boolean; metadata: JSONType; id: `building_${string}`; type: "building"; children: (`level_${string}` | `elevator_${string}`)[]; position: [number?, number?, number?, ...unknown[]]; rotation: [...?]; name?: string; camera?: { ...; }; } | ... 20 more ... | { ...; }' to type '{ position: [number, number, number]; }' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type '{ object: "node"; parentId: string; visible: boolean; metadata: JSONType; id: `pipe-trap_${string}`; type: "pipe-trap"; position: [number?, number?, number?, ...unknown[]]; rotation: number; diameter: number; pipeMaterial: "pvc" | ... 1 more ... | "cast-iron"; armLengthM: number; name?: string; camera?: { ...; }; }' is not comparable to type '{ position: [number, number, number]; }'.
+    Types of property 'position' are incompatible.
+      Type '[number?, number?, number?, ...unknown[]]' is not comparable to type '[number, number, number]'.
+        Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(1278,46): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(1279,44): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(2320,67): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(2323,68): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(2593,21): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(2594,21): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(2595,21): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(2596,21): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(3514,11): error TS2322: Type '[number?, number?, ...unknown[]]' is not assignable to type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(3518,11): error TS2322: Type '[number?, number?, ...unknown[]]' is not assignable to type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(5582,37): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(5584,45): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(5690,42): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(5696,43): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(5719,42): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(5725,43): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(8139,23): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(8140,23): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(8141,23): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(8142,23): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(8543,41): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(8544,39): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/floorplan-panel.tsx(8723,38): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/slab-hole-highlights.tsx(320,13): error TS2322: Type '[number?, number?, ...unknown[]][]' is not assignable to type 'HolePolygon'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/wall-measurement-label.tsx(125,69): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number]'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/wall-measurement-label.tsx(128,68): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number]'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/wall-snap-beacon-layer.tsx(153,5): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number]'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/editor/wall-snap-beacon-layer.tsx(178,43): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number]'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/systems/ceiling/ceiling-selection-affordance-system.tsx(177,53): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/elevator/move-elevator-tool.tsx(107,58): error TS2322: Type '[number?, number?, number?, ...unknown[]]' is not assignable to type '[number, number, number]'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/fence/fence-drafting.ts(80,63): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/fence/fence-drafting.ts(88,7): error TS2322: Type '[number?, number?, ...unknown[]]' is not assignable to type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/fence/fence-drafting.ts(109,56): error TS2345: Argument of type '{ object: "node"; parentId: string; visible: boolean; metadata: JSONType; id: `fence_${string}`; type: "fence"; start: [number?, number?, ...unknown[]]; end: [number?, number?, ...unknown[]]; height: number; thickness: number; ... 21 more ...; curveOffset?: number; }' is not assignable to parameter of type 'SegmentNode'.
+  Types of property 'start' are incompatible.
+    Type '[number?, number?, ...unknown[]]' is not assignable to type 'WallPlanPoint'.
+      Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/item/placement-strategies.ts(109,43): error TS2345: Argument of type '[number?, number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number, number]'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/item/placement-strategies.ts(159,7): error TS2345: Argument of type '[number?, number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number, number]'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/item/placement-strategies.ts(204,66): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number]'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/item/placement-strategies.ts(219,32): error TS2345: Argument of type '[number?, number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number, number]'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/item/placement-strategies.ts(265,66): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number]'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/item/placement-strategies.ts(409,41): error TS2345: Argument of type '[number?, number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number, number]'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/item/placement-strategies.ts(607,43): error TS2345: Argument of type '[number?, number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number, number]'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/item/placement-strategies.ts(687,7): error TS2345: Argument of type '[number?, number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number, number]'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/item/placement-strategies.ts(1029,7): error TS2345: Argument of type '[number?, number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number, number]'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/item/placement-strategies.ts(1056,5): error TS2345: Argument of type '[number?, number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number, number]'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/item/use-placement-coordinator.tsx(160,5): error TS2322: Type '[number?, number?, number?, ...unknown[]]' is not assignable to type '[number, number, number]'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/item/use-placement-coordinator.tsx(2526,41): error TS2345: Argument of type '[number?, number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number, number]'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/registry/move-registry-node-tool.tsx(258,13): error TS2352: Conversion of type '{ object: "node"; parentId: string; visible: boolean; metadata: JSONType; id: `building_${string}`; type: "building"; children: (`level_${string}` | `elevator_${string}`)[]; position: [number?, number?, number?, ...unknown[]]; rotation: [...?]; name?: string; camera?: { ...; }; } | ... 29 more ... | { ...; }' to type '{ position: [number, number, number]; }' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type '{ object: "node"; parentId: string; visible: boolean; metadata: JSONType; id: `pipe-trap_${string}`; type: "pipe-trap"; position: [number?, number?, number?, ...unknown[]]; rotation: number; diameter: number; pipeMaterial: "pvc" | ... 1 more ... | "cast-iron"; armLengthM: number; name?: string; camera?: { ...; }; }' is not comparable to type '{ position: [number, number, number]; }'.
+    Types of property 'position' are incompatible.
+      Type '[number?, number?, number?, ...unknown[]]' is not comparable to type '[number, number, number]'.
+        Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/registry/move-registry-node-tool.tsx(457,7): error TS2352: Conversion of type '{ position: [number, number, number]; rotation: number | [number, number, number]; }' to type '{ object: "node"; parentId: string; visible: boolean; metadata: JSONType; id: `site_${string}`; type: "site"; polygon: { type: "polygon"; points: [number?, number?, ...unknown[]][]; }; children: string[]; name?: string; camera?: { ...; }; terrain?: { ...; }; } | ... 44 more ... | { ...; }' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type '{ position: [number, number, number]; rotation: number | [number, number, number]; }' is missing the following properties from type '{ object: "node"; parentId: string; visible: boolean; metadata: JSONType; id: `pipe-trap_${string}`; type: "pipe-trap"; position: [number?, number?, number?, ...unknown[]]; rotation: number; diameter: number; pipeMaterial: "pvc" | ... 1 more ... | "cast-iron"; armLengthM: number; name?: string; camera?: { ...; }; }': object, parentId, visible, metadata, and 5 more.
+node_modules/@pascal-app/editor/src/components/tools/registry/move-registry-node-tool.tsx(528,29): error TS2352: Conversion of type '{ position: [number, number, number]; rotation: number | [number, number, number]; }' to type '{ object: "node"; parentId: string; visible: boolean; metadata: JSONType; id: `site_${string}`; type: "site"; polygon: { type: "polygon"; points: [number?, number?, ...unknown[]][]; }; children: string[]; name?: string; camera?: { ...; }; terrain?: { ...; }; } | ... 44 more ... | { ...; }' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type '{ position: [number, number, number]; rotation: number | [number, number, number]; }' is missing the following properties from type '{ object: "node"; parentId: string; visible: boolean; metadata: JSONType; id: `pipe-trap_${string}`; type: "pipe-trap"; position: [number?, number?, number?, ...unknown[]]; rotation: number; diameter: number; pipeMaterial: "pvc" | ... 1 more ... | "cast-iron"; armLengthM: number; name?: string; camera?: { ...; }; }': object, parentId, visible, metadata, and 5 more.
+node_modules/@pascal-app/editor/src/components/tools/registry/move-registry-node-tool.tsx(816,31): error TS2352: Conversion of type '{ position: [number, number, number]; rotation: number | [number, number, number]; }' to type '{ object: "node"; parentId: string; visible: boolean; metadata: JSONType; id: `site_${string}`; type: "site"; polygon: { type: "polygon"; points: [number?, number?, ...unknown[]][]; }; children: string[]; name?: string; camera?: { ...; }; terrain?: { ...; }; } | ... 44 more ... | { ...; }' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type '{ position: [number, number, number]; rotation: number | [number, number, number]; }' is missing the following properties from type '{ object: "node"; parentId: string; visible: boolean; metadata: JSONType; id: `pipe-trap_${string}`; type: "pipe-trap"; position: [number?, number?, number?, ...unknown[]]; rotation: number; diameter: number; pipeMaterial: "pvc" | ... 1 more ... | "cast-iron"; armLengthM: number; name?: string; camera?: { ...; }; }': object, parentId, visible, metadata, and 5 more.
+node_modules/@pascal-app/editor/src/components/tools/roof/roof-tool.tsx(96,35): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'readonly [number, number]'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/select/plane-box-select-tool.tsx(196,38): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/shared/segment-angle.ts(174,26): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'PlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/shared/segment-angle.ts(183,26): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'PlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/site/site-boundary-editor.tsx(545,9): error TS2322: Type '[number?, number?, ...unknown[]][]' is not assignable to type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/wall/wall-drafting.ts(599,22): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/wall/wall-drafting.ts(599,64): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/wall/wall-drafting.ts(600,22): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/wall/wall-drafting.ts(600,62): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/wall/wall-drafting.ts(637,9): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type '[number, number]'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/wall/wall-snap-geometry.ts(95,54): error TS2322: Type '[number?, number?, ...unknown[]]' is not assignable to type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/wall/wall-snap-geometry.ts(95,66): error TS2322: Type '[number?, number?, ...unknown[]]' is not assignable to type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/wall/wall-snap-geometry.ts(146,30): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/wall/wall-snap-geometry.ts(147,30): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/wall/wall-snap-geometry.ts(281,9): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/wall/wall-snap-geometry.ts(345,28): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/wall/wall-snap-geometry.ts(346,28): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/tools/zone/zone-boundary-editor.tsx(40,7): error TS2322: Type '[number?, number?, ...unknown[]][]' is not assignable to type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/ui/sidebar/panels/site-panel/ceiling-tree-node.tsx(80,72): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/ui/sidebar/panels/site-panel/index.tsx(110,37): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/ui/sidebar/panels/site-panel/index.tsx(111,40): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/ui/sidebar/panels/site-panel/index.tsx(1138,69): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/ui/sidebar/panels/site-panel/slab-tree-node.tsx(50,69): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/components/ui/sidebar/panels/site-panel/zone-tree-node.tsx(39,69): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/hooks/use-ceiling-events.ts(99,47): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type '[number, number][]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type '[number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/elevation-guides.ts(116,36): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type 'readonly (readonly [number, number])[]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type 'readonly [number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/elevation-guides.ts(139,31): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type 'readonly (readonly [number, number])[]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type 'readonly [number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/elevation-guides.ts(147,36): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'readonly [number, number]'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/elevation-guides.ts(165,36): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'readonly [number, number]'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/elevator-support.ts(88,3): error TS2322: Type '[number?, number?, number?, ...unknown[]]' is not assignable to type '[number, number, number]'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/measurement-label.ts(16,30): error TS2556: A spread argument must either have a tuple type or be passed to a rest parameter.
+node_modules/@pascal-app/editor/src/lib/measurement-label.ts(20,30): error TS2556: A spread argument must either have a tuple type or be passed to a rest parameter.
+node_modules/@pascal-app/editor/src/lib/measurement-label.ts(22,34): error TS2556: A spread argument must either have a tuple type or be passed to a rest parameter.
+node_modules/@pascal-app/editor/src/lib/measurements.ts(34,69): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'number'.
+node_modules/@pascal-app/editor/src/lib/paint-scope.ts(356,38): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type 'readonly (readonly [number, number])[]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type 'readonly [number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/paint-scope.ts(365,47): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type 'readonly (readonly [number, number])[]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type 'readonly [number, number]'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/surface-plan-snap.ts(105,44): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/surface-plan-snap.ts(142,32): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/surface-plan-snap.ts(143,32): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'WallPlanPoint'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/terrain-sculpt.ts(110,58): error TS2345: Argument of type '[number?, number?, ...unknown[]][]' is not assignable to parameter of type 'Point2D[]'.
+  Type '[number?, number?, ...unknown[]]' is not assignable to type 'Point2D'.
+    Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/world-grid-snap.ts(61,5): error TS2322: Type '[number?, number?, number?, ...unknown[]]' is not assignable to type 'readonly [number, number, number]'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/world-grid-snap.ts(203,5): error TS2345: Argument of type '[number?, number?, number?, ...unknown[]]' is not assignable to parameter of type 'Vec3'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/world-grid-snap.ts(230,53): error TS2345: Argument of type '[number?, number?, number?, ...unknown[]]' is not assignable to parameter of type 'Vec3'.
+  Target requires 3 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/zone-content.ts(91,28): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'Point2D'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/zone-content.ts(92,23): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'Point2D'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/zone-content.ts(93,22): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'Point2D'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/lib/zone-content.ts(94,22): error TS2345: Argument of type '[number?, number?, ...unknown[]]' is not assignable to parameter of type 'Point2D'.
+  Target requires 2 element(s) but source may have fewer.
+node_modules/@pascal-app/editor/src/store/use-measurement-draft.ts(445,30): error TS2345: Argument of type '[number?, number?, number?, ...unknown[]]' is not assignable to parameter of type 'MeasurementPoint'.
+  Target requires 3 element(s) but source may have fewer.
+scripts/test-model3d-regressions.ts(63,3): error TS2322: Type '() => Promise<{}>' is not assignable to type '(body: any) => Promise<{ choices: { message: { tool_calls: { id: string; function: { name: any; arguments: string; }; }[]; }; }[]; }>'.
+  Type 'Promise<{}>' is not assignable to type 'Promise<{ choices: { message: { tool_calls: { id: string; function: { name: any; arguments: string; }; }[]; }; }[]; }>'.
+    Property 'choices' is missing in type '{}' but required in type '{ choices: { message: { tool_calls: { id: string; function: { name: any; arguments: string; }; }[]; }; }[]; }'.
+services/local-ai-gateway/server.ts(2,101): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+services/qwen-image-local/server.ts(6,129): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+services/qwen-image-ncnn/server.ts(7,129): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.

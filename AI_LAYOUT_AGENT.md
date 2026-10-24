@@ -1,32 +1,8 @@
-# DreamHouse v12 — Interactive AI Layout Agent
+# AI Layout Agent · qwen3.8-flash → Pascal
 
-v12 removes the key limitation of the old `scenario -> preset scene` path. The main design interaction is now:
+本版不让 Qwen 直接修改 Pascal 原始坐标。`qwen3.8-flash` 只通过 Function Calling 使用 DreamHouse 提供的受控工具。
 
-```text
-Natural-language request
-        ↓
-POST /api/ai/layout
-        ↓
-Qwen3.7-plus Function Calling
-        ↓
-DreamHouse layout tools
-        ↓
-Temporary SceneGraph
-        ↓
-Geometry validation
-        ↓
-2D + Pascal 3D preview
-        ↓
-User clicks “Apply to Design”
-        ↓
-DesignVersion.scene
-        ↓
-Approved → Detailed BOM → MES
-```
-
-## Function tools
-
-The model can call:
+## 工具
 
 - `get_house_constraints`
 - `get_room_geometry`
@@ -41,32 +17,15 @@ The model can call:
 - `regenerate_furniture`
 - `validate_layout`
 
-The implementation is in `lib/layout-tools.ts`. Qwen never directly edits raw Pascal JSON coordinates. It chooses semantic tools; the Geometry Engine performs the exact SceneGraph mutation.
+## 安全边界
 
-## Safety / deterministic constraints
+- 外墙不可修改
+- 承重墙不可修改
+- 入户门不可删除
+- 工具在服务端 SceneGraph 临时副本执行
+- 完成后必须通过 `validate_layout`
+- 前端收到操作序列后逐条在 Pascal Viewer 中回放，形成“AI正在建模”的视觉效果
 
-- Load-bearing walls and exterior walls cannot be deleted or moved.
-- `door_entry` cannot be moved or removed.
-- Room split ratios are clamped and minimum room dimensions are checked.
-- Room overlap, missing master/living/bathroom, invalid doors and invalid geometry are checked by `validate_layout()`.
-- An AI result is preview-only until the user explicitly applies it.
-- A failed validation cannot be applied.
-- After application, DesignVersion stores the resulting SceneGraph and AI tool history.
-- BOM is regenerated from the new approved SceneGraph; old frozen BOMs are not rewritten by the model.
+## 实时性的定义
 
-## Example
-
-User:
-
-> 把主卧搬到右下角，原主卧改成书房，卫生间保持不动。
-
-Expected tool behavior:
-
-```text
-get_house_constraints
-assign_room_function(zone_master -> study)
-assign_room_function(zone_gaming -> master_bedroom)
-validate_layout
-```
-
-The Pascal 2D/3D view immediately shows the preview. If the user applies it, the scene becomes the current Design Version.
+当前实现属于 near-real-time：Qwen 先完成一轮工具规划，随后前端按照真实工具调用顺序回放并更新 Pascal Scene。后续若需要 token/tool-call 级流式建模，可把 `/api/ai/layout` 扩展为 SSE/stream 路由。

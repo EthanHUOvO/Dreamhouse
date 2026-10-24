@@ -1,0 +1,2 @@
+import { NextRequest,NextResponse } from 'next/server'
+export async function POST(req:NextRequest){const {text=''}=await req.json();const lower=String(text);const household=/孩子|三口|宝宝/.test(lower)?'family3':/夫妻|两人|伴侣/.test(lower)?'couple':'single';const singleGender=/女|女士/.test(lower)?'female':'male';return NextResponse.json({profileHint:{household,singleGender,workFromHome:/办公|工作/.test(lower),storagePriority:/收纳|储物/.test(lower)?'high':'normal'}})}

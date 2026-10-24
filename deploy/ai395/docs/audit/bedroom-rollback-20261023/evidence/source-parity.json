@@ -1,0 +1,50 @@
+{
+  "TouchCustomerPortal.tsx": {
+    "sourceMatchesTarget": true,
+    "deployedSourceMatchesIgnoringCRLF": true,
+    "sourceSha256": "cd7b3a259cedb5bd623618a04e8efece233d689fb7633136e0f21c8aefc106dc",
+    "deployedSha256": "cd7b3a259cedb5bd623618a04e8efece233d689fb7633136e0f21c8aefc106dc"
+  },
+  "v2/step2-edit/floorplan-edit-intent.ts": {
+    "sourceMatchesTarget": true,
+    "deployedSourceMatchesIgnoringCRLF": true,
+    "sourceSha256": "62345b63f5bbbd4c9723c46522bf7c963cec82db7d68aa8c170db97d920916f8",
+    "deployedSha256": "62345b63f5bbbd4c9723c46522bf7c963cec82db7d68aa8c170db97d920916f8"
+  },
+  "v2/step2-edit/svg-edit-route.ts": {
+    "sourceMatchesTarget": true,
+    "deployedSourceMatchesIgnoringCRLF": true,
+    "sourceSha256": "3548199d2ec33a3aad64bc60b797d414b78aecb6e513d26ebcd6c569842ad99b",
+    "deployedSha256": "8f22055d4a64fddf2fb8444bad29cc8ca2b32738fdcbb6365e4bb62cd58de19a"
+  },
+  "v2/step3-3d/svg-geometry.ts": {
+    "sourceMatchesTarget": true,
+    "deployedSourceMatchesIgnoringCRLF": true,
+    "sourceSha256": "6fab76e2687a3d3af1bf34adf1b9ecf7ae0d117b9040d5921b8a159d85ada96f",
+    "deployedSha256": "6fab76e2687a3d3af1bf34adf1b9ecf7ae0d117b9040d5921b8a159d85ada96f"
+  },
+  "v2/step3-3d/svg-edit-geometry.ts": {
+    "sourceMatchesTarget": true,
+    "deployedSourceMatchesIgnoringCRLF": true,
+    "sourceSha256": "01d67e192fc8ba6906493e4e0342de7070e5be81f3347ed4a0d8bda1b6bfe513",
+    "deployedSha256": "f5a4364535a6efbf3ca3e5e9cde2a2978573814472ec1a67773f0010989801fa"
+  },
+  "v2/step3-3d/bedroom-edit-geometry.ts": {
+    "sourceMatchesTarget": true,
+    "deployedSourceMatchesIgnoringCRLF": true,
+    "sourceSha256": "ec2ba7dccce4317f23214fe97cf472c7f4a13470ede89f7c5249454c36078d2d",
+    "deployedSha256": "3f730812d9682797eebe9dc6f9ab29b34a3aededf3cb1274acf7946b9e011b00"
+  },
+  "v2/step3-3d/bedroom-scene-validation.ts": {
+    "sourceMatchesTarget": true,
+    "deployedSourceMatchesIgnoringCRLF": true,
+    "sourceSha256": "cfa2e93309efc7ce9f9c204a80c63dc68dd88752875fc4e9976e1683908657ec",
+    "deployedSha256": "cfa2e93309efc7ce9f9c204a80c63dc68dd88752875fc4e9976e1683908657ec"
+  },
+  "v2/step3-3d/bedroom-source-furniture.ts": {
+    "sourceMatchesTarget": true,
+    "deployedSourceMatchesIgnoringCRLF": true,
+    "sourceSha256": "acabaefd0b723154d3256f037a5a6c3399bb8b0720471b586905a9d65bad616f",
+    "deployedSha256": "bdd4d7d0ba9c04c11af2a28da2185eecaa96c05074854b5ea95c160f3e7420c6"
+  }
+}

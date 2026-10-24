@@ -1,0 +1,69 @@
+{
+  "key": "synthetic-right",
+  "instruction": "在客餐厅右侧靠墙角新增一个矩形卧室，保留入户通道和其他房间的位置",
+  "httpStatus": 422,
+  "elapsedMs": 2854,
+  "actualInference": true,
+  "error": "EDIT_PROTECTED_ROOMS_INCOMPLETE",
+  "message": "模型未完整保留其他房间，原户型未改动。",
+  "provenance": {
+    "stage": "svg-edit",
+    "method": "natural-language-geometry/v1",
+    "actualInference": true,
+    "model": "Ours",
+    "inference": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "responseId": "chatcmpl-43hfofdlmkp5m36gg9wv",
+        "usage": {
+          "prompt_tokens": 1605,
+          "completion_tokens": 118,
+          "total_tokens": 1723,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "cached_tokens": 0,
+          "prompt_tokens_per_second": 2454.114755112367,
+          "completion_tokens_per_second": 55.1549741190893,
+          "draft_tokens": 49,
+          "draft_tokens_accepted": 33,
+          "gufo": {
+            "cache_hit": false,
+            "cache_miss_reason": "prefix_changed",
+            "cache_common_prefix_tokens": 1410,
+            "cache_checkpoint_tokens": 1948,
+            "cache_restore_bytes": 0,
+            "cache_snapshot_bytes": 122050544,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 0,
+            "cache_snapshot_ms": 21.238046,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 1605,
+            "prefill_chunks": 2,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 1598,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 9.740382,
+            "prefill_ms": 654.003647,
+            "decode_ms": 2139.4262599999997,
+            "ttft_ms": 685.188618,
+            "mean_inter_token_ms": 18.061226188034183,
+            "max_inter_token_ms": 74.484665,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 2831
+      }
+    ]
+  }
+}

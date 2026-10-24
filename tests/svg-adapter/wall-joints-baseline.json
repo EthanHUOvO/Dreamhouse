@@ -1,0 +1,3291 @@
+{
+  "commit": "443e38ccb1f1c1d8d37903534044485d4a782e20",
+  "wallThicknessM": 0.12,
+  "plans": [
+    {
+      "key": "one-01",
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "kind": "doors",
+          "width": 0.8057389705882354,
+          "centre": [
+            3.9686930147058828,
+            2.1142525
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-02",
+          "kind": "doors",
+          "width": 0.7870575,
+          "centre": [
+            3.171525735294118,
+            2.9244587500000003
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-03",
+          "kind": "doors",
+          "width": 0.7870575000000004,
+          "centre": [
+            4.474422794117648,
+            4.297951250000001
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-04",
+          "kind": "doors",
+          "width": 0.7716250000000002,
+          "centre": [
+            4.491566176470589,
+            7.4230325
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "kind": "doors",
+          "width": 1.4914742647058823,
+          "centre": [
+            3.2315275735294122,
+            8.1946575
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "kind": "doors",
+          "width": 1.4229007352941183,
+          "centre": [
+            7.003071691176471,
+            5.0772925
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-01",
+          "kind": "windows",
+          "width": 1.9029154411764708,
+          "centre": [
+            2.888659926470589,
+            9.56815
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-02",
+          "kind": "windows",
+          "width": 0.7885955882352942,
+          "centre": [
+            5.503025735294118,
+            8.1946575
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-03",
+          "kind": "windows",
+          "width": 0.7885955882352942,
+          "centre": [
+            7.0802169117647065,
+            8.1637925
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "key": "one-02",
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "kind": "doors",
+          "width": 0.7811168831168831,
+          "centre": [
+            1.2404384615384616,
+            4.142982683982684
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-02",
+          "kind": "doors",
+          "width": 0.7811168831168831,
+          "centre": [
+            5.284607692307692,
+            3.132125541125541
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-03",
+          "kind": "doors",
+          "width": 0.7811168831168831,
+          "centre": [
+            5.3016,
+            4.142982683982684
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "kind": "doors",
+          "width": 1.036530769230769,
+          "centre": [
+            1.87765,
+            3.430787878787879
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "kind": "doors",
+          "width": 1.5162857142857145,
+          "centre": [
+            10.45026923076923,
+            3.6069220779220776
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-01",
+          "kind": "windows",
+          "width": 0.7816461538461539,
+          "centre": [
+            6.355123076923077,
+            1.209965367965368
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-02",
+          "kind": "windows",
+          "width": 1.669445887445888,
+          "centre": [
+            11.724692307692308,
+            3.5916060606060607
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "key": "one-07",
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "kind": "doors",
+          "width": 0.9027739557739558,
+          "centre": [
+            1.0416086105675146,
+            4.965256756756756
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-02",
+          "kind": "doors",
+          "width": 0.9018806262230918,
+          "centre": [
+            4.172785714285714,
+            4.342457002457002
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "kind": "doors",
+          "width": 1.2798820638820638,
+          "centre": [
+            7.316665362035225,
+            3.016864864864864
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "kind": "doors",
+          "width": 0.7770712530712531,
+          "centre": [
+            5.576416829745597,
+            5.1652383292383295
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-01",
+          "kind": "windows",
+          "width": 3.005437346437346,
+          "centre": [
+            8.625027397260274,
+            2.6911805896805894
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-02",
+          "kind": "windows",
+          "width": 0.9526908023483367,
+          "centre": [
+            8.034359099804306,
+            4.342457002457002
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-03",
+          "kind": "windows",
+          "width": 0.559948402948403,
+          "centre": [
+            7.253152641878669,
+            5.193807125307124
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-04",
+          "kind": "windows",
+          "width": 0.7884987714987712,
+          "centre": [
+            7.265855185909981,
+            6.713667076167075
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-05",
+          "kind": "windows",
+          "width": 0.4799557739557738,
+          "centre": [
+            7.316665362035225,
+            2.03409828009828
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "key": "two-01",
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "kind": "doors",
+          "width": 0.7898062499999998,
+          "centre": [
+            7.233337552742616,
+            2.161575
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-02",
+          "kind": "doors",
+          "width": 0.7857299578059065,
+          "centre": [
+            7.857299578059072,
+            5.778056250000001
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-03",
+          "kind": "doors",
+          "width": 0.7857299578059065,
+          "centre": [
+            6.632485232067511,
+            8.147475
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-04",
+          "kind": "doors",
+          "width": 0.7857299578059074,
+          "centre": [
+            9.659856540084387,
+            10.516893750000001
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-05",
+          "kind": "doors",
+          "width": 0.7274531249999985,
+          "centre": [
+            12.733447257383967,
+            8.864535937500001
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-06",
+          "kind": "doors",
+          "width": 0.7274531250000003,
+          "centre": [
+            12.733447257383967,
+            9.5919890625
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "kind": "doors",
+          "width": 4.219228125000001,
+          "centre": [
+            2.6807257383966245,
+            5.5806046875
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "kind": "doors",
+          "width": 0.7857299578059074,
+          "centre": [
+            10.353147679324895,
+            5.778056250000001
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-01",
+          "kind": "windows",
+          "width": 0.9474978902953588,
+          "centre": [
+            2.160757383966245,
+            2.78510625
+          ],
+          "blockedSamples": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "id": "window_window-02",
+          "kind": "windows",
+          "width": 0.95608125,
+          "centre": [
+            5.6387679324894515,
+            2.140790625
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-03",
+          "kind": "windows",
+          "width": 4.385503125,
+          "centre": [
+            1.548350210970464,
+            5.4143296875
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-04",
+          "kind": "windows",
+          "width": 0.855059071729958,
+          "centre": [
+            2.1145379746835444,
+            8.147475
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-05",
+          "kind": "windows",
+          "width": 2.7435375000000004,
+          "centre": [
+            2.657616033755274,
+            10.516893750000001
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-06",
+          "kind": "windows",
+          "width": 1.8718860759493667,
+          "centre": [
+            3.986424050632911,
+            12.2212125
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-07",
+          "kind": "windows",
+          "width": 0.914512499999999,
+          "centre": [
+            7.256447257383966,
+            13.26043125
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "key": "two-02",
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "kind": "doors",
+          "width": 0.783950704225352,
+          "centre": [
+            2.071869718309859,
+            1.4066141732283464
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-02",
+          "kind": "doors",
+          "width": 0.7702887139107606,
+          "centre": [
+            4.703704225352112,
+            6.061837270341207
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-03",
+          "kind": "doors",
+          "width": 0.7652852112676056,
+          "centre": [
+            4.115741197183098,
+            6.631181102362205
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-04",
+          "kind": "doors",
+          "width": 0.7839507042253526,
+          "centre": [
+            5.767637323943662,
+            10.197952755905511
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "kind": "doors",
+          "width": 1.4401049868766407,
+          "centre": [
+            3.5651091549295773,
+            5.827401574803149
+          ],
+          "blockedSamples": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "kind": "doors",
+          "width": 0.8037795275590551,
+          "centre": [
+            4.703704225352112,
+            3.8849343832020997
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-01",
+          "kind": "windows",
+          "width": 0.7870341207349076,
+          "centre": [
+            1.32525,
+            6.505590551181102
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-02",
+          "kind": "windows",
+          "width": 1.605232394366197,
+          "centre": [
+            2.911816901408451,
+            10.080734908136483
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-03",
+          "kind": "windows",
+          "width": 1.3812464788732388,
+          "centre": [
+            7.204880281690141,
+            10.09748031496063
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-04",
+          "kind": "windows",
+          "width": 0.8205249343832026,
+          "centre": [
+            4.703704225352112,
+            10.79241469816273
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-05",
+          "kind": "windows",
+          "width": 2.7624929577464794,
+          "centre": [
+            6.495591549295774,
+            11.3701312335958
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "key": "two-07",
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "kind": "doors",
+          "width": 0.779106382978723,
+          "centre": [
+            9.693000000000001,
+            2.4939898648648646
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-02",
+          "kind": "doors",
+          "width": 0.8020212765957453,
+          "centre": [
+            8.146244680851064,
+            5.565101351351351
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-03",
+          "kind": "doors",
+          "width": 0.7214020270270272,
+          "centre": [
+            10.724170212765957,
+            5.472349662162162
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-04",
+          "kind": "doors",
+          "width": 0.7626249999999999,
+          "centre": [
+            11.31995744680851,
+            4.173826013513513
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "kind": "doors",
+          "width": 2.432155405405405,
+          "centre": [
+            3.162255319148936,
+            3.442118243243243
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "kind": "doors",
+          "width": 1.2779121621621625,
+          "centre": [
+            3.162255319148936,
+            7.131574324324324
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-03",
+          "kind": "doors",
+          "width": 1.5252499999999998,
+          "centre": [
+            14.55095744680851,
+            3.957405405405405
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-04",
+          "kind": "doors",
+          "width": 0.7791063829787248,
+          "centre": [
+            10.03672340425532,
+            6.2452804054054045
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-01",
+          "kind": "windows",
+          "width": 6.575064189189189,
+          "centre": [
+            1.5123829787234042,
+            5.121954391891892
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-02",
+          "kind": "windows",
+          "width": 1.2779121621621625,
+          "centre": [
+            15.97168085106383,
+            3.813125
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-03",
+          "kind": "windows",
+          "width": 1.0082553191489367,
+          "centre": [
+            15.26131914893617,
+            2.4939898648648646
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-04",
+          "kind": "windows",
+          "width": 0.9853404255319145,
+          "centre": [
+            15.24986170212766,
+            4.86431081081081
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-05",
+          "kind": "windows",
+          "width": 1.6076959459459452,
+          "centre": [
+            14.55095744680851,
+            6.760567567567567
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "key": "three-01",
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "kind": "doors",
+          "width": 0.7678723404255319,
+          "centre": [
+            4.8595349544072945,
+            10.943109540636044
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-02",
+          "kind": "doors",
+          "width": 0.7898115501519758,
+          "centre": [
+            10.816030395136778,
+            5.7771731448763255
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-03",
+          "kind": "doors",
+          "width": 0.789811550151974,
+          "centre": [
+            12.505349544072947,
+            5.7771731448763255
+          ],
+          "blockedSamples": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "id": "door_hinged-door-04",
+          "kind": "doors",
+          "width": 0.7678723404255319,
+          "centre": [
+            14.600544072948328,
+            6.999646643109541
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-05",
+          "kind": "doors",
+          "width": 0.7898115501519758,
+          "centre": [
+            10.837969604863222,
+            6.999646643109541
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-06",
+          "kind": "doors",
+          "width": 0.8336899696048619,
+          "centre": [
+            9.477738601823708,
+            8.379858657243817
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-07",
+          "kind": "doors",
+          "width": 0.7678723404255319,
+          "centre": [
+            2.819188449848024,
+            6.940494699646644
+          ],
+          "blockedSamples": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "id": "window_window-01",
+          "kind": "windows",
+          "width": 1.9745288753799395,
+          "centre": [
+            5.9455258358662615,
+            1.4787985865724382
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-02",
+          "kind": "windows",
+          "width": 1.9525896656534965,
+          "centre": [
+            9.335133738601822,
+            1.4196466431095407
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-03",
+          "kind": "windows",
+          "width": 1.9525896656534965,
+          "centre": [
+            14.403091185410332,
+            1.4787985865724382
+          ],
+          "blockedSamples": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-04",
+          "kind": "windows",
+          "width": 1.853427561837456,
+          "centre": [
+            15.20387234042553,
+            2.5435335689045937
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-05",
+          "kind": "windows",
+          "width": 1.7942756183745576,
+          "centre": [
+            15.20387234042553,
+            9.986819787985866
+          ],
+          "blockedSamples": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "id": "window_window-06",
+          "kind": "windows",
+          "width": 1.8648328267477208,
+          "centre": [
+            14.381151975683888,
+            10.883957597173145
+          ],
+          "blockedSamples": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true
+          ]
+        },
+        {
+          "id": "window_window-07",
+          "kind": "windows",
+          "width": 0.8872791519434626,
+          "centre": [
+            1.4699270516717324,
+            6.319399293286219
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-08",
+          "kind": "windows",
+          "width": 0.7898115501519758,
+          "centre": [
+            2.566887537993921,
+            5.560282685512368
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-09",
+          "kind": "windows",
+          "width": 1.601562310030395,
+          "centre": [
+            2.4023434650455924,
+            6.999646643109541
+          ],
+          "blockedSamples": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "id": "window_window-10",
+          "kind": "windows",
+          "width": 1.4787985865724398,
+          "centre": [
+            4.058753799392097,
+            9.020671378091873
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-11",
+          "kind": "windows",
+          "width": 0.7886925795052999,
+          "centre": [
+            15.269689969604862,
+            6.013780918727916
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "key": "three-03",
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "kind": "doors",
+          "width": 0.7498054474708162,
+          "centre": [
+            11.585408560311285,
+            4.573548387096774
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-02",
+          "kind": "doors",
+          "width": 0.7863813229571988,
+          "centre": [
+            3.9410505836575878,
+            4.573548387096774
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-03",
+          "kind": "doors",
+          "width": 0.7680933852140086,
+          "centre": [
+            5.1754863813229575,
+            4.573548387096774
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-04",
+          "kind": "doors",
+          "width": 0.7680933852140082,
+          "centre": [
+            3.9867704280155642,
+            5.758064516129031
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-05",
+          "kind": "doors",
+          "width": 0.7896774193548382,
+          "centre": [
+            3.3649805447470817,
+            6.399677419354838
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-06",
+          "kind": "doors",
+          "width": 0.7680933852140086,
+          "centre": [
+            9.912062256809339,
+            6.0212903225806444
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "kind": "doors",
+          "width": 1.497096774193548,
+          "centre": [
+            8.997665369649805,
+            2.8214516129032257
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "kind": "doors",
+          "width": 2.304280155642023,
+          "centre": [
+            7.424902723735409,
+            9.657096774193548
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-01",
+          "kind": "windows",
+          "width": 1.3715953307392996,
+          "centre": [
+            2.89863813229572,
+            1.266774193548387
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-02",
+          "kind": "windows",
+          "width": 0.8046692607003889,
+          "centre": [
+            5.52295719844358,
+            1.84258064516129
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-03",
+          "kind": "windows",
+          "width": 1.2618677042801565,
+          "centre": [
+            7.58035019455253,
+            1.266774193548387
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-04",
+          "kind": "windows",
+          "width": 1.2252918287937735,
+          "centre": [
+            9.939494163424126,
+            1.266774193548387
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-05",
+          "kind": "windows",
+          "width": 0.8061290322580641,
+          "centre": [
+            1.298443579766537,
+            5.470161290322579
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-06",
+          "kind": "windows",
+          "width": 1.8105058365758757,
+          "centre": [
+            3.2095330739299612,
+            10.693548387096772
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-07",
+          "kind": "windows",
+          "width": 1.4813229571984436,
+          "centre": [
+            10.744163424124514,
+            9.607741935483869
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "window_window-08",
+          "kind": "windows",
+          "width": 3.291828793774319,
+          "centre": [
+            8.906225680933852,
+            11.154193548387095
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "key": "three-07",
+      "openings": [
+        {
+          "id": "door_hinged-door-01",
+          "kind": "doors",
+          "width": 1.024390243902439,
+          "centre": [
+            6.775714285714285,
+            4.695121951219512
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-02",
+          "kind": "doors",
+          "width": 1.024390243902439,
+          "centre": [
+            8.77616326530612,
+            4.695121951219512
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-03",
+          "kind": "doors",
+          "width": 0.8173877551020414,
+          "centre": [
+            13.293306122448978,
+            5.420731707317073
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-04",
+          "kind": "doors",
+          "width": 1.0030487804878057,
+          "centre": [
+            7.291959183673469,
+            11.044207317073171
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_hinged-door-05",
+          "kind": "doors",
+          "width": 1.0457317073170742,
+          "centre": [
+            8.905224489795916,
+            11.065548780487806
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-01",
+          "kind": "doors",
+          "width": 3.5426829268292677,
+          "centre": [
+            2.92538775510204,
+            7.8323170731707314
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-02",
+          "kind": "doors",
+          "width": 3.3292682926829276,
+          "centre": [
+            12.777061224489794,
+            7.853658536585366
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-03",
+          "kind": "doors",
+          "width": 1.075510204081633,
+          "centre": [
+            11.916653061224487,
+            9.625
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-04",
+          "kind": "doors",
+          "width": 0.8963414634146343,
+          "centre": [
+            12.777061224489794,
+            10.137195121951219
+          ],
+          "blockedSamples": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "id": "door_parallel-opening-main-bath",
+          "kind": "doors",
+          "width": 0.7528571428571427,
+          "centre": [
+            6.356265306122449,
+            3.9695121951219514
+          ],
+          "blockedSamples": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            false,
+            false
+          ]
+        }
+      ]
+    }
+  ]
+}

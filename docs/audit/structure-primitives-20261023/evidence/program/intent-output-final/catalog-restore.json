@@ -1,0 +1,285 @@
+{
+  "kind": "PROGRAMMATIC_CATALOG_LOADING_AND_SAVE_RESTORE_NO_AI",
+  "timestamp": "2026-10-23T14:27:43.329Z",
+  "summary": {
+    "pass": 9,
+    "fail": 0,
+    "total": 9
+  },
+  "plans": [
+    {
+      "variantId": "one-option-01",
+      "status": "PASS",
+      "rooms": 6,
+      "walls": 20,
+      "doors": 6,
+      "windows": 3,
+      "furniture": 4,
+      "restore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "elapsedMs": 523.273728
+    },
+    {
+      "variantId": "one-option-02",
+      "status": "PASS",
+      "rooms": 5,
+      "walls": 15,
+      "doors": 5,
+      "windows": 2,
+      "furniture": 4,
+      "restore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 5,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 5,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "elapsedMs": 328.4720860000001
+    },
+    {
+      "variantId": "one-option-07",
+      "status": "PASS",
+      "rooms": 4,
+      "walls": 19,
+      "doors": 4,
+      "windows": 5,
+      "furniture": 3,
+      "restore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 4,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 4,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "elapsedMs": 518.893515
+    },
+    {
+      "variantId": "two-option-01",
+      "status": "PASS",
+      "rooms": 7,
+      "walls": 24,
+      "doors": 8,
+      "windows": 7,
+      "furniture": 5,
+      "restore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "elapsedMs": 503.62498500000015
+    },
+    {
+      "variantId": "two-option-02",
+      "status": "PASS",
+      "rooms": 6,
+      "walls": 24,
+      "doors": 6,
+      "windows": 5,
+      "furniture": 5,
+      "restore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "elapsedMs": 616.1722489999997
+    },
+    {
+      "variantId": "two-option-07",
+      "status": "PASS",
+      "rooms": 7,
+      "walls": 16,
+      "doors": 8,
+      "windows": 5,
+      "furniture": 5,
+      "restore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "elapsedMs": 447.5519949999998
+    },
+    {
+      "variantId": "three-option-01",
+      "status": "PASS",
+      "rooms": 8,
+      "walls": 29,
+      "doors": 7,
+      "windows": 11,
+      "furniture": 7,
+      "restore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 8,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 8,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "elapsedMs": 583.499566
+    },
+    {
+      "variantId": "three-option-03",
+      "status": "PASS",
+      "rooms": 8,
+      "walls": 36,
+      "doors": 8,
+      "windows": 8,
+      "furniture": 7,
+      "restore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 8,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 8,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "elapsedMs": 816.5378190000001
+    },
+    {
+      "variantId": "three-option-07",
+      "status": "PASS",
+      "rooms": 10,
+      "walls": 32,
+      "doors": 10,
+      "windows": 0,
+      "furniture": 9,
+      "restore": {
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 10,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 10,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      },
+      "elapsedMs": 732.2973329999995
+    }
+  ],
+  "limitations": [
+    "This suite validates each original catalog plan. It does not claim all requested topology edits are feasible.",
+    "Actual MCP functions execute locally without HTTP/network and no AI model is called."
+  ]
+}

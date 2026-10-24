@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DreamHouse 配置中心</title>
+  <script>
+    if (location.protocol === "file:") location.replace("http://127.0.0.1:3210/");
+  </script>
+  <style>
+    :root { color-scheme: light; --ink:#17202a; --muted:#66717c; --line:#dfe4e8; --soft:#f4f6f7; --blue:#1367a8; --green:#19704b; --red:#b6423c; --orange:#a65d13; }
+    * { box-sizing: border-box; letter-spacing: 0; }
+    body { margin:0; min-width:320px; background:#eef1f3; color:var(--ink); font:14px/1.5 "Microsoft YaHei UI","Segoe UI",sans-serif; }
+    button,input,select { font:inherit; }
+    button { cursor:pointer; }
+    .topbar { height:64px; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; padding:0 28px; position:sticky; top:0; z-index:4; }
+    .brand { display:flex; align-items:center; gap:12px; min-width:260px; }
+    .mark { width:34px; height:34px; border-radius:7px; background:#17202a; color:#fff; display:grid; place-items:center; font-weight:800; font-size:12px; }
+    .brand strong { font-size:17px; }
+    .brand span { display:block; color:var(--muted); font-size:12px; }
+    .runtime { margin-left:auto; display:flex; align-items:center; gap:10px; }
+    .dot { width:9px; height:9px; border-radius:50%; background:#9ba4ac; }
+    .dot.running { background:#2a9d68; box-shadow:0 0 0 4px #dff3e9; }
+    .shell { max-width:1180px; margin:0 auto; padding:28px; display:grid; grid-template-columns:210px minmax(0,1fr); gap:28px; }
+    .side { position:sticky; top:92px; align-self:start; }
+    .side button { width:100%; height:42px; padding:0 12px; border:0; border-left:3px solid transparent; background:transparent; color:#4e5963; text-align:left; border-radius:0; }
+    .side button.active { background:#fff; color:var(--blue); border-left-color:var(--blue); font-weight:700; }
+    .side .tools { margin-top:22px; padding-top:18px; border-top:1px solid #d6dce0; }
+    .side .tools button { border:1px solid #ccd3d8; background:#fff; margin-bottom:8px; border-radius:6px; text-align:center; color:#28333d; }
+    .content { min-width:0; }
+    .heading { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:18px; }
+    h1 { margin:0; font-size:25px; line-height:1.2; }
+    .heading p { margin:6px 0 0; color:var(--muted); }
+    .app-links { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:6px; max-width:420px; }
+    .app-link { color:var(--blue); text-decoration:none; font-weight:700; white-space:nowrap; padding:7px 9px; border:1px solid #cbdde9; border-radius:5px; background:#f7fbfd; }
+    .app-link.offline { color:#8b949c; border-color:#dfe4e8; background:#f5f6f7; }
+    .field-help { margin:6px 0 0; color:var(--muted); font-size:12px; }
+    .inline-action { margin-top:8px; min-height:32px; padding:0 10px; border:1px solid #cbd2d7; border-radius:5px; background:#fff; color:#39434c; font-weight:650; }
+    .inline-action:hover { border-color:var(--blue); color:var(--blue); }
+    .panel { background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+    .section { padding:24px; border-bottom:1px solid var(--line); }
+    .section:last-child { border-bottom:0; }
+    .section-head { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:18px; }
+    .section h2 { font-size:16px; margin:0; }
+    .section-note { margin:3px 0 0; color:var(--muted); font-size:12px; }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:17px 18px; }
+    .wide { grid-column:1 / -1; }
+    label { display:block; color:#39434c; font-weight:650; margin-bottom:6px; }
+    .optional { color:#89929a; font-weight:400; }
+    input,select { width:100%; height:39px; border:1px solid #cbd2d7; border-radius:5px; padding:0 11px; background:#fff; color:var(--ink); outline:none; }
+    input:focus,select:focus { border-color:var(--blue); box-shadow:0 0 0 3px #e4f0f8; }
+    input::placeholder { color:#a2a9af; }
+    .secret { position:relative; }
+    .secret input { padding-right:64px; }
+    .secret button { position:absolute; right:5px; top:5px; height:29px; border:0; background:var(--soft); color:#52606b; border-radius:4px; }
+    .configured { color:var(--green); font-size:12px; margin-top:5px; min-height:18px; }
+    .switch-line { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:12px 0; }
+    .switch-line + .switch-line { border-top:1px solid #edf0f2; }
+    .switch-line b { display:block; }
+    .switch-line span { color:var(--muted); font-size:12px; }
+    .switch { position:relative; width:44px; height:24px; flex:none; }
+    .switch input { opacity:0; width:0; height:0; }
+    .slider { position:absolute; inset:0; border-radius:13px; background:#aeb6bc; transition:.18s; }
+    .slider::before { content:""; position:absolute; width:18px; height:18px; left:3px; top:3px; background:#fff; border-radius:50%; transition:.18s; box-shadow:0 1px 3px #0003; }
+    .switch input:checked + .slider { background:var(--green); }
+    .switch input:checked + .slider::before { transform:translateX(20px); }
+    .actions { position:sticky; bottom:0; display:flex; align-items:center; gap:10px; padding:15px 18px; background:#fff; border:1px solid var(--line); border-top:2px solid #d7dde1; margin-top:14px; border-radius:7px; z-index:3; }
+    .actions button { height:38px; padding:0 16px; border-radius:5px; border:1px solid #bbc4ca; background:#fff; color:#28333d; font-weight:700; }
+    .actions .primary { background:var(--blue); border-color:var(--blue); color:#fff; }
+    .actions .danger { color:var(--red); }
+    .status-text { margin-left:auto; color:var(--muted); text-align:right; min-width:0; overflow-wrap:anywhere; }
+    .status-text.success { color:var(--green); }
+    .status-text.error { color:var(--red); }
+    .hidden { display:none !important; }
+    .toast { position:fixed; right:24px; top:78px; max-width:min(420px,calc(100vw - 48px)); background:#18232c; color:#fff; padding:12px 16px; border-radius:6px; box-shadow:0 10px 28px #18232c38; z-index:10; }
+    .toast.error { background:#923c37; }
+    @media (max-width:780px) {
+      .topbar { padding:0 16px; }
+      .brand { min-width:0; }
+      .brand span,.runtime span { display:none; }
+      .shell { padding:16px; grid-template-columns:1fr; gap:14px; }
+      .side { position:static; display:flex; overflow:auto; background:#fff; border:1px solid var(--line); }
+      .side button { min-width:max-content; border-left:0; border-bottom:3px solid transparent; }
+      .side button.active { border-bottom-color:var(--blue); }
+      .side .tools { display:none; }
+      .grid { grid-template-columns:1fr; }
+      .wide { grid-column:auto; }
+      .section { padding:18px; }
+      .heading { align-items:flex-start; }
+      .app-links { justify-content:flex-start; max-width:none; }
+      .actions { flex-wrap:wrap; }
+      .status-text { width:100%; order:-1; text-align:left; margin-left:0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><div class="mark">DH</div><div><strong>DreamHouse</strong><span>本地配置中心</span></div></div>
+    <div class="runtime"><i id="statusDot" class="dot"></i><span id="runtimeText">检查应用状态</span></div>
+  </header>
+  <main class="shell">
+    <nav class="side" aria-label="配置分类">
+      <button class="active" data-tab="network">应用网络</button>
+      <button data-tab="robot">机械臂</button>
+      <button data-tab="bambu">拓竹打印机</button>
+      <button data-tab="qwen">Qwen API</button>
+      <div class="tools">
+        <button type="button" id="importButton">导入配置</button>
+        <button type="button" id="exportButton">导出表单</button>
+        <input class="hidden" id="fileInput" type="file" accept=".env,.txt,.json,application/json,text/plain">
+      </div>
+    </nav>
+    <div class="content">
+      <div class="heading">
+      <div><h1 id="pageTitle">应用网络</h1><p id="pageDescription">设置网页监听地址和端口。</p></div>
+        <div id="appLinks" class="app-links hidden"></div>
+      </div>
+      <form id="configForm" autocomplete="off">
+        <div class="panel">
+          <section class="section tab-page" data-page="network">
+            <div class="section-head"><div><h2>访问设置</h2><p class="section-note">地址发生变化时，只需回到这里重新保存并启动。</p></div></div>
+            <div class="grid">
+              <div><label for="DREAMHOUSE_HOST">本机监听 IPv4</label><input id="DREAMHOUSE_HOST" name="DREAMHOUSE_HOST" inputmode="decimal" placeholder="0.0.0.0"></div>
+              <div><label for="DREAMHOUSE_PORT">默认应用端口</label><input id="DREAMHOUSE_PORT" name="DREAMHOUSE_PORT" type="number" min="1" max="65535" placeholder="3000"></div>
+              <div class="wide"><label for="DREAMHOUSE_PORTS">同时启动的端口列表</label><input id="DREAMHOUSE_PORTS" name="DREAMHOUSE_PORTS" inputmode="numeric" placeholder="例如 3001,3002,3003,3004"><p class="field-help">填写多个端口并用逗号分隔；点击“保存并启动”后会同时启动。只填写一个端口时仍是单端口模式。</p><button type="button" id="fillMultiPorts" class="inline-action">一键填入 3001, 3002, 3003, 3004</button></div>
+              <div class="wide"><label for="NEXT_PUBLIC_SITE_VIDEO">施工现场视频地址 <span class="optional">可选</span></label><input id="NEXT_PUBLIC_SITE_VIDEO" name="NEXT_PUBLIC_SITE_VIDEO" type="url" placeholder="http://设备地址/video 或视频文件地址"></div>
+            </div>
+          </section>
+          <section class="section tab-page hidden" data-page="robot">
+            <div class="section-head"><div><h2>机械臂连接</h2><p class="section-note">监控服务、控制 API 和视频可以使用不同地址。</p></div></div>
+            <div class="grid">
+              <div><label for="ROBOT_MONITOR_MODE">监控模式</label><select id="ROBOT_MONITOR_MODE" name="ROBOT_MONITOR_MODE"><option value="real">真实设备</option><option value="demo">演示数据</option><option value="offline">离线</option></select></div>
+              <div><label for="ROBOT_MONITOR_BASE_URL">监控服务地址</label><input id="ROBOT_MONITOR_BASE_URL" name="ROBOT_MONITOR_BASE_URL" placeholder="http://192.168.1.151:8765"></div>
+              <div class="wide"><label for="ROBOT_API_ENDPOINT">机械臂 API 地址 <span class="optional">可选</span></label><input id="ROBOT_API_ENDPOINT" name="ROBOT_API_ENDPOINT" placeholder="http://机械臂地址/api"></div>
+              <div class="wide"><label for="NEXT_PUBLIC_ROBOT_VIDEO">机械臂视频流地址 <span class="optional">可选</span></label><input id="NEXT_PUBLIC_ROBOT_VIDEO" name="NEXT_PUBLIC_ROBOT_VIDEO" placeholder="http://机械臂地址/video"></div>
+              <div class="wide"><label for="NEXT_PUBLIC_SITE_CAMERA_URL">现场摄像头网页/视频地址 <span class="optional">可选</span></label><input id="NEXT_PUBLIC_SITE_CAMERA_URL" name="NEXT_PUBLIC_SITE_CAMERA_URL" placeholder="http://摄像头地址/stream"></div>
+            </div>
+            <div class="switch-line"><div><b>使用演示机械臂</b><span>开启后不调用真实控制接口。</span></div><label class="switch"><input id="DEMO_ROBOT_MODE" name="DEMO_ROBOT_MODE" type="checkbox"><span class="slider"></span></label></div>
+            <div class="switch-line"><div><b>使用演示摄像头</b><span>关闭后，执行监控会读取真实拓竹和机械臂视频。</span></div><label class="switch"><input id="DEMO_CAMERA_MODE" name="DEMO_CAMERA_MODE" type="checkbox"><span class="slider"></span></label></div>
+          </section>
+          <section class="section tab-page hidden" data-page="bambu">
+            <div class="section-head"><div><h2>拓竹局域网连接</h2><p class="section-note">真实设备通过 mqtts://打印机IP:8883 读取状态。</p></div></div>
+            <div class="grid">
+              <div><label for="BAMBU_PRINTER_IP">打印机 IPv4</label><input id="BAMBU_PRINTER_IP" name="BAMBU_PRINTER_IP" inputmode="decimal" placeholder="192.168.1.120"></div>
+              <div><label for="BAMBU_MODEL">型号 <span class="optional">可选</span></label><input id="BAMBU_MODEL" name="BAMBU_MODEL" placeholder="例如 X1C、P1S"></div>
+              <div><label for="BAMBU_DEVICE_ID">设备 ID <span class="optional">可选</span></label><input id="BAMBU_DEVICE_ID" name="BAMBU_DEVICE_ID" placeholder="设备序列号"></div>
+              <div><label for="BAMBU_ACCESS_CODE">访问码</label><div class="secret"><input id="BAMBU_ACCESS_CODE" name="BAMBU_ACCESS_CODE" type="password" placeholder="留空保持原值"><button type="button" data-reveal="BAMBU_ACCESS_CODE" title="显示或隐藏访问码">显示</button></div><div id="bambuSecretState" class="configured"></div></div>
+              <div class="wide"><label for="NEXT_PUBLIC_PRINTER_VIDEO">打印机视频流地址 <span class="optional">可选</span></label><input id="NEXT_PUBLIC_PRINTER_VIDEO" name="NEXT_PUBLIC_PRINTER_VIDEO" placeholder="http://打印机或摄像头地址/video"></div>
+            </div>
+            <div class="switch-line"><div><b>使用演示打印机</b><span>关闭后才会连接上面填写的真实打印机。</span></div><label class="switch"><input id="DEMO_PRINTER_MODE" name="DEMO_PRINTER_MODE" type="checkbox"><span class="slider"></span></label></div>
+          </section>
+          <section class="section tab-page hidden" data-page="qwen">
+            <div class="section-head"><div><h2>Qwen 服务</h2><p class="section-note">Key 只保存在本机 .env.local，不会返回到浏览器。</p></div></div>
+            <div class="grid">
+              <div class="wide"><label for="QWEN_API_KEY">API Key</label><div class="secret"><input id="QWEN_API_KEY" name="QWEN_API_KEY" type="password" placeholder="留空保持原值"><button type="button" data-reveal="QWEN_API_KEY" title="显示或隐藏 API Key">显示</button></div><div id="qwenSecretState" class="configured"></div></div>
+              <div class="wide"><label for="QWEN_COMPAT_BASE_URL">兼容接口地址</label><input id="QWEN_COMPAT_BASE_URL" name="QWEN_COMPAT_BASE_URL" placeholder="https://.../compatible-mode/v1"></div>
+              <div class="wide"><label for="QWEN_NATIVE_BASE_URL">原生接口地址</label><input id="QWEN_NATIVE_BASE_URL" name="QWEN_NATIVE_BASE_URL" placeholder="https://.../api/v1"></div>
+              <div><label for="QWEN_LAYOUT_MODEL">布局模型</label><input id="QWEN_LAYOUT_MODEL" name="QWEN_LAYOUT_MODEL"></div>
+              <div><label for="QWEN_BOM_MODEL">BOM 模型</label><input id="QWEN_BOM_MODEL" name="QWEN_BOM_MODEL"></div>
+              <div><label for="QWEN_IMAGE_MODEL">图片模型</label><input id="QWEN_IMAGE_MODEL" name="QWEN_IMAGE_MODEL"></div>
+            </div>
+          </section>
+        </div>
+        <div class="actions">
+          <button type="button" id="saveButton">保存配置</button>
+          <button type="submit" class="primary" id="startButton">保存并启动</button>
+          <button type="button" class="danger hidden" id="stopButton">停止应用</button>
+          <span id="actionStatus" class="status-text">正在读取 .env.local...</span>
+        </div>
+      </form>
+    </div>
+  </main>
+  <div id="toast" class="toast hidden" role="status"></div>
+  <script>
+    const form = document.getElementById("configForm");
+    const statusText = document.getElementById("actionStatus");
+    const toast = document.getElementById("toast");
+    const titles = {
+      network:["应用网络","设置网页监听地址和端口。"],
+      robot:["机械臂","配置监控、控制接口和现场视频。"],
+      bambu:["拓竹打印机","配置局域网打印机状态和视频。"],
+      qwen:["Qwen API","管理服务地址、Key 和模型。"]
+    };
+
+    function notify(message, error=false) {
+      toast.textContent = message;
+      toast.className = `toast${error ? " error" : ""}`;
+      clearTimeout(notify.timer);
+      notify.timer = setTimeout(() => toast.classList.add("hidden"), 4200);
+    }
+
+    function setBusy(busy) {
+      document.querySelectorAll(".actions button").forEach((button) => button.disabled = busy);
+    }
+
+    function formData() {
+      const data = {};
+      form.querySelectorAll("input[name],select[name]").forEach((field) => {
+        data[field.name] = field.type === "checkbox" ? field.checked : field.value.trim();
+      });
+      return data;
+    }
+
+    function applyData(data) {
+      for (const [key,value] of Object.entries(data)) {
+        const field = form.elements.namedItem(key);
+        if (!field || key.endsWith("_CONFIGURED")) continue;
+        if (field.type === "checkbox") field.checked = value === true || value === "true";
+        else field.value = value == null ? "" : value;
+      }
+      if (data.QWEN_API_KEY_CONFIGURED != null) document.getElementById("qwenSecretState").textContent = data.QWEN_API_KEY_CONFIGURED ? "已配置；留空会保留现有 Key" : "当前未配置";
+      if (data.BAMBU_ACCESS_CODE_CONFIGURED != null) document.getElementById("bambuSecretState").textContent = data.BAMBU_ACCESS_CODE_CONFIGURED ? "已配置；留空会保留现有访问码" : "当前未配置";
+    }
+
+    async function request(url, options={}) {
+      try {
+        const response = await fetch(url, { headers:{"Content-Type":"application/json"}, ...options });
+        const data = await response.json();
+        if (!response.ok || data.ok === false) throw new Error(data.message || "操作失败");
+        return data;
+      } catch (error) {
+        if (error instanceof TypeError) throw new Error("无法连接本地配置服务，请双击 START_DREAMHOUSE.bat 后再试。");
+        throw error;
+      }
+    }
+
+    async function loadConfig(quiet=false) {
+      try {
+        applyData(await request("/api/config"));
+        if (!quiet) statusText.textContent = "配置已载入";
+      } catch (error) {
+        statusText.textContent = error.message;
+        statusText.className = "status-text error";
+      }
+    }
+
+    async function save(start=false) {
+      setBusy(true);
+      statusText.textContent = start ? "正在保存并启动..." : "正在保存...";
+      statusText.className = "status-text";
+      try {
+        const result = await request(start ? "/api/start" : "/api/config", { method:"POST", body:JSON.stringify(formData()) });
+        statusText.textContent = result.message;
+        statusText.className = "status-text success";
+        form.elements.QWEN_API_KEY.value = "";
+        form.elements.BAMBU_ACCESS_CODE.value = "";
+        notify(result.message);
+        await loadConfig(true);
+        await updateStatus();
+      } catch (error) {
+        statusText.textContent = error.message;
+        statusText.className = "status-text error";
+        notify(error.message, true);
+      } finally { setBusy(false); }
+    }
+
+    async function updateStatus() {
+      try {
+        const status = await request("/api/status");
+      document.getElementById("statusDot").classList.toggle("running", status.running);
+      const runningCount = (status.instances || []).filter((instance) => instance.running).length;
+      document.getElementById("runtimeText").textContent = status.running ? `运行中 · ${runningCount}/${(status.instances || []).length} 个端口` : (status.error || "应用未启动");
+      document.getElementById("stopButton").classList.toggle("hidden", !status.running);
+      const links = document.getElementById("appLinks");
+      links.replaceChildren();
+      for (const instance of status.instances || []) {
+        const link = document.createElement("a");
+        link.className = `app-link${instance.running ? "" : " offline"}`;
+        link.href = instance.appUrl;
+        link.target = "_blank";
+        link.rel = "noreferrer";
+        link.textContent = `${instance.running ? "打开" : "等待"} :${instance.port}`;
+        links.appendChild(link);
+      }
+      links.classList.toggle("hidden", !(status.instances || []).length);
+      } catch {}
+    }
+
+    function parseEnv(text) {
+      const data = {};
+      text.split(/\r?\n/).forEach((line) => {
+        const match = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/);
+        if (match) data[match[1]] = match[2].replace(/^(["'])(.*)\1$/, "$2");
+      });
+      return data;
+    }
+
+    document.querySelectorAll(".side [data-tab]").forEach((button) => button.addEventListener("click", () => {
+      document.querySelectorAll(".side [data-tab]").forEach((item) => item.classList.toggle("active", item === button));
+      document.querySelectorAll(".tab-page").forEach((page) => page.classList.toggle("hidden", page.dataset.page !== button.dataset.tab));
+      document.getElementById("pageTitle").textContent = titles[button.dataset.tab][0];
+      document.getElementById("pageDescription").textContent = titles[button.dataset.tab][1];
+    }));
+
+    document.querySelectorAll("[data-reveal]").forEach((button) => button.addEventListener("click", () => {
+      const field = document.getElementById(button.dataset.reveal);
+      field.type = field.type === "password" ? "text" : "password";
+      button.textContent = field.type === "password" ? "显示" : "隐藏";
+    }));
+
+    form.addEventListener("submit", (event) => { event.preventDefault(); save(true); });
+    document.getElementById("saveButton").addEventListener("click", () => save(false));
+    document.getElementById("fillMultiPorts").addEventListener("click", () => {
+      form.elements.DREAMHOUSE_PORTS.value = "3001,3002,3003,3004";
+      notify("已填入四个端口，点击“保存并启动”即可同时启动。");
+    });
+    document.getElementById("stopButton").addEventListener("click", async () => {
+      setBusy(true);
+      try { const result = await request("/api/stop", {method:"POST",body:"{}"}); notify(result.message); setTimeout(updateStatus,600); }
+      catch (error) { notify(error.message,true); }
+      finally { setBusy(false); }
+    });
+    document.getElementById("importButton").addEventListener("click", () => document.getElementById("fileInput").click());
+    document.getElementById("fileInput").addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      try {
+        const text = await file.text();
+        const data = file.name.toLowerCase().endsWith(".json") ? JSON.parse(text) : parseEnv(text);
+        applyData(data);
+        notify(`已导入 ${file.name}，确认后再保存。`);
+      } catch { notify("无法读取该配置文件。",true); }
+      event.target.value = "";
+    });
+    document.getElementById("exportButton").addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify(formData(),null,2)], {type:"application/json"});
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "dreamhouse-config.json";
+      link.click();
+      URL.revokeObjectURL(link.href);
+      notify("当前表单已导出；未重新填写的旧密钥不会包含在文件中。");
+    });
+
+    loadConfig();
+    updateStatus();
+    setInterval(updateStatus, 3000);
+  </script>
+</body>
+</html>

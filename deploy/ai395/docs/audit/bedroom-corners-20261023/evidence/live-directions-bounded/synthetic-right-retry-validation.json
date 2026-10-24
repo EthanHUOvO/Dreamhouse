@@ -1,0 +1,780 @@
+{
+  "kind": "independent-validation-of-live-AI-output",
+  "aiInferencePerformedByThisScript": false,
+  "timestamp": "2026-10-23T16:47:22.313Z",
+  "status": "PASS",
+  "inputPaths": {
+    "originalPath": "/live/source.svg",
+    "svgPath": "/live/synthetic-right-retry.svg",
+    "scenePath": "/live/synthetic-right-retry-scene.json"
+  },
+  "checks": {
+    "structure": {
+      "targetRoomId": "room_1",
+      "newRoomId": "room_2",
+      "newAreaM2": 8.238000000000003,
+      "remainingAreaM2": 68.17239999999995,
+      "unchangedRooms": [],
+      "originalOpeningsPreserved": true,
+      "originalWallCoveragePreserved": true,
+      "exterior": {
+        "sourceWallBytesPreserved": true,
+        "exactDerivedOutline": false,
+        "maxAllowedLocalDeltaM": 0.08,
+        "maxObservedDeltaM": 0.040000000000000924,
+        "symmetricDifferenceM2": 0.00720000000000003,
+        "newTJunctions": [
+          [
+            8.4,
+            7.1000000000000005
+          ],
+          [
+            5.9,
+            10.4
+          ]
+        ]
+      }
+    },
+    "actualReturnedScene": {
+      "status": "PASS",
+      "rooms": 2,
+      "walls": 6,
+      "doors": 2,
+      "windows": 0,
+      "roomPolygonsExact": true,
+      "wallCoordinatesExact": true,
+      "openingHostsOffsetsWidthsExact": true,
+      "doorsAboveFloor": true
+    },
+    "doorGraph": {
+      "newDoorId": "door_bedroom-1t8p0n9-right-m2m7fs-2",
+      "newDoorRooms": [
+        "room_2",
+        "room_1"
+      ],
+      "reachableRooms": [
+        "room_1",
+        "room_2"
+      ],
+      "sourceReachableRooms": [
+        "room_1"
+      ],
+      "externalLivingOpeningIds": [
+        "door_entry"
+      ]
+    },
+    "independentFurnitureAndWalkthrough": {
+      "newWallCount": 2,
+      "furnitureFootprints": [
+        {
+          "id": "item_room_1_1",
+          "roomId": "room_1",
+          "widthM": 1.7999999999999998,
+          "depthM": 1.08
+        },
+        {
+          "id": "item_room_2_2",
+          "roomId": "room_2",
+          "widthM": 1.08,
+          "depthM": 1.7999999999999998
+        }
+      ],
+      "noFurnitureNewWallCollision": true,
+      "unrelatedDefaultFurnitureUnchanged": 0,
+      "paths": [
+        {
+          "entryId": "door_entry",
+          "pathMeters": [
+            [
+              4.52,
+              10.36
+            ],
+            [
+              4.6,
+              10.36
+            ],
+            [
+              4.68,
+              10.36
+            ],
+            [
+              4.76,
+              10.36
+            ],
+            [
+              4.76,
+              10.28
+            ],
+            [
+              4.76,
+              10.2
+            ],
+            [
+              4.76,
+              10.12
+            ],
+            [
+              4.84,
+              10.12
+            ],
+            [
+              4.92,
+              10.12
+            ],
+            [
+              5,
+              10.12
+            ],
+            [
+              5.08,
+              10.12
+            ],
+            [
+              5.16,
+              10.12
+            ],
+            [
+              5.239999999999999,
+              10.12
+            ],
+            [
+              5.319999999999999,
+              10.12
+            ],
+            [
+              5.3999999999999995,
+              10.12
+            ],
+            [
+              5.4799999999999995,
+              10.12
+            ],
+            [
+              5.56,
+              10.12
+            ],
+            [
+              5.56,
+              10.04
+            ],
+            [
+              5.56,
+              9.959999999999999
+            ],
+            [
+              5.56,
+              9.879999999999999
+            ],
+            [
+              5.56,
+              9.8
+            ],
+            [
+              5.56,
+              9.72
+            ],
+            [
+              5.56,
+              9.64
+            ],
+            [
+              5.56,
+              9.56
+            ],
+            [
+              5.56,
+              9.48
+            ],
+            [
+              5.56,
+              9.4
+            ],
+            [
+              5.56,
+              9.32
+            ],
+            [
+              5.56,
+              9.24
+            ],
+            [
+              5.56,
+              9.16
+            ],
+            [
+              5.56,
+              9.08
+            ],
+            [
+              5.56,
+              9
+            ],
+            [
+              5.56,
+              8.92
+            ],
+            [
+              5.56,
+              8.84
+            ],
+            [
+              5.56,
+              8.76
+            ],
+            [
+              5.56,
+              8.68
+            ],
+            [
+              5.56,
+              8.6
+            ],
+            [
+              5.56,
+              8.52
+            ],
+            [
+              5.56,
+              8.44
+            ],
+            [
+              5.56,
+              8.36
+            ],
+            [
+              5.56,
+              8.28
+            ],
+            [
+              5.56,
+              8.200000000000001
+            ],
+            [
+              5.56,
+              8.120000000000001
+            ],
+            [
+              5.56,
+              8.040000000000001
+            ],
+            [
+              5.56,
+              7.96
+            ],
+            [
+              5.56,
+              7.88
+            ],
+            [
+              5.56,
+              7.8
+            ],
+            [
+              5.56,
+              7.72
+            ],
+            [
+              5.56,
+              7.64
+            ],
+            [
+              5.56,
+              7.56
+            ],
+            [
+              5.56,
+              7.4799999999999995
+            ],
+            [
+              5.56,
+              7.3999999999999995
+            ],
+            [
+              5.56,
+              7.319999999999999
+            ],
+            [
+              5.56,
+              7.24
+            ],
+            [
+              5.56,
+              7.16
+            ],
+            [
+              5.56,
+              7.08
+            ],
+            [
+              5.56,
+              7
+            ],
+            [
+              5.56,
+              6.92
+            ],
+            [
+              5.64,
+              6.92
+            ],
+            [
+              5.64,
+              6.84
+            ],
+            [
+              5.72,
+              6.84
+            ],
+            [
+              5.72,
+              6.76
+            ],
+            [
+              5.8,
+              6.76
+            ],
+            [
+              5.88,
+              6.76
+            ],
+            [
+              5.96,
+              6.76
+            ],
+            [
+              6.04,
+              6.76
+            ],
+            [
+              6.12,
+              6.76
+            ],
+            [
+              6.2,
+              6.76
+            ],
+            [
+              6.279999999999999,
+              6.76
+            ],
+            [
+              6.359999999999999,
+              6.76
+            ],
+            [
+              6.4399999999999995,
+              6.76
+            ],
+            [
+              6.52,
+              6.76
+            ],
+            [
+              6.6,
+              6.76
+            ],
+            [
+              6.68,
+              6.76
+            ],
+            [
+              6.68,
+              6.84
+            ],
+            [
+              6.68,
+              6.92
+            ],
+            [
+              6.68,
+              7
+            ],
+            [
+              6.68,
+              7.08
+            ],
+            [
+              6.68,
+              7.16
+            ]
+          ],
+          "walkRadiusM": 0.22,
+          "gridStepM": 0.08
+        }
+      ]
+    },
+    "productionFinalSceneGuard": {
+      "valid": true,
+      "newDoorId": "door_bedroom-1t8p0n9-right-m2m7fs-2",
+      "newRoomId": "room_2",
+      "targetRoomId": "room_1",
+      "checkedFurniture": 2,
+      "checkedNewWalls": 2,
+      "playerRadiusM": 0.22,
+      "gridStepM": 0.08,
+      "paths": [
+        {
+          "entryDoorId": "door_entry",
+          "path": [
+            [
+              4.52,
+              10.36
+            ],
+            [
+              4.6,
+              10.36
+            ],
+            [
+              4.68,
+              10.36
+            ],
+            [
+              4.76,
+              10.36
+            ],
+            [
+              4.76,
+              10.28
+            ],
+            [
+              4.76,
+              10.2
+            ],
+            [
+              4.76,
+              10.12
+            ],
+            [
+              4.84,
+              10.12
+            ],
+            [
+              4.92,
+              10.12
+            ],
+            [
+              5,
+              10.12
+            ],
+            [
+              5.08,
+              10.12
+            ],
+            [
+              5.16,
+              10.12
+            ],
+            [
+              5.239999999999999,
+              10.12
+            ],
+            [
+              5.319999999999999,
+              10.12
+            ],
+            [
+              5.3999999999999995,
+              10.12
+            ],
+            [
+              5.4799999999999995,
+              10.12
+            ],
+            [
+              5.56,
+              10.12
+            ],
+            [
+              5.56,
+              10.04
+            ],
+            [
+              5.56,
+              9.959999999999999
+            ],
+            [
+              5.56,
+              9.879999999999999
+            ],
+            [
+              5.56,
+              9.8
+            ],
+            [
+              5.56,
+              9.72
+            ],
+            [
+              5.56,
+              9.64
+            ],
+            [
+              5.56,
+              9.56
+            ],
+            [
+              5.56,
+              9.48
+            ],
+            [
+              5.56,
+              9.4
+            ],
+            [
+              5.56,
+              9.32
+            ],
+            [
+              5.56,
+              9.24
+            ],
+            [
+              5.56,
+              9.16
+            ],
+            [
+              5.56,
+              9.08
+            ],
+            [
+              5.56,
+              9
+            ],
+            [
+              5.56,
+              8.92
+            ],
+            [
+              5.56,
+              8.84
+            ],
+            [
+              5.56,
+              8.76
+            ],
+            [
+              5.56,
+              8.68
+            ],
+            [
+              5.56,
+              8.6
+            ],
+            [
+              5.56,
+              8.52
+            ],
+            [
+              5.56,
+              8.44
+            ],
+            [
+              5.56,
+              8.36
+            ],
+            [
+              5.56,
+              8.28
+            ],
+            [
+              5.56,
+              8.200000000000001
+            ],
+            [
+              5.56,
+              8.120000000000001
+            ],
+            [
+              5.56,
+              8.040000000000001
+            ],
+            [
+              5.56,
+              7.96
+            ],
+            [
+              5.56,
+              7.88
+            ],
+            [
+              5.56,
+              7.8
+            ],
+            [
+              5.56,
+              7.72
+            ],
+            [
+              5.56,
+              7.64
+            ],
+            [
+              5.56,
+              7.56
+            ],
+            [
+              5.56,
+              7.4799999999999995
+            ],
+            [
+              5.56,
+              7.3999999999999995
+            ],
+            [
+              5.56,
+              7.319999999999999
+            ],
+            [
+              5.56,
+              7.24
+            ],
+            [
+              5.56,
+              7.16
+            ],
+            [
+              5.56,
+              7.08
+            ],
+            [
+              5.56,
+              7
+            ],
+            [
+              5.56,
+              6.92
+            ],
+            [
+              5.64,
+              6.92
+            ],
+            [
+              5.64,
+              6.84
+            ],
+            [
+              5.72,
+              6.84
+            ],
+            [
+              5.72,
+              6.76
+            ],
+            [
+              5.8,
+              6.76
+            ],
+            [
+              5.88,
+              6.76
+            ],
+            [
+              5.96,
+              6.76
+            ],
+            [
+              6.04,
+              6.76
+            ],
+            [
+              6.12,
+              6.76
+            ],
+            [
+              6.2,
+              6.76
+            ],
+            [
+              6.279999999999999,
+              6.76
+            ],
+            [
+              6.359999999999999,
+              6.76
+            ],
+            [
+              6.4399999999999995,
+              6.76
+            ],
+            [
+              6.52,
+              6.76
+            ],
+            [
+              6.6,
+              6.76
+            ],
+            [
+              6.68,
+              6.76
+            ],
+            [
+              6.68,
+              6.84
+            ],
+            [
+              6.68,
+              6.92
+            ],
+            [
+              6.68,
+              7
+            ],
+            [
+              6.68,
+              7.08
+            ],
+            [
+              6.68,
+              7.16
+            ]
+          ]
+        }
+      ],
+      "originalRoutesChecked": [],
+      "warnings": [
+        "原场景门 door_entry 已被阻挡；不计为新增改造通过的通行项，需手动检查"
+      ],
+      "furnitureMoved": false
+    },
+    "programmaticSaveRestore": {
+      "scope": "actual scene clone bound to fixture V1/V2 using production binding, strict variant storage and session serializers; not a browser refresh claim",
+      "versions": [
+        {
+          "version": "v1",
+          "rooms": 1,
+          "exactSceneRestored": true,
+          "exactSvgRestored": true
+        },
+        {
+          "version": "v2",
+          "rooms": 2,
+          "exactSceneRestored": true,
+          "exactSvgRestored": true
+        }
+      ],
+      "wrongVersionRejected": true,
+      "missingVersionSvgRejected": true,
+      "invalidSavePreservedPrevious": true,
+      "unsubmittedDraftPreservedCommittedScene": true
+    },
+    "inputUnchanged": true
+  },
+  "limitations": [
+    "This script consumes the saved live HTTP output; it does not invoke a model.",
+    "The actual returned SceneGraph is checked directly and is not replaced by a deterministic candidate or newly compiled edited scene.",
+    "Storage roundtrip is a programmatic harness with the same production binding/serializer; the raw model3d HTTP result has no Portal version binding. Browser persistence is a separate test."
+  ],
+  "inputHashes": {
+    "originalSvg": "3d9bd41976d0e9334dde119bf159810d86504e1ddbd3d1990a12b9d8c1d993b3",
+    "editedSvg": "2ca0e894ce6d2095d48bf17af504cec85ca555e4e2aeb86e2a72ab517ef923b9",
+    "sceneFile": "ac5cab275a4a79ff88602e929e6e025cee228d06ee141cdf11bbe66216e30256"
+  },
+  "actualSceneMetadata": {
+    "floorplanSource": "svg-deterministic/v1",
+    "sourceImageHash": "5a093d1122bd3d675da58efb2f97583a046819650f5fab5626b95e71392762f4",
+    "mcpSessionId": "bedroom-live-synthetic-right-retry-1792773889871907882",
+    "modelBinding": null
+  },
+  "elapsedMs": 523.391199
+}

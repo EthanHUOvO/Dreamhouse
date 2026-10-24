@@ -1,0 +1,116 @@
+{
+  "baselineFilesUnchanged": 286,
+  "roundFilesMatch": 26,
+  "sourceMismatches": [],
+  "containers": [
+    {
+      "name": "ideal-home-local-web-qwen-image21-1",
+      "image": "sha256:b29711ce55732293530ef497d70a21cad1abcb84830f764ba58cb7195f3c5544",
+      "startedAt": "2026-10-13T11:35:55.491954441Z",
+      "state": "running"
+    },
+    {
+      "name": "ideal-home-local-web-1",
+      "image": "sha256:b29711ce55732293530ef497d70a21cad1abcb84830f764ba58cb7195f3c5544",
+      "startedAt": "2026-10-13T11:35:55.490389Z",
+      "state": "running"
+    },
+    {
+      "name": "ideal-home-local-ai-gateway-qwen-image21-1",
+      "image": "sha256:e03311284b8c0167de838ce21b863a8948bad44035ccb68aefbfe96f80769737",
+      "startedAt": "2026-10-13T04:35:43.85527479Z",
+      "state": "running"
+    },
+    {
+      "name": "ideal-home-local-ai-gateway-1",
+      "image": "sha256:e03311284b8c0167de838ce21b863a8948bad44035ccb68aefbfe96f80769737",
+      "startedAt": "2026-10-13T04:35:43.860836058Z",
+      "state": "running"
+    },
+    {
+      "name": "ideal-home-local-qwen-image-21-1",
+      "image": "sha256:17abcc967d835f327b35a69fcf028098f1f108be087854a9eeb4a96bdf965419",
+      "startedAt": "2026-10-13T04:35:43.74428721Z",
+      "state": "running"
+    },
+    {
+      "name": "ideal-home-local-qwen-image-1",
+      "image": "sha256:72838aa9db75214c3507027dbae66ced421b5af4223b704180419a0dd4dcee43",
+      "startedAt": "2026-10-13T04:35:43.742755336Z",
+      "state": "running"
+    },
+    {
+      "name": "ideal-home-local-pascal-mcp-1",
+      "image": "sha256:235b1cdb26bcb40184884c17c3c00fc1251d952905ed0d5764ac9acaca1610fa",
+      "startedAt": "2026-09-30T04:11:10.64674831Z",
+      "state": "running"
+    },
+    {
+      "name": "ideal-home-local-qwen-text-1",
+      "image": "sha256:4278c53cbcbc7ace8e5f360f774a24a50c0f92484167f130eb4c58e10d756f20",
+      "startedAt": "2026-09-29T16:31:21.178484539Z",
+      "state": "running"
+    }
+  ],
+  "ports": {
+    "3000": {
+      "mode": "local",
+      "ready": true,
+      "models": {
+        "layout": "Qwen3.8-27B-Q8_0",
+        "image": "Qwen-Image-2.1-Fun-Acc-4Step",
+        "imagePreview": "Qwen-Image-2.1-Fun-Acc-4Step",
+        "bom": "Qwen3.8-27B-Q8_0"
+      }
+    },
+    "3001": {
+      "mode": "local",
+      "ready": true,
+      "models": {
+        "layout": "Qwen3.8-27B-Q8_0",
+        "image": "Qwen-Image-2.1-Fun-Acc-4Step",
+        "imagePreview": "Z-Image-Turbo",
+        "bom": "Qwen3.8-27B-Q8_0"
+      }
+    }
+  },
+  "programTests": {
+    "nodeTapTotal": 74,
+    "nodeTapFailed": 0,
+    "httpStubSharpPassed": 14,
+    "persistenceVariants": 24,
+    "realModelRequestsInProgramTests": 0
+  },
+  "typecheck": {
+    "status": "FAIL",
+    "baselineErrors": 141,
+    "finalErrors": 141,
+    "orderedDiagnosticsEqual": true,
+    "newErrors": []
+  },
+  "build": {
+    "verifyAndNextBuild": "PASS",
+    "network": "offline; existing dependencies",
+    "imageTag": "ideal-home-local:web-image-flow-20261013"
+  },
+  "browserStep4FinalReload": {
+    "status": "PASS",
+    "variant": "one-option-01",
+    "sameOutputUrl": true,
+    "style": "natural_wood",
+    "captures": 1,
+    "outputUrl": "/api/generated-images/74680d42-da14-4040-bf31-cf09b5d104bb.png",
+    "newPersistWarnings": 0,
+    "layoutOverlap": false,
+    "controlsReachableByScroll": true,
+    "scope": "one actual browser session; all 24 browser quota cases UNKNOWN"
+  },
+  "realInferences": {
+    "count": 4,
+    "floorplan": "outputs/i2i-3001-real-test.json",
+    "interiorFirst": "outputs/step4-real-first.json",
+    "interiorShort": "outputs/step4-real-short.json",
+    "interiorFinalRestore": "outputs/step4-real-restore.json",
+    "reuseOnlyRequestsAreNotInferences": true
+  }
+}

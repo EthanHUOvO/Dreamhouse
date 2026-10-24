@@ -1,0 +1,28 @@
+PASS accept valid single-bedroom constraints
+PASS unknown room
+PASS missing protected room
+PASS blocked entrance
+PASS unsupported exact width
+PASS two bedrooms
+PASS wrong entry
+PASS unknown property
+PASS invalid min area
+PASS accept bedroom region upper
+PASS accept bedroom region lower
+PASS accept bedroom region left
+PASS accept bedroom region right
+PASS accept bedroom region any
+PASS accept bedroom region unspecified
+PASS reject multiple tool calls
+PASS route performs parse then candidate selection and validates once
+PASS negation returns unchanged after semantic parse
+PASS delete instead of add returns unchanged after semantic parse
+PASS furniture edit returns unchanged after semantic parse
+PASS ambiguous position returns unchanged after semantic parse
+PASS compound requirement is not partially applied
+PASS no feasible geometry skips selection and rolls back
+PASS unknown model candidate rejected
+PASS selection rechecks omitted requirements
+PASS candidate prompt is bounded and contains only decision metadata
+PASS actual one-option-01 geometry and route integrate
+{"kind":"CONTROLLED_STUB_ONLY_NOT_REAL_AI","passed":27}

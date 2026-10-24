@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "kind": "render-and-visual-QA-no-AI",
+  "sourceSvgSha256": "4a232d38b0d459ac65d2385db936fdb5ae3d06baf7a2822c1268090f20df12fe",
+  "beforePngSha256": "4a7f2cd92cb088d139706aa57840392732810180d22e330f101bbcd640935c99",
+  "afterPngSha256": "6a0938125251335d83c227664294cf97063909f88e2257eafddc35cfe915d5aa",
+  "observed": "Before: Chinese and dimension numerals rendered as boxes. After: Chinese names, numeric dimensions and square-metre labels readable.",
+  "fontSource": "Host existing Noto CJK, mounted read-only; no font or model download"
+}

@@ -1,0 +1,6 @@
+services:
+  web:
+    image: ideal-home-local:web-bedroom-20261023
+    build:
+      context: .
+      dockerfile: Dockerfile.bedroom

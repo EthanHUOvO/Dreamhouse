@@ -1,28 +1,27 @@
-# DreamHouse v12 architecture
+# Architecture
 
 ```text
-Resident Portal
-  ├─ DrawingSource
-  ├─ UserProfile
-  └─ Design Version
-         ↓
-AI Layout Agent (Qwen3.7-plus)
-         ↓ Function Calling
-DreamHouse Geometry Tools
-         ↓
-Validated SceneGraph Preview
-         ↓ user approval
-Pascal 2D / 3D / Furniture / Walkthrough
-         ↓
-Approved DesignVersion
-         ↓
-Deterministic BOM Engine
-         ↓
-Qwen BOM Enrichment
-         ↓
-Validated / Frozen Detailed BOM
-         ↓
-MES: schedule → print → transport → robot/manual install → QC → acceptance
+Touch UI
+  │
+  ├── Step 1 Residence Template
+  │        └── createScenarioScene()
+  │
+  ├── Step 2 Qwen3.8-Flash Layout Agent
+  │        ├── Function Calling
+  │        ├── Layout Tools
+  │        ├── Validator
+  │        └── Pascal SceneGraph / Viewer
+  │
+  ├── Step 3 Qwen-Image 2D floorplan
+  │
+  ├── Step 4 Qwen-Image overall + room renders
+  │
+  └── Step 5 Pascal Geometry BOM
+           ├── deterministic quantities
+           └── Qwen3.8-Flash enrichment
+                    │
+                    ▼
+                Contractor / MES
 ```
 
-The large model is a planner and tool caller. Geometry, dimensions, quantities, sourceNodeId and production state remain deterministic application data.
+Pascal SceneGraph 是结构与工程真值。生成图片不是 BOM 的工程量来源。

@@ -1,0 +1,37 @@
+[
+  {
+    "test": "regression.ts",
+    "exitCode": 0,
+    "image": "ideal-home-local:web-bedroom-20261023",
+    "applicationSourceOverlays": false,
+    "network": "none"
+  },
+  {
+    "test": "source-furniture.ts",
+    "exitCode": 0,
+    "image": "ideal-home-local:web-bedroom-20261023",
+    "applicationSourceOverlays": false,
+    "network": "none"
+  },
+  {
+    "test": "portal-transaction.ts",
+    "exitCode": 0,
+    "image": "ideal-home-local:web-bedroom-20261023",
+    "applicationSourceOverlays": false,
+    "network": "none"
+  },
+  {
+    "test": "intent-unit.cjs",
+    "exitCode": 0,
+    "image": "ideal-home-local:web-bedroom-20261023",
+    "applicationSourceOverlays": false,
+    "network": "none"
+  },
+  {
+    "test": "live-result.ts",
+    "exitCode": 0,
+    "image": "ideal-home-local:web-bedroom-20261023",
+    "applicationSourceOverlays": false,
+    "network": "none"
+  }
+]

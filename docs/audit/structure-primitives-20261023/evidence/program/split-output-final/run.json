@@ -1,0 +1,91 @@
+{
+  "kind": "programmatic-no-ai-inference",
+  "records": [
+    {
+      "test": "split-nine",
+      "exitCode": 0,
+      "image": "sha256:9caf10e37e4add01e2683981223081a9536673b39c57392b45ff7cbb4e6efee6",
+      "network": "none",
+      "sourceOverlay": false,
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "none",
+        "-v",
+        "/tmp/structure-primitives-split-final-20261023/workspace/tests:/workspace/tests:ro",
+        "-v",
+        "/tmp/structure-primitives-split-final-20261023/evidence:/evidence",
+        "-w",
+        "/app",
+        "-e",
+        "NODE_PATH=/app/node_modules",
+        "-e",
+        "PASCAL_SCENE_DIR=/tmp/primitives-final-scenes",
+        "sha256:9caf10e37e4add01e2683981223081a9536673b39c57392b45ff7cbb4e6efee6",
+        "sh",
+        "-ec",
+        "ln -s /app/public /workspace/public\nnode --import tsx /workspace/tests/structure-primitives/split-regression.ts"
+      ]
+    },
+    {
+      "test": "restore-nine",
+      "exitCode": 0,
+      "image": "sha256:9caf10e37e4add01e2683981223081a9536673b39c57392b45ff7cbb4e6efee6",
+      "network": "none",
+      "sourceOverlay": false,
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "none",
+        "-v",
+        "/tmp/structure-primitives-split-final-20261023/workspace/tests:/workspace/tests:ro",
+        "-v",
+        "/tmp/structure-primitives-split-final-20261023/evidence:/evidence",
+        "-w",
+        "/app",
+        "-e",
+        "NODE_PATH=/app/node_modules",
+        "-e",
+        "PASCAL_SCENE_DIR=/tmp/primitives-final-scenes",
+        "-e",
+        "SPLIT_TEST_RESTORE_ONLY=1",
+        "sha256:9caf10e37e4add01e2683981223081a9536673b39c57392b45ff7cbb4e6efee6",
+        "sh",
+        "-ec",
+        "ln -s /app/public /workspace/public\nnode --import tsx /workspace/tests/structure-primitives/split-regression.ts"
+      ]
+    },
+    {
+      "test": "budget",
+      "exitCode": 0,
+      "image": "sha256:9caf10e37e4add01e2683981223081a9536673b39c57392b45ff7cbb4e6efee6",
+      "network": "none",
+      "sourceOverlay": false,
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "none",
+        "-v",
+        "/tmp/structure-primitives-split-final-20261023/workspace/tests:/workspace/tests:ro",
+        "-v",
+        "/tmp/structure-primitives-split-final-20261023/evidence:/evidence",
+        "-w",
+        "/app",
+        "-e",
+        "NODE_PATH=/app/node_modules",
+        "-e",
+        "PASCAL_SCENE_DIR=/tmp/primitives-final-scenes",
+        "sha256:9caf10e37e4add01e2683981223081a9536673b39c57392b45ff7cbb4e6efee6",
+        "sh",
+        "-ec",
+        "ln -s /app/public /workspace/public\nnode --import tsx /workspace/tests/structure-primitives/split-budget.ts"
+      ]
+    }
+  ]
+}

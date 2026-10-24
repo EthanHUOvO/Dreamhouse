@@ -1,0 +1,102 @@
+{
+  "key": "study",
+  "instruction": "在客餐厅上侧新增一个独立书房，保留入户通道、厨房、卫生间及其余房间的位置。",
+  "httpStatus": 422,
+  "elapsedMs": 9540,
+  "actualInference": true,
+  "responseHasSvg": false,
+  "error": "SVG_EDIT_FAILED",
+  "message": "改造未通过结构校验（SVG_EDIT_FAILED），整笔改造已回滚。请调整位置或改造要求后重试。",
+  "rolledBack": true,
+  "intent": {
+    "action": "structure_plan",
+    "status": "execute",
+    "operations": [
+      {
+        "id": "op1",
+        "type": "split_room",
+        "targetRoomId": "room_3",
+        "direction": "upper",
+        "newRoomName": "书房",
+        "newRoomSemantic": "study",
+        "minAreaM2": null,
+        "entryFromRoomId": "room_3"
+      }
+    ],
+    "explicitProtectedRoomIds": [
+      "room_1",
+      "room_4"
+    ],
+    "preserveEntrance": true,
+    "preserveOtherRooms": true,
+    "unhandledRequirements": [],
+    "summary": "在客餐厅上侧新增一个独立书房，保留入户通道、厨房、卫生间及其余房间的位置。",
+    "message": "",
+    "protectedRoomIds": [
+      "room_1",
+      "room_2",
+      "room_4",
+      "room_5",
+      "room_6"
+    ]
+  },
+  "provenance": {
+    "stage": "svg-edit",
+    "method": "natural-language-geometry/v2",
+    "actualInference": true,
+    "model": "Ours",
+    "inference": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "responseId": "chatcmpl-inb66p9cd41g51pm62lr",
+        "usage": {
+          "prompt_tokens": 3305,
+          "completion_tokens": 127,
+          "total_tokens": 3432,
+          "prompt_tokens_details": {
+            "cached_tokens": 2048
+          },
+          "cached_tokens": 2048,
+          "prompt_tokens_per_second": 1970.5969934722382,
+          "completion_tokens_per_second": 49.31236393524812,
+          "draft_tokens": 80,
+          "draft_tokens_accepted": 61,
+          "gufo": {
+            "cache_hit": true,
+            "cache_restore_bytes": 137575544,
+            "cache_snapshot_bytes": 361634396,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 18.519436,
+            "cache_snapshot_ms": 50.11413,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 1257,
+            "prefill_chunks": 2,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 1250,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 22.344665,
+            "prefill_ms": 637.8777620000001,
+            "decode_ms": 2575.4190199999985,
+            "ttft_ms": 689.369708,
+            "mean_inter_token_ms": 20.48464234920635,
+            "max_inter_token_ms": 172.376134,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 6239
+      }
+    ]
+  },
+  "failedOperationId": "op1",
+  "completedOperationCount": 0
+}

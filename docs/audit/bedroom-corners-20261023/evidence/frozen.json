@@ -1,0 +1,12 @@
+{
+  "web": "sha256:da87be6ca4cd6723f761b48a283c3561eb8953714421fd3dd46f64c6da7cc1eb",
+  "sources": {
+    "/app/components/customer/TouchCustomerPortal.tsx": "9996151ab95655ea968b5fb9346c65b65cf95f32ef85f3864a343c9b9fb21cce",
+    "/app/lib/floorplans/blueprint.ts": "495fc287423f30a4d170741a5ff2ed8a2a0c014516d32f11e54b0720b0986f2d",
+    "/app/lib/ai/bedroom-edit-geometry.ts": "88a864b3631d882624ddd55b08723da3d625df12052655874c4b5ce0253c4ff7",
+    "/app/lib/ai/bedroom-scene-validation.ts": "95a884a1e3682d40b33ed708bba56dac06f8530e8767b33663a73f0c388df76f",
+    "/app/lib/ai/bedroom-candidate-scene.ts": "f459592cdafe564fe82457e14728e8dc2b5b59f63f148d9c15031490c6764ed5",
+    "/app/lib/ai/floorplan-edit-intent.ts": "b707d10d9328676b64603340d4dc3da620a24e261bd9dca257c0734f606d5def",
+    "/app/app/api/ai/svg-edit/route.ts": "075366838bb8492045e6b0493968ab5d8fadb649e4b4fb3d73d62cdf1da9c6b0"
+  }
+}

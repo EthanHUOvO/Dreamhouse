@@ -1,0 +1,774 @@
+diff --git a/components/customer/TouchCustomerPortal.tsx b/components/customer/TouchCustomerPortal.tsx
+index 3c9a90ab68f7dd31627f0757d2fec6fa2bfc6327..c2bbdc25c303f660ca6625691143dc1a06d85a32 100644
+--- a/components/customer/TouchCustomerPortal.tsx
++++ b/components/customer/TouchCustomerPortal.tsx
+@@ -43,9 +43,12 @@ import { loadOrders, saveOrders } from "@/lib/order-store";
+ import { syncOrderDownstream } from "@/lib/downstream";
+ import { parseRequirementTarget } from "@/lib/ai/requirement-target";
+ import { consumeModel3dSse } from "@/lib/ai/model3d-stream";
+-import { canonicalFloorplanSource, canProceedAfterModelGeneration, canSelectOriginalFloorplan, originalFloorplanMatches, originalFloorplanSelection, shouldHydrateImportedPreset, type OriginalFloorplanSelection } from "@/lib/ai/model3d-source";
+-import { restoreModelSession } from "@/lib/ai/model3d-persistence";
++import { canonicalFloorplanSource, canSelectOriginalFloorplan, originalFloorplanMatches, originalFloorplanSelection, shouldHydrateImportedPreset, type OriginalFloorplanSelection } from "@/lib/ai/model3d-source";
++import { advanceSelectionEpoch, canUseBoundModel, floorplanModelBinding, restoreBoundModelSession, sameModelBinding, selectionJobCurrent, type FloorplanModelBinding, type SelectionEpoch } from "@/lib/ai/model3d-binding";
+ import { assertPascalSceneIntegrity } from "@/lib/pascal/scene-integrity";
++import { structureEditFingerprint } from "@/lib/floorplans/structure-edit";
++import { structureScenePng } from "@/lib/floorplans/structure-preview";
++import { commitStructureScene } from "@/lib/ai/structure-commit";
+ import { ensurePascalPlugin } from "@/lib/pascal/bootstrap";
+ import {
+   moveFurniture,
+@@ -139,7 +142,7 @@ const CLARIFICATION_OPTIONS = [
+   "保留原厨房，重新给出建议",
+   "其他安排，由我补充说明",
+ ];
+-type FloorplanVersion = { id: string; parentVersionId?: string; sourceVariantId: string; sourceImageHash: string; submittedRequirement: string; result: GeneratedImage; requestId: string; createdAt: string; validationStatus: "pending" | "ready" | "failed" };
++type FloorplanVersion = { id: string; parentVersionId?: string; sourceVariantId: string; sourceImageHash: string; submittedRequirement: string; result: GeneratedImage; requestId: string; createdAt: string; validationStatus: "pending" | "ready" | "failed"; sceneSnapshot?: SceneGraph };
+ type SelectedRegion = { x: number; y: number; width: number; height: number; coordinateSpace: "source-image"; sourceImageHash: string; baseVersionId: string };
+ 
+ const RESIDENCES: {
+@@ -436,9 +439,16 @@ export default function TouchCustomerPortal() {
+ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro");
+   const [modelGenerationPhase, setModelGenerationPhase] = useState<ModelGenerationPhase>("idle");
+   const [modelMcpProgress, setModelMcpProgress] = useState(0);
+-  const [modelSourceNotice, setModelSourceNotice] = useState<{ source: "mcp" | "fallback" | "verified-preset"; reason?: string } | null>(null);
++  const [modelSourceNotice, setModelSourceNotice] = useState<{ source: "mcp" | "structure" | "fallback" | "verified-preset"; reason?: string } | null>(null);
+   const [floorPlanConfirmed, setFloorPlanConfirmed] = useState(false);
+   const [model3DLoaded, setModel3DLoaded] = useState(false);
++  const [confirmedBinding, setConfirmedBinding] = useState<FloorplanModelBinding | null>(null);
++  const [modelBinding, setModelBinding] = useState<FloorplanModelBinding | null>(null);
++  const confirmedBindingRef = useRef<FloorplanModelBinding | null>(null);
++  const modelBindingRef = useRef<FloorplanModelBinding | null>(null);
++  const selectionEpoch = useRef<SelectionEpoch>({ sequence: 0, binding: null });
++  const [structureBusy, setStructureBusy] = useState(false);
++  const [structureVisualPreview, setStructureVisualPreview] = useState<string | null>(null);
+   const [progressTask, setProgressTask] = useState<ProgressTask | null>(null);
+   const [progressElapsed, setProgressElapsed] = useState(0);
+   const [debugUi, setDebugUi] = useState(process.env.NEXT_PUBLIC_DEBUG_UI === "true");
+@@ -510,8 +520,8 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+   const calibrationForPersistence = useRef(blueprintCalibration);
+   calibrationForPersistence.current = blueprintCalibration;
+   useEffect(() => {
+-    if (!blueprintDirty.current) committedSceneRef.current = cloneScene(scene);
+-  }, [scene, selectedVariant.variantId]);
++    if (!blueprintDirty.current && modelGenerationPhase === "completed") committedSceneRef.current = cloneScene(scene);
++  }, [scene, selectedVariant.variantId, modelGenerationPhase]);
+   const [status, setStatus] = useState<ApiStatus | null>(null),
+     [floorplan, setFloorplan] = useState<FloorplanSelection | null>(null),
+     [aiFloorplan, setAiFloorplan] = useState<AiFloorplanResult | null>(null),
+@@ -560,14 +570,16 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     try {
+       const raw = localStorage.getItem(sessionStorageKey(sessionId, `budget:${selectedVariant.variantId}:${sceneRevision}`));
+       if (raw) {
+-        const restored = JSON.parse(raw) as ResidentialBudget;
++        const record = JSON.parse(raw);
++        if (!sameModelBinding(record.modelBinding, modelBinding) || !sameModelBinding(modelBinding, confirmedBinding)) return;
++        const restored = record.budget as ResidentialBudget;
+         setBudget(restored);
+         setBudgetSettings(restored.settings);
+       }
+     } catch (error) {
+       console.warn("[住宅预算] 本地保存读取失败", { type: error instanceof Error ? error.name : "unknown" });
+     }
+-  }, [sessionId, selectedVariant.variantId, sceneRevision]);
++  }, [sessionId, selectedVariant.variantId, sceneRevision, modelBinding, confirmedBinding]);
+ 
+   useEffect(() => {
+     const bootId = `boot-${Date.now().toString(36)}`;
+@@ -582,6 +594,40 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     modelGenerationAbortController.current = null;
+   }
+ 
++  function invalidateConfirmedSelection(nextBinding: FloorplanModelBinding | null = null) {
++    setStructureVisualPreview(null);
++    selectionEpoch.current = advanceSelectionEpoch(selectionEpoch.current, nextBinding);
++    confirmedBindingRef.current = null;
++    setConfirmedBinding(null);
++    cancelModelGenerationTimers();
++    floorplanRequestId.current += 1;
++    floorplanAbortController.current?.abort();
++    floorplanAbortController.current = null;
++    for (const controller of requestControllers.current) controller.abort();
++    requestControllers.current.clear();
++    adjustmentInFlight.current = false;
++    setFloorplanBusy(false);
++    setRenderBusy(false);
++    setBomBusy(false);
++    setFloorPlanConfirmed(false);
++    setModelGenerationPhase("idle");
++    setModel3DLoaded(false);
++    setModelExperience("intro");
++    setModelSourceNotice(null);
++    setProgressTask(null);
++    setCapturedViews([]);
++    setActiveCaptureId(null);
++    setOverall(null);
++    setRoomImages([]);
++    setBom(null);
++    setBudget(null);
++  }
++
++  function changeModificationDraft(text: string) {
++    if (text !== prompt) invalidateConfirmedSelection();
++    setPrompt(text);
++  }
++
+   function createSessionRequest() {
+     const controller = new AbortController();
+     requestControllers.current.add(controller);
+@@ -618,6 +664,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+ 
+   function stopSessionResources() {
+     sessionDisposed.current = true;
++    selectionEpoch.current = advanceSelectionEpoch(selectionEpoch.current, null);
+     floorplanAbortController.current?.abort();
+     floorplanAbortController.current = null;
+     for (const controller of requestControllers.current) controller.abort();
+@@ -676,6 +723,17 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+   );
+   const currentFloorplan = floorplanMatchesSelection ? floorplan : null;
+   const modifiedFloorPlan = currentFloorplan;
++  const selectedImageVersion = floorplanVersions.find((version) => version.id === selectedFloorplanVersionId);
++  const currentBinding = floorplanModelBinding(selectedVariant.variantId, currentFloorplan, selectedFloorplanVersionId, aiFloorplan, selectedImageVersion);
++  // Live identity refs also reject responses between a selection event and
++  // React committing the corresponding state update.
++  if ((selectionEpoch.current.binding || currentBinding) && !sameModelBinding(selectionEpoch.current.binding, currentBinding)) {
++    selectionEpoch.current = advanceSelectionEpoch(selectionEpoch.current, currentBinding);
++  }
++  const modelMatchesSelection = canUseBoundModel({ confirmed: floorPlanConfirmed, phase: modelGenerationPhase, loaded: model3DLoaded, experience: modelExperience, selection: currentBinding, confirmedBinding, modelBinding });
++  useEffect(() => {
++    if (sessionHydrated && floorPlanConfirmed && !sameModelBinding(currentBinding, confirmedBinding)) invalidateConfirmedSelection(currentBinding);
++  }, [sessionHydrated, currentBinding?.variantId, currentBinding?.versionId, currentBinding?.canonicalImageUrl, floorPlanConfirmed, confirmedBinding]);
+   // Analysis is optional advisory UI and never blocks direct image editing.
+   const hasPendingClarification = false;
+   const designSession: DesignSession = useMemo(
+@@ -867,7 +925,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+ 
+   function closeProgressTask() {
+     if (progressTask?.kind === "model") {
+-      if (progressTask.error) {
++      if (progressTask.error || !sameModelBinding(selectionEpoch.current.binding, modelBindingRef.current)) {
+         setModelGenerationPhase("error");
+         setModelExperience("intro");
+       } else {
+@@ -879,13 +937,13 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     setProgressTask(null);
+   }
+ 
+-  function applyGeneratedScene(nextScene: SceneGraph, asBase = false) {
++  function applyGeneratedScene(nextScene: SceneGraph, asBase = false, alreadyApplied = false) {
+     const snapshot = cloneScene(nextScene);
+-    applySceneSnapshot(snapshot as any, { origin: "host" });
++    if (!alreadyApplied) applySceneSnapshot(snapshot as any, { origin: "host" });
+     setScene(snapshot);
+     setSceneRevision((value) => value + 1);
+-    setModel3DLoaded(true);
+-    setModelExperience("viewer");
++    setModel3DLoaded(asBase);
++    if (asBase) setModelExperience("viewer");
+     if (asBase) {
+       setBasePascalScene(cloneScene(snapshot));
+       committedSceneRef.current = cloneScene(snapshot);
+@@ -903,7 +961,11 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+   }
+ 
+   async function startModelGeneration() {
+-    if (!modifiedFloorPlan?.url || modelGenerationPhase === "generating" || modelGenerationAbortController.current) return;
++    if (!modifiedFloorPlan?.url || !floorPlanConfirmed || !sameModelBinding(currentBinding, confirmedBindingRef.current) || modelGenerationPhase === "generating" || modelGenerationAbortController.current) return;
++    const requestSessionId = sessionId;
++    const job = { ...selectionEpoch.current };
++    const jobBinding = job.binding!;
++    const isCurrent = () => isSessionCurrent(requestSessionId) && selectionJobCurrent(job, selectionEpoch.current) && sameModelBinding(jobBinding, confirmedBindingRef.current);
+     setError("");
+     cancelModelGenerationTimers();
+     setModelExperience("generating");
+@@ -925,6 +987,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+         : await imageUrlToDataUrl(modifiedFloorPlan.url, controller.signal);
+       // Step2's sourceImageHash identifies its input, not the confirmed output.
+       const sourceImageHash = await hashDataUrl(sourceImageDataUrl);
++      if (!isCurrent()) return;
+       confirmedImageHash = sourceImageHash;
+       const mcpSessionId = `${sessionId || "local"}-model3d-${Date.now().toString(36)}`;
+       const response = await fetch("/api/ai/model3d/stream", {
+@@ -949,6 +1012,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       };
+       const toolMessages: Record<string, string> = { begin_floorplan_scene: "正在准备三维场景", set_floor_structure: "正在构建墙体和房间", set_openings: "正在安装门窗", populate_basic_furniture: "正在配置基础家具", validate_scene: "正在检查三维空间完整性", commit_scene: "正在保存您的三维空间" };
+       await consumeModel3dSse(response, (eventType, event) => {
++        if (!isCurrent()) return;
+         if (eventType === "progress") {
+           setLayoutProgress(String(event.message || "正在识别户型结构"));
+         } else if (eventType === "tool") {
+@@ -961,7 +1025,11 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+           setLayoutProgress(event.validation?.valid ? "Pascal 场景校验通过" : "正在修正 Pascal 场景校验问题");
+         } else if (eventType === "complete" && event.result?.scene) {
+           terminalResult = true;
+-          applyGeneratedScene(event.result.scene as SceneGraph, true);
++          const completedScene = cloneScene(event.result.scene as SceneGraph);
++          Object.assign(completedScene.nodes.building_house.metadata ||= {}, { modelBinding: jobBinding, variantId: jobBinding.variantId, sourceDrawing: jobBinding.canonicalImageUrl });
++          modelBindingRef.current = jobBinding;
++          setModelBinding(jobBinding);
++          applyGeneratedScene(completedScene, true);
+           setModelMcpProgress(100);
+           const verifiedPreset = event.result.source === "verified-preset";
+           setModelSourceNotice({ source: verifiedPreset ? "verified-preset" : "mcp" });
+@@ -973,15 +1041,16 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+           applyGeneratedScene(event.scene as SceneGraph);
+           setModelSourceNotice({ source: "fallback", reason: String(event.reason || "本地3D生成未通过校验") });
+           setModelGenerationPhase("error");
++          setModelExperience("intro");
+           setLayoutProgress("生成失败，当前显示预制模型预览，可重新创建");
+           completeProgressTask(taskId, String(event.reason || "本地3D生成未通过校验"));
+         } else if (eventType === "error") {
+           throw new Error(String(event.message || "3D生成服务返回错误"));
+         }
+       }, { signal: controller.signal });
+-      if (!terminalResult) throw new Error("3D生成服务没有返回完整场景，请重试");
++      if (isCurrent() && !terminalResult) throw new Error("3D生成服务没有返回完整场景，请重试");
+     } catch (generationError: any) {
+-      if (generationError?.name === "AbortError") return;
++      if (!isCurrent()) return;
+       const reason = generationError?.message || String(generationError);
+       console.error("[DreamHouse][model3d] streaming generation failed", generationError);
+       const fallback = cloneScene(scene);
+@@ -997,6 +1066,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       applyGeneratedScene(fallback);
+       setModelSourceNotice({ source: "fallback", reason });
+       setModelGenerationPhase("error");
++      setModelExperience("intro");
+       setLayoutProgress("生成失败，当前显示预制模型预览，可重新创建");
+       completeProgressTask(taskId, reason);
+     } finally {
+@@ -1015,6 +1085,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+   }, []);
+ 
+   async function captureView(capture: import("@/lib/types").PascalViewCapture) {
++    if (!modelMatchesSelection) { setError("请先完成当前户型的3D空间创建"); return; }
+     if (capturedViews.length >= 5) {
+       setError("最多可以保存 5 个空间视角");
+       return;
+@@ -1039,6 +1110,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       stylePrompt: buildInteriorPrompt(selectedStyleId),
+       status: "captured",
+     };
++    Object.assign(view, { modelBinding: confirmedBinding });
+     setCapturedViews((current) => [...current, view]);
+     setActiveCaptureId(view.id);
+     setError("");
+@@ -1085,6 +1157,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+   function restoreVariantBlueprint(kind: "golden" | "base") {
+     const label = kind === "golden" ? "Golden 预制方案" : "最初 Base 户型";
+     if (typeof window !== "undefined" && !window.confirm(`恢复${label}？当前 Saved User Blueprint 将被删除。`)) return;
++    invalidateConfirmedSelection();
+     try {
+       if (blueprintSaveTimer.current) clearTimeout(blueprintSaveTimer.current);
+       blueprintSaveTimer.current = null;
+@@ -1433,7 +1506,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+           setBasePascalScene(cloneScene(loadedScene));
+           geometryLoaded = true;
+         }
+-        const restoredModel = restoreModelSession(saved, savedManualBlueprint);
++        const restoredModel = restoreBoundModelSession(saved, savedManualBlueprint);
+         if (restoredModel.scene && restoredModel.blueprint) {
+           setScene(restoredModel.scene);
+           setBasePascalScene(cloneScene(restoredModel.scene));
+@@ -1446,6 +1519,12 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+         setModelGenerationPhase(restoredModel.phase);
+         setModelExperience(restoredModel.experience);
+         setSlide(restoredModel.step as Slide);
++        setFloorPlanConfirmed(restoredModel.confirmed);
++        confirmedBindingRef.current = restoredModel.binding;
++        modelBindingRef.current = restoredModel.binding;
++        setConfirmedBinding(restoredModel.binding);
++        setModelBinding(restoredModel.binding);
++        selectionEpoch.current = advanceSelectionEpoch(selectionEpoch.current, restoredModel.binding);
+         if (restoredModel.failed) setModelSourceNotice({ source: "fallback", reason: restoredModel.reason });
+         if (typeof saved.customRequirement === "string") setPrompt(saved.customRequirement);
+         else if (typeof saved.requirement === "string") {
+@@ -1484,12 +1563,13 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+             setSelectedFloorplanVersionId(selectedVersion.id);
+             selectedFloorplanVersionIdRef.current = selectedVersion.id;
+             if (typeof saved.editSourceVersionId === "string" && restoredVersions.some((version) => version.id === saved.editSourceVersionId)) setEditSourceVersionId(saved.editSourceVersionId);
+-            if (!saved.aiFloorplan) {
++            {
+               setFloorplan(selectedVersion.result);
+               setAiFloorplan({ sourceVariantId: selectedVersion.sourceVariantId, sourceImageHash: selectedVersion.sourceImageHash, prompt: selectedVersion.submittedRequirement, url: selectedVersion.result.url, model: selectedVersion.result.model, provider: selectedVersion.result.provider, ephemeral: selectedVersion.result.ephemeral, fallback: selectedVersion.result.fallback, fallbackReason: selectedVersion.result.fallbackReason });
+             }
++            const assetJob = { ...selectionEpoch.current };
+             if (saved.generatedFloorplan?.provider !== "preset") void loadFloorplanAsset(`${activeSessionId}:${saved.selectedVariant.variantId}:${selectedVersion.id}`).then((url) => {
+-              if (!url || !isSessionCurrent(activeSessionId) || selectedFloorplanVersionIdRef.current !== selectedVersion.id) {
++              if (!url || !isSessionCurrent(activeSessionId) || !selectionJobCurrent(assetJob, selectionEpoch.current) || selectedFloorplanVersionIdRef.current !== selectedVersion.id) {
+                 if (url) URL.revokeObjectURL(url);
+                 return;
+               }
+@@ -1505,9 +1585,10 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+           setEditSourceVersionId(null);
+         }
+         if (saved.selectedRegion?.coordinateSpace === "source-image" && saved.selectedRegion.sourceImageHash === (saved.selectedVariant?.imageHash || saved.selectedRegion.sourceImageHash)) setSelectedRegion(saved.selectedRegion);
+-        if (Array.isArray(saved.capturedViews)) {
++        if (restoredModel.modelLoaded && Array.isArray(saved.capturedViews)) {
+           const restoredCaptures = saved.capturedViews
+             .map((capture: CapturedView) => {
++              if (!sameModelBinding((capture as any)?.modelBinding, restoredModel.binding)) return null;
+               if (capture?.sceneVersion && !["v2", "pascal-v2"].includes(capture.sceneVersion)) return null;
+               const image = capture?.image || capture?.screenshotDataUrl || "";
+               return isValidCapturedImage(image)
+@@ -1525,10 +1606,9 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+         if (typeof saved.clarificationResolution === "string") setClarificationResolution(saved.clarificationResolution);
+         if (typeof saved.clarificationDraft === "string") setClarificationDraft(saved.clarificationDraft);
+         if (typeof saved.clarificationNote === "string") setClarificationNote(saved.clarificationNote);
+-        if (typeof saved.floorPlanConfirmed === "boolean") setFloorPlanConfirmed(saved.floorPlanConfirmed);
+         if (typeof saved.selectedStyleId === "string") setSelectedStyleId(saved.selectedStyleId);
+-        if (saved.bomResult) setBom(saved.bomResult);
+-        if (saved.overallRenderImage)
++        if (restoredModel.modelLoaded && saved.bomResult) setBom(saved.bomResult);
++        if (restoredModel.modelLoaded && saved.overallRenderImage)
+           setOverall({
+             provider: "qwen",
+             model: "persisted",
+@@ -1536,7 +1616,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+             ephemeral: true,
+             fallback: false,
+           });
+-        if (Array.isArray(saved.roomImages))
++        if (restoredModel.modelLoaded && Array.isArray(saved.roomImages))
+           setRoomImages(
+             saved.roomImages
+               .filter((item: any) => typeof item?.roomId === "string" && Boolean(item?.image?.url || item?.url))
+@@ -1623,6 +1703,8 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+           floorPlanConfirmed,
+           model3DLoaded,
+           modelGenerationPhase,
++          confirmedBinding,
++          modelBinding,
+           selectedStyleId,
+           selectedCaptureId: activeCaptureId,
+           customRequirement: prompt,
+@@ -1645,7 +1727,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+         sourceRevision: sceneRevision,
+       });
+     }
+-  }, [sessionHydrated, sessionId, designSession, currentFloorplan, overall, roomImages, floorPlanConfirmed, model3DLoaded, modelGenerationPhase, selectedStyleId, activeCaptureId, prompt, clarificationResolution, clarificationDraft, clarificationNote, floorplanAnalysis, floorplanVersions, selectedFloorplanVersionId, editSourceVersionId, selectedRegion, slide]);
++  }, [sessionHydrated, sessionId, designSession, currentFloorplan, overall, roomImages, floorPlanConfirmed, model3DLoaded, modelGenerationPhase, confirmedBinding, modelBinding, selectedStyleId, activeCaptureId, prompt, clarificationResolution, clarificationDraft, clarificationNote, floorplanAnalysis, floorplanVersions, selectedFloorplanVersionId, editSourceVersionId, selectedRegion, slide]);
+   useEffect(() => {
+     sessionDisposed.current = false;
+     return () => stopSessionResources();
+@@ -1727,6 +1809,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       imageDataUrl: null,
+       imageHash: null,
+     };
++    invalidateConfirmedSelection();
+     const requestId = ++variantRequestId.current;
+     const requestSessionId = sessionId;
+     const controller = createSessionRequest();
+@@ -1887,11 +1970,11 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+         cancelDraftEdits();
+       } else return;
+     }
+-    if (next >= 2 && !floorPlanConfirmed) {
++    if (next >= 2 && (!floorPlanConfirmed || !sameModelBinding(currentBinding, confirmedBinding))) {
+       setError("请先生成并确认户型方案");
+       return;
+     }
+-    if (next >= 3 && !canProceedAfterModelGeneration({ phase: modelGenerationPhase, modelLoaded: model3DLoaded, experience: modelExperience })) {
++    if (next >= 3 && !modelMatchesSelection) {
+       setError("请先完成3D空间创建");
+       return;
+     }
+@@ -2025,6 +2108,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     const controller = new AbortController();
+     requestControllers.current.add(controller);
+     floorplanAbortController.current = controller;
++    const job = { ...selectionEpoch.current };
+     try {
+       const selectedVersion = editSourceVersion;
+       const sourceVersion = selectedVersion ? "V1" : "original";
+@@ -2032,6 +2116,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       const originalImage = selectedVersion
+           ? await imageUrlToDataUrl(sourceUrl, controller.signal)
+           : selectedVariant.imageDataUrl || await imageUrlToDataUrl(sourceUrl, controller.signal);
++      if (!isSessionCurrent(requestSessionId) || !selectionJobCurrent(job, selectionEpoch.current)) return false;
+       const sourceImageHash = selectedVersion?.sourceImageHash || selectedVariant.imageHash || await hashDataUrl(originalImage);
+       const requestVariantId = selectedVariant.variantId;
+       const requestPrompt = modificationRequest.trim();
+@@ -2065,6 +2150,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       const current = currentFloorplanContext.current;
+       if (requestId !== floorplanRequestId.current ||
+           !isSessionCurrent(requestSessionId) ||
++          !selectionJobCurrent(job, selectionEpoch.current) ||
+           current.variantId !== requestVariantId ||
+           current.imageHash !== sourceImageHash ||
+           current.prompt.trim() !== requestPrompt ||
+@@ -2092,9 +2178,12 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       const versionId = `floorplan-${requestId}-${Date.now().toString(36)}`;
+       setFloorplanVersions((current) => [...current, { id: versionId, parentVersionId: current.at(-1)?.id, sourceVariantId: requestVariantId, sourceImageHash, submittedRequirement: requestPrompt, result: nextFloorplan, requestId: String(requestId), createdAt: new Date().toISOString(), validationStatus: "ready" as const }].slice(-8));
+       setSelectedFloorplanVersionId(versionId);
++      selectedFloorplanVersionIdRef.current = versionId;
++      selectionEpoch.current = advanceSelectionEpoch(selectionEpoch.current, floorplanModelBinding(requestVariantId, nextFloorplan, versionId));
++      const assetJob = { ...selectionEpoch.current };
+       setAssetSaveError("");
+       void saveFloorplanAsset(`${requestSessionId}:${requestVariantId}:${versionId}`, nextFloorplan.url).catch((error: any) => {
+-        if (isSessionCurrent(requestSessionId)) setAssetSaveError("图片已生成，但本地保存失败，可保留当前结果并重试保存。");
++        if (isSessionCurrent(requestSessionId) && selectionJobCurrent(assetJob, selectionEpoch.current)) setAssetSaveError("图片已生成，但本地保存失败，可保留当前结果并重试保存。");
+         console.warn("[DreamHouse][STEP2] image persistence failed", { errorType: error?.name || "unknown", projectId: requestVariantId, requestId: `floorplan-${requestId}` });
+       });
+       return true;
+@@ -2156,7 +2245,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       : answer;
+     const resolution = `针对待确认问题：${question}\n用户选择：${resolvedAnswer}`;
+     setClarificationResolution(resolution);
+-    setPrompt((current) => current.includes(resolution) ? current : [current.trim(), resolution].filter(Boolean).join("\n"));
++    changeModificationDraft(prompt.includes(resolution) ? prompt : [prompt.trim(), resolution].filter(Boolean).join("\n"));
+     setError("");
+   }
+ 
+@@ -2188,14 +2277,9 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+   }
+ 
+   function toggleSuggestion(suggestion: FloorplanAnalysis["suggestions"][number]) {
+-    setPrompt((current) => {
+-      const instruction = suggestion.editableInstruction.trim();
+-      if (!instruction) return current;
+-      if (current.includes(instruction)) {
+-        return current.split("\n").filter((line) => line.trim() !== instruction).join("\n").trim();
+-      }
+-      return [current.trim(), instruction].filter(Boolean).join("\n");
+-    });
++    const instruction = suggestion.editableInstruction.trim();
++    if (!instruction) return;
++    changeModificationDraft(prompt.includes(instruction) ? prompt.split("\n").filter((line) => line.trim() !== instruction).join("\n").trim() : [prompt.trim(), instruction].filter(Boolean).join("\n"));
+   }
+ 
+   function regionPoint(event: PointerEvent<HTMLDivElement>) {
+@@ -2217,6 +2301,11 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+   }
+ 
+   async function generateRenders(): Promise<boolean> {
++    if (!modelMatchesSelection) { setError("请先完成当前户型的3D空间创建"); return false; }
++    const job = { ...selectionEpoch.current };
++    const requestRevision = sceneRevision;
++    const requestScene = sceneForPersistence.current;
++    const isCurrent = () => selectionJobCurrent(job, selectionEpoch.current) && sceneForPersistence.current === requestScene;
+     setError("");
+     setRenderBusy(true);
+     const selected = capturedViews.find((v) => v.id === activeCaptureId && (v.image || v.screenshotDataUrl));
+@@ -2225,6 +2314,11 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       setRenderBusy(false);
+       return false;
+     }
++    if (selected.sceneRevision !== requestRevision) {
++      setError("此视角属于之前的场景，请返回3D空间重新拍摄");
++      setRenderBusy(false);
++      return false;
++    }
+     const sourceImage = selected.image || selected.screenshotDataUrl;
+     if (!/^data:image\/(?:png|jpeg|jpg);base64,/i.test(sourceImage || "") || sourceImage.length < 1000) {
+       setError("当前拍摄视角没有有效图片，请返回3D空间重新拍摄");
+@@ -2247,7 +2341,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+         sceneRevision,
+         signal: controller.signal,
+       });
+-      if (!isSessionCurrent(requestSessionId)) return false;
++      if (!isSessionCurrent(requestSessionId) || !isCurrent()) return false;
+       const main = data.image as GeneratedImage;
+       setCapturedViews((current) => current.map((view) => view.id === selected.id ? {
+         ...view,
+@@ -2271,7 +2365,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       setActiveCaptureId(selected.id);
+       return true;
+     } catch (e: any) {
+-      if (e?.name === "AbortError" || !isSessionCurrent(requestSessionId)) return false;
++      if (e?.name === "AbortError" || !isSessionCurrent(requestSessionId) || !isCurrent()) return false;
+       console.error("[Interior Generation Failed]", {
+         error: e,
+         captureId: selected.id,
+@@ -2282,11 +2376,15 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       return false;
+     } finally {
+       releaseSessionRequest(controller);
+-      if (isSessionCurrent(requestSessionId)) setRenderBusy(false);
++      if (isSessionCurrent(requestSessionId) && selectionJobCurrent(job, selectionEpoch.current)) setRenderBusy(false);
+     }
+   }
+ 
+   async function generateBom(): Promise<boolean> {
++    if (!modelMatchesSelection) { setError("请先完成当前户型的3D空间创建"); return false; }
++    const job = { ...selectionEpoch.current };
++    const requestScene = sceneForPersistence.current;
++    const isCurrent = () => selectionJobCurrent(job, selectionEpoch.current) && sceneForPersistence.current === requestScene;
+     setError("");
+     setBomBusy(true);
+     const requestSessionId = sessionId;
+@@ -2316,20 +2414,19 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+         }),
+         signal: controller.signal,
+       });
+-      if (timeout !== null) window.clearTimeout(timeout);
+       const data = await res.json();
+       if (!res.ok)
+         throw new Error(
+           `${data?.model || "Qwen BOM"}：${data?.error || "BOM生成失败"}`,
+         );
+-      if (!isSessionCurrent(requestSessionId)) return false;
++      if (!isSessionCurrent(requestSessionId) || !isCurrent()) return false;
+       const nextBudget = data.budget && Array.isArray(data.budget.items) && data.budget.items.length > 0 ? data.budget as ResidentialBudget : localFallback();
+       setBom(data.bom || null);
+       setBudget(nextBudget);
+       return true;
+     } catch (e: any) {
+       if (e?.name !== "AbortError" && isSessionCurrent(requestSessionId)) console.warn("[BOM] remote generation failed, using local rules", e);
+-      if (!isSessionCurrent(requestSessionId)) return false;
++      if (!isSessionCurrent(requestSessionId) || !isCurrent()) return false;
+       setBudget(localFallback());
+       setBom(null);
+       setSubmitMsg("远程预算服务未及时响应，已切换为本地完整预算，可继续查看和提交施工。");
+@@ -2337,7 +2434,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     } finally {
+       if (timeout !== null) window.clearTimeout(timeout);
+       releaseSessionRequest(controller);
+-      if (isSessionCurrent(requestSessionId)) setBomBusy(false);
++      if (isSessionCurrent(requestSessionId) && selectionJobCurrent(job, selectionEpoch.current)) setBomBusy(false);
+     }
+   }
+ 
+@@ -2346,8 +2443,8 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+   }
+ 
+   function saveResidentialBudget() {
+-    if (!budget || !sessionId) return;
+-    localStorage.setItem(sessionStorageKey(sessionId, `budget:${selectedVariant.variantId}:${sceneRevision}`), JSON.stringify(budget));
++    if (!budget || !sessionId || !modelMatchesSelection) return;
++    localStorage.setItem(sessionStorageKey(sessionId, `budget:${selectedVariant.variantId}:${sceneRevision}`), JSON.stringify({ modelBinding, budget }));
+     setSubmitMsg("预算已保存到当前户型和方案版本");
+   }
+ 
+@@ -2358,6 +2455,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+       setError("请输入或选择一条户型调整需求");
+       return;
+     }
++    invalidateConfirmedSelection();
+     adjustmentInFlight.current = true;
+     const requestSessionId = sessionId;
+     cancelModelGenerationTimers();
+@@ -2372,20 +2470,89 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     setBom(null);
+     setBudget(null);
+     const progressId = beginProgressTask("layout", 5000);
++    const imageRequestId = floorplanRequestId.current + 1;
+     const imageReady = await generateFloorplan();
+-    if (!isSessionCurrent(requestSessionId)) return;
++    if (!isSessionCurrent(requestSessionId) || imageRequestId !== floorplanRequestId.current) return;
+     if (imageReady) completeProgressTask(progressId);
+     else completeProgressTask(progressId, "当前方案暂时未生成完成，请稍后重试。");
+     adjustmentInFlight.current = false;
+   }
+ 
++  async function startStructureAdjustment() {
++    if (structureBusy || variantImporting || floorplanBusy || !selectedVariant.imageHash || !modificationRequest.trim()) return;
++    const requestScene = sceneForPersistence.current, instruction = modificationRequest.trim();
++    const job = { ...selectionEpoch.current }, controller = createSessionRequest();
++    const isCurrent = () => selectionJobCurrent(job, selectionEpoch.current) && sceneForPersistence.current === requestScene;
++    setStructureBusy(true); setError("");
++    try {
++      const response = await fetch("/api/ai/structure-edit", { method: "POST", headers: { "content-type": "application/json" },
++        body: JSON.stringify({ variantId: selectedVariant.variantId, scene: requestScene, instruction }), signal: controller.signal });
++      const data = await response.json();
++      if (!isCurrent() || controller.signal.aborted) return;
++      if (!response.ok || !data.ok || !data.validation?.valid || data.inputFingerprint !== structureEditFingerprint(requestScene))
++        throw new Error((data.issues || ["结构修改未通过校验，原场景保留"]).join("；"));
++      const nextScene = cloneScene(data.scene);
++      if (!assertPascalSceneIntegrity(nextScene).valid || !validateVariantBlueprint(sceneToFloorplanBlueprint(nextScene)).valid)
++        throw new Error("返回的结构无法保存，原场景保留");
++      const url = await structureScenePng(nextScene);
++      if (!isCurrent() || controller.signal.aborted) return;
++      const versionId = `structure-${data.requestId}`;
++      const result: GeneratedImage = { provider: "qwen", model: `${data.model}/validated-structure`, url,
++        ephemeral: false, fallback: false, sourceVariantId: selectedVariant.variantId,
++        sourceImageHash: selectedVariant.imageHash || "", userPrompt: instruction, geometryVerified: true,
++        warnings: ["此二维图由已校验SceneGraph绘制；全部原家具保留，电视柜在客厅内移位。"] };
++      const binding = floorplanModelBinding(selectedVariant.variantId, result, versionId)!;
++      Object.assign(nextScene.nodes.building_house.metadata ||= {}, { floorplanSource: "source-driven-pascal-v2",
++        sourceDrawing: url, sourceImageHash: await hashDataUrl(url), variantId: selectedVariant.variantId,
++        modelBinding: binding, model: data.model });
++      if (!isCurrent() || controller.signal.aborted) return;
++      // The store receives a fully validated clone. No preview or failed model
++      // response reaches React state, persistent versions, or the Pascal store.
++      const commit = commitStructureScene(requestScene, nextScene, (snapshot) => applySceneSnapshot(snapshot as any, { origin: "host" }));
++      if (!commit.ok) throw new Error(commit.issue);
++      applyGeneratedScene(nextScene, true, true);
++      invalidateConfirmedSelection(binding);
++      selectionEpoch.current.binding = binding;
++      confirmedBindingRef.current = binding; modelBindingRef.current = binding;
++      setConfirmedBinding(binding); setModelBinding(binding);
++      selectedFloorplanVersionIdRef.current = versionId;
++      setFloorplanVersions((current) => [...current, { id: versionId, sourceVariantId: selectedVariant.variantId,
++        sourceImageHash: result.sourceImageHash!, submittedRequirement: instruction, result, requestId: data.requestId,
++        createdAt: new Date().toISOString(), validationStatus: "ready", sceneSnapshot: cloneScene(nextScene) }]);
++      setSelectedFloorplanVersionId(versionId); setFloorplan(result);
++      setAiFloorplan({ sourceVariantId: selectedVariant.variantId, sourceImageHash: result.sourceImageHash!, prompt: instruction,
++        url, model: result.model, provider: "qwen", ephemeral: false, fallback: false });
++      setModelGenerationPhase("completed"); setModel3DLoaded(true); setModelExperience("viewer"); setFloorPlanConfirmed(true);
++      setStructureVisualPreview(null); setLayoutProgress(`结构修改已校验：书房${data.validation.studyAreaM2.toFixed(2)}㎡，原家具全部保留，电视柜移位。`);
++      setModelSourceNotice({ source: "structure", reason: "本地Qwen结构操作已校验，二维与三维采用同一场景" }); setSlide(2);
++    } catch (error: any) {
++      if (!controller.signal.aborted && isCurrent()) setError(`${error.message || "结构修改失败"}；原户型未提交更改。`);
++    } finally { releaseSessionRequest(controller); setStructureBusy(false); }
++  }
++
++  async function generateStructureVisualPreview() {
++    const version = floorplanVersions.find((entry) => entry.id === selectedFloorplanVersionId);
++    if (!version?.sceneSnapshot || !modelMatchesSelection || structureBusy || floorplanBusy) return;
++    const job = { ...selectionEpoch.current }, snapshot = sceneForPersistence.current, controller = createSessionRequest();
++    setFloorplanBusy(true); setError("");
++    try {
++      const response = await fetch("/api/ai/floorplan-image", { method: "POST", headers: { "content-type": "application/json" },
++        body: JSON.stringify({ sourceImage: version.result.url, instruction: "仅优化此二维户型的线条和视觉配色。保留全部现有墙体、房间和门窗位置。" }), signal: controller.signal });
++      const data = await response.json();
++      if (!selectionJobCurrent(job, selectionEpoch.current) || snapshot !== sceneForPersistence.current) return;
++      if (!response.ok || !data.image?.url) throw new Error("视觉预览未完成");
++      setStructureVisualPreview(data.image.url);
++    } catch (error: any) { if (!controller.signal.aborted && selectionJobCurrent(job, selectionEpoch.current) && snapshot === sceneForPersistence.current) setError(error.message); }
++    finally { releaseSessionRequest(controller); if (selectionJobCurrent(job, selectionEpoch.current)) setFloorplanBusy(false); }
++  }
++
+   async function startRenderGeneration() {
+     const requestSessionId = sessionId;
+     const progressId = beginProgressTask("render");
+     const ready = await generateRenders();
+     if (!isSessionCurrent(requestSessionId)) return;
+     if (ready) completeProgressTask(progressId);
+-    else setProgressTask(null);
++    else setProgressTask((current) => current?.id === progressId ? null : current);
+   }
+ 
+   async function useOriginalFloorplan() {
+@@ -2395,11 +2562,12 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+     setError("");
+     const requestSessionId = sessionId;
+     const requestVariantId = variantRequestId.current;
++    const job = { ...selectionEpoch.current };
+     const controller = createSessionRequest();
+     try {
+       const bytes = selectedVariant.imageDataUrl || await imageUrlToDataUrl(selectedVariant.imageUrl, controller.signal);
+       const imageHash = await hashDataUrl(bytes);
+-      if (!isSessionCurrent(requestSessionId) || requestVariantId !== variantRequestId.current || controller.signal.aborted || floorplanAbortController.current || adjustmentInFlight.current || modelGenerationAbortController.current) return;
++      if (!isSessionCurrent(requestSessionId) || !selectionJobCurrent(job, selectionEpoch.current) || requestVariantId !== variantRequestId.current || controller.signal.aborted || floorplanAbortController.current || adjustmentInFlight.current || modelGenerationAbortController.current) return;
+       const original = originalFloorplanSelection(selectedVariant, imageHash, currentFloorplanContext.current.prompt);
+       setSelectedVariant((current) => current.variantId === selectedVariant.variantId ? { ...current, imageDataUrl: bytes, imageHash } : current);
+       setFloorplan(original);
+@@ -2418,13 +2586,62 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+ 
+   function confirmFloorPlan() { confirmFloorPlanSelection(modifiedFloorPlan); }
+ 
++  function selectFloorplanVersion(version: FloorplanVersion) {
++    const binding = floorplanModelBinding(version.sourceVariantId, version.result, version.id);
++    if (!sameModelBinding(binding, selectionEpoch.current.binding)) invalidateConfirmedSelection(binding);
++    selectedFloorplanVersionIdRef.current = version.id;
++    setSelectedFloorplanVersionId(version.id);
++    setPrompt(version.submittedRequirement);
++    setFloorplan(version.result);
++    setAiFloorplan({ sourceVariantId: version.sourceVariantId, sourceImageHash: version.sourceImageHash, prompt: version.submittedRequirement, url: version.result.url, model: version.result.model, provider: version.result.provider, ephemeral: version.result.ephemeral, fallback: version.result.fallback, fallbackReason: version.result.fallbackReason });
++  }
++
+   function confirmFloorPlanSelection(selection: FloorplanSelection | null) {
+     if (!selection) {
+       setError("请先生成并确认您的户型方案");
+       return;
+     }
++    const version = selection.provider === "preset" ? undefined : floorplanVersions.find((entry) => entry.id === selectedFloorplanVersionId);
++    const binding = floorplanModelBinding(selectedVariant.variantId, selection, version?.id, aiFloorplan, version);
++    if (!binding) { setError("此户型图片缺少可恢复的来源，请重新选择或生成"); return; }
++    const committed = committedSceneRef.current;
++    const preserveCompletedModel = sameModelBinding(binding, modelBindingRef.current) && sameModelBinding(binding, committed.nodes.building_house?.metadata?.modelBinding) && assertPascalSceneIntegrity(committed).valid && validateVariantBlueprint(sceneToFloorplanBlueprint(committed)).valid;
++    if (version?.sceneSnapshot && !preserveCompletedModel) {
++      const snapshot = cloneScene(version.sceneSnapshot);
++      if (!sameModelBinding(binding, snapshot.nodes.building_house?.metadata?.modelBinding) ||
++        snapshot.nodes.building_house?.metadata?.sourceDrawing !== binding.canonicalImageUrl ||
++        !assertPascalSceneIntegrity(snapshot).valid || !validateVariantBlueprint(sceneToFloorplanBlueprint(snapshot)).valid) {
++        setError("此结构版本的来源或几何无效，未提交更改"); return;
++      }
++      const commit = commitStructureScene(sceneForPersistence.current, snapshot, (next) => applySceneSnapshot(next as any, { origin: "host" }));
++      if (!commit.ok) { setError(commit.issue); return; }
++      invalidateConfirmedSelection(binding);
++      selectionEpoch.current.binding = binding;
++      confirmedBindingRef.current = binding; modelBindingRef.current = binding;
++      setConfirmedBinding(binding); setModelBinding(binding);
++      applyGeneratedScene(snapshot, true, true);
++      setFloorplan(selection); setPrompt(selection.userPrompt || ""); setFloorPlanConfirmed(true);
++      setModelGenerationPhase("completed"); setModel3DLoaded(true); setModelExperience("viewer"); setSlide(2);
++      return;
++    }
++    if (!sameModelBinding(binding, selectionEpoch.current.binding)) invalidateConfirmedSelection(binding);
+     cancelModelGenerationTimers();
++    selectionEpoch.current.binding = binding;
++    confirmedBindingRef.current = binding;
++    setConfirmedBinding(binding);
++    setFloorplan(selection);
++    setPrompt(selection.userPrompt || "");
+     setFloorPlanConfirmed(true);
++    if (preserveCompletedModel) {
++      applySceneSnapshot(cloneScene(committed) as any, { origin: "host" });
++      setScene(cloneScene(committed));
++      setModelGenerationPhase("completed");
++      setModel3DLoaded(true);
++      setModelExperience("viewer");
++      setProgressTask(null);
++      setSlide(2);
++      return;
++    }
+     setModelGenerationPhase("idle");
+     setModel3DLoaded(false);
+     setCapturedViews([]);
+@@ -2452,6 +2669,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+   }
+ 
+   function submitToContractor() {
++    if (!modelMatchesSelection) { setError("请先完成当前户型的3D空间创建"); return; }
+     const now = Date.now(),
+       design: DesignVersion = {
+         ...makeDesign(scene, layoutRun?.summary || `${config.label} AI设计`),
+@@ -2628,20 +2846,23 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+                   <h2>告诉我们您想怎么调整</h2>
+                 </div>
+                 <FloorplanEditExamples onSelect={(text) => {
+-                  setPrompt(text);
++                  changeModificationDraft(text);
+                   window.setTimeout(() => promptEditorRef.current?.focus(), 0);
+                 }} />
+                 <div className="customer-prompt-editor">
+                   <label htmlFor="step2-modification-request">我的修改要求</label>
+-                  <textarea id="step2-modification-request" ref={promptEditorRef} value={prompt} onChange={(event) => setPrompt(event.target.value)} placeholder={"例如：\n我希望增加一个卧室，\n同时保留厨房和卫生间的位置。"} />
++                  <textarea id="step2-modification-request" ref={promptEditorRef} value={prompt} onChange={(event) => changeModificationDraft(event.target.value)} placeholder={"例如：\n我希望增加一个卧室，\n同时保留厨房和卫生间的位置。"} />
+                   <small className="customer-editor-status">{hasPendingClarification ? "还有待确认问题，请先完成回答。" : modificationRequest.trim() ? "需求已保存为当前草稿，可继续修改。" : "请填写修改要求"}</small>
+-                  <button type="button" className="touch-primary-cta" disabled={floorplanBusy || originalSelectionBusy || !modificationRequest.trim()} onClick={handleAdjustmentPrimaryAction}>
+-                    {floorplanBusy ? "正在生成调整后的户型……" : currentFloorplan?.provider !== "preset" && currentFloorplan ? "重新生成调整后的户型" : modificationRequest.trim() ? "生成调整后的户型" : "请输入修改要求"}
++                  {selectedVariant.variantId === "one-option-01" && <button type="button" className="touch-primary-cta" disabled={structureBusy || floorplanBusy || variantImporting || !selectedVariant.imageHash || !modificationRequest.trim()} onClick={() => void startStructureAdjustment()}>{structureBusy ? "正在理解需求并校验结构…" : "AI结构修改：客餐厅上侧新增书房"}</button>}
++                  {selectedVariant.variantId === "one-option-01" && <small>当前仅支持上侧书房；保留全部家具，电视柜可在客厅内移位。校验失败保留原户型。</small>}
++                  <button type="button" className="ghost" disabled={structureBusy || floorplanBusy || originalSelectionBusy || !modificationRequest.trim()} onClick={selectedImageVersion?.sceneSnapshot ? () => void generateStructureVisualPreview() : handleAdjustmentPrimaryAction}>
++                    {floorplanBusy ? "正在生成图片预览……" : "生成AI图片预览（不作为结构依据）"}
+                   </button>
+                   <button type="button" className="ghost" disabled={!canSelectOriginalFloorplan({ variantLoading: variantImporting, imageJobActive: floorplanBusy || adjustmentInFlight.current, layoutJobActive: layoutBusy, modelJobActive: modelGenerationPhase === "generating", selectionActive: originalSelectionBusy, progressActive: Boolean(progressTask) })} onClick={() => void useOriginalFloorplan()}>{originalSelectionBusy ? "正在准备原户型…" : "使用原户型创建3D空间"}</button>
+                   {modifiedFloorPlan && <div className="customer-result-note">{modifiedFloorPlan.provider === "preset" ? "已选择原始户型，可以进入3D空间" : "✓ 新户型已生成，可以进入下一步"}</div>}
+-                  {floorplanVersions.length > 0 && <div className="customer-result-note">已保留 {floorplanVersions.length} 个户型版本：{floorplanVersions.map((version, index) => <span key={version.id}><button type="button" className={version.id === selectedFloorplanVersionId ? "active" : "ghost"} onClick={() => { setSelectedFloorplanVersionId(version.id); setFloorplan(version.result); setAiFloorplan({ sourceVariantId: version.sourceVariantId, sourceImageHash: version.sourceImageHash, prompt: version.submittedRequirement, url: version.result.url, model: version.result.model, provider: version.result.provider, ephemeral: version.result.ephemeral, fallback: version.result.fallback, fallbackReason: version.result.fallbackReason }); }}>{`V${index + 1}`}</button><button type="button" className="ghost" onClick={() => setEditSourceVersionId(version.id)}>{editSourceVersionId === version.id ? "当前修改基准" : "继续修改此版本"}</button></span>)}</div>}
++                  {floorplanVersions.length > 0 && <div className="customer-result-note">已保留 {floorplanVersions.length} 个户型版本：{floorplanVersions.map((version, index) => <span key={version.id}><button type="button" className={version.id === selectedFloorplanVersionId ? "active" : "ghost"} onClick={() => selectFloorplanVersion(version)}>{`V${index + 1}`}</button><button type="button" className="ghost" onClick={() => setEditSourceVersionId(version.id)}>{editSourceVersionId === version.id ? "当前修改基准" : "继续修改此版本"}</button></span>)}</div>}
+                   {assetSaveError && <div className="customer-error-note">{assetSaveError}</div>}
++                  {structureVisualPreview && <div><small>AI视觉预览，结构仍采用已校验SceneGraph</small><img src={structureVisualPreview} alt="AI视觉预览" /></div>}
+                   {modifiedFloorPlan && <button type="button" className="touch-primary-cta" onClick={confirmFloorPlan}>{modifiedFloorPlan.provider === "preset" ? "继续使用原户型创建3D空间" : "确认此户型并创建3D空间"}</button>}
+                   {error && <div className="customer-error-note">{debugUi ? error : customerErrorMessage(error)}</div>}
+                   {floorPlanConfirmed && <div className="customer-result-note">已确认当前户型，您仍可以返回这里继续修改。</div>}
+@@ -2661,7 +2882,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+                   {visibleFloorplan?.warnings?.map((warning, index) => <div key={index} className="customer-old-result-note" role="status">{warning}</div>)}
+                   {visibleFloorplan && !modifiedFloorPlan && <div className="customer-old-result-note">
+                     <span>{visibleFloorplan.provider === "preset" ? "右侧仍保留原始户型；当前文字修改尚未执行。" : "右侧仍保留上一次已生成的户型；当前草稿尚未生成新结果。"}</span>
+-                    <button type="button" className="touch-primary-cta" onClick={confirmFloorPlan}>继续采用此结果并进入下一步</button>
++                    <button type="button" className="touch-primary-cta" onClick={() => confirmFloorPlanSelection(visibleFloorplan)}>继续采用此结果并进入下一步</button>
+                   </div>}
+                 </article>
+               </div>
+@@ -2673,7 +2894,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
+           <div className="touch-slide step3-slide">
+             <div className="touch-slide-head">
+               <div><small>STEP 3</small><h1>创建您的3D空间</h1><p>我们会根据您确认的户型，建立墙体、地面、门窗以及基础家具。</p></div>
+-              <div><button className="ghost" onClick={() => go(1)}>上一页</button><button disabled={modelExperience !== "viewer" || modelGenerationPhase !== "completed"} onClick={() => go(3)}>下一页</button>{restartButton}</div>
++              <div><button className="ghost" onClick={() => go(1)}>上一页</button><button disabled={!modelMatchesSelection} onClick={() => go(3)}>下一页</button>{restartButton}</div>
+             </div>
+             {modelExperience !== "viewer" ? (
+               <section className="model-generation-intro">

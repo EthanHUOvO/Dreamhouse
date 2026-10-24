@@ -1,0 +1,3 @@
+'use client'
+type Stage='design'|'construction'|'acceptance'
+export default function CustomerStepper({current,projectStage,onSelect}:{current:Stage;projectStage:Stage;onSelect:(s:Stage)=>void}){const steps:[Stage,string][]=[['design','设计'],['construction','施工'],['acceptance','验收']],rank={design:0,construction:1,acceptance:2};return <aside className="customer-stepper"><h3>项目阶段</h3>{steps.map(([id,label],i)=>{const state=i<rank[projectStage]?'done':i===rank[projectStage]?'current':'future';return <button key={id} className={`${state} ${current===id?'viewing':''}`} onClick={()=>onSelect(id)}><i>{state==='done'?'✓':i+1}</i><div><b>{label}</b><span>{state==='done'?'已完成':state==='current'?'当前阶段':'尚未开始'}</span></div></button>})}</aside>}

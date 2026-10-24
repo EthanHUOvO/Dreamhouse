@@ -1,0 +1,232 @@
+[
+  {
+    "case": "bedroom",
+    "httpStatus": 200,
+    "actualInference": true,
+    "model": "Ours",
+    "elapsedMs": 7076,
+    "inferenceStages": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "elapsedMs": 2024,
+        "responseId": "chatcmpl-3628ah4l72onsgtblq3i"
+      },
+      {
+        "stage": "floorplan-candidate-selection-op1",
+        "model": "Ours",
+        "elapsedMs": 2788,
+        "responseId": "chatcmpl-mhdhb7o0bp5ikwuxjfce"
+      }
+    ],
+    "error": null,
+    "rolledBack": null,
+    "responseHasSvg": true,
+    "completedOperationCount": null,
+    "failedOperationId": null,
+    "mcpCommitted": true,
+    "mcpValidation": {
+      "valid": true,
+      "issues": [],
+      "warnings": []
+    },
+    "metrics": {
+      "wall": 23,
+      "door": 7,
+      "window": 3,
+      "zone": 7,
+      "item": 5
+    }
+  },
+  {
+    "case": "merge",
+    "httpStatus": 200,
+    "actualInference": true,
+    "model": "Ours",
+    "elapsedMs": 6933,
+    "inferenceStages": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "elapsedMs": 2480,
+        "responseId": "chatcmpl-101sde3y3u3mbzq2lasr"
+      },
+      {
+        "stage": "floorplan-candidate-selection-op1",
+        "model": "Ours",
+        "elapsedMs": 3725,
+        "responseId": "chatcmpl-2ew1mrcwi2bidm1twbg5"
+      }
+    ],
+    "error": null,
+    "rolledBack": null,
+    "responseHasSvg": true,
+    "completedOperationCount": null,
+    "failedOperationId": null,
+    "mcpCommitted": true,
+    "mcpValidation": {
+      "valid": true,
+      "issues": [],
+      "warnings": []
+    },
+    "metrics": {
+      "wall": 19,
+      "door": 5,
+      "window": 3,
+      "zone": 5,
+      "item": 4
+    }
+  },
+  {
+    "case": "move",
+    "httpStatus": 200,
+    "actualInference": true,
+    "model": "Ours",
+    "elapsedMs": 7186,
+    "inferenceStages": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "elapsedMs": 2263,
+        "responseId": "chatcmpl-8wgkuyn5oixi7djhts64"
+      },
+      {
+        "stage": "floorplan-candidate-selection-op1",
+        "model": "Ours",
+        "elapsedMs": 4230,
+        "responseId": "chatcmpl-zf92dragkaaoqu1lym3n"
+      }
+    ],
+    "error": null,
+    "rolledBack": null,
+    "responseHasSvg": true,
+    "completedOperationCount": null,
+    "failedOperationId": null,
+    "mcpCommitted": true,
+    "mcpValidation": {
+      "valid": true,
+      "issues": [],
+      "warnings": []
+    },
+    "metrics": {
+      "wall": 21,
+      "door": 6,
+      "window": 3,
+      "zone": 6,
+      "item": 4
+    }
+  },
+  {
+    "case": "multi",
+    "httpStatus": 200,
+    "actualInference": true,
+    "model": "Ours",
+    "elapsedMs": 11613,
+    "inferenceStages": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "elapsedMs": 2830,
+        "responseId": "chatcmpl-ce17r2s4jz6yp7mbj0x5"
+      },
+      {
+        "stage": "floorplan-candidate-selection-op1",
+        "model": "Ours",
+        "elapsedMs": 4313,
+        "responseId": "chatcmpl-rxkt8rarbbtghpaumk7t"
+      },
+      {
+        "stage": "floorplan-candidate-selection-op2",
+        "model": "Ours",
+        "elapsedMs": 3618,
+        "responseId": "chatcmpl-67rd71ngq7b0yzjq58km"
+      }
+    ],
+    "error": null,
+    "rolledBack": null,
+    "responseHasSvg": true,
+    "completedOperationCount": null,
+    "failedOperationId": null,
+    "mcpCommitted": true,
+    "mcpValidation": {
+      "valid": true,
+      "issues": [],
+      "warnings": []
+    },
+    "metrics": {
+      "wall": 20,
+      "door": 5,
+      "window": 3,
+      "zone": 5,
+      "item": 4
+    }
+  },
+  {
+    "case": "negative-multi",
+    "httpStatus": 422,
+    "actualInference": true,
+    "model": "Ours",
+    "elapsedMs": 6125,
+    "inferenceStages": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "elapsedMs": 2940,
+        "responseId": "chatcmpl-nz71al50m27ojom1hihl"
+      },
+      {
+        "stage": "floorplan-candidate-selection-op1",
+        "model": "Ours",
+        "elapsedMs": 2645,
+        "responseId": "chatcmpl-mvcrjj5adolsxzgzvi8j"
+      }
+    ],
+    "error": "EDIT_NO_FEASIBLE_STRUCTURE_OPERATION",
+    "rolledBack": true,
+    "responseHasSvg": false,
+    "completedOperationCount": 1,
+    "failedOperationId": "op2",
+    "mcpCommitted": null,
+    "mcpValidation": null,
+    "metrics": null
+  },
+  {
+    "case": "study",
+    "httpStatus": 200,
+    "actualInference": true,
+    "model": "Ours",
+    "elapsedMs": 6449,
+    "inferenceStages": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "elapsedMs": 1713,
+        "responseId": "chatcmpl-ypl17l6adn2drsrunjdd"
+      },
+      {
+        "stage": "floorplan-candidate-selection-op1",
+        "model": "Ours",
+        "elapsedMs": 2682,
+        "responseId": "chatcmpl-nci7w6e4m6nm8l5jmlxc"
+      }
+    ],
+    "error": null,
+    "rolledBack": null,
+    "responseHasSvg": true,
+    "completedOperationCount": null,
+    "failedOperationId": null,
+    "mcpCommitted": true,
+    "mcpValidation": {
+      "valid": true,
+      "issues": [],
+      "warnings": []
+    },
+    "metrics": {
+      "wall": 23,
+      "door": 7,
+      "window": 3,
+      "zone": 7,
+      "item": 5
+    }
+  }
+]

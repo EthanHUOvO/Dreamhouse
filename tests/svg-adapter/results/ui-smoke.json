@@ -1,0 +1,17 @@
+{
+  "origin": "isolated localhost SSH forwarding origin; user 172.21.16.36:3002 origin untouched",
+  "cases": [
+    {
+      "plan": "one-01",
+      "flow": "real local AI partition -> validated SVG -> Pascal viewer -> reload",
+      "status": "PASS"
+    },
+    {
+      "plan": "three-01",
+      "flow": "SVG original -> Pascal viewer -> reload; broken legacy placeholder bypassed",
+      "status": "PASS",
+      "releaseImage": "07ad57d75e17"
+    }
+  ],
+  "versionCases": "V1=6 rooms and V2=7 rooms, XML selection, save/restore and stale cross-binding rejection are programmatic tests, not claimed as browser tests."
+}

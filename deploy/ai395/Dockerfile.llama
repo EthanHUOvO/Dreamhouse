@@ -1,0 +1,31 @@
+FROM docker.m.daocloud.io/rocm/pytorch:rocm7.2.1_ubuntu24.04_py3.12_pytorch_release_2.9.1
+
+ARG LLAMA_CPP_COMMIT=e7268bf6a99688f893abf58295f49454cb2b4eef
+
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
+
+ENV PIP_INDEX_URL=https://pypi.org/simple
+
+COPY llama.cpp.tar.gz /tmp/llama.cpp.tar.gz
+COPY cmake-offline /opt/build-cmake
+ENV PATH=/opt/build-cmake/bin:${PATH}
+
+RUN mkdir -p /src/llama.cpp \
+  && tar -xzf /tmp/llama.cpp.tar.gz --strip-components=1 -C /src/llama.cpp \
+  && rm /tmp/llama.cpp.tar.gz \
+  && export LD_LIBRARY_PATH=/opt/build-cmake/lib:${LD_LIBRARY_PATH} \
+  && cmake -S /src/llama.cpp -B /src/llama.cpp/build \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX=/opt/llama \
+      -DGGML_HIP=ON \
+      -DAMDGPU_TARGETS=gfx1151 \
+      -DCMAKE_HIP_ARCHITECTURES=gfx1151 \
+      -DLLAMA_BUILD_TESTS=OFF \
+      -DLLAMA_BUILD_EXAMPLES=OFF \
+      -DLLAMA_BUILD_SERVER=ON \
+  && cmake --build /src/llama.cpp/build -j8 \
+  && cmake --install /src/llama.cpp/build
+
+EXPOSE 8080
+ENTRYPOINT ["/opt/llama/bin/llama-server"]

@@ -1,0 +1,13 @@
+Sending build context to Docker daemon   29.7kB
+
+Step 1/2 : FROM ideal-home-local:web-textv43-20261022
+ ---> 7a33d9a1e5f3
+Step 2/2 : COPY v2/step3-3d/blueprint.ts /app/lib/floorplans/blueprint.ts
+ ---> Using cache
+ ---> 0742c263e943
+Successfully built 0742c263e943
+Successfully tagged ideal-home-local:mcp-corners-20261023
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+

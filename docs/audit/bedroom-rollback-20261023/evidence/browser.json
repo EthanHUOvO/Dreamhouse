@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "environment": "fresh test session in in-app browser",
+  "url": "http://172.21.16.36:3002/customer",
+  "checks": [
+    "original plan one-option-01 selected",
+    "real natural-language bedroom generation",
+    "original SVG appearance preserved in 2D preview",
+    "confirmed generated SceneGraph in Step3",
+    "save adjustment succeeded",
+    "reload restored saved Step3 scene"
+  ],
+  "screenshots": [
+    "bedroom-restored-2d.png",
+    "bedroom-restored-3d.png"
+  ],
+  "previousUserSessionsCleared": false
+}

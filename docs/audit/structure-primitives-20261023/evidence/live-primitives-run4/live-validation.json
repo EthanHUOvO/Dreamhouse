@@ -1,0 +1,1263 @@
+{
+  "kind": "REAL_AI_HTTP_AND_REAL_MCP_SCENE_WITH_PRODUCTION_GUARDS",
+  "timestamp": "2026-10-23T14:25:22.724Z",
+  "run": "live-primitives-run4",
+  "summary": {
+    "pass": 35,
+    "fail": 0
+  },
+  "results": [
+    {
+      "name": "original_real_MCP_source_matches_source_SVG",
+      "status": "PASS",
+      "result": {
+        "sceneSha256": "42f4a1e6c8fce4ce54a25366dbf2ae7d6a636b4a2f8342c47e7114bf317b0c61",
+        "sourceSvgSha256": "2f8c78f25af209858e3d39aa3fc48ac8069f70e871583dd7cd97805849a2aaac",
+        "mocked": false
+      }
+    },
+    {
+      "name": "merge_actual_inference_and_actual_MCP_response",
+      "status": "PASS",
+      "result": {
+        "model": "Ours",
+        "inferenceStages": [
+          {
+            "stage": "floorplan-intent",
+            "responseId": "chatcmpl-101sde3y3u3mbzq2lasr",
+            "elapsedMs": 2480
+          },
+          {
+            "stage": "floorplan-candidate-selection-op1",
+            "responseId": "chatcmpl-2ew1mrcwi2bidm1twbg5",
+            "elapsedMs": 3725
+          }
+        ],
+        "actualMcpTools": [
+          "begin_floorplan_scene",
+          "set_floor_structure",
+          "set_openings",
+          "populate_basic_furniture",
+          "validate_scene",
+          "commit_scene"
+        ],
+        "png": {
+          "width": 1024,
+          "height": 1263,
+          "bytes": 51835
+        },
+        "svgSha256": "eeb831f82c88418f5322fbf683de4bd8e2be03d8cbee23c2d0713886d825f63d",
+        "actualSceneSha256": "048d7dcf7d4b1ca266b4f4dd26426efdaa3736c90e08a1e118390fcc662594bc",
+        "recompiledReplacement": false
+      }
+    },
+    {
+      "name": "merge_default_actual_scene_host_guard",
+      "status": "PASS",
+      "result": {
+        "outcome": "ACCEPTED",
+        "valid": true,
+        "changedRoomIds": [
+          "room_2"
+        ],
+        "checkedWallIds": [],
+        "checkedWallSpans": [],
+        "wallCoverageToleranceM": 0.00001,
+        "checkedFurniture": 4,
+        "playerRadiusM": 0.22,
+        "gridStepM": 0.1,
+        "paths": [
+          {
+            "entryDoorId": "door_hinged-door-01",
+            "reachableChangedRoomIds": [
+              "room_2"
+            ]
+          }
+        ],
+        "baselineAccess": [],
+        "warnings": [
+          "原有家具 Kitchen 超出未修改房间，保持原样，需手动检查。"
+        ],
+        "furnitureMoved": false,
+        "areas": [
+          {
+            "roomId": "room_2",
+            "name": "主卧",
+            "areaM2": 18.06663166647061
+          }
+        ]
+      }
+    },
+    {
+      "name": "merge_accepted_default_V1_V2_save_restore",
+      "status": "PASS",
+      "result": {
+        "guardOutcome": "ACCEPTED",
+        "sceneSource": "actual-http-mcp",
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 5,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "name": "merge_preserve_actual_source_furniture_without_moving",
+      "status": "PASS",
+      "result": {
+        "sourceItemIds": [
+          "item_room_1_1",
+          "item_room_2_2",
+          "item_room_3_3",
+          "item_room_4_4"
+        ],
+        "sourceCount": 4,
+        "moved": false
+      }
+    },
+    {
+      "name": "merge_preserved_source_host_guard",
+      "status": "PASS",
+      "result": {
+        "outcome": "ACCEPTED",
+        "valid": true,
+        "changedRoomIds": [
+          "room_2"
+        ],
+        "checkedWallIds": [],
+        "checkedWallSpans": [],
+        "wallCoverageToleranceM": 0.00001,
+        "checkedFurniture": 4,
+        "playerRadiusM": 0.22,
+        "gridStepM": 0.1,
+        "paths": [
+          {
+            "entryDoorId": "door_hinged-door-01",
+            "reachableChangedRoomIds": [
+              "room_2"
+            ]
+          }
+        ],
+        "baselineAccess": [
+          {
+            "entryDoorId": "door_hinged-door-01",
+            "sourceEntryReachable": true,
+            "sourceReachableRoomIds": [
+              "room_1",
+              "room_2",
+              "room_3",
+              "room_4",
+              "room_5",
+              "room_6"
+            ],
+            "preservedRoomIds": [
+              "room_1",
+              "room_2",
+              "room_3",
+              "room_4",
+              "room_6"
+            ],
+            "preservedDoorApproaches": [
+              {
+                "doorId": "door_hinged-door-01",
+                "roomId": "room_3"
+              },
+              {
+                "doorId": "door_hinged-door-02",
+                "roomId": "room_1"
+              },
+              {
+                "doorId": "door_hinged-door-02",
+                "roomId": "room_3"
+              },
+              {
+                "doorId": "door_hinged-door-03",
+                "roomId": "room_3"
+              },
+              {
+                "doorId": "door_hinged-door-03",
+                "roomId": "room_2"
+              },
+              {
+                "doorId": "door_hinged-door-04",
+                "roomId": "room_3"
+              },
+              {
+                "doorId": "door_hinged-door-04",
+                "roomId": "room_4"
+              },
+              {
+                "doorId": "door_parallel-opening-01",
+                "roomId": "room_6"
+              },
+              {
+                "doorId": "door_parallel-opening-01",
+                "roomId": "room_3"
+              }
+            ],
+            "originallyUnreachableRoomIds": []
+          }
+        ],
+        "warnings": [
+          "原有家具 Kitchen 超出未修改房间，保持原样，需手动检查。"
+        ],
+        "furnitureMoved": false,
+        "areas": [
+          {
+            "roomId": "room_2",
+            "name": "主卧",
+            "areaM2": 18.06663166647061
+          }
+        ]
+      }
+    },
+    {
+      "name": "merge_accepted_preserved_V1_V2_save_restore",
+      "status": "PASS",
+      "result": {
+        "guardOutcome": "ACCEPTED",
+        "sceneSource": "actual-http-mcp-with-production-source-preservation",
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 5,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "name": "merge_actual_candidate_and_source_not_mutated",
+      "status": "PASS"
+    },
+    {
+      "name": "move_actual_inference_and_actual_MCP_response",
+      "status": "PASS",
+      "result": {
+        "model": "Ours",
+        "inferenceStages": [
+          {
+            "stage": "floorplan-intent",
+            "responseId": "chatcmpl-8wgkuyn5oixi7djhts64",
+            "elapsedMs": 2263
+          },
+          {
+            "stage": "floorplan-candidate-selection-op1",
+            "responseId": "chatcmpl-zf92dragkaaoqu1lym3n",
+            "elapsedMs": 4230
+          }
+        ],
+        "actualMcpTools": [
+          "begin_floorplan_scene",
+          "set_floor_structure",
+          "set_openings",
+          "populate_basic_furniture",
+          "validate_scene",
+          "commit_scene"
+        ],
+        "png": {
+          "width": 1024,
+          "height": 1263,
+          "bytes": 53284
+        },
+        "svgSha256": "c6c26ef7ed4df6ad939e539419e577b3e939d5c36ef248fcd4342a29289d0fea",
+        "actualSceneSha256": "43b9640ec5769c12f50dbbc5ad4982d266608d5bedb25835f2d4adf682967bbd",
+        "recompiledReplacement": false
+      }
+    },
+    {
+      "name": "move_default_actual_scene_host_guard",
+      "status": "PASS",
+      "result": {
+        "outcome": "ACCEPTED",
+        "valid": true,
+        "changedRoomIds": [
+          "room_2",
+          "room_3"
+        ],
+        "checkedWallIds": [
+          "wall_9",
+          "wall_manual_1"
+        ],
+        "checkedWallSpans": [
+          {
+            "id": "wall_9",
+            "start": [
+              4.274422794117648,
+              2.129685
+            ],
+            "end": [
+              4.274422794117648,
+              5.06186
+            ]
+          },
+          {
+            "id": "wall_manual_1",
+            "start": [
+              4.274422794117648,
+              5.06186
+            ],
+            "end": [
+              4.474422794117648,
+              5.06186
+            ]
+          }
+        ],
+        "wallCoverageToleranceM": 0.00001,
+        "checkedFurniture": 4,
+        "playerRadiusM": 0.22,
+        "gridStepM": 0.1,
+        "paths": [
+          {
+            "entryDoorId": "door_hinged-door-01",
+            "reachableChangedRoomIds": [
+              "room_2",
+              "room_3"
+            ]
+          }
+        ],
+        "baselineAccess": [],
+        "warnings": [
+          "原有家具 Kitchen 超出未修改房间，保持原样，需手动检查。"
+        ],
+        "furnitureMoved": false,
+        "areas": [
+          {
+            "roomId": "room_2",
+            "name": "主卧",
+            "areaM2": 13.697495003152564
+          },
+          {
+            "roomId": "room_3",
+            "name": "客餐厅",
+            "areaM2": 16.75925636522978
+          }
+        ]
+      }
+    },
+    {
+      "name": "move_accepted_default_V1_V2_save_restore",
+      "status": "PASS",
+      "result": {
+        "guardOutcome": "ACCEPTED",
+        "sceneSource": "actual-http-mcp",
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "name": "move_preserve_actual_source_furniture_without_moving",
+      "status": "PASS",
+      "result": {
+        "sourceItemIds": [
+          "item_room_1_1",
+          "item_room_2_2",
+          "item_room_3_3",
+          "item_room_4_4"
+        ],
+        "sourceCount": 4,
+        "moved": false
+      }
+    },
+    {
+      "name": "move_preserved_source_host_guard",
+      "status": "PASS",
+      "result": {
+        "outcome": "ACCEPTED",
+        "valid": true,
+        "changedRoomIds": [
+          "room_2",
+          "room_3"
+        ],
+        "checkedWallIds": [
+          "wall_9",
+          "wall_manual_1"
+        ],
+        "checkedWallSpans": [
+          {
+            "id": "wall_9",
+            "start": [
+              4.274422794117648,
+              2.129685
+            ],
+            "end": [
+              4.274422794117648,
+              5.06186
+            ]
+          },
+          {
+            "id": "wall_manual_1",
+            "start": [
+              4.274422794117648,
+              5.06186
+            ],
+            "end": [
+              4.474422794117648,
+              5.06186
+            ]
+          }
+        ],
+        "wallCoverageToleranceM": 0.00001,
+        "checkedFurniture": 4,
+        "playerRadiusM": 0.22,
+        "gridStepM": 0.1,
+        "paths": [
+          {
+            "entryDoorId": "door_hinged-door-01",
+            "reachableChangedRoomIds": [
+              "room_2",
+              "room_3"
+            ]
+          }
+        ],
+        "baselineAccess": [
+          {
+            "entryDoorId": "door_hinged-door-01",
+            "sourceEntryReachable": true,
+            "sourceReachableRoomIds": [
+              "room_1",
+              "room_2",
+              "room_3",
+              "room_4",
+              "room_5",
+              "room_6"
+            ],
+            "preservedRoomIds": [
+              "room_1",
+              "room_2",
+              "room_3",
+              "room_4",
+              "room_5",
+              "room_6"
+            ],
+            "preservedDoorApproaches": [
+              {
+                "doorId": "door_hinged-door-01",
+                "roomId": "room_3"
+              },
+              {
+                "doorId": "door_hinged-door-02",
+                "roomId": "room_1"
+              },
+              {
+                "doorId": "door_hinged-door-02",
+                "roomId": "room_3"
+              },
+              {
+                "doorId": "door_hinged-door-03",
+                "roomId": "room_3"
+              },
+              {
+                "doorId": "door_hinged-door-03",
+                "roomId": "room_2"
+              },
+              {
+                "doorId": "door_hinged-door-04",
+                "roomId": "room_3"
+              },
+              {
+                "doorId": "door_hinged-door-04",
+                "roomId": "room_4"
+              },
+              {
+                "doorId": "door_parallel-opening-01",
+                "roomId": "room_6"
+              },
+              {
+                "doorId": "door_parallel-opening-01",
+                "roomId": "room_3"
+              },
+              {
+                "doorId": "door_parallel-opening-02",
+                "roomId": "room_5"
+              },
+              {
+                "doorId": "door_parallel-opening-02",
+                "roomId": "room_2"
+              }
+            ],
+            "originallyUnreachableRoomIds": []
+          }
+        ],
+        "warnings": [
+          "原有家具 Kitchen 超出未修改房间，保持原样，需手动检查。"
+        ],
+        "furnitureMoved": false,
+        "areas": [
+          {
+            "roomId": "room_2",
+            "name": "主卧",
+            "areaM2": 13.697495003152564
+          },
+          {
+            "roomId": "room_3",
+            "name": "客餐厅",
+            "areaM2": 16.75925636522978
+          }
+        ]
+      }
+    },
+    {
+      "name": "move_accepted_preserved_V1_V2_save_restore",
+      "status": "PASS",
+      "result": {
+        "guardOutcome": "ACCEPTED",
+        "sceneSource": "actual-http-mcp-with-production-source-preservation",
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "name": "move_actual_candidate_and_source_not_mutated",
+      "status": "PASS"
+    },
+    {
+      "name": "multi_actual_inference_and_actual_MCP_response",
+      "status": "PASS",
+      "result": {
+        "model": "Ours",
+        "inferenceStages": [
+          {
+            "stage": "floorplan-intent",
+            "responseId": "chatcmpl-ce17r2s4jz6yp7mbj0x5",
+            "elapsedMs": 2830
+          },
+          {
+            "stage": "floorplan-candidate-selection-op1",
+            "responseId": "chatcmpl-rxkt8rarbbtghpaumk7t",
+            "elapsedMs": 4313
+          },
+          {
+            "stage": "floorplan-candidate-selection-op2",
+            "responseId": "chatcmpl-67rd71ngq7b0yzjq58km",
+            "elapsedMs": 3618
+          }
+        ],
+        "actualMcpTools": [
+          "begin_floorplan_scene",
+          "set_floor_structure",
+          "set_openings",
+          "populate_basic_furniture",
+          "validate_scene",
+          "commit_scene"
+        ],
+        "png": {
+          "width": 1024,
+          "height": 1263,
+          "bytes": 51742
+        },
+        "svgSha256": "4dd800669715ed30d246e4cec33d02e843545fd4af88af2552760b63d448b382",
+        "actualSceneSha256": "ec9f8943525c0f00140c1559c7bddd9eb881134261c36f8675e2391971c76295",
+        "recompiledReplacement": false
+      }
+    },
+    {
+      "name": "multi_default_actual_scene_host_guard",
+      "status": "PASS",
+      "result": {
+        "outcome": "ACCEPTED",
+        "valid": true,
+        "changedRoomIds": [
+          "room_2",
+          "room_3"
+        ],
+        "checkedWallIds": [
+          "wall_9",
+          "wall_manual_1"
+        ],
+        "checkedWallSpans": [
+          {
+            "id": "wall_9",
+            "start": [
+              4.274422794117648,
+              2.129685
+            ],
+            "end": [
+              4.274422794117648,
+              5.06186
+            ]
+          },
+          {
+            "id": "wall_manual_1",
+            "start": [
+              4.274422794117648,
+              5.06186
+            ],
+            "end": [
+              4.474422794117648,
+              5.06186
+            ]
+          }
+        ],
+        "wallCoverageToleranceM": 0.00001,
+        "checkedFurniture": 4,
+        "playerRadiusM": 0.22,
+        "gridStepM": 0.1,
+        "paths": [
+          {
+            "entryDoorId": "door_hinged-door-01",
+            "reachableChangedRoomIds": [
+              "room_2",
+              "room_3"
+            ]
+          }
+        ],
+        "baselineAccess": [],
+        "warnings": [
+          "原有家具 Kitchen 超出未修改房间，保持原样，需手动检查。"
+        ],
+        "furnitureMoved": false,
+        "areas": [
+          {
+            "roomId": "room_2",
+            "name": "主卧",
+            "areaM2": 18.665501233134226
+          },
+          {
+            "roomId": "room_3",
+            "name": "客餐厅",
+            "areaM2": 16.75925636522978
+          }
+        ]
+      }
+    },
+    {
+      "name": "multi_accepted_default_V1_V2_save_restore",
+      "status": "PASS",
+      "result": {
+        "guardOutcome": "ACCEPTED",
+        "sceneSource": "actual-http-mcp",
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 5,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "name": "multi_preserve_actual_source_furniture_without_moving",
+      "status": "PASS",
+      "result": {
+        "sourceItemIds": [
+          "item_room_1_1",
+          "item_room_2_2",
+          "item_room_3_3",
+          "item_room_4_4"
+        ],
+        "sourceCount": 4,
+        "moved": false
+      }
+    },
+    {
+      "name": "multi_preserved_source_host_guard",
+      "status": "PASS",
+      "result": {
+        "outcome": "ACCEPTED",
+        "valid": true,
+        "changedRoomIds": [
+          "room_2",
+          "room_3"
+        ],
+        "checkedWallIds": [
+          "wall_9",
+          "wall_manual_1"
+        ],
+        "checkedWallSpans": [
+          {
+            "id": "wall_9",
+            "start": [
+              4.274422794117648,
+              2.129685
+            ],
+            "end": [
+              4.274422794117648,
+              5.06186
+            ]
+          },
+          {
+            "id": "wall_manual_1",
+            "start": [
+              4.274422794117648,
+              5.06186
+            ],
+            "end": [
+              4.474422794117648,
+              5.06186
+            ]
+          }
+        ],
+        "wallCoverageToleranceM": 0.00001,
+        "checkedFurniture": 4,
+        "playerRadiusM": 0.22,
+        "gridStepM": 0.1,
+        "paths": [
+          {
+            "entryDoorId": "door_hinged-door-01",
+            "reachableChangedRoomIds": [
+              "room_2",
+              "room_3"
+            ]
+          }
+        ],
+        "baselineAccess": [
+          {
+            "entryDoorId": "door_hinged-door-01",
+            "sourceEntryReachable": true,
+            "sourceReachableRoomIds": [
+              "room_1",
+              "room_2",
+              "room_3",
+              "room_4",
+              "room_5",
+              "room_6"
+            ],
+            "preservedRoomIds": [
+              "room_1",
+              "room_2",
+              "room_3",
+              "room_4",
+              "room_6"
+            ],
+            "preservedDoorApproaches": [
+              {
+                "doorId": "door_hinged-door-01",
+                "roomId": "room_3"
+              },
+              {
+                "doorId": "door_hinged-door-02",
+                "roomId": "room_1"
+              },
+              {
+                "doorId": "door_hinged-door-02",
+                "roomId": "room_3"
+              },
+              {
+                "doorId": "door_hinged-door-03",
+                "roomId": "room_3"
+              },
+              {
+                "doorId": "door_hinged-door-03",
+                "roomId": "room_2"
+              },
+              {
+                "doorId": "door_hinged-door-04",
+                "roomId": "room_3"
+              },
+              {
+                "doorId": "door_hinged-door-04",
+                "roomId": "room_4"
+              },
+              {
+                "doorId": "door_parallel-opening-01",
+                "roomId": "room_6"
+              },
+              {
+                "doorId": "door_parallel-opening-01",
+                "roomId": "room_3"
+              }
+            ],
+            "originallyUnreachableRoomIds": []
+          }
+        ],
+        "warnings": [
+          "原有家具 Kitchen 超出未修改房间，保持原样，需手动检查。"
+        ],
+        "furnitureMoved": false,
+        "areas": [
+          {
+            "roomId": "room_2",
+            "name": "主卧",
+            "areaM2": 18.665501233134226
+          },
+          {
+            "roomId": "room_3",
+            "name": "客餐厅",
+            "areaM2": 16.75925636522978
+          }
+        ]
+      }
+    },
+    {
+      "name": "multi_accepted_preserved_V1_V2_save_restore",
+      "status": "PASS",
+      "result": {
+        "guardOutcome": "ACCEPTED",
+        "sceneSource": "actual-http-mcp-with-production-source-preservation",
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 5,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "name": "multi_actual_candidate_and_source_not_mutated",
+      "status": "PASS"
+    },
+    {
+      "name": "study_actual_inference_and_actual_MCP_response",
+      "status": "PASS",
+      "result": {
+        "model": "Ours",
+        "inferenceStages": [
+          {
+            "stage": "floorplan-intent",
+            "responseId": "chatcmpl-ypl17l6adn2drsrunjdd",
+            "elapsedMs": 1713
+          },
+          {
+            "stage": "floorplan-candidate-selection-op1",
+            "responseId": "chatcmpl-nci7w6e4m6nm8l5jmlxc",
+            "elapsedMs": 2682
+          }
+        ],
+        "actualMcpTools": [
+          "begin_floorplan_scene",
+          "set_floor_structure",
+          "set_openings",
+          "populate_basic_furniture",
+          "validate_scene",
+          "commit_scene"
+        ],
+        "png": {
+          "width": 1024,
+          "height": 1263,
+          "bytes": 56557
+        },
+        "svgSha256": "bbe60489b581775eadfc365fae22e44ba2e9048303d297948c38c522faa616c3",
+        "actualSceneSha256": "f415430150e4d98fd455995cb0eeb85abcffe086af9c03f5b54b4c3a747692e4",
+        "recompiledReplacement": false
+      }
+    },
+    {
+      "name": "study_default_actual_scene_host_guard",
+      "status": "PASS",
+      "result": {
+        "outcome": "ACCEPTED",
+        "valid": true,
+        "changedRoomIds": [
+          "room_3",
+          "room_split_16dl5vl"
+        ],
+        "checkedWallIds": [
+          "wall_split_16dl5vl",
+          "wall_split_16dl5vl_1",
+          "wall_split_16dl5vl_2"
+        ],
+        "checkedWallSpans": [
+          {
+            "id": "wall_split_16dl5vl",
+            "start": [
+              1.2171801470588237,
+              3.45688
+            ],
+            "end": [
+              3.1200367647058824,
+              3.45688
+            ]
+          },
+          {
+            "id": "wall_split_16dl5vl_1",
+            "start": [
+              3.1200367647058824,
+              3.45688
+            ],
+            "end": [
+              3.1200367647058824,
+              5.645826
+            ]
+          },
+          {
+            "id": "wall_split_16dl5vl_2",
+            "start": [
+              1.2000367647058825,
+              5.645826
+            ],
+            "end": [
+              3.1200367647058824,
+              5.645826
+            ]
+          }
+        ],
+        "wallCoverageToleranceM": 0.00001,
+        "checkedFurniture": 5,
+        "playerRadiusM": 0.22,
+        "gridStepM": 0.1,
+        "paths": [
+          {
+            "entryDoorId": "door_hinged-door-01",
+            "reachableChangedRoomIds": [
+              "room_3",
+              "room_split_16dl5vl"
+            ]
+          }
+        ],
+        "baselineAccess": [],
+        "warnings": [
+          "原有家具 Kitchen 超出未修改房间，保持原样，需手动检查。"
+        ],
+        "furnitureMoved": false,
+        "areas": [
+          {
+            "roomId": "room_3",
+            "name": "客餐厅",
+            "areaM2": 13.155349611893392
+          },
+          {
+            "roomId": "room_split_16dl5vl",
+            "name": "书房",
+            "areaM2": 4.20277632
+          }
+        ]
+      }
+    },
+    {
+      "name": "study_accepted_default_V1_V2_save_restore",
+      "status": "PASS",
+      "result": {
+        "guardOutcome": "ACCEPTED",
+        "sceneSource": "actual-http-mcp",
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "name": "study_preserve_actual_source_furniture_without_moving",
+      "status": "PASS",
+      "result": {
+        "sourceItemIds": [
+          "item_room_1_1",
+          "item_room_2_2",
+          "item_room_3_3",
+          "item_room_4_4"
+        ],
+        "sourceCount": 4,
+        "moved": false
+      }
+    },
+    {
+      "name": "study_preserved_source_host_guard",
+      "status": "PASS",
+      "result": {
+        "outcome": "SAFE_REJECTION_REQUIRES_STEP3_MANUAL_FURNITURE_ADJUSTMENT",
+        "reason": "STRUCTURE_SCENE_INVALID：家具 Sofa 与新房间边界冲突，请在 Step3 手动调整后重试，已保留原方案。",
+        "committed": false,
+        "testPassDoesNotMeanEditAccepted": true
+      }
+    },
+    {
+      "name": "study_actual_candidate_and_source_not_mutated",
+      "status": "PASS"
+    },
+    {
+      "name": "bedroom_actual_inference_and_actual_MCP_response",
+      "status": "PASS",
+      "result": {
+        "model": "Ours",
+        "inferenceStages": [
+          {
+            "stage": "floorplan-intent",
+            "responseId": "chatcmpl-3628ah4l72onsgtblq3i",
+            "elapsedMs": 2024
+          },
+          {
+            "stage": "floorplan-candidate-selection-op1",
+            "responseId": "chatcmpl-mhdhb7o0bp5ikwuxjfce",
+            "elapsedMs": 2788
+          }
+        ],
+        "actualMcpTools": [
+          "begin_floorplan_scene",
+          "set_floor_structure",
+          "set_openings",
+          "populate_basic_furniture",
+          "validate_scene",
+          "commit_scene"
+        ],
+        "png": {
+          "width": 1024,
+          "height": 1350,
+          "bytes": 60793
+        },
+        "svgSha256": "f7c0acbf40410c30e337e637721822cb134ecab694fb22fa032aeca3b77cc516",
+        "actualSceneSha256": "122b1442e484e04480ae3e7d3b207df46922412f392bf4b69b25cb8a9b9bf5d9",
+        "recompiledReplacement": false
+      }
+    },
+    {
+      "name": "bedroom_default_actual_scene_host_guard",
+      "status": "PASS",
+      "result": {
+        "outcome": "ACCEPTED",
+        "valid": true,
+        "changedRoomIds": [
+          "room_3",
+          "room_7"
+        ],
+        "checkedWallIds": [
+          "wall_10",
+          "wall_20",
+          "wall_21",
+          "wall_22",
+          "wall_23"
+        ],
+        "checkedWallSpans": [
+          {
+            "id": "wall_10",
+            "start": [
+              3.171525735294118,
+              3.39515
+            ],
+            "end": [
+              3.171525735294118,
+              3.43373125
+            ]
+          },
+          {
+            "id": "wall_20",
+            "start": [
+              3.360102941176471,
+              3.39515
+            ],
+            "end": [
+              3.360102941176471,
+              6.203865
+            ]
+          },
+          {
+            "id": "wall_21",
+            "start": [
+              1.2000367647058825,
+              6.203865
+            ],
+            "end": [
+              3.360102941176471,
+              6.203865
+            ]
+          },
+          {
+            "id": "wall_22",
+            "start": [
+              3.171525735294118,
+              3.39515
+            ],
+            "end": [
+              3.360102941176471,
+              3.39515
+            ]
+          },
+          {
+            "id": "wall_23",
+            "start": [
+              3.171525735294118,
+              3.43373125
+            ],
+            "end": [
+              3.360102941176471,
+              3.43373125
+            ]
+          }
+        ],
+        "wallCoverageToleranceM": 0.00001,
+        "checkedFurniture": 5,
+        "playerRadiusM": 0.22,
+        "gridStepM": 0.1,
+        "paths": [
+          {
+            "entryDoorId": "door_hinged-door-01",
+            "reachableChangedRoomIds": [
+              "room_3",
+              "room_7"
+            ]
+          }
+        ],
+        "baselineAccess": [],
+        "warnings": [
+          "原有家具 Kitchen 超出未修改房间，保持原样，需手动检查。"
+        ],
+        "furnitureMoved": false,
+        "areas": [
+          {
+            "roomId": "room_3",
+            "name": "客餐厅",
+            "areaM2": 11.288205443318006
+          },
+          {
+            "roomId": "room_7",
+            "name": "卧室",
+            "areaM2": 6.066745705597427
+          }
+        ]
+      }
+    },
+    {
+      "name": "bedroom_accepted_default_V1_V2_save_restore",
+      "status": "PASS",
+      "result": {
+        "guardOutcome": "ACCEPTED",
+        "sceneSource": "actual-http-mcp",
+        "versions": [
+          {
+            "version": "v1",
+            "rooms": 6,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          },
+          {
+            "version": "v2",
+            "rooms": 7,
+            "exactSceneRestored": true,
+            "exactSvgRestored": true
+          }
+        ],
+        "wrongVersionRejected": true,
+        "missingVersionSvgRejected": true,
+        "invalidSavePreservedPrevious": true,
+        "unsubmittedDraftPreservedCommittedScene": true
+      }
+    },
+    {
+      "name": "bedroom_preserve_actual_source_furniture_without_moving",
+      "status": "PASS",
+      "result": {
+        "sourceItemIds": [
+          "item_room_1_1",
+          "item_room_2_2",
+          "item_room_3_3",
+          "item_room_4_4"
+        ],
+        "sourceCount": 4,
+        "moved": false
+      }
+    },
+    {
+      "name": "bedroom_preserved_source_host_guard",
+      "status": "PASS",
+      "result": {
+        "outcome": "SAFE_REJECTION_REQUIRES_STEP3_MANUAL_FURNITURE_ADJUSTMENT",
+        "reason": "STRUCTURE_SCENE_INVALID：家具 Sofa 与新房间边界冲突，请在 Step3 手动调整后重试，已保留原方案。",
+        "committed": false,
+        "testPassDoesNotMeanEditAccepted": true
+      }
+    },
+    {
+      "name": "bedroom_actual_candidate_and_source_not_mutated",
+      "status": "PASS"
+    },
+    {
+      "name": "actual_two_step_failure_publishes_no_intermediate_svg",
+      "status": "PASS",
+      "result": {
+        "httpStatus": 422,
+        "completedOperationCount": 1,
+        "failedOperationId": "op2",
+        "rolledBack": true,
+        "publishedIntermediateSvg": false
+      }
+    }
+  ],
+  "limitations": [
+    "No image-generation model was called. Text inference is real; SVG geometry tools and Pascal MCP compile the structure.",
+    "PASS on a safe-rejection test means rollback worked, not that the requested edit was committed.",
+    "The actual MCP candidate scenes were never replaced with reconstructed scenes to make the host guard pass.",
+    "Sunlight, ventilation, load-bearing suitability and construction compliance remain unverified."
+  ]
+}

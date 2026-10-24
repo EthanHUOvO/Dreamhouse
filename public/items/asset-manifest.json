@@ -1,0 +1,249 @@
+{
+  "schema": "local-furniture-assets/v1",
+  "assets": [
+    {
+      "path": "/items/bathroom-sink/model.glb",
+      "source": "https://editor.pascal.app/items/bathroom-sink/model.glb",
+      "bytes": 34652,
+      "sha256": "36e4efaffaba977eeea612066e613ee4c274bfa89753dbd1a09187afbb8982e5",
+      "extensions": [
+        "KHR_materials_specular",
+        "KHR_materials_ior"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/bathroom-sink/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/bathroom-sink/thumbnail.webp",
+      "bytes": 2780,
+      "sha256": "f2c4df034d7247b61b43bd70b7417abe0c3d471b801524ecb2730df19aa5cd92"
+    },
+    {
+      "path": "/items/bedside-table/model.glb",
+      "source": "https://editor.pascal.app/items/bedside-table/model.glb",
+      "bytes": 4524,
+      "sha256": "ae287c86595a3751f6259f5d8c440af7affded0171a82d43d393cef825f15c76",
+      "extensions": [
+        "KHR_draco_mesh_compression"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/bedside-table/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/bedside-table/thumbnail.webp",
+      "bytes": 2970,
+      "sha256": "e81f1598561856079826c168da731c9f5d44a9d748d2fb39a1f1949018e54eb0"
+    },
+    {
+      "path": "/items/closet/model.glb",
+      "source": "https://editor.pascal.app/items/closet/model.glb",
+      "bytes": 1784,
+      "sha256": "d690f77da3591ab289e18fbcec48092495c5b6b2f4ad5abfc4ea3bbbc6593658",
+      "extensions": [
+        "KHR_draco_mesh_compression"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/closet/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/closet/thumbnail.webp",
+      "bytes": 2948,
+      "sha256": "dd005b577a9af171b0953d09ba0cc5d047927adc960b41ef8f27daa23dd78509"
+    },
+    {
+      "path": "/items/coffee-table/model.glb",
+      "source": "https://editor.pascal.app/items/coffee-table/model.glb",
+      "bytes": 4296,
+      "sha256": "63fcdd7cb8cd18b1b847199e7d6d0efaeab8db86f8ca93d3db0fcd2afe3391c8",
+      "extensions": [
+        "KHR_draco_mesh_compression"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/coffee-table/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/coffee-table/thumbnail.webp",
+      "bytes": 3842,
+      "sha256": "2fe69041cb46aaf16f6837c25498449582a0262d8be43f5712d954a371e04437"
+    },
+    {
+      "path": "/items/dining-chair/model.glb",
+      "source": "https://editor.pascal.app/items/dining-chair/model.glb",
+      "bytes": 5176,
+      "sha256": "fea8f3c14fdccb8beae9101d8e689f0a17f67d84fbfe1ffabf133cee2ffe5c5b",
+      "extensions": [
+        "KHR_draco_mesh_compression"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/dining-chair/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/dining-chair/thumbnail.webp",
+      "bytes": 3448,
+      "sha256": "ff9a54f77b02f7f416226a223599df6214281e6a5c36e96e96ccd33ae6ac5d55"
+    },
+    {
+      "path": "/items/dining-table/model.glb",
+      "source": "https://editor.pascal.app/items/dining-table/model.glb",
+      "bytes": 3424,
+      "sha256": "92a54b7607e726d8d8d403dac996cad1220669fbbe734bb4087ef8e2aa7af417",
+      "extensions": [
+        "KHR_draco_mesh_compression"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/dining-table/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/dining-table/thumbnail.webp",
+      "bytes": 2414,
+      "sha256": "0851e4a7663dada444d78a265484ada5d5eaed06cc5dbd8accd2c4d0b915fbca"
+    },
+    {
+      "path": "/items/double-bed/model.glb",
+      "source": "https://editor.pascal.app/items/double-bed/model.glb",
+      "bytes": 22324,
+      "sha256": "999354f9c78220b5d85b17417131d111a86431ecb6ec1d7cb5ced18386396b64",
+      "extensions": [
+        "KHR_materials_specular",
+        "KHR_materials_ior"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/double-bed/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/double-bed/thumbnail.webp",
+      "bytes": 3368,
+      "sha256": "c0ab3ad60061bc4706c1af3c2bf29354977506317cfcf0528589fbc10dec7fdc"
+    },
+    {
+      "path": "/items/dresser/model.glb",
+      "source": "https://editor.pascal.app/items/dresser/model.glb",
+      "bytes": 4348,
+      "sha256": "6e773cb510e0a808f0fb09c449184ab69011576f96c8a67bcb8f0186f079c34f",
+      "extensions": [
+        "KHR_draco_mesh_compression"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/dresser/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/dresser/thumbnail.webp",
+      "bytes": 3684,
+      "sha256": "f0921c7fd33a2aeea7bcab7f3d76de1021a92339331262c094fb403eebfc4b70"
+    },
+    {
+      "path": "/items/fridge/model.glb",
+      "source": "https://editor.pascal.app/items/fridge/model.glb",
+      "bytes": 5544,
+      "sha256": "340890d26bcf43d1bed391a1d413c513a9a40a057861b17867811419cc4cd741",
+      "extensions": [
+        "KHR_materials_specular",
+        "KHR_materials_ior"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/fridge/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/fridge/thumbnail.webp",
+      "bytes": 2152,
+      "sha256": "04f60493e6fb8a996c6156f32ae3aa717b1485aa4b50da729644869dd5b865b2"
+    },
+    {
+      "path": "/items/kitchen/model.glb",
+      "source": "https://editor.pascal.app/items/kitchen/model.glb",
+      "bytes": 14020,
+      "sha256": "418cbb8f1d14d2e49fa33fbb816cc1bfc4198a86dba39c157fa5840db1caa05d",
+      "extensions": [
+        "KHR_materials_specular",
+        "KHR_materials_ior"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/kitchen/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/kitchen/thumbnail.webp",
+      "bytes": 3676,
+      "sha256": "7018969f91189f3c2c9a9352589732ef3312c15e3735b9a511bb135051e2bf4c"
+    },
+    {
+      "path": "/items/shower-square/model.glb",
+      "source": "https://editor.pascal.app/items/shower-square/model.glb",
+      "bytes": 12608,
+      "sha256": "185266da0575005d63e451ec2a130494966395504cc5a357352bd717c16358d1",
+      "extensions": [
+        "KHR_draco_mesh_compression"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/shower-square/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/shower-square/thumbnail.webp",
+      "bytes": 3500,
+      "sha256": "4178c100d2914bc404d8de61bc4568e341514f5656082fe1e45e544f62c4198e"
+    },
+    {
+      "path": "/items/single-bed/model.glb",
+      "source": "https://editor.pascal.app/items/single-bed/model.glb",
+      "bytes": 6180,
+      "sha256": "73613614e6fc2c6689185d2b312132d9445375205271c0ea4621ecc205d8da22",
+      "extensions": [
+        "KHR_draco_mesh_compression"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/single-bed/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/single-bed/thumbnail.webp",
+      "bytes": 3220,
+      "sha256": "3ef30db65530baa3cf819e05a2a258d1fe93905a8c9ce7380bb17c78b83c45b6"
+    },
+    {
+      "path": "/items/sofa/model.glb",
+      "source": "https://editor.pascal.app/items/sofa/model.glb",
+      "bytes": 7908,
+      "sha256": "f40aa74dee9eaf82b0a01fb6b7115a70e6372f155c5afc9e880927f481abc0c3",
+      "extensions": [
+        "KHR_draco_mesh_compression"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/sofa/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/sofa/thumbnail.webp",
+      "bytes": 3440,
+      "sha256": "90186cd6710b7aa3b0180d80d316ccd0b373740e0794c3d641fb9c4ed0dc2b6d"
+    },
+    {
+      "path": "/items/toilet/model.glb",
+      "source": "https://editor.pascal.app/items/toilet/model.glb",
+      "bytes": 4192,
+      "sha256": "ae0cc0170797dd8026945b4edd08511e6dc2af005df02384b5b277c9bbc6ca94",
+      "extensions": [
+        "KHR_draco_mesh_compression"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/toilet/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/toilet/thumbnail.webp",
+      "bytes": 2610,
+      "sha256": "c964b5e996db7ca629f9dc15aa3aebc615f9e9849c8e60d6e69453074f6fac56"
+    },
+    {
+      "path": "/items/tv-stand/model.glb",
+      "source": "https://editor.pascal.app/items/tv-stand/model.glb",
+      "bytes": 1664,
+      "sha256": "4703963652959cd707aeba305774cfc2b1b593fa115b7e19ccf847891a04a017",
+      "extensions": [
+        "KHR_draco_mesh_compression"
+      ],
+      "meshCount": 1
+    },
+    {
+      "path": "/items/tv-stand/thumbnail.webp",
+      "source": "https://editor.pascal.app/items/tv-stand/thumbnail.webp",
+      "bytes": 3886,
+      "sha256": "73b82fd9afa323e1c79557275309dc1c255d8690121525c7a5f1adfbbacae723"
+    }
+  ]
+}

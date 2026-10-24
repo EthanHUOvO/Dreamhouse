@@ -1,0 +1,16 @@
+{
+  "images": {
+    "baseline": "90f75275e2ff",
+    "current": "9caf10e37e4a"
+  },
+  "baseline": {
+    "exitCode": 2,
+    "count": 141
+  },
+  "current": {
+    "exitCode": 2,
+    "count": 141
+  },
+  "added": [],
+  "removed": []
+}

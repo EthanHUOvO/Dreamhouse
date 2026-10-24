@@ -1,0 +1,414 @@
+{
+  "generatedAt": "2026-10-13T13:34:05.251Z",
+  "count": 24,
+  "report": [
+    {
+      "floorplanId": "one-option-01",
+      "sourceImage": "/preset/variants/one/option-01.png",
+      "hasStructuredSpec": true,
+      "roomCount": 6,
+      "outerWallCount": 6,
+      "innerWallCount": 7,
+      "doorCount": 3,
+      "windowCount": 4,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 6.63,
+        "depth": 8.379
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "one-option-02",
+      "sourceImage": "/preset/variants/one/option-02.png",
+      "hasStructuredSpec": true,
+      "roomCount": 5,
+      "outerWallCount": 8,
+      "innerWallCount": 6,
+      "doorCount": 4,
+      "windowCount": 4,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 10.85,
+        "depth": 4.247
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "one-option-03",
+      "sourceImage": "/preset/variants/one/option-03.png",
+      "hasStructuredSpec": true,
+      "roomCount": 7,
+      "outerWallCount": 8,
+      "innerWallCount": 13,
+      "doorCount": 6,
+      "windowCount": 5,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 6.1,
+        "depth": 11.18
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "one-option-04",
+      "sourceImage": "/preset/variants/one/option-04.png",
+      "hasStructuredSpec": true,
+      "roomCount": 6,
+      "outerWallCount": 6,
+      "innerWallCount": 5,
+      "doorCount": 4,
+      "windowCount": 6,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 6.6,
+        "depth": 9.081
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "one-option-05",
+      "sourceImage": "/preset/variants/one/option-05.png",
+      "hasStructuredSpec": true,
+      "roomCount": 5,
+      "outerWallCount": 8,
+      "innerWallCount": 9,
+      "doorCount": 5,
+      "windowCount": 5,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 8.5,
+        "depth": 12.106
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "one-option-06",
+      "sourceImage": "/preset/variants/one/option-06.png",
+      "hasStructuredSpec": true,
+      "roomCount": 9,
+      "outerWallCount": 12,
+      "innerWallCount": 3,
+      "doorCount": 4,
+      "windowCount": 4,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 8.7,
+        "depth": 9.894
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "one-option-07",
+      "sourceImage": "/preset/variants/one/option-07.png",
+      "hasStructuredSpec": true,
+      "roomCount": 4,
+      "outerWallCount": 12,
+      "innerWallCount": 4,
+      "doorCount": 3,
+      "windowCount": 4,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 7.593,
+        "depth": 7.372
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "one-option-08",
+      "sourceImage": "/preset/variants/one/option-08.png",
+      "hasStructuredSpec": true,
+      "roomCount": 5,
+      "outerWallCount": 9,
+      "innerWallCount": 9,
+      "doorCount": 5,
+      "windowCount": 6,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 9.24,
+        "depth": 9.316
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "three-option-01",
+      "sourceImage": "/preset/variants/three/option-01.png",
+      "hasStructuredSpec": true,
+      "roomCount": 8,
+      "outerWallCount": 6,
+      "innerWallCount": 17,
+      "doorCount": 7,
+      "windowCount": 6,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 14.524,
+        "depth": 12.016
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "three-option-02",
+      "sourceImage": "/preset/variants/three/option-02.png",
+      "hasStructuredSpec": true,
+      "roomCount": 10,
+      "outerWallCount": 8,
+      "innerWallCount": 10,
+      "doorCount": 7,
+      "windowCount": 4,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 6.55,
+        "depth": 16.145
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "three-option-03",
+      "sourceImage": "/preset/variants/three/option-03.png",
+      "hasStructuredSpec": true,
+      "roomCount": 8,
+      "outerWallCount": 10,
+      "innerWallCount": 18,
+      "doorCount": 6,
+      "windowCount": 8,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 12.6,
+        "depth": 12.539
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "three-option-04",
+      "sourceImage": "/preset/variants/three/option-04.png",
+      "hasStructuredSpec": true,
+      "roomCount": 8,
+      "outerWallCount": 15,
+      "innerWallCount": 8,
+      "doorCount": 6,
+      "windowCount": 4,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 8.8,
+        "depth": 4.995
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "three-option-05",
+      "sourceImage": "/preset/variants/three/option-05.png",
+      "hasStructuredSpec": true,
+      "roomCount": 8,
+      "outerWallCount": 12,
+      "innerWallCount": 11,
+      "doorCount": 7,
+      "windowCount": 7,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 10.5,
+        "depth": 12.999
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "three-option-06",
+      "sourceImage": "/preset/variants/three/option-06.png",
+      "hasStructuredSpec": true,
+      "roomCount": 13,
+      "outerWallCount": 12,
+      "innerWallCount": 13,
+      "doorCount": 7,
+      "windowCount": 10,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 10.26,
+        "depth": 10.745
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "three-option-07",
+      "sourceImage": "/preset/variants/three/option-07.png",
+      "hasStructuredSpec": true,
+      "roomCount": 10,
+      "outerWallCount": 14,
+      "innerWallCount": 14,
+      "doorCount": 8,
+      "windowCount": 5,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 12.43,
+        "depth": 11.068
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "three-option-08",
+      "sourceImage": "/preset/variants/three/option-08.png",
+      "hasStructuredSpec": true,
+      "roomCount": 7,
+      "outerWallCount": 14,
+      "innerWallCount": 15,
+      "doorCount": 7,
+      "windowCount": 6,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 12.405,
+        "depth": 8.108
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "two-option-01",
+      "sourceImage": "/preset/variants/two/option-01.png",
+      "hasStructuredSpec": true,
+      "roomCount": 7,
+      "outerWallCount": 15,
+      "innerWallCount": 8,
+      "doorCount": 6,
+      "windowCount": 8,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 9.89,
+        "depth": 12.447
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "two-option-02",
+      "sourceImage": "/preset/variants/two/option-02.png",
+      "hasStructuredSpec": true,
+      "roomCount": 6,
+      "outerWallCount": 10,
+      "innerWallCount": 6,
+      "doorCount": 6,
+      "windowCount": 5,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 6.7,
+        "depth": 11.143
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "two-option-03",
+      "sourceImage": "/preset/variants/two/option-03.png",
+      "hasStructuredSpec": true,
+      "roomCount": 7,
+      "outerWallCount": 7,
+      "innerWallCount": 12,
+      "doorCount": 5,
+      "windowCount": 4,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 5.4,
+        "depth": 15.822
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "two-option-04",
+      "sourceImage": "/preset/variants/two/option-04.png",
+      "hasStructuredSpec": true,
+      "roomCount": 6,
+      "outerWallCount": 11,
+      "innerWallCount": 11,
+      "doorCount": 5,
+      "windowCount": 4,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 6.28,
+        "depth": 12
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "two-option-05",
+      "sourceImage": "/preset/variants/two/option-05.png",
+      "hasStructuredSpec": true,
+      "roomCount": 8,
+      "outerWallCount": 12,
+      "innerWallCount": 6,
+      "doorCount": 5,
+      "windowCount": 5,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 5.116,
+        "depth": 13.448
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "two-option-06",
+      "sourceImage": "/preset/variants/two/option-06.png",
+      "hasStructuredSpec": true,
+      "roomCount": 6,
+      "outerWallCount": 13,
+      "innerWallCount": 7,
+      "doorCount": 4,
+      "windowCount": 4,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 13.6,
+        "depth": 5.859
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "two-option-07",
+      "sourceImage": "/preset/variants/two/option-07.png",
+      "hasStructuredSpec": true,
+      "roomCount": 7,
+      "outerWallCount": 14,
+      "innerWallCount": 10,
+      "doorCount": 4,
+      "windowCount": 5,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 12.639,
+        "depth": 7.019
+      },
+      "validationStatus": "ready",
+      "issues": []
+    },
+    {
+      "floorplanId": "two-option-08",
+      "sourceImage": "/preset/variants/two/option-08.png",
+      "hasStructuredSpec": true,
+      "roomCount": 7,
+      "outerWallCount": 8,
+      "innerWallCount": 11,
+      "doorCount": 4,
+      "windowCount": 5,
+      "scaleMethod": "meter / source catalog dimensions",
+      "projectedBounds": {
+        "width": 8.6,
+        "depth": 7.622
+      },
+      "validationStatus": "ready",
+      "issues": []
+    }
+  ]
+}

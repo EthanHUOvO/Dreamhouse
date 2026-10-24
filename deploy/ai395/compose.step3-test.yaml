@@ -1,0 +1,36 @@
+name: ideal-home-step3-test
+
+services:
+  web:
+    image: ideal-home-local:web-rocm-migration
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      AI_MODE: local
+      LOCAL_TEXT_BASE_URL: http://ai-gateway:8300/text/v1
+      LOCAL_TEXT_MODEL: Qwen3.8-27B-Q8_0
+      LOCAL_VISION_PROJECTOR: mmproj-Qwen3.8-27B-Q8_0.gguf
+      LOCAL_IMAGE_BASE_URL: http://ai-gateway:8300/image
+      LOCAL_IMAGE_MODEL: Z-Image-Turbo
+      LOCAL_EDIT_IMAGE_BASE_URL: http://ai-gateway-qwen-image21:8301/image
+      LOCAL_EDIT_IMAGE_MODEL: Qwen-Image-2.1-Fun-Acc-4Step
+      PASCAL_MCP_URL: http://pascal-mcp:3100/mcp
+      QWEN_TEXT_TIMEOUT_MS: "600000"
+      QWEN_IMAGE_TIMEOUT_MS: "1800000"
+      MODEL3D_TIMEOUT_MS: "600000"
+      GENERATED_IMAGE_DIR: /data/generated
+    volumes:
+      - /srv/ideal-home/data/generated:/data/generated
+    devices:
+      - /dev/dri:/dev/dri
+    ports:
+      - "3002:3000"
+    networks: [ai-backend, web-ingress]
+
+networks:
+  ai-backend:
+    external: true
+    name: ideal-home-local_local-ai
+  web-ingress:
+    external: true
+    name: ideal-home-local_web-ingress

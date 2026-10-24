@@ -1,0 +1,199 @@
+{
+  "kind": "production-http-and-mcp",
+  "base": "http://web:3000",
+  "plans": [
+    {
+      "key": "one-01",
+      "status": "PASS",
+      "sessionId": "svg-http-one-01-1792475553504",
+      "sourceImageHash": "2f8c78f25af209858e3d39aa3fc48ac8069f70e871583dd7cd97805849a2aaac",
+      "rooms": 6,
+      "walls": 20,
+      "doors": 6,
+      "windows": 3,
+      "elapsedMs": 386,
+      "uriEncoded": false
+    },
+    {
+      "key": "one-02",
+      "status": "PASS",
+      "sessionId": "svg-http-one-02-1792475553909",
+      "sourceImageHash": "e0a8eb4add7749d52f23a8a07897e89b9fe5a193631dd028824301ab2bd31f85",
+      "rooms": 5,
+      "walls": 15,
+      "doors": 5,
+      "windows": 2,
+      "elapsedMs": 315,
+      "uriEncoded": true
+    },
+    {
+      "key": "one-07",
+      "status": "PASS",
+      "sessionId": "svg-http-one-07-1792475554244",
+      "sourceImageHash": "7be549e18e6758c37ec65638723035cc585acabc9fa9dede7108cec2908613b9",
+      "rooms": 4,
+      "walls": 19,
+      "doors": 4,
+      "windows": 5,
+      "elapsedMs": 459,
+      "uriEncoded": false
+    },
+    {
+      "key": "two-01",
+      "status": "PASS",
+      "sessionId": "svg-http-two-01-1792475554727",
+      "sourceImageHash": "9872b433a0a0057ca4d9e9d79babec21250398ff39951d40dc66b51b315913bf",
+      "rooms": 7,
+      "walls": 24,
+      "doors": 8,
+      "windows": 7,
+      "elapsedMs": 357,
+      "uriEncoded": false
+    },
+    {
+      "key": "two-02",
+      "status": "PASS",
+      "sessionId": "svg-http-two-02-1792475555111",
+      "sourceImageHash": "9282b2559475e118a06b2fecc22abce9ea9b706da651effad57ca21d62750965",
+      "rooms": 6,
+      "walls": 24,
+      "doors": 6,
+      "windows": 5,
+      "elapsedMs": 251,
+      "uriEncoded": false
+    },
+    {
+      "key": "two-07",
+      "status": "PASS",
+      "sessionId": "svg-http-two-07-1792475555380",
+      "sourceImageHash": "8494a72e9dcd662f656554d50c0c699c504f35b79bb0e98c3948bc9d1299e036",
+      "rooms": 7,
+      "walls": 16,
+      "doors": 8,
+      "windows": 5,
+      "elapsedMs": 355,
+      "uriEncoded": false
+    },
+    {
+      "key": "three-01",
+      "status": "PASS",
+      "sessionId": "svg-http-three-01-1792475555763",
+      "sourceImageHash": "21b876f2142b5c03055c8738699fcf9a2d8af9d941d29ab434de9bca3b8380ee",
+      "rooms": 8,
+      "walls": 29,
+      "doors": 7,
+      "windows": 11,
+      "elapsedMs": 440,
+      "uriEncoded": false
+    },
+    {
+      "key": "three-03",
+      "status": "PASS",
+      "sessionId": "svg-http-three-03-1792475556224",
+      "sourceImageHash": "a58d92b3ef52d71427025c3ca707014d098eed74ea590c817d2f958e5573fab1",
+      "rooms": 8,
+      "walls": 36,
+      "doors": 8,
+      "windows": 8,
+      "elapsedMs": 438,
+      "uriEncoded": false
+    },
+    {
+      "key": "three-07",
+      "status": "PASS",
+      "sessionId": "svg-http-three-07-1792475556684",
+      "sourceImageHash": "acec1a2c82f1e72140d3d88e6cba3d90f6a8adcd7091f5c3449d8b834335cc09",
+      "rooms": 10,
+      "walls": 32,
+      "doors": 10,
+      "windows": 0,
+      "elapsedMs": 416,
+      "uriEncoded": false
+    }
+  ],
+  "editedScenes": [
+    {
+      "key": "one-01-partition",
+      "status": "PASS",
+      "sessionId": "svg-http-one-01-partition-1792475557100",
+      "sourceImageHash": "919a919ec53577dfa0151356541ba5a9dba829ee5b8da4d98492a5d99b3b32cc",
+      "rooms": 7,
+      "walls": 23,
+      "doors": 7,
+      "windows": 3,
+      "elapsedMs": 426,
+      "uriEncoded": false
+    },
+    {
+      "key": "two-02-partition",
+      "status": "PASS",
+      "sessionId": "svg-http-two-02-partition-1792475557526",
+      "sourceImageHash": "7962ff1c988def10aa427da4557a6a6275275b2a8a22ec773e50cbcbb7ef4a5c",
+      "rooms": 7,
+      "walls": 27,
+      "doors": 7,
+      "windows": 5,
+      "elapsedMs": 421,
+      "uriEncoded": false
+    },
+    {
+      "key": "three-03-partition",
+      "status": "PASS",
+      "sessionId": "svg-http-three-03-partition-1792475557948",
+      "sourceImageHash": "835daf2e876db15e1488771c0313898d9cd7d6eea10f950d77e74bc7068ef8f5",
+      "rooms": 9,
+      "walls": 38,
+      "doors": 9,
+      "windows": 8,
+      "elapsedMs": 408,
+      "uriEncoded": false
+    },
+    {
+      "key": "one-01-sliding",
+      "status": "PASS",
+      "sessionId": "svg-http-one-01-sliding-1792475558356",
+      "sourceImageHash": "227db66b3e297d98c670ea3517fe7883cf4322ede89408458c8ed27ed020b23f",
+      "rooms": 6,
+      "walls": 20,
+      "doors": 7,
+      "windows": 3,
+      "elapsedMs": 213,
+      "uriEncoded": false
+    },
+    {
+      "key": "two-01-sliding",
+      "status": "PASS",
+      "sessionId": "svg-http-two-01-sliding-1792475558569",
+      "sourceImageHash": "5c2dd2c59879c1570a055390a5184e89c5cb8ab5ae272a4e17fe3e8155e00a36",
+      "rooms": 7,
+      "walls": 24,
+      "doors": 9,
+      "windows": 7,
+      "elapsedMs": 239,
+      "uriEncoded": false
+    },
+    {
+      "key": "three-03-sliding",
+      "status": "PASS",
+      "sessionId": "svg-http-three-03-sliding-1792475558808",
+      "sourceImageHash": "a3a1134c0b8cfef8b44b04b03643ec77c0720d50c6b41a2ce6a646df00778708",
+      "rooms": 8,
+      "walls": 36,
+      "doors": 9,
+      "windows": 8,
+      "elapsedMs": 357,
+      "uriEncoded": false
+    }
+  ],
+  "negative": [
+    {
+      "case": "invalid-svg-no-prebuilt-fallback",
+      "status": "PASS"
+    },
+    {
+      "case": "unsupported-instruction-no-silent-other-edit",
+      "status": "PASS"
+    }
+  ],
+  "ai": []
+}

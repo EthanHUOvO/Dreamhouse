@@ -1,0 +1,4 @@
+'use client'
+import type { Order } from '@/lib/types'
+const statusLabels: Record<Order['status'], string> = { design: '方案确认', production: '生产中', transport: '运输中', construction: '施工中', acceptance: '待验收', completed: '已完成' }
+export default function OrderSidebar({orders}:{orders:Order[]}){return <aside className="order-sidebar" aria-label="只读订单中心"><div className="sidebar-head"><div><b>订单中心</b><small>只读信息</small></div><span>{orders.length} 个项目</span></div><div className="order-sidebar-list">{orders.map((o,index)=><article key={o.id} className={`order-sidebar-item ${index===0?'current':''}`}><div><b>{o.id}</b><span>{index===0?'当前监控':'隐私保护'}</span></div><small>{statusLabels[o.status] || '状态待确认'} · 方案第 {o.approvedVersion} 版</small></article>)}</div><div className="order-privacy-note"><b>隐私保护</b><span>订单仅供状态查看，不提供切换或客户信息入口。</span></div></aside>}
