@@ -47,7 +47,7 @@ function upperProposals(svg:string,st:Structure,target:Room,minArea:number):Prop
     const supportedWidth=sign>0?top.end[0]-x:x-top.start[0], maxW=sign>0?b.right-x:x-b.left;
     // A top boundary may continue at a concave neck: candidate width can extend
     // beyond the top source wall only when the closed rectangle is supported.
-    const widths=[2.16,2.3,2.5,2.7,3,3.3,maxW];
+    const widths=[2.16,2.3,2.5,2.7,2.8,3,3.3,maxW];
     for(const width of widths)for(const depth of [2.16,2.3,2.5,2.8,3,3.2,3.4,3.6]){
       if(width<2.12||width>maxW+.04||width*depth<minArea||y+depth>(b.top+b.bottom)/2+1.5)continue;
       const box={left:sign>0?x:x-width,right:sign>0?x+width:x,top:y,bottom:y+depth};
@@ -58,7 +58,9 @@ function upperProposals(svg:string,st:Structure,target:Room,minArea:number):Prop
       // raster corners. Exact output containment is still checked by execute.
       for(let ix=0;ix<13&&inside;ix++)for(let iy=0;iy<13;iy++)if(!contains([box.left+(box.right-box.left)*(ix+.5)/13,box.top+(box.bottom-box.top)*(iy+.5)/13],p)){inside=false;break;}
       if(!inside)continue;
-      const q:Point=[sign>0?box.right:box.left,box.bottom],a:Point=[q[0],box.top],z:Point=[sign>0?box.left+.12:box.right-.12,box.bottom];
+      // Meet the actual source wall centreline. A 12 cm inset left a physical
+      // gap on thin source walls, leaking the new room into the remainder.
+      const q:Point=[sign>0?box.right:box.left,box.bottom],a:Point=[q[0],box.top],z:Point=[sign>0?box.left:box.right,box.bottom];
       // The existing boundary must support both anchored sides, not just their corner.
       if(!Array.from({length:21},(_,i)=>[x,y+.2+(depth-.4)*i/20] as Point).every(v=>boundaryDistance(v,p)<.085))continue;
       if(!Array.from({length:21},(_,i)=>[x+sign*(.2+(Math.min(width,supportedWidth)-.4)*i/20),y] as Point).every(v=>boundaryDistance(v,p)<.085))continue;
@@ -67,7 +69,7 @@ function upperProposals(svg:string,st:Structure,target:Room,minArea:number):Prop
       // not exclude an otherwise usable corner on another layout.
       for(const doorAt of ['side','bottom'] as const){
        const length=doorAt==='side'?depth:width;
-       for(const inset of [doorAt==='side'?.75:length/2]){
+       for(const inset of [...new Set([doorAt==='side'?.75:length/2,length/2,.75,length-.75])]){
         // Keep a quarter metre jamb clear of partition junctions.
         const centre=doorAt==='bottom'?[box.left+inset,box.bottom]:[q[0],box.bottom-inset];
         const d1:Point=doorAt==='bottom'?[centre[0]-.4,centre[1]]:[centre[0],centre[1]-.4],d2:Point=doorAt==='bottom'?[centre[0]+.4,centre[1]]:[centre[0],centre[1]+.4];
@@ -140,7 +142,7 @@ function updateLabel(svg:string,room:Room,p:Point,co:Structure['coordinates'],ar
   if(/data-seed-[xy]=/.test(oldOpen)){const changed=oldOpen.replace(/data-seed-x="[^"]*"/,`data-seed-x="${round(sx)}"`).replace(/data-seed-y="[^"]*"/,`data-seed-y="${round(sy)}"`);result=result.slice(0,group.start)+changed+result.slice(group.start+oldOpen.length);}
   return result;
 }
-function preservedOpenings(st:Structure,next:Structure,target:Room,newId:string){
+export function preservedOpenings(st:Structure,next:Structure,target:Room,newId:string){
   const adjacent=(s:Structure,o:Structure['doors'][number])=>{const[a,b]=openingSegment(s,o);return roomsBeside(s,a,b).map(x=>x??'outside').sort();};
   for(const key of ['doors','windows'] as const)for(const o of st[key]){
     const n=next[key].find(n=>n.id===o.id)||fail(`BEDROOM_ORIGINAL_OPENING_LOST:${o.id}`),a=openingSegment(st,o),b=openingSegment(next,n);
@@ -153,7 +155,7 @@ function preservedOpenings(st:Structure,next:Structure,target:Room,newId:string)
 }
 /** A 0.9 m wide path is required inside the retained living space. Doorways
  * retain their original width; only the free circulation area is eroded. */
-function circulation(st:Structure,next:Structure,target:Room){
+export function circulation(st:Structure,next:Structure,target:Room){
   const retained=next.rooms.find(r=>r.id===target.id)!,p=retained.polygon,b=bounds(p),radius=POLICY.minPassageWidthM/2+POLICY.wallThicknessM/2,step=.08;
   const w=Math.ceil((b.right-b.left)/step)+1,h=Math.ceil((b.bottom-b.top)/step)+1;
   if(w*h>200_000)fail('BEDROOM_CIRCULATION_GRID_LIMIT');

@@ -200,7 +200,10 @@ export function setFloorStructure(input: SessionIdentity & {
     const roomGeometry = (rooms:FloorplanRoom[]) => rooms.map(({id,name,semantic,polygon,expectedArea,sourceArea})=>({id,name,semantic,polygon,expectedArea,sourceArea}));
     if (JSON.stringify(input.outerPolygon)!==JSON.stringify(parsedSvg!.outerPolygon) || JSON.stringify(input.walls)!==JSON.stringify(parsedSvg!.walls) || JSON.stringify(roomGeometry(input.rooms))!==JSON.stringify(roomGeometry(parsedSvg!.rooms))) throw new Error("SVG_STRUCTURE_DIFFERS_FROM_SOURCE");
   }
-  const solved = strictSvg ? {outerPolygon: clone(input.outerPolygon), walls: clone(input.walls), rooms: clone(input.rooms), notes: ["SVG geometry preserved without model partition/repair"]} : solveRoomPartition({
+  // MCP's room schema intentionally strips unknown client metadata. Restore
+  // source labels only from our independently verified SVG parse; otherwise
+  // incremental defaults differ between direct compiler tests and actual MCP.
+  const solved = strictSvg ? {outerPolygon: clone(parsedSvg!.outerPolygon), walls: clone(parsedSvg!.walls), rooms: clone(parsedSvg!.rooms), notes: ["SVG geometry preserved without model partition/repair"]} : solveRoomPartition({
     outerPolygon: clone(usableOuter),
     walls: clone(usableWalls),
     rooms: clone(input.rooms),

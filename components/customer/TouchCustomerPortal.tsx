@@ -151,7 +151,8 @@ const CLARIFICATION_OPTIONS = [
   "保留原厨房，重新给出建议",
   "其他安排，由我补充说明",
 ];
-type FloorplanVersion = { id: string; parentVersionId?: string; sourceVariantId: string; sourceImageHash: string; submittedRequirement: string; result: GeneratedImage; requestId: string; createdAt: string; validationStatus: "pending" | "ready" | "failed"; sceneSnapshot?: SceneGraph; svgSource?: string };
+type SvgEditContext = { originalSvg: string; intent: any; validation: any; provenance: any; furnitureSource?: SceneGraph };
+type FloorplanVersion = { id: string; parentVersionId?: string; sourceVariantId: string; sourceImageHash: string; submittedRequirement: string; result: GeneratedImage; requestId: string; createdAt: string; validationStatus: "pending" | "ready" | "failed"; sceneSnapshot?: SceneGraph; svgSource?: string; editContext?: SvgEditContext };
 type SelectedRegion = { x: number; y: number; width: number; height: number; coordinateSpace: "source-image"; sourceImageHash: string; baseVersionId: string };
 
 const RESIDENCES: {
@@ -933,9 +934,9 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
     sameModelBinding((selectedCaptureForRender as any).modelBinding, modelBinding));
 
   const svgEditProgress = Boolean(svgSource && progressTask?.kind === "image-preview");
-  const progressMeta = progressTask ? svgEditProgress ? { title:"正在改造户型", estimatedSeconds:10, completeTitle:"方案已校验", completeDescription:"二维与三维结构、门连接及通行检查已通过。确认后可进入三维空间。", actionLabel:"查看方案" } : PROGRESS_META[progressTask.kind] : null;
+  const progressMeta = progressTask ? svgEditProgress ? { title:"正在改造户型", estimatedSeconds:10, completeTitle:"方案已校验", completeDescription:"二维结构、门连接及平面通行检查已通过。确认后，Step3 将单独调用 AI 生成三维并检查家具碰撞。", actionLabel:"查看方案" } : PROGRESS_META[progressTask.kind] : null;
   const progressPresentationReady = Boolean(progressTask?.ready && progressMeta && (
-    progressElapsed >= Math.ceil((progressTask.totalDurationMs || progressMeta.estimatedSeconds * 1000) / 1000)
+    ["image-preview", "model"].includes(progressTask.kind) || progressElapsed >= Math.ceil((progressTask.totalDurationMs || progressMeta.estimatedSeconds * 1000) / 1000)
   ));
   const progressValue = progressTask && progressMeta
     ? progressPresentationReady
@@ -1029,9 +1030,9 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
     const job = { ...selectionEpoch.current };
     const jobBinding = job.binding!;
     const isCurrent = () => isSessionCurrent(requestSessionId) && selectionJobCurrent(job, selectionEpoch.current) && sameModelBinding(jobBinding, confirmedBindingRef.current);
-    const previous = reconstructionMode === "ai-live" || Boolean(svgSource) ? {
+    const previous = reconstructionMode === "ai-live" || Boolean(selectedSvgSource(floorplanVersions, selectedFloorplanVersionId, selectedVariant.variantId, svgSource)) ? {
       scene: cloneScene(scene), base: cloneScene(basePascalScene), revision: sceneRevision,
-      loaded: model3DLoaded && modelMatchesSelection, notice: modelSourceNotice,
+      loaded: model3DLoaded && modelMatchesSelection, binding: modelBindingRef.current, notice: modelSourceNotice,
       calibration: blueprintCalibration, spec: floorplanSpec,
     } : null;
     setError("");
@@ -1041,7 +1042,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
     setModelGenerationPhase("generating");
     setModel3DLoaded(false);
     setModelMcpProgress(2);
-    setLayoutProgress(svgSource ? "正在构建三维空间" : reconstructionMode === "ai-live" ? "正在现场调用 Qwen 识别原图，跳过目录模型" : "正在核对您确认的户型图");
+    setLayoutProgress(svgSource ? "正在调用 AI 规划当前 SVG 的三维建模" : reconstructionMode === "ai-live" ? "正在现场调用 Qwen 识别原图，跳过目录模型" : "正在核对您确认的户型图");
     setModelSourceNotice(null);
     const taskId = beginProgressTask("model", undefined);
     const controller = new AbortController();
@@ -1051,6 +1052,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
     let confirmedImageHash = "unavailable";
     const sourceDrawing = canonicalFloorplanSource(modifiedFloorPlan, aiFloorplan, selectedVariant.variantId, floorplanVersions.find((version) => version.id === selectedFloorplanVersionId));
     try {
+      const selectedVersion = floorplanVersions.find(version => version.id === jobBinding.versionId);
       const selectedSvg = selectedSvgSource(floorplanVersions, selectedFloorplanVersionId, selectedVariant.variantId, svgSource);
       const sourceImageDataUrl = selectedSvg
         ? svgDataUrl(selectedSvg)
@@ -1092,7 +1094,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
           setModelMcpProgress(toolProgress[String(event.name)] || 5);
           setLayoutProgress(toolMessages[String(event.name)] || "正在处理三维空间");
         } else if (eventType === "scene" && event.scene) {
-          applyGeneratedScene(event.scene as SceneGraph);
+          if (!selectedSvg) applyGeneratedScene(event.scene as SceneGraph);
         } else if (eventType === "validation") {
           setModelMcpProgress(88);
           setLayoutProgress(event.validation?.valid ? "Pascal 场景校验通过" : "正在修正 Pascal 场景校验问题");
@@ -1101,12 +1103,15 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
           if (selectedSvg && !svgResult) throw new Error("三维场景与当前确认版本不一致，结果未接受");
           if (reconstructionMode === "ai-live" && !svgResult && event.result.scene.nodes?.building_house?.metadata?.floorplanSource !== "mcp-qwen38-vulkan")
             throw new Error("现场建模没有返回真实 Qwen/Pascal 场景，结果未接受");
+          if (selectedSvg && (event.result.scene.nodes?.building_house?.metadata?.svgModelPlan?.provenance?.actualInference !== true || event.result.scene.nodes.building_house.metadata.svgModelPlan.provenance.sourceImageHash !== sourceImageHash))
+            throw new Error("三维结果缺少当前 SVG 的真实 AI 建模记录，结果未接受");
+          const completedScene = validateEditedScene(event.result.scene as SceneGraph, selectedVersion?.editContext);
           terminalResult = true;
-          const completedScene = cloneScene(event.result.scene as SceneGraph);
           Object.assign(completedScene.nodes.building_house.metadata ||= {}, { modelBinding: jobBinding, variantId: jobBinding.variantId, sourceDrawing: jobBinding.canonicalImageUrl });
           modelBindingRef.current = jobBinding;
           setModelBinding(jobBinding);
           applyGeneratedScene(completedScene, true);
+          if (selectedVersion) setFloorplanVersions(current => current.map(version => version.id === selectedVersion.id ? {...version, sceneSnapshot:cloneScene(completedScene),validationStatus:"ready"} : version));
           setModelMcpProgress(100);
           const verifiedPreset = event.result.source === "verified-preset";
           if (reconstructionMode === "ai-live" && verifiedPreset) throw new Error("现场建模返回了目录模型，结果未接受");
@@ -1117,6 +1122,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
           setRoomImages([]); setBom(null); setBudget(null);
           completeProgressTask(taskId);
         } else if (eventType === "fallback" && event.scene) {
+          if (selectedSvg) throw new Error("当前 SVG 的三维建模失败，未接受替代场景");
           terminalResult = true;
           applyGeneratedScene(event.scene as SceneGraph);
           setModelSourceNotice({ source: "fallback", reason: String(event.reason || "本地3D生成未通过校验") });
@@ -1132,6 +1138,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
     } catch (generationError: any) {
       if (!isCurrent()) return;
       const reason = generationError?.message || String(generationError);
+      setFloorplanVersions(current => current.map(version => version.id === jobBinding.versionId ? {...version, validationStatus:"failed"} : version));
       console.error("[DreamHouse][model3d] streaming generation failed", generationError);
       if (previous) {
         applyGeneratedScene(previous.scene, true);
@@ -1139,8 +1146,8 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
         setSceneRevision(previous.revision);
         setBlueprintCalibration(previous.calibration);
         setFloorplanSpec(previous.spec);
-        modelBindingRef.current = previous.loaded ? jobBinding : null;
-        setModelBinding(previous.loaded ? jobBinding : null);
+        modelBindingRef.current = previous.binding;
+        setModelBinding(previous.binding);
         setModelSourceNotice(previous.notice);
         setModel3DLoaded(previous.loaded);
         setModelGenerationPhase(previous.loaded ? "completed" : "error");
@@ -2238,34 +2245,22 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
     }
   }
 
-  async function prepareSvgEditScene(svg: string, imageUrl: string, controller: AbortController, originalSvg?: string, bedroom?: { targetRoomId: string; newRoomId: string }, furnitureSource?: SceneGraph): Promise<SceneGraph> {
-    const sourceImageDataUrl = svgDataUrl(svg);
-    const sourceImageHash = await hashDataUrl(sourceImageDataUrl);
-    const response = await fetch("/api/ai/model3d/stream", {
-      method: "POST", signal: controller.signal, headers: { "content-type": "application/json" },
-      body: JSON.stringify({ sessionId: `${sessionId}-edit-${Date.now().toString(36)}`, sourceImageHash,
-        sourceImage: imageUrl, sourceImageDataUrl, fallbackScene: scene, reconstructionMode: "auto" }),
-    });
-    let candidate: SceneGraph | null = null;
-    // These events belong to a private candidate. Never publish intermediate
-    // walls/furniture into the current editor or its persistence effect.
-    await consumeModel3dSse(response, (type, event) => {
-      if (type === "error" || type === "fallback") throw new Error(`户型改造未通过三维校验，已保留原方案：${event.message || event.reason || "场景不可用"}`);
-      if (type === "complete") {
-        if (!acceptsSvgScene(event.result, sourceImageHash)) throw new Error("户型改造的二维与三维版本不一致，已保留原方案");
-        candidate = cloneScene(event.result.scene);
+  function validateEditedScene(candidate: SceneGraph, context?: SvgEditContext): SceneGraph {
+    let checked = cloneScene(candidate);
+    if (context) {
+      const original = svgToStructure(context.originalSvg);
+      checked = preserveBedroomSourceFurniture(checked, context.furnitureSource ?? null, original);
+      const action = context.intent?.action;
+      if (action === "add_bedroom" || action === "add_bathroom") {
+        if (!context.validation?.targetRoomId || !context.validation?.newRoomId) throw new Error("改造缺少完整校验信息");
+        const validation = assertBedroomSceneUsable(checked, original, context.validation.targetRoomId, context.validation.newRoomId, context.furnitureSource, action === "add_bathroom" ? "bathroom" : "bedroom");
+        Object.assign(checked.nodes.building_house.metadata ||= {}, { editSceneValidation: validation });
       }
-    }, { signal: controller.signal });
-    let validatedScene = candidate as SceneGraph | null;
-    if (!validatedScene || !assertPascalSceneIntegrity(validatedScene).valid || !validateVariantBlueprint(sceneToFloorplanBlueprint(validatedScene)).valid)
-      throw new Error("户型改造未通过三维完整性校验，已保留原方案");
-    if (bedroom) {
-      if (!originalSvg || !bedroom.targetRoomId || !bedroom.newRoomId) throw new Error("卧室改造缺少完整校验信息，已保留原方案");
-      validatedScene = preserveBedroomSourceFurniture(validatedScene, furnitureSource ?? null, svgToStructure(originalSvg));
-      const circulation = assertBedroomSceneUsable(validatedScene, svgToStructure(originalSvg), bedroom.targetRoomId, bedroom.newRoomId, furnitureSource);
-      Object.assign(validatedScene.nodes.building_house.metadata ||= {}, { bedroomSceneValidation: circulation });
+      Object.assign(checked.nodes.building_house.metadata ||= {}, {editInference:context.provenance,editIntent:context.intent,editValidation:context.validation});
     }
-    return validatedScene;
+    if (!assertPascalSceneIntegrity(checked).valid || !validateVariantBlueprint(sceneToFloorplanBlueprint(checked)).valid)
+      throw new Error("三维完整性或保存恢复校验失败，未接受场景");
+    return checked;
   }
 
   async function generateFloorplan(fresh = false): Promise<boolean> {
@@ -2321,10 +2316,10 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
       currentFloorplanContext.current = { variantId: requestVariantId, imageHash: sourceImageHash, prompt: requestPrompt };
       let data: any;
       let editedSvg: string | undefined;
-      let editedScene: SceneGraph | undefined;
+      let editContext: SvgEditContext | undefined;
       const inputSvg = selectedSvgSource(floorplanVersions, requestSourceVersionId, requestVariantId, svgSource);
       if (inputSvg) {
-        // Natural-language intent -> validated geometry transaction -> matching 2D/3D candidate.
+        // Step2 commits only validated SVG. Step3 owns all model/Pascal work.
         const svgEditRes = await fetch("/api/ai/svg-edit", {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -2344,17 +2339,10 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
         if (!pngRes.ok) throw new Error("SVG_RENDER_FAILED");
         const pngBlob = await pngRes.blob();
         const pngDataUrl: string = await new Promise((resolve, reject) => { const r = new FileReader(); r.onload = () => resolve(String(r.result)); r.onerror = reject; r.readAsDataURL(pngBlob); });
-        editedScene = await prepareSvgEditScene(editedSvg, pngDataUrl, controller, inputSvg,
-          svgEditData.intent?.action === "add_bedroom" ? { targetRoomId: svgEditData.validation.targetRoomId, newRoomId: svgEditData.validation.newRoomId } : undefined, furnitureSource);
-        Object.assign(editedScene.nodes.building_house.metadata ||= {}, {
-          editInference: svgEditData.provenance, editIntent: svgEditData.intent,
-          editValidation: svgEditData.validation,
-        });
-        const warnings = svgEditData.candidate ? [
-          `新增卧室位于客餐厅${({ upper: "上侧", lower: "下侧", left: "左侧", right: "右侧" } as Record<string,string>)[svgEditData.candidate.position] || "墙角"}，约 ${svgEditData.candidate.newAreaM2.toFixed(2)}㎡，剩余客餐厅约 ${svgEditData.candidate.remainingAreaM2.toFixed(2)}㎡；通道按 ${svgEditData.candidate.entranceClearanceM}m 检查。`,
-          "本次不新增外窗；新增卧室的采光和通风条件尚未验证。家具在 Step3 手动调整。",
-          ...(editedScene.nodes.building_house.metadata?.bedroomSceneValidation?.warnings || []),
-        ] : [];
+        editContext = { originalSvg: inputSvg, intent: svgEditData.intent, validation: svgEditData.validation, provenance: svgEditData.provenance, furnitureSource };
+        const warnings = ["二维结构已校验；三维模型与家具碰撞将在 Step3 单独生成并检查，失败不接受三维结果。",
+          ...(svgEditData.intent?.action === "add_bedroom" ? ["新增卧室的采光和通风条件尚未验证；家具在 Step3 手动调整。"] : []),
+          ...(svgEditData.intent?.action === "add_bathroom" ? ["卫生间为概念布局；给排水、防水和通风工程条件尚未验证。"] : [])];
         data = { prompt: requestPrompt, image: { url: pngDataUrl, model: "svg-edit", provider: "qwen", ephemeral: true, fallback: false, geometryVerified: true, warnings } };
       } else {
         const response = await fetch("/api/ai/floorplan-image", {
@@ -2393,10 +2381,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
       };
       const versionId = `floorplan-${requestId}-${Date.now().toString(36)}`;
       const nextBinding = floorplanModelBinding(requestVariantId, nextFloorplan, versionId)!;
-      if (editedScene) Object.assign(editedScene.nodes.building_house.metadata ||= {}, {
-        modelBinding: nextBinding, variantId: requestVariantId, sourceDrawing: nextBinding.canonicalImageUrl,
-      });
-      // Commit only after image decoding and the complete Pascal candidate pass.
+      // Commit the 2D preview without triggering 3D construction.
       confirmedBindingRef.current = null; setConfirmedBinding(null);
       cancelModelGenerationTimers(); setFloorPlanConfirmed(false);
       setModelGenerationPhase("idle"); setModel3DLoaded(false); setModelExperience("intro");
@@ -2414,7 +2399,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
         fallbackReason: data.image.fallbackReason,
       });
       setFloorplan(nextFloorplan);
-      setFloorplanVersions((current) => [...current, { id: versionId, parentVersionId: requestSourceVersionId || undefined, svgSource: editedSvg, sceneSnapshot: editedScene, sourceVariantId: requestVariantId, sourceImageHash, submittedRequirement: requestPrompt, result: nextFloorplan, requestId: String(requestId), createdAt: new Date().toISOString(), validationStatus: "ready" as const }].slice(-8));
+      setFloorplanVersions((current) => [...current, { id: versionId, parentVersionId: requestSourceVersionId || undefined, svgSource: editedSvg, editContext, sourceVariantId: requestVariantId, sourceImageHash, submittedRequirement: requestPrompt, result: nextFloorplan, requestId: String(requestId), createdAt: new Date().toISOString(), validationStatus: "ready" as const }].slice(-8));
       setSelectedFloorplanVersionId(versionId);
       selectedFloorplanVersionIdRef.current = versionId;
       selectionEpoch.current = advanceSelectionEpoch(selectionEpoch.current, floorplanModelBinding(requestVariantId, nextFloorplan, versionId));
@@ -2718,8 +2703,8 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
     const previewWaitMs = svgSource ? 4000 + Math.round(Math.random() * 3000) : 150000;
     const progressId = beginProgressTask("image-preview", previewWaitMs);
     const imageRequestId = floorplanRequestId.current + 1;
-    // 图像必须等进度走完（或生成完成，取较晚者）才显示，避免「后面显示太快」
-    const [imageReady] = await Promise.all([generateFloorplan(fresh), wait(previewWaitMs)]);
+    // Estimates only drive progress presentation; completion never waits on a timer.
+    const imageReady = await generateFloorplan(fresh);
     if (!isSessionCurrent(requestSessionId) || imageRequestId !== floorplanRequestId.current) return;
     if (imageReady) completeProgressTask(progressId);
     else completeProgressTask(
@@ -3142,7 +3127,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
                   {floorplanBusy ? (
                     <div className="floorplan-generation-state" aria-live="polite">
                       <strong>{svgSource ? "正在修改户型" : "正在生成AI图片预览"}</strong>
-                      <span>{svgSource ? "正在理解改造需求，并检查二维和三维结构…" : "正在根据原始图片和您的描述生成预览…"}</span>
+                      <span>{svgSource ? "正在理解改造需求，并检查二维结构…" : "正在根据原始图片和您的描述生成预览…"}</span>
                       <div className="floorplan-generation-dots"><i /><i /><i /></div>
                     </div>
                   ) : visibleFloorplan ? <img src={visibleFloorplan.url} alt={visibleFloorplan.provider === "preset" ? "当前采用的原始户型" : visibleFloorplan.geometryVerified === true ? "已通过几何校验的结构方案" : "AI图片预览"} /> : <div className="touch-empty">输入您的需求后，我们会在这里展示图片预览。</div>}
@@ -3757,7 +3742,7 @@ const [modelExperience, setModelExperience] = useState<ModelExperience>("intro")
           error={progressTask.error}
           maxProgress={progressTask.kind === "model" ? 100 : progressTask.kind === "layout" ? 95 : 92}
           showTimeoutMessage={progressTask.kind !== "model" && progressTask.kind !== "image-preview" && progressTask.kind !== "render"}
-          currentStageDetail={svgEditProgress ? "正在理解需求并检查二维、三维与通行关系…" : "正在处理请求，请稍候…"}
+          currentStageDetail={svgEditProgress ? "正在理解需求并检查二维结构和通行关系…" : "正在处理请求，请稍候…"}
           completeTitle={progressMeta.completeTitle}
           completeDescription={progressMeta.completeDescription}
           actionLabel={progressMeta.actionLabel}

@@ -71,21 +71,12 @@ async function main(){
  beginProgressTask:()=>1,generateFloorplan:async()=>{start.floorplanRequestId.current++;return false},wait:async()=>{},completeProgressTask:(_id:any,error:any)=>{assert.match(error,/无可行方案/)}};
  for(const name of ['invalidateConfirmedSelection','setFloorPlanConfirmed','setModelGenerationPhase','setModel3DLoaded','setModelExperience','setCapturedViews','setOverall','setRoomImages','setBom','setBudget']) start[name]=()=>mutations.push(name);
  await extract('startDesignAdjustment',start)();assert.deepEqual(mutations,[]);assert.equal(start.adjustmentInFlight.current,false);
- const prepare:any={sessionId:'test',scene:oldScene,svgDataUrl:()=>'<svg>',hashDataUrl:async()=>'hash',fetch:async()=>({}),cloneScene:(x:any)=>JSON.parse(JSON.stringify(x)),
- assertPascalSceneIntegrity:()=>({valid:true}),validateVariantBlueprint:()=>({valid:true}),sceneToFloorplanBlueprint:()=>({}),acceptsSvgScene:(r:any,h:string)=>r.sourceImageHash===h&&r.validation.valid,
- consumeModel3dSse:async(_res:any,fn:any)=>{fn('scene',{scene:{nodes:{partial:true}}});fn('error',{message:'门不可达'})}};
- await assert.rejects(extract('prepareSvgEditScene',prepare)('<svg/>','/image',new AbortController()),/保留原方案/);assert.strictEqual(prepare.scene,oldScene);
- prepare.consumeModel3dSse=async(_res:any,fn:any)=>fn('complete',{result:{sourceImageHash:'wrong',validation:{valid:true},scene:oldScene}});
- await assert.rejects(extract('prepareSvgEditScene',prepare)('<svg/>','/image',new AbortController()),/版本不一致/);
- prepare.consumeModel3dSse=async(_res:any,fn:any)=>fn('complete',{result:{sourceImageHash:'hash',validation:{valid:true},scene:oldScene}});
- const result=await extract('prepareSvgEditScene',prepare)('<svg/>','/image',new AbortController());assert.equal(JSON.stringify(result),JSON.stringify(oldScene));assert.notStrictEqual(result,oldScene);
- prepare.assertPascalSceneIntegrity=()=>({valid:false});await assert.rejects(extract('prepareSvgEditScene',prepare)('<svg/>','/image',new AbortController()),/完整性/);
- // Structural check on real handler: all network/image/3D validation and stale
- // guards precede any version/state mutation. No success-only replica here.
+ const validate:any={cloneScene:(v:any)=>JSON.parse(JSON.stringify(v)),assertPascalSceneIntegrity:()=>({valid:true}),validateVariantBlueprint:()=>({valid:true}),sceneToFloorplanBlueprint:()=>({})};
+ const result=extract('validateEditedScene',validate)(oldScene);assert.notStrictEqual(result,oldScene);
+ validate.assertPascalSceneIntegrity=()=>({valid:false});assert.throws(()=>extract('validateEditedScene',validate)(oldScene),/完整性/);
  let generate:any;function visit(n:any){if(ts.isFunctionDeclaration(n)&&n.name?.text==='generateFloorplan')generate=n;ts.forEachChild(n,visit)}visit(file);
- const code=generate.getText(file);assert.ok(code.indexOf('prepareSvgEditScene(')<code.indexOf('setAiFloorplan('));assert.ok(code.indexOf('assertImageDecodes(')<code.indexOf('setAiFloorplan('));assert.ok(code.indexOf('mismatchReasons.length')<code.indexOf('setAiFloorplan('));
- assert.match(code,/sceneSnapshot: editedScene/);
+ const code=generate.getText(file);assert.doesNotMatch(code,/model3d\/stream|prepareSvgEditScene|compileBlueprintToPascal/);assert.ok(code.indexOf('assertImageDecodes(')<code.indexOf('setAiFloorplan('));assert.ok(code.indexOf('mismatchReasons.length')<code.indexOf('setAiFloorplan('));assert.match(code,/editContext,/);
  assert.match(source,/customRequirement: currentFloorplan\?\.userPrompt \?\? prompt/);assert.match(source,/editDraft: prompt/);
- console.log(JSON.stringify({status:'PASS',kind:'actual-portal-handlers-controlled-network-no-AI',checks:['save-updates-only-bound-version-snapshot','quota-failure-preserves-version-snapshots','switch-V1-V2-V1-restores-saved-furniture','draft-keeps-committed-scene','draft-does-not-unbind-version','failure-does-not-clear-captures-or-model','candidate-stream-never-publishes-partial-scene','mismatched-source-rejected','invalid-Pascal-rejected','success-clones-candidate','version-commit-after-full-validation','draft-persisted-separately']}));
+ console.log(JSON.stringify({status:'PASS',kind:'actual-portal-handlers-controlled-network-no-AI',checks:['save-updates-only-bound-version-snapshot','quota-failure-preserves-version-snapshots','switch-V1-V2-V1-restores-saved-furniture','draft-keeps-committed-scene','draft-does-not-unbind-version','failure-does-not-clear-captures-or-model','Step2-no-3D-request','deferred-edit-context-saved','invalid-Pascal-rejected','success-clones-candidate','version-commit-after-2D-and-stale-checks','draft-persisted-separately']}));
 }
 main().catch(e=>{console.error(e);process.exit(1)});

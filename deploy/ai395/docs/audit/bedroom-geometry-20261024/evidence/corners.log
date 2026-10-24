@@ -1,0 +1,13 @@
+PASS synthetic upper
+PASS synthetic lower
+PASS synthetic left
+PASS synthetic right
+PASS catalog one-option-01 upper
+SAFE_REJECT one-option-02 BEDROOM_INSUFFICIENT_TOTAL_AREA
+PASS catalog one-option-07 lower
+PASS catalog two-option-01 upper
+SAFE_REJECT two-option-02 BEDROOM_NO_FEASIBLE_PARTITION
+SAFE_REJECT two-option-07 BEDROOM_NO_SUPPORTED_CORNER
+PASS catalog three-option-01 lower
+PASS catalog three-option-03 left
+PASS catalog three-option-07 upper

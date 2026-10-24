@@ -7,7 +7,7 @@ type Structure = ReturnType<typeof svgToStructure>;
 type Point = [number,number];
 const PLAYER_RADIUS=.22;
 const GRID_STEP=.08;
-const fail=(code:string,message:string):never=>{throw new Error(`${code}：${message}，已保留原方案。`);};
+const reject=(code:string,message:string):never=>{throw new Error(`${code}：${message}，已保留原方案。`);};
 function segmentDistance(p:Point,a:Point,b:Point) {
  const dx=b[0]-a[0],dz=b[1]-a[1],length2=dx*dx+dz*dz;
  const t=Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dz)/(length2||1)));
@@ -29,10 +29,11 @@ function overlaps(a:Point[],b:Point[]) {
  * itself has no furniture. Never fix this check by deleting or moving an item.
  * A returned report proves the current walkthrough can reach the new bedroom;
  * it is not a building-code/accessibility certification. */
-export function assertBedroomSceneUsable(scene:SceneGraph,original:Structure,targetRoomId:string,newRoomId:string,originalScene?:SceneGraph) {
+export function assertBedroomSceneUsable(scene:SceneGraph,original:Structure,targetRoomId:string,newRoomId:string,originalScene?:SceneGraph, kind:"bedroom"|"bathroom"="bedroom") {
+ const fail=(code:string,message:string):never=>reject(kind==='bathroom'?code.replace('BEDROOM_','BATHROOM_'):code,kind==='bathroom'?message.replaceAll('卧室','卫生间').replaceAll('客餐厅','主卧').replaceAll('入户门','主卧原门'):message);
  const blueprint=sceneToFloorplanBlueprint(scene);
  const living=blueprint.rooms.find(r=>r.id===targetRoomId),bedroom=blueprint.rooms.find(r=>r.id===newRoomId);
- if(!living||living.semantic!=='living_room'||!original.rooms.some(r=>r.id===targetRoomId&&r.semantic==='living_room')||!bedroom||bedroom.semantic!=='bedroom')fail('BEDROOM_SCENE_ROOMS_INVALID','新增卧室或原客餐厅与结构方案不一致');
+ if(!living||living.semantic!==(kind==='bedroom'?'living_room':'master_bedroom')||!original.rooms.some(r=>r.id===targetRoomId&&r.semantic===(kind==='bedroom'?'living_room':'master_bedroom'))||!bedroom||bedroom.semantic!==kind)fail('BEDROOM_SCENE_ROOMS_INVALID','新增卧室或原客餐厅与结构方案不一致');
  const doors=blueprint.doors.filter(d=>!original.doors.some(o=>o.id===d.id));
  if(doors.length!==1||!doors[0].connects.includes(targetRoomId)||!doors[0].connects.includes(newRoomId))fail('BEDROOM_SCENE_DOOR_INVALID','新增卧室的门未正确连接客餐厅');
  const newDoor=doors[0];
@@ -67,7 +68,7 @@ export function assertBedroomSceneUsable(scene:SceneGraph,original:Structure,tar
  const nearest=(p:Point,polygon:Point[])=>{let best=-1,distance=.45;for(let i=0;i<free.length;i++){if(!free[i])continue;const q=point(i),d=Math.hypot(q[0]-p[0],q[1]-p[1]);if(d<distance&&pointInPolygon(q,polygon)){distance=d;best=i;}}return best;};
  const end=nearest([doorCenter.x,doorCenter.z],bedroom.polygon);
  if(end<0)fail('BEDROOM_SCENE_DOOR_APPROACH_BLOCKED','新增卧室门内侧没有可站立空间');
- const entries=blueprint.doors.filter(d=>original.doors.some(o=>o.id===d.id)&&d.connects.includes(targetRoomId)&&d.connects.includes(null));
+ const entries=blueprint.doors.filter(d=>original.doors.some(o=>o.id===d.id)&&d.connects.includes(targetRoomId)&&(kind==='bathroom'||d.connects.includes(null)));
  if(!entries.length)fail('BEDROOM_SCENE_ENTRANCE_UNKNOWN','无法从当前结构确定原入户门，拒绝提交改造');
  const paths:{entryDoorId:string;path:Point[]}[]=[];
  const warnings:string[]=[],originalRoutesChecked:string[]=[];

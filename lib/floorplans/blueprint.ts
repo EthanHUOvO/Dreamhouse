@@ -124,8 +124,8 @@ function safeRoomPoint(room: FloorplanRoom): [number, number, number] {
 
 /** First-build defaults only. Explicit/saved Blueprint furniture bypasses
  * this function, so manual placements are never relocated by reconstruction. */
-function safeLivingSofaPlacement(room:FloorplanRoom,spec:FloorplanSpec):{position:[number,number,number];rotation:number}{
-  const preferred=safeRoomPoint(room),probe=furnitureItem('placement-probe',room.id,'sofa',preferred,0,[.72,1,.72]);
+function safeDefaultFurniturePlacement(room:FloorplanRoom,spec:FloorplanSpec,kind:Parameters<typeof furnitureItem>[2]):{position:[number,number,number];rotation:number}{
+  const preferred=safeRoomPoint(room),probe=furnitureItem('placement-probe',room.id,kind,preferred,0,[.72,1,.72]);
   const width=probe.asset!.dimensions![0]*.72/2,depth=probe.asset!.dimensions![2]*.72/2;
   const approaches=spec.doors.flatMap(o=>{
     if(!connectedRooms(spec,o.wallId,o.distance-o.width/2,o.width).includes(room.id))return[];
@@ -136,11 +136,45 @@ function safeLivingSofaPlacement(room:FloorplanRoom,spec:FloorplanSpec):{positio
   });
   const safe=(x:number,z:number,halfX:number,halfZ:number)=>{
     for(let ix=0;ix<=6;ix++)for(let iz=0;iz<=6;iz++){const p:Point=[x-halfX+2*halfX*ix/6,z-halfZ+2*halfZ*iz/6];if(!pointInPolygon(p,room.polygon)||room.polygon.some((a,i)=>pointSegmentDistance(p,a,room.polygon[(i+1)%room.polygon.length])<.08))return false;}
-    return approaches.every(points=>points.some(p=>!(Math.abs(x-p.x)<halfX+p.hx+.22&&Math.abs(z-p.z)<halfZ+p.hz+.22)));
+    return approaches.every(points=>{const centre=points[Math.floor(points.length/2)];return !(Math.abs(x-centre.x)<=halfX+.23&&Math.abs(z-centre.z)<=halfZ+.23)&&points.some(p=>!(Math.abs(x-p.x)<halfX+p.hx+.22&&Math.abs(z-p.z)<halfZ+p.hz+.22));});
+  };
+  // Default assets must not cut a room's circulation into disconnected pieces.
+  // This is placement search only; the unchanged final scene guard still checks
+  // the actual furnished Pascal scene, and saved furniture never enters here.
+  const connected=(x:number,z:number,halfX:number,halfZ:number)=>{
+    const b=bounds(room.polygon),step=.12,radius=.22,margin=radius+.06;
+    const nx=Math.ceil((b.maxX-b.minX)/step)+1,nz=Math.ceil((b.maxZ-b.minZ)/step)+1;
+    if(nx*nz>100000)return false;
+    const point=(i:number):Point=>[b.minX+i%nx*step,b.minZ+Math.floor(i/nx)*step];
+    const free=new Uint8Array(nx*nz);
+    for(let i=0;i<free.length;i++){
+      const p=point(i);
+      if(Math.abs(p[0]-x)<halfX+radius&&Math.abs(p[1]-z)<halfZ+radius)continue;
+      if(pointInPolygon(p,room.polygon)&&room.polygon.every((a,j)=>pointSegmentDistance(p,a,room.polygon[(j+1)%room.polygon.length])>=margin))free[i]=1;
+    }
+    const terminals=approaches.map(positions=>{
+      const candidates:number[]=[];
+      for(const p of positions){
+        if(Math.abs(x-p.x)<halfX+radius&&Math.abs(z-p.z)<halfZ+radius)continue;
+        let nearest=-1,best=.62;
+        for(let i=0;i<free.length;i++){if(!free[i])continue;const q=point(i),distance=Math.hypot(q[0]-p.x,q[1]-p.z);if(distance<best){best=distance;nearest=i;}}
+        if(nearest>=0)candidates.push(nearest);
+      }
+      return candidates;
+    });
+    if(terminals.some(t=>!t.length))return false;
+    if(terminals.length<2)return true;
+    const seen=new Uint8Array(free.length),queue=[terminals[0][0]];seen[queue[0]]=1;
+    for(let i=0;i<queue.length;i++)for(const delta of [-nx,nx,-1,1]){
+      const a=queue[i],n=a+delta;
+      if(n<0||n>=free.length||Math.abs(delta)===1&&Math.floor(a/nx)!==Math.floor(n/nx)||!free[n]||seen[n])continue;
+      seen[n]=1;queue.push(n);
+    }
+    return terminals.every(t=>t.some(i=>seen[i]));
   };
   for(const rotation of [0,Math.PI/2]){
     const halfX=rotation?depth:width,halfZ=rotation?width:depth;
-    if(safe(preferred[0],preferred[2],halfX,halfZ))return{position:preferred,rotation};
+    if(safe(preferred[0],preferred[2],halfX,halfZ)&&connected(preferred[0],preferred[2],halfX,halfZ))return{position:preferred,rotation};
     const b=bounds(room.polygon),candidates:Point[]=[];
     // Include exact wall-derived limits: a narrow feasible strip can fall
     // between two grid samples even when the real sofa fits safely.
@@ -152,7 +186,8 @@ function safeLivingSofaPlacement(room:FloorplanRoom,spec:FloorplanSpec):{positio
     };
     for(const x of axisValues(0,halfX,b.minX,b.maxX))for(const z of axisValues(1,halfZ,b.minZ,b.maxZ))if(safe(x,z,halfX,halfZ))candidates.push([x,z]);
     candidates.sort((a,b)=>Math.hypot(a[0]-preferred[0],a[1]-preferred[2])-Math.hypot(b[0]-preferred[0],b[1]-preferred[2]));
-    if(candidates.length)return{position:[candidates[0][0],0,candidates[0][1]],rotation};
+    const valid=candidates.slice(0,120).find(p=>connected(p[0],p[1],halfX,halfZ));
+    if(valid)return{position:[valid[0],0,valid[1]],rotation};
   }
   // No item is omitted when the bounded placement search has no solution.
   // The furnished transaction guard must reject an unusable default.
@@ -160,7 +195,7 @@ function safeLivingSofaPlacement(room:FloorplanRoom,spec:FloorplanSpec):{positio
 }
 
 function defaultFurniture(spec: FloorplanSpec): BlueprintFurniture[] {
-  const kinds: Record<string, string> = {
+  const kinds: Record<string, Parameters<typeof furnitureItem>[2]> = {
     bedroom: "singleBed",
     master_bedroom: "doubleBed",
     child_room: "singleBed",
@@ -174,16 +209,18 @@ function defaultFurniture(spec: FloorplanSpec): BlueprintFurniture[] {
   // catalogue scenes and explicitly supplied/saved furniture retain their
   // previous placement path; this avoids unrelated layout changes and work.
   const bedroomEdited=spec.rooms.some(room=>String((room as any).sourceLabel?.id||'').startsWith('bedroom-'));
+  const bathroomEdited=spec.rooms.some(room=>String((room as any).sourceLabel?.id||'').startsWith('bathroom-'));
   return spec.rooms.flatMap((room, index) => {
     const kind = kinds[room.semantic];
-    const living=bedroomEdited&&room.semantic==='living_room'?safeLivingSofaPlacement(room,spec):null;
+    const newRoom=/^(bedroom|bathroom)-/.test(String((room as any).sourceLabel?.id||''));
+    const placement=kind&&(newRoom||bedroomEdited&&room.semantic==='living_room'||bathroomEdited&&room.semantic==='master_bedroom')?safeDefaultFurniturePlacement(room,spec,kind):null;
     return kind
       ? [{
           id: `item_${room.id}_${index + 1}`,
           roomId: room.id,
           kind,
-          position: living?.position??safeRoomPoint(room),
-          rotation: living?.rotation??0,
+          position: placement?.position??safeRoomPoint(room),
+          rotation: placement?.rotation??0,
           size: [0.72, 1, 0.72],
           scale: [0.72, 1, 0.72],
         } as BlueprintFurniture]

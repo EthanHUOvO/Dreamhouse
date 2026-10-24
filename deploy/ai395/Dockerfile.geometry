@@ -1,0 +1,14 @@
+FROM ideal-home-local:web-corners-20261023
+COPY TouchCustomerPortal.tsx /app/components/customer/TouchCustomerPortal.tsx
+COPY v2/step3-3d/blueprint.ts /app/lib/floorplans/blueprint.ts
+COPY v2/step3-3d/session-store.ts /app/services/pascal-mcp/session-store.ts
+COPY v2/step3-3d/svg-geometry.ts /app/lib/ai/svg-geometry.ts
+COPY v2/step3-3d/svg-edit-geometry.ts /app/lib/ai/svg-edit-geometry.ts
+COPY v2/step3-3d/bathroom-edit-geometry.ts /app/lib/ai/bathroom-edit-geometry.ts
+COPY v2/step3-3d/bedroom-edit-geometry.ts /app/lib/ai/bedroom-edit-geometry.ts
+COPY v2/step3-3d/bedroom-scene-validation.ts /app/lib/ai/bedroom-scene-validation.ts
+COPY v2/step2-edit/floorplan-edit-intent.ts /app/lib/ai/floorplan-edit-intent.ts
+COPY v2/step3-3d/svg-model-plan.ts /app/lib/ai/svg-model-plan.ts
+COPY v2/step3-3d/svg-scene.ts /app/lib/ai/svg-scene.ts
+COPY v2/step2-edit/svg-edit-route.ts /app/app/api/ai/svg-edit/route.ts
+RUN npm run build

@@ -1,0 +1,17 @@
+PASS synthetic bathroom upper
+PASS synthetic bathroom lower
+PASS synthetic bathroom left
+PASS synthetic bathroom right
+PASS synthetic bathroom upper-left
+PASS synthetic bathroom upper-right
+PASS synthetic bathroom lower-left
+PASS synthetic bathroom lower-right
+{"id":"one-01","legacy":["corner-east-north","corner-west-north"],"candidates":[{"id":"corner-east-north","position":"upper-right","scene":"PASS"},{"id":"corner-west-north","position":"upper-left","scene":"BATHROOM_SCENE_ENTRANCE_PATH_BLOCKED：新增卫生间在当前家具布局下无法从主卧原门到达，请在 Step3 手动调整家具后重试，已保留原方案。"}]}
+{"id":"one-02","legacy":["corner-east-north"],"candidates":[]}
+{"id":"one-07","legacy":["corner-east-north","corner-west-north","corner-west-south"],"candidates":[{"id":"corner-west-north","position":"upper-left","scene":"PASS"},{"id":"corner-west-south","position":"lower-left","scene":"PASS"}]}
+{"id":"two-01","legacy":["corner-west-north","corner-east-south","corner-west-south"],"candidates":[{"id":"corner-west-north","position":"upper-left","scene":"PASS"},{"id":"corner-east-south","position":"lower-right","scene":"PASS"}]}
+{"id":"two-02","legacy":["corner-east-north","corner-east-south"],"candidates":[{"id":"corner-east-north","position":"upper-right","scene":"PASS"}]}
+{"id":"two-07","legacy":["corner-west-north","corner-east-south"],"candidates":[{"id":"corner-west-north","position":"upper-left","scene":"PASS"},{"id":"corner-east-south","position":"lower-right","scene":"PASS"}]}
+{"id":"three-01","legacy":["corner-east-south","corner-west-south"],"candidates":[{"id":"corner-west-south","position":"lower-left","scene":"PASS"}]}
+{"id":"three-03","legacy":["corner-east-south","corner-west-south"],"candidates":[{"id":"corner-east-south","position":"lower-right","scene":"PASS"},{"id":"corner-west-south","position":"lower-left","scene":"PASS"}]}
+{"id":"three-07","legacy":["corner-west-north","corner-west-south"],"candidates":[{"id":"corner-west-north","position":"upper-left","scene":"PASS"},{"id":"corner-west-south","position":"lower-left","scene":"PASS"}]}

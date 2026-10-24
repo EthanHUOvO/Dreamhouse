@@ -15,6 +15,7 @@ check('accept valid single-bedroom constraints',()=>assert.equal(intent.validate
 for(const [name,changes,code] of [
 ['unknown room',{targetRoomId:'missing'},'EDIT_INTENT_UNKNOWN_ROOM'],['missing protected room',{protectedRoomIds:['bath']},'EDIT_PROTECTED_ROOMS_INCOMPLETE'],['blocked entrance',{preserveEntrance:false},'EDIT_PROTECTION_REQUIRED'],['unsupported exact width',{unhandledRequirements:['新卧室必须长4米宽3米']},'EDIT_REQUIREMENTS_UNSUPPORTED'],['two bedrooms',{roomCount:2},'EDIT_BEDROOM_SCOPE_UNSUPPORTED'],['wrong entry',{entryFromRoomId:'kitchen'},'EDIT_BEDROOM_SCOPE_UNSUPPORTED'],['unknown property',{ignoreValidation:true},'EDIT_INTENT_SCHEMA_INVALID'],['invalid min area',{minAreaM2:Infinity},'EDIT_INTENT_SCHEMA_INVALID']])check(name,()=>assert.throws(()=>intent.validateFloorplanIntent({...base,...changes},rooms),e=>e.code===code));
 for(const region of ['upper','lower','left','right','any','unspecified'])check('accept bedroom region '+region,()=>assert.equal(intent.validateFloorplanIntent({...base,region},rooms).region,region==='unspecified'?'any':region));
+for(const region of ['upper','lower','left','right','upper-left','upper-right','lower-left','lower-right','any'])check('bathroom direction '+region,()=>assert.equal(intent.validateFloorplanIntent({...base,action:'add_bathroom',targetRoomId:'master',entryFromRoomId:'master',protectedRoomIds:['living','kitchen','bath'],region},rooms).region,region));
 const response=(name,args)=>({model:'CONTROL-STUB-NOT-AI',id:'stub',choices:[{finish_reason:'tool_calls',message:{tool_calls:[{id:'call1',type:'function',function:{name,arguments:JSON.stringify(args)}}]}}]});
 check('reject multiple tool calls',()=>{const r=response('parse_floorplan_intent',base);r.choices[0].message.tool_calls.push(r.choices[0].message.tool_calls[0]);assert.throws(()=>intent.readSingleToolCall(r,'parse_floorplan_intent'),e=>e.code==='LLM_TOOL_RESPONSE_INCOMPLETE')});
 let aiCalls=[],applies=0,replyQueue=[],candidateList=[{id:'upper-1',newAreaM2:6,remainingAreaM2:10}],seenConstraints;
@@ -22,7 +23,7 @@ const route=load('v2/step2-edit/svg-edit-route.ts',{
 'next/server':{NextResponse:{json:(body,options)=>({body,status:options?.status||200})}},
 '@/lib/ai/qwen-client':{qwenChatCompletion:async(body,options)=>{aiCalls.push({body,options});const r=replyQueue.shift();assert.ok(r,'unexpected inference');return r;}},
 '@/lib/ai/svg-edit-geometry':{},
-'@/lib/ai/bedroom-candidate-scene':{checkBedroomDefaultScene:()=>{}},
+'@/lib/ai/bathroom-edit-geometry':{},
 '@/lib/ai/bedroom-edit-geometry':{bedroomEditContext:()=>({rooms,unit:'meter'}),bedroomPartitionAnalysis:(_s,c)=>{seenConstraints=c;return {candidates:candidateList,diagnostics:{searchLimited:false}}},applyBedroomPartition:(svg,id,c)=>{assert.equal(svg,'original svg');assert.equal(id,'upper-1');assert.deepEqual(c,seenConstraints);applies++;return{svg:'validated new svg',structure:{rooms:[]},validation:{valid:true}}}},
 '@/lib/ai/floorplan-edit-intent':intent,
 });
@@ -50,7 +51,7 @@ let realModelCalls=0;
 const actualRoute=load('v2/step2-edit/svg-edit-route.ts',{
   'next/server':{NextResponse:{json:(body,options)=>({body,status:options?.status||200})}},
   '@/lib/ai/qwen-client':{qwenChatCompletion:async(body)=>{realModelCalls++;if(body.tool_choice.function.name==='parse_floorplan_intent')return response('parse_floorplan_intent',actualIntent);const p=JSON.parse(body.messages[1].content);assert.ok(p.candidates.length>0&&p.candidates.length<=6);return response('select_floorplan_candidate',{candidateId:p.candidates[0].id,unmetRequirements:[],reason:'控制桩选中几何程序的首个合法候选'});}},
-  '@/lib/ai/bedroom-candidate-scene':{checkBedroomDefaultScene:()=>{}},
+  '@/lib/ai/bathroom-edit-geometry':{},
   '@/lib/ai/svg-edit-geometry':svgEdit,'@/lib/ai/bedroom-edit-geometry':bedroomGeometry,'@/lib/ai/floorplan-edit-intent':intent,
 });
 const realResult=await actualRoute.POST({json:async()=>({svgText:original,instruction:'在客餐厅上侧新增一个卧室，保留入户通道和厨卫位置'}),signal:new AbortController().signal});

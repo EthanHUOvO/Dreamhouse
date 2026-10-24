@@ -1,0 +1,8 @@
+{
+  "image": "sha256:b8d39f4aa1626253e256c198592b3339dc5303b3411bfe027f48ac4e1eecd5f7",
+  "sources": {
+    "/app/lib/ai/svg-geometry.ts": "f6ccf5c62bfe96fbb326a9982e2421db61cfe552601b1d64e5c79013a4cfed70",
+    "/app/lib/floorplans/blueprint.ts": "82b1a20c87a2935bd7e269db8a740fe03909828ed3a556f867c1c561ec3448ea",
+    "/app/services/pascal-mcp/session-store.ts": "8d4fe7e940a7e4b30ac6d556f24c34ddbfef6f5ed71ec433f5f99752768dabeb"
+  }
+}

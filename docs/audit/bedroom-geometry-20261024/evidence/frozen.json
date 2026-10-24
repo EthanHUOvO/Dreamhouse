@@ -1,0 +1,17 @@
+{
+  "web": "sha256:a492fe1f0981658cfa734f94461c56c8eac7bd444e6f529ac4716f400b666f79",
+  "sources": {
+    "/app/components/customer/TouchCustomerPortal.tsx": "faaad70a293d02f40cd344d5d63b2dfd5c95e9da940655696bdf9ed5e45c9032",
+    "/app/lib/floorplans/blueprint.ts": "82b1a20c87a2935bd7e269db8a740fe03909828ed3a556f867c1c561ec3448ea",
+    "/app/services/pascal-mcp/session-store.ts": "8d4fe7e940a7e4b30ac6d556f24c34ddbfef6f5ed71ec433f5f99752768dabeb",
+    "/app/lib/ai/svg-geometry.ts": "f6ccf5c62bfe96fbb326a9982e2421db61cfe552601b1d64e5c79013a4cfed70",
+    "/app/lib/ai/svg-edit-geometry.ts": "2897e6d3baad4e037b541b4cfc77d1c90c3f9476e6f5d659a4d4e3a342a131f5",
+    "/app/lib/ai/bathroom-edit-geometry.ts": "f372df7b375780a3a0a6a50c6ff2c035042e2b77cedecda54c0322363353cb7a",
+    "/app/lib/ai/bedroom-edit-geometry.ts": "c8b824902903a116f67a95704359bfb73aee82af230c3a27ab6de2e8b72d14e4",
+    "/app/lib/ai/bedroom-scene-validation.ts": "b82f233e2b7519d2f6a1b1063588daca6a954a2c883b06b79c73e0a7905eefa0",
+    "/app/lib/ai/floorplan-edit-intent.ts": "7dff333c96401db125638dce60ef842d8d092e121b6fa0253c4cc57fecb1265b",
+    "/app/lib/ai/svg-model-plan.ts": "c2f59929639e49e98df2752216d7d7a44065fbd6fb4036ce8602aa215be14970",
+    "/app/lib/ai/svg-scene.ts": "eca70a41ae7d0207c76412f59d4c4d9a3de3126dfec7190553611f11790793cf",
+    "/app/app/api/ai/svg-edit/route.ts": "0898f06085ad55a095c415efda7ef5d20e3ca8c2e11670aa37cd90fc531cf898"
+  }
+}

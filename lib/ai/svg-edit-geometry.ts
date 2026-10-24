@@ -94,7 +94,7 @@ export function applySvgEdits(svg:string,instruction:string,additions:Addition[]
     // 不移动原房间标签
     // 不删除原面积文字（保持主卧面积标注原位）}
   }
-  const output=appendSvgAdditions(original,additions,`edit-${Date.now()}-${Math.random().toString(36).slice(2,7)}`);
+  const output=appendSvgAdditions(original,additions,`${c.partition?'bathroom':'edit'}-${Date.now()}-${Math.random().toString(36).slice(2,7)}`);
   const next=svgToStructure(output);
   if(next.rooms.length!==st.rooms.length+(c.partition?1:0)||next.doors.length!==st.doors.length+1||next.windows.length!==st.windows.length)throw new Error("EDIT_TOPOLOGY_COUNT_MISMATCH");
   const newRoom=c.partition?next.rooms.at(-1):undefined;

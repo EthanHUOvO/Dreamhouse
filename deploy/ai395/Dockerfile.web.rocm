@@ -27,12 +27,14 @@ COPY v2/step3-3d/svg-version.ts /app/lib/ai/svg-version.ts
 COPY v2/step3-3d/model3d-source.ts /app/lib/ai/model3d-source.ts
 COPY v2/step3-3d/svg-geometry.ts /app/lib/ai/svg-geometry.ts
 COPY v2/step3-3d/svg-edit-geometry.ts /app/lib/ai/svg-edit-geometry.ts
+COPY v2/step3-3d/bathroom-edit-geometry.ts /app/lib/ai/bathroom-edit-geometry.ts
 COPY v2/step3-3d/bedroom-edit-geometry.ts /app/lib/ai/bedroom-edit-geometry.ts
 COPY v2/step3-3d/bedroom-scene-validation.ts /app/lib/ai/bedroom-scene-validation.ts
 COPY v2/step3-3d/bedroom-candidate-scene.ts /app/lib/ai/bedroom-candidate-scene.ts
 COPY v2/step3-3d/bedroom-source-furniture.ts /app/lib/ai/bedroom-source-furniture.ts
 COPY v2/step2-edit/floorplan-edit-intent.ts /app/lib/ai/floorplan-edit-intent.ts
 COPY v2/step3-3d/mcp-server.ts /app/services/pascal-mcp/server.ts
+COPY v2/step3-3d/svg-model-plan.ts /app/lib/ai/svg-model-plan.ts
 COPY v2/step3-3d/svg-scene.ts /app/lib/ai/svg-scene.ts
 COPY v2/step3-3d/model3d-stream-route.ts /app/app/api/ai/model3d/stream/route.ts
 COPY v2/step1-render/svg-render-route.ts /app/app/api/ai/svg-render/route.ts

@@ -1,0 +1,79 @@
+[
+  {
+    "name": "svg-model-plan",
+    "exitCode": 0,
+    "image": "sha256:a492fe1f0981658cfa734f94461c56c8eac7bd444e6f529ac4716f400b666f79",
+    "network": "none",
+    "applicationSourceOverlays": false
+  },
+  {
+    "name": "entry-partition",
+    "exitCode": 0,
+    "image": "sha256:a492fe1f0981658cfa734f94461c56c8eac7bd444e6f529ac4716f400b666f79",
+    "network": "none",
+    "applicationSourceOverlays": false
+  },
+  {
+    "name": "mcp-room-metadata",
+    "exitCode": 0,
+    "image": "sha256:a492fe1f0981658cfa734f94461c56c8eac7bd444e6f529ac4716f400b666f79",
+    "network": "none",
+    "applicationSourceOverlays": false
+  },
+  {
+    "name": "step3-transaction",
+    "exitCode": 0,
+    "image": "sha256:a492fe1f0981658cfa734f94461c56c8eac7bd444e6f529ac4716f400b666f79",
+    "network": "none",
+    "applicationSourceOverlays": false
+  },
+  {
+    "name": "split-geometry",
+    "exitCode": 0,
+    "image": "sha256:a492fe1f0981658cfa734f94461c56c8eac7bd444e6f529ac4716f400b666f79",
+    "network": "none",
+    "applicationSourceOverlays": false
+  },
+  {
+    "name": "corners",
+    "exitCode": 0,
+    "image": "sha256:a492fe1f0981658cfa734f94461c56c8eac7bd444e6f529ac4716f400b666f79",
+    "network": "none",
+    "applicationSourceOverlays": false
+  },
+  {
+    "name": "legacy-regression",
+    "exitCode": 0,
+    "image": "sha256:a492fe1f0981658cfa734f94461c56c8eac7bd444e6f529ac4716f400b666f79",
+    "network": "none",
+    "applicationSourceOverlays": false
+  },
+  {
+    "name": "source-furniture",
+    "exitCode": 0,
+    "image": "sha256:a492fe1f0981658cfa734f94461c56c8eac7bd444e6f529ac4716f400b666f79",
+    "network": "none",
+    "applicationSourceOverlays": false
+  },
+  {
+    "name": "portal-transaction",
+    "exitCode": 0,
+    "image": "sha256:a492fe1f0981658cfa734f94461c56c8eac7bd444e6f529ac4716f400b666f79",
+    "network": "none",
+    "applicationSourceOverlays": false
+  },
+  {
+    "name": "intent",
+    "exitCode": 0,
+    "image": "sha256:a492fe1f0981658cfa734f94461c56c8eac7bd444e6f529ac4716f400b666f79",
+    "network": "none",
+    "applicationSourceOverlays": false
+  },
+  {
+    "name": "handlers",
+    "exitCode": 0,
+    "image": "sha256:a492fe1f0981658cfa734f94461c56c8eac7bd444e6f529ac4716f400b666f79",
+    "network": "none",
+    "applicationSourceOverlays": false
+  }
+]

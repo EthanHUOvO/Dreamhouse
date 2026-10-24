@@ -66,9 +66,27 @@ function contours(d: string): Point[][] {
 }
 type Glyph = { id: string; a: Point; b: Point; kind: "door" | "sliding" | "window"; box?: number[] };
 type Label = { id: string; name: string; point: Point; sourceArea?: number; start: number; end: number };
+// An additive partition must not reassign existing shared wall pixels to a
+// neighbouring source room. Keep source ownership as a constraint on wall-only
+// Voronoi growth; free-space extraction and all topology checks still run on
+// the complete edited drawing. No room coordinates are supplied by metadata.
+type Ownership = {walls:{start:Point;end:Point}[];regions:Int32Array;gw:number;gh:number;ox:number;oy:number;unit:number};
+const ownership = new WeakMap<object,Ownership>();
+const sourceOwnershipCache = new Map<string,Ownership>();
+function partitionSourceOwnership(svg:string,nodes:Element[]):Ownership|undefined {
+  const groups=nodes.filter(n=>n.parent===nodes[0]&&n.tag==='g'&&/^(?:bedroom|bathroom)-[\w-]+$/.test(n.attrs.id||'')&&n.children.some(c=>c.attrs['data-kind']==='room-labels'));
+  if(!groups.length)return;
+  if(groups.length>8)throw new Error('SVG_INCREMENTAL_PARTITION_LIMIT');
+  const last=groups.at(-1)!,source=svg.slice(0,last.start)+svg.slice(last.end);
+  const cached=sourceOwnershipCache.get(source);if(cached)return cached;
+  const baseline=svgToStructure(source),result=ownership.get(baseline);
+  if(!result)throw new Error('SVG_SOURCE_OWNERSHIP_MISSING');
+  if(sourceOwnershipCache.size>=3)sourceOwnershipCache.delete(sourceOwnershipCache.keys().next().value!);
+  sourceOwnershipCache.set(source,result);return result;
+}
 const SEMANTIC: Record<string, string> = { 主卧: "master_bedroom", 主卫: "bathroom", 卫生间: "bathroom", 洗漱区: "bathroom", 次卧: "bedroom", 卧室: "bedroom", 客餐厅: "living_room", 客厅: "living_room", 厨房: "kitchen", 阳台: "balcony", 书房: "study", 餐厅: "dining_room", 冷藏室: "storage", 储藏: "storage" };
 export function svgToStructure(svg: string) {
-  const nodes = parseSvg(svg), root = nodes[0];
+  const nodes = parseSvg(svg), root = nodes[0], sourceOwnership=partitionSourceOwnership(svg,nodes);
   const vb = (root.attrs.viewBox || "").trim().split(/[\s,]+/).map(Number);
   if (vb.length !== 4 || !vb.every(Number.isFinite) || vb[2] <= 0 || vb[3] <= 0) throw new Error("SVG_VIEWBOX_INVALID");
   const pixel = nodes.some(n => n.attrs.id === "walls"), unit = pixel ? 1 : 20;
@@ -178,10 +196,21 @@ export function svgToStructure(svg: string) {
   }
   const unknown = counts.flatMap((count, i) => i !== outside && !byRegion.has(i) && count * unit * unit * sx * sy > .2 ? [{ component: i, area: count * unit * unit * sx * sy }] : []);
   if (unknown.length) throw new Error(`SVG_UNLABELLED_SPACE:${JSON.stringify(unknown)}`);
-  // Grow all components into wall pixels equally to obtain shared centreline boundaries.
+  // Grow through wall cells only within their existing source room. Adding
+  // an interior T-junction cannot move an untouched kitchen/bathroom centreline.
+  const parentRegion=new Int32Array(counts.length).fill(-1);
+  if(sourceOwnership){
+    if(sourceOwnership.gw!==gw||sourceOwnership.gh!==gh||sourceOwnership.ox!==ox||sourceOwnership.oy!==oy||sourceOwnership.unit!==unit)throw new Error('SVG_SOURCE_OWNERSHIP_GRID_MISMATCH');
+    for(let i=0;i<total;i++)if(regions[i]>=0){
+      const cid=regions[i],source=sourceOwnership.regions[i];
+      if(parentRegion[cid]>=0&&parentRegion[cid]!==source)throw new Error('SVG_INCREMENTAL_REGION_CROSSES_SOURCE_ROOM');
+      parentRegion[cid]=source;
+    }
+  }
   let tail = 0;
   for (let i = 0; i < total; i++) if (regions[i] >= 0) queue[tail++] = i;
-  for (let head = 0; head < tail; head++) for (const ni of neighbors(queue[head])) if (ni >= 0 && regions[ni] < 0) { regions[ni] = regions[queue[head]]; queue[tail++] = ni; }
+  for (let head = 0; head < tail; head++) for (const ni of neighbors(queue[head])) if (ni >= 0 && regions[ni] < 0 && (!sourceOwnership||sourceOwnership.regions[ni]===parentRegion[regions[queue[head]]])) { regions[ni] = regions[queue[head]]; queue[tail++] = ni; }
+  if(regions.some(r=>r<0))throw new Error('SVG_INCREMENTAL_WALL_OWNERSHIP_UNRESOLVED');
   function trace(id: number | "outer"): Point[] {
     const edges = new Map<number, number[]>();
     const hit = (i: number) => i >= 0 && (id === "outer" ? byRegion.has(regions[i]) : regions[i] === id);
@@ -275,6 +304,17 @@ export function svgToStructure(svg: string) {
     if(!extensionSupported(a,p)||!extensionSupported(b,p)) continue;
     for(const s of [a,b]) {const axis=Math.abs(s.start[1]-s.end[1])<1e-8?0:1;s.start[axis]=Math.min(s.start[axis],p[axis]);s.end[axis]=Math.max(s.end[axis],p[axis]);}
   }
+  // Adding a room splits source boundary runs. Re-fitting each shorter run
+  // to raster stairs can shift an unchanged entrance onto the slab edge.
+  // Reuse its physically supported source centreline, within one raster cell,
+  // only when the entire new run is covered by that same original wall.
+  if(sourceOwnership)for(const segment of segs){
+    const horizontal=Math.abs(segment.start[1]-segment.end[1])<1e-8,axis=horizontal?0:1,cross=1-axis;
+    const matches=sourceOwnership.walls.filter(w=>(Math.abs(w.start[1]-w.end[1])<1e-8)===horizontal&&Math.abs(w.start[cross]-segment.start[cross])<=unit*(horizontal?sy:sx)+1e-8&&segment.start[axis]>=w.start[axis]-1e-8&&segment.end[axis]<=w.end[axis]+1e-8).sort((a,b)=>Math.abs(a.start[cross]-segment.start[cross])-Math.abs(b.start[cross]-segment.start[cross]));
+    const original=matches[0];if(!original)continue;
+    const start:Point=[...segment.start],end:Point=[...segment.end];start[cross]=end[cross]=original.start[cross];
+    if(lineSupported(start,end)){segment.start=start;segment.end=end;}
+  }
   // Joining corners can make formerly separate collinear runs touch. Unify
   // them before binding openings so a second wall cannot cover an aperture.
   for(let i=segs.length-1;i>=0;i--)for(let j=0;j<i;j++) {
@@ -341,5 +381,7 @@ export function svgToStructure(svg: string) {
     return { id: `${g.kind === "window" ? "window" : "door"}_${g.id.replace(/[^\w-]/g, "_")}`, name: g.kind === "sliding" ? "推拉门" : g.kind === "door" ? "门" : "窗", wallId: host.wallId, width, distance: host.distance, ...(g.kind !== "window" ? { doorType: g.kind === "sliding" ? "sliding" as const : "hinged" as const } : {}), sourceGlyph: g.id, projectionErrorM: host.error };
   };
   const openings = glyphs.map(associate);
-  return { outerPolygon: trace("outer").map(metric), walls, rooms, doors: openings.filter((_, i) => glyphs[i].kind !== "window"), windows: openings.filter((_, i) => glyphs[i].kind === "window"), coordinates: { minX: vb[0], minY: vb[1], metersPerUnitX: sx, metersPerUnitY: sy, unit: pixel ? "pixel" : "millimeter", gridUnit: unit, scaleSamples: scales, method: "drawing-dimensions" as const }, warnings: pixel ? ["尺寸链与印刷面积可能不一致；sourceArea 保留原标注，expectedArea 为解析多边形面积。", "红色平行开口按交接任务约定解释为推拉门；除 one-01 外其通行语义尚未由用户确认。", "灰墙不证明承重属性，解析为 partition；墙厚为现有展示默认值，非施工尺寸。"] : [] };
+  const structure = { outerPolygon: trace("outer").map(metric), walls, rooms, doors: openings.filter((_, i) => glyphs[i].kind !== "window"), windows: openings.filter((_, i) => glyphs[i].kind === "window"), coordinates: { minX: vb[0], minY: vb[1], metersPerUnitX: sx, metersPerUnitY: sy, unit: pixel ? "pixel" : "millimeter", gridUnit: unit, scaleSamples: scales, method: "drawing-dimensions" as const }, warnings: pixel ? ["尺寸链与印刷面积可能不一致；sourceArea 保留原标注，expectedArea 为解析多边形面积。", "红色平行开口按交接任务约定解释为推拉门；除 one-01 外其通行语义尚未由用户确认。", "灰墙不证明承重属性，解析为 partition；墙厚为现有展示默认值，非施工尺寸。"] : [] };
+  ownership.set(structure,{walls,regions,gw,gh,ox,oy,unit});
+  return structure;
 }

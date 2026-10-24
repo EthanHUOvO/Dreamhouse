@@ -1,0 +1,480 @@
+{
+  "key": "bath-upper",
+  "sourceKey": "two-01",
+  "instruction": "在主卧的上侧新增一个卫生间，保留主卧入口和其他房间",
+  "httpStatus": 200,
+  "elapsedMs": 5357,
+  "actualInference": true,
+  "intent": {
+    "action": "add_bathroom",
+    "targetRoomId": "room_6",
+    "region": "upper",
+    "roomCount": 1,
+    "minAreaM2": null,
+    "protectedRoomIds": [
+      "room_1",
+      "room_2",
+      "room_3",
+      "room_4",
+      "room_5",
+      "room_7"
+    ],
+    "preserveEntrance": true,
+    "preserveOtherRooms": true,
+    "entryFromRoomId": "room_6",
+    "unhandledRequirements": [],
+    "summary": "在主卧的上侧新增一个卫生间，保留主卧入口和其他房间",
+    "message": "已理解：在主卧上侧新增一间卫生间，保留主卧入口及其他房间。"
+  },
+  "selection": {
+    "candidateId": "corner-west-north",
+    "unmetRequirements": [],
+    "reason": "候选位于主卧上侧（upper-left），满足在主卧上侧新增卫生间的要求；保留主卧入口及其他房间，未触碰受保护房间。"
+  },
+  "candidate": {
+    "id": "corner-west-north",
+    "additions": [
+      {
+        "type": "wall",
+        "x1": 4.111396624472574,
+        "y1": 8.126690625,
+        "x2": 4.111396624472574,
+        "y2": 9.626690625
+      },
+      {
+        "type": "wall",
+        "x1": 4.111396624472574,
+        "y1": 9.626690625,
+        "x2": 2.657616033755274,
+        "y2": 9.626690625
+      },
+      {
+        "type": "door",
+        "x1": 4.111396624472574,
+        "y1": 8.501690625,
+        "x2": 4.111396624472574,
+        "y2": 9.251690625
+      },
+      {
+        "type": "label",
+        "x": 3.384506329113924,
+        "y": 8.876690625,
+        "text": "卫生间"
+      }
+    ],
+    "newArea": 2.1609631325553877,
+    "remainingArea": 16.54032594636083,
+    "position": "upper-left",
+    "targetRoomId": "room_6",
+    "newAreaM2": 2.1609631325553877,
+    "remainingAreaM2": 16.54032594636083
+  },
+  "candidateCount": 1,
+  "validation": {
+    "valid": true,
+    "unit": "meter",
+    "targetRoomId": "room_6",
+    "checks": [
+      "target-polygon",
+      "room-count",
+      "door-host",
+      "door-reachability",
+      "existing-entry",
+      "unrelated-rooms",
+      "preserved-room-polygons",
+      "area-conservation",
+      "original-opening-position-and-adjacency",
+      "entrance-circulation",
+      "corner-rectangle"
+    ],
+    "warnings": [
+      "尺寸链与印刷面积可能不一致；sourceArea 保留原标注，expectedArea 为解析多边形面积。",
+      "红色平行开口按交接任务约定解释为推拉门；除 one-01 外其通行语义尚未由用户确认。",
+      "灰墙不证明承重属性，解析为 partition；墙厚为现有展示默认值，非施工尺寸。"
+    ],
+    "newRoomId": "room_8",
+    "newDoorId": "door_bathroom-1792829834083-2213x-2",
+    "minPassageWidthM": 0.9,
+    "entranceDoorIds": [],
+    "doorRoutes": [
+      {
+        "doorId": "door_hinged-door-03",
+        "approach": [
+          6.632485232067511,
+          8.797475
+        ],
+        "path": [
+          [
+            6.657616033755274,
+            8.766690625
+          ]
+        ]
+      },
+      {
+        "doorId": "door_bathroom-1792829834083-2213x-2",
+        "approach": [
+          4.763527426160338,
+          8.8766844046875
+        ],
+        "path": [
+          [
+            6.657616033755274,
+            8.766690625
+          ],
+          [
+            6.657616033755274,
+            8.846690625
+          ],
+          [
+            6.577616033755274,
+            8.846690625
+          ],
+          [
+            6.497616033755274,
+            8.846690625
+          ],
+          [
+            6.417616033755275,
+            8.846690625
+          ],
+          [
+            6.337616033755275,
+            8.846690625
+          ],
+          [
+            6.257616033755275,
+            8.846690625
+          ],
+          [
+            6.177616033755275,
+            8.846690625
+          ],
+          [
+            6.0976160337552745,
+            8.846690625
+          ],
+          [
+            6.017616033755274,
+            8.846690625
+          ],
+          [
+            5.937616033755274,
+            8.846690625
+          ],
+          [
+            5.857616033755274,
+            8.846690625
+          ],
+          [
+            5.777616033755274,
+            8.846690625
+          ],
+          [
+            5.697616033755274,
+            8.846690625
+          ],
+          [
+            5.617616033755274,
+            8.846690625
+          ],
+          [
+            5.537616033755274,
+            8.846690625
+          ],
+          [
+            5.457616033755274,
+            8.846690625
+          ],
+          [
+            5.377616033755274,
+            8.846690625
+          ],
+          [
+            5.297616033755274,
+            8.846690625
+          ],
+          [
+            5.217616033755274,
+            8.846690625
+          ],
+          [
+            5.137616033755274,
+            8.846690625
+          ],
+          [
+            5.057616033755274,
+            8.846690625
+          ],
+          [
+            4.9776160337552735,
+            8.846690625
+          ],
+          [
+            4.897616033755274,
+            8.846690625
+          ],
+          [
+            4.817616033755274,
+            8.846690625
+          ],
+          [
+            4.737616033755274,
+            8.846690625
+          ]
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "stage": "svg-edit",
+    "method": "natural-language-geometry/v1",
+    "actualInference": true,
+    "model": "Ours",
+    "inference": [
+      {
+        "stage": "floorplan-intent",
+        "model": "Ours",
+        "responseId": "chatcmpl-tqopby366s861zg47guy",
+        "usage": {
+          "prompt_tokens": 1833,
+          "completion_tokens": 132,
+          "total_tokens": 1965,
+          "prompt_tokens_details": {
+            "cached_tokens": 1826
+          },
+          "cached_tokens": 1826,
+          "prompt_tokens_per_second": 174.85429391687907,
+          "completion_tokens_per_second": 64.93405281608449,
+          "draft_tokens": 74,
+          "draft_tokens_accepted": 58,
+          "gufo": {
+            "cache_hit": true,
+            "cache_restore_bytes": 129916544,
+            "cache_snapshot_bytes": 0,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 9.362128,
+            "cache_snapshot_ms": 0,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 7,
+            "prefill_chunks": 1,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 7,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 11.829721,
+            "prefill_ms": 40.033332,
+            "decode_ms": 2032.8316849999997,
+            "ttft_ms": 51.96835,
+            "mean_inter_token_ms": 15.328624030534348,
+            "max_inter_token_ms": 73.020954,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 2091
+      },
+      {
+        "stage": "floorplan-candidate-selection",
+        "model": "Ours",
+        "responseId": "chatcmpl-beyws1aghoxmb2iaubc3",
+        "usage": {
+          "prompt_tokens": 836,
+          "completion_tokens": 59,
+          "total_tokens": 895,
+          "prompt_tokens_details": {
+            "cached_tokens": 829
+          },
+          "cached_tokens": 829,
+          "prompt_tokens_per_second": 186.74479570933025,
+          "completion_tokens_per_second": 48.86334585918703,
+          "draft_tokens": 5,
+          "draft_tokens_accepted": 1,
+          "gufo": {
+            "cache_hit": true,
+            "cache_restore_bytes": 95520044,
+            "cache_snapshot_bytes": 95753352,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 12.769582,
+            "cache_snapshot_ms": 12.631896,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 7,
+            "prefill_chunks": 1,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 7,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 14.368192,
+            "prefill_ms": 37.484311,
+            "decode_ms": 1207.4490389999999,
+            "ttft_ms": 51.95902,
+            "mean_inter_token_ms": 20.57440120689655,
+            "max_inter_token_ms": 52.194853,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 1279
+      }
+    ],
+    "structuralTruth": "validated-svg-geometry",
+    "selectedCandidateId": "corner-west-north"
+  },
+  "pngStatus": 200,
+  "mcp": {
+    "httpStatus": 200,
+    "tools": [
+      "begin_floorplan_scene",
+      "set_floor_structure",
+      "set_openings",
+      "populate_basic_furniture",
+      "validate_scene",
+      "commit_scene"
+    ],
+    "complete": true,
+    "validation": {
+      "valid": true,
+      "issues": [],
+      "warnings": []
+    },
+    "aiPlan": {
+      "plan": {
+        "steps": [
+          "set_floor_structure",
+          "set_openings",
+          "populate_basic_furniture",
+          "validate_scene",
+          "commit_scene"
+        ],
+        "rooms": [
+          "room_1",
+          "room_2",
+          "room_3",
+          "room_4",
+          "room_5",
+          "room_6",
+          "room_7",
+          "room_8"
+        ],
+        "walls": [
+          "wall_1",
+          "wall_2",
+          "wall_3",
+          "wall_4",
+          "wall_5",
+          "wall_6",
+          "wall_7",
+          "wall_8",
+          "wall_9",
+          "wall_10",
+          "wall_11",
+          "wall_12",
+          "wall_13",
+          "wall_14",
+          "wall_15",
+          "wall_16",
+          "wall_17",
+          "wall_18",
+          "wall_19",
+          "wall_20",
+          "wall_21",
+          "wall_22",
+          "wall_23",
+          "wall_24",
+          "wall_25",
+          "wall_26"
+        ],
+        "doors": [
+          "door_hinged-door-01",
+          "door_hinged-door-02",
+          "door_hinged-door-03",
+          "door_hinged-door-04",
+          "door_hinged-door-05",
+          "door_hinged-door-06",
+          "door_bathroom-1792829834083-2213x-2",
+          "door_parallel-opening-01",
+          "door_parallel-opening-02"
+        ],
+        "windows": [
+          "window_window-01",
+          "window_window-02",
+          "window_window-03",
+          "window_window-04",
+          "window_window-05",
+          "window_window-06",
+          "window_window-07"
+        ]
+      },
+      "provenance": {
+        "stage": "svg-model3d-plan",
+        "actualInference": true,
+        "sourceImageHash": "4922c43573495a47a163adbc4e49203360ed63ff958b444afae66f54044bc124",
+        "model": "Ours",
+        "responseId": "chatcmpl-xxbhau1lvkqiaak84ajs",
+        "usage": {
+          "prompt_tokens": 4423,
+          "completion_tokens": 427,
+          "total_tokens": 4850,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "cached_tokens": 0,
+          "prompt_tokens_per_second": 2469.5450999825207,
+          "completion_tokens_per_second": 104.24977740603397,
+          "draft_tokens": 345,
+          "draft_tokens_accepted": 329,
+          "gufo": {
+            "cache_hit": false,
+            "cache_miss_reason": "prefix_changed",
+            "cache_common_prefix_tokens": 543,
+            "cache_checkpoint_tokens": 4407,
+            "cache_restore_bytes": 0,
+            "cache_snapshot_bytes": 219271544,
+            "cache_disk_queued_bytes": 0,
+            "cache_shared_bytes": 0,
+            "cache_restore_ms": 0,
+            "cache_snapshot_ms": 32.818167,
+            "cache_disk_enqueue_ms": 0,
+            "cache_disk_hit": false,
+            "cache_shared_prefix_snapshots": 0,
+            "cache_shared_prefix_bytes": 0,
+            "cache_shared_prefix_ms": 0,
+            "prefill_tokens": 4423,
+            "prefill_chunks": 4,
+            "active_decode_prefill_chunks": 0,
+            "max_prefill_chunk_tokens": 2048,
+            "queue_depth_at_submit": 1,
+            "client_queue_depth_at_submit": 1,
+            "resident_requests_at_admission": 1,
+            "requested_logical_concurrency": 8,
+            "physical_execution_width": 1,
+            "queue_ms": 12.562458,
+            "prefill_ms": 1791.0181109999999,
+            "decode_ms": 4095.932007,
+            "ttft_ms": 1842.214854,
+            "mean_inter_token_ms": 9.614638826291069,
+            "max_inter_token_ms": 80.8391,
+            "execution_plan": "serial-fallback"
+          }
+        },
+        "elapsedMs": 5946,
+        "geometrySource": "confirmed-svg",
+        "role": "pascal-build-plan"
+      }
+    },
+    "error": []
+  }
+}
